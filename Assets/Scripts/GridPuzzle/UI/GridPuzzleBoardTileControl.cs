@@ -1,0 +1,31 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GridPuzzleBoardTileControl : MonoBehaviour
+{
+    [SerializeField]
+    private Image tileImage;
+
+    private Vector2Int position;
+    private RectTransform rectTransform;
+
+    private void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
+
+    public void Initialize(Vector2Int pos)
+    {
+        position = pos;
+    }
+
+    public void SetSize(float tileSize)
+    {
+        rectTransform.sizeDelta = new Vector2(tileSize, tileSize);
+    }
+
+    public void SetOccupy(bool occupy)
+    {
+        tileImage.color = occupy ? Color.red : Color.white;
+    }
+}
