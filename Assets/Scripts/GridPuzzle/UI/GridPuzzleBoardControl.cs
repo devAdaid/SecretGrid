@@ -10,7 +10,7 @@ public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private GridPuzzleBoardTileControl tilePrefab;
 
-    private RectTransform rectTransform;
+    public RectTransform RectTransform { get; private set; }
 
     public GridPuzzleBoard PuzzleBoard { get; private set; }
     private float tileSize;
@@ -19,7 +19,7 @@ public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
+        RectTransform = GetComponent<RectTransform>();
     }
 
     public void Initialize(GridPuzzleBoard board, float tileSize, IGridPuzzleUI puzzleUI)
@@ -73,10 +73,17 @@ public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
             return;
         }
 
-        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.position, eventData.pressEventCamera, out var localPoint))
+        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(RectTransform, eventData.position, eventData.pressEventCamera, out var localPoint))
         {
             return;
         }
+
+        if (puzzleUI.HoldingPiece == null)
+        {
+            return;
+        }
+
+        localPoint += GridPuzzleUIUtility.GetLeftUpOffset(puzzleUI.HoldingPiece.Piece, puzzleUI.TileSize);
 
         Vector2Int tilePosition = CalculateTilePosition(localPoint);
         if (IsTilePositionValid(tilePosition))
@@ -87,8 +94,8 @@ public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
 
     private Vector2Int CalculateTilePosition(Vector2 localPoint)
     {
-        float offsetX = rectTransform.rect.width / 2f;
-        float offsetY = rectTransform.rect.height / 2f;
+        float offsetX = RectTransform.rect.width / 2f;
+        float offsetY = RectTransform.rect.height / 2f;
 
         int col = Mathf.FloorToInt((localPoint.x + offsetX) / tileSize);
         int row = Mathf.FloorToInt((offsetY - localPoint.y) / tileSize);
@@ -104,6 +111,6 @@ public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
     private void OnTileClicked(Vector2Int tilePosition)
     {
         Debug.Log($"Tile {tilePosition} clicked");
-        puzzleUI.OnTileClick(tilePosition);
+        puzzleUI.PlaceTile(tilePosition);
     }
 }

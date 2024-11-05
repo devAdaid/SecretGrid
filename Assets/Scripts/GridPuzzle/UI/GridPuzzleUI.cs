@@ -4,14 +4,25 @@ using UnityEngine;
 public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI
 {
     [SerializeField]
+    private float tileSize = 100f;
+
+    [SerializeField]
     private GridPuzzleBoardControl boardControl;
 
     [SerializeField]
     private List<GridPuzzlePieceControl> pieces = new List<GridPuzzlePieceControl>();
 
+    [SerializeField]
+    private GridPuzzlePiecePlacePreviewControl piecePreviewPrefab;
+
     private GridPuzzlePieceControl holdingPiece;
+    private GridPuzzlePiecePlacePreviewControl piecePreviewControl;
 
     private GridPuzzleGame puzzleGame;
+
+    public GridPuzzlePieceControl HoldingPiece => holdingPiece;
+
+    public float TileSize => tileSize;
 
     private void Start()
     {
@@ -21,11 +32,22 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI
     private void Initialize()
     {
         puzzleGame = new GridPuzzleGame(3, 5);
-        boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), 100, this);
+        boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), tileSize, this);
         foreach (var piece in pieces)
         {
             piece.Initialize(this);
         }
+    }
+
+    private void Update()
+    {
+        if (piecePreviewControl == null)
+        {
+            return;
+        }
+
+        Vector2 mousePosition = Input.mousePosition;
+        piecePreviewControl.transform.position = mousePosition;
     }
 
     public bool IsHoldingPiece()
@@ -36,10 +58,13 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI
     public void SetHoldingPiece(GridPuzzlePieceControl piece)
     {
         holdingPiece = piece;
+
+        piecePreviewControl = Instantiate(piecePreviewPrefab, transform);
+        piecePreviewControl.Initialize(holdingPiece.Piece, tileSize);
         Debug.Log($"piece held");
     }
 
-    public void OnTileClick(Vector2Int tilePosition)
+    public void PlaceTile(Vector2Int tilePosition)
     {
         if (!boardControl.IsTilePositionValid(tilePosition))
         {
@@ -49,7 +74,12 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI
         if (holdingPiece != null)
         {
             puzzleGame.Place(holdingPiece.Piece, tilePosition);
+
+            piecePreviewControl.Hide();
+            Destroy(piecePreviewControl);
+
             boardControl.UpdateBoard(puzzleGame.BuildBoardSnapshot());
+
             holdingPiece = null;
         }
     }

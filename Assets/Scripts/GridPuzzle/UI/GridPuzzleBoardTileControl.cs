@@ -28,4 +28,11 @@ public class GridPuzzleBoardTileControl : MonoBehaviour
     {
         tileImage.color = occupy ? Color.red : Color.white;
     }
+
+    public void SetPreview(bool preview)
+    {
+        var color = preview ? Color.yellow : tileImage.color;
+        color.a = preview ? 0.5f : 1f;
+        tileImage.color = color;
+    }
 }
