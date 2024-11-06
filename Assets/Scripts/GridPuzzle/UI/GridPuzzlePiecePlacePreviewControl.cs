@@ -22,11 +22,12 @@ public class GridPuzzlePiecePlacePreviewControl : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(GridPuzzlePiece piece, float tileSize)
+    public void Initialize(GridPuzzlePiece piece, Sprite pieceSprite, float tileSize)
     {
         holdingPiece = piece;
         gameObject.SetActive(true);
         rectTransform.sizeDelta = new Vector2(piece.ColumnSize * tileSize, piece.RowSize * tileSize);
+        previewImage.sprite = pieceSprite;
 
         var leftUpPosition = GridPuzzleUIUtility.GetLeftUpOffset(piece, tileSize);
         foreach (var occupyPosition in holdingPiece.OccupyPositions)

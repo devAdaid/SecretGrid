@@ -31,7 +31,7 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI
 
     private void Initialize()
     {
-        puzzleGame = new GridPuzzleGame(3, 5);
+        puzzleGame = new GridPuzzleGame(3, 5, new List<GridPuzzlePiece>());
         boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), tileSize, this);
         foreach (var piece in pieces)
         {
@@ -60,27 +60,42 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI
         holdingPiece = piece;
 
         piecePreviewControl = Instantiate(piecePreviewPrefab, transform);
-        piecePreviewControl.Initialize(holdingPiece.Piece, tileSize);
+        piecePreviewControl.Initialize(holdingPiece.Piece, holdingPiece.TempTileSprite, tileSize);
         Debug.Log($"piece held");
     }
 
-    public void PlaceTile(Vector2Int tilePosition)
+    public void PlacePiece(Vector2Int tilePosition)
     {
-        if (!boardControl.IsTilePositionValid(tilePosition))
+        if (holdingPiece == null)
         {
             return;
         }
 
-        if (holdingPiece != null)
+        if (!boardControl.PuzzleBoard.CanPlace(holdingPiece.Piece, tilePosition))
         {
-            puzzleGame.Place(holdingPiece.Piece, tilePosition);
+            return;
+        }
 
-            piecePreviewControl.Hide();
-            Destroy(piecePreviewControl);
+        puzzleGame.Place(holdingPiece.Piece, tilePosition);
 
-            boardControl.UpdateBoard(puzzleGame.BuildBoardSnapshot());
+        piecePreviewControl.Hide();
+        Destroy(piecePreviewControl.gameObject);
 
-            holdingPiece = null;
+        boardControl.UpdateBoard(puzzleGame.BuildBoardSnapshot());
+
+        holdingPiece = null;
+    }
+
+    // TODO: 그냥 타일 데이터를 만들자. sprite 참조할 수 있게.
+    public void DisplacePiece(Vector2Int tilePosition)
+    {
+        if (boardControl.PuzzleBoard.IsOccupiedByPiece(tilePosition, out var placedPiece))
+        {
+            puzzleGame.Displace(placedPiece);
+
+            //holdingPiece = placedPiece;
+            piecePreviewControl = Instantiate(piecePreviewPrefab, transform);
+            piecePreviewControl.Initialize(holdingPiece.Piece, holdingPiece.TempTileSprite, tileSize);
         }
     }
 }

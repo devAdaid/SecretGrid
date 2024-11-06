@@ -4,25 +4,28 @@ using UnityEngine;
 
 public class GridPuzzleGame
 {
-    //public GridPuzzleBoard Board;
-
-    private readonly Dictionary<Vector2Int, GridPuzzlePiece> PlacedPuzzlePieces;
-
     private readonly int rowCount;
     private readonly int columnCount;
 
-    public GridPuzzleGame(int rowCount, int columnCount)
+    // 주어진 피스를 모두 보드에 꽉 채워넣을 수 있어야 한다.
+    private readonly List<GridPuzzlePiece> pieces;
+
+    // key는 배치된 위치(row, col), value는 배치된 피스
+    private readonly Dictionary<Vector2Int, GridPuzzlePiece> placedPieces;
+
+    public GridPuzzleGame(int rowCount, int columnCount, List<GridPuzzlePiece> pieces)
     {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
-        PlacedPuzzlePieces = new Dictionary<Vector2Int, GridPuzzlePiece>();
+        this.pieces = pieces;
+        placedPieces = new Dictionary<Vector2Int, GridPuzzlePiece>();
     }
 
     public GridPuzzleBoard BuildBoardSnapshot()
     {
         var occupying = new bool[rowCount, columnCount];
 
-        foreach (var (position, piece) in PlacedPuzzlePieces)
+        foreach (var (position, piece) in placedPieces)
         {
             Vector2Int[] occupiedPositions = GetOccupiedPositions(piece, position);
 
@@ -55,12 +58,30 @@ public class GridPuzzleGame
             return;
         }
 
-        if (PlacedPuzzlePieces.ContainsKey(position))
+        if (placedPieces.ContainsKey(position))
         {
             return;
         }
 
-        PlacedPuzzlePieces.Add(position, piece);
+        placedPieces.Add(position, piece);
+    }
+
+    // TODO 코드정리, 구조 변경
+    public void Displace(GridPuzzlePiece piece)
+    {
+        Vector2Int? removeKey = null;
+        foreach (var (pos, p) in placedPieces)
+        {
+            if (p == piece)
+            {
+                removeKey = pos;
+            }
+        }
+
+        if (removeKey.HasValue)
+        {
+            placedPieces.Remove(removeKey.Value);
+        }
     }
 
     private Vector2Int[] GetOccupiedPositions(GridPuzzlePiece piece, Vector2Int basePosition)

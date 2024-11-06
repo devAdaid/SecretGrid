@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GridPuzzlePieceControl : MonoBehaviour, IPointerClickHandler
 {
@@ -9,6 +10,8 @@ public class GridPuzzlePieceControl : MonoBehaviour, IPointerClickHandler
     private RectTransform rectTransform;
     private IGridPuzzleUI puzzleUI;
     public GridPuzzlePiece Piece { get; private set; }
+
+    public Sprite TempTileSprite => GetComponent<Image>().sprite;
 
     private void Awake()
     {

@@ -32,7 +32,7 @@ public class GridPuzzleBoardTileControl : MonoBehaviour
     public void SetPreview(bool preview)
     {
         var color = preview ? Color.yellow : tileImage.color;
-        color.a = preview ? 0.5f : 1f;
+        color.a = preview ? 0.25f : 1f;
         tileImage.color = color;
     }
 }

@@ -12,6 +12,8 @@ public class GridPuzzlePiece
     public readonly int RowSize;
     public readonly int ColumnSize;
 
+    public readonly GridPuzzlePieceStaticData StaticData;
+
     public GridPuzzlePiece(GridPuzzleRotateType rotateState, Vector2Int[] occupyPositions)
     {
         RotateState = rotateState;
@@ -34,5 +36,17 @@ public class GridPuzzlePiece
         }
 
         return (maxRow - minRow + 1, maxColumn - minColumn + 1);
+    }
+
+    public Vector2Int[] GetOccupyPositions(Vector2Int basePosition)
+    {
+        var occupyPositions = GridPuzzleUtility.GetRotatedPositions(OccupyPositions, RotateState);
+        for (int i = 0; i < occupyPositions.Length; i++)
+        {
+            var occupyPosition = occupyPositions[i];
+            occupyPositions[i] = new Vector2Int(occupyPosition.x + basePosition.x, occupyPosition.y + basePosition.y);
+        }
+
+        return occupyPositions;
     }
 }

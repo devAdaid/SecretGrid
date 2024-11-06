@@ -35,6 +35,7 @@ public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
 
     public void UpdateBoard(GridPuzzleBoard board)
     {
+        this.PuzzleBoard = board;
         for (int row = 0; row < PuzzleBoard.RowCount; row++)
         {
             for (int column = 0; column < PuzzleBoard.ColumnCount; column++)
@@ -78,18 +79,26 @@ public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
             return;
         }
 
-        if (puzzleUI.HoldingPiece == null)
+        if (puzzleUI.HoldingPiece != null)
         {
-            return;
+            localPoint += GridPuzzleUIUtility.GetLeftUpOffset(puzzleUI.HoldingPiece.Piece, puzzleUI.TileSize);
+
+            Vector2Int tilePosition = CalculateTilePosition(localPoint);
+            if (PuzzleBoard.IsValidPosition(tilePosition))
+            {
+                puzzleUI.PlacePiece(tilePosition);
+                Debug.Log($"Tile place to {tilePosition}");
+            }
+        }
+        else
+        {
+            Vector2Int tilePosition = CalculateTilePosition(localPoint);
+            if (PuzzleBoard.IsOccupiedByPiece(tilePosition, out _))
+            {
+                puzzleUI.DisplacePiece(tilePosition);
+            }
         }
 
-        localPoint += GridPuzzleUIUtility.GetLeftUpOffset(puzzleUI.HoldingPiece.Piece, puzzleUI.TileSize);
-
-        Vector2Int tilePosition = CalculateTilePosition(localPoint);
-        if (IsTilePositionValid(tilePosition))
-        {
-            OnTileClicked(tilePosition);
-        }
     }
 
     private Vector2Int CalculateTilePosition(Vector2 localPoint)
@@ -101,16 +110,5 @@ public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
         int row = Mathf.FloorToInt((offsetY - localPoint.y) / tileSize);
 
         return new Vector2Int(row, col);
-    }
-
-    public bool IsTilePositionValid(Vector2Int tilePosition)
-    {
-        return tilePosition.x >= 0 && tilePosition.y >= 0 && tilePosition.x < PuzzleBoard.RowCount && tilePosition.y < PuzzleBoard.ColumnCount;
-    }
-
-    private void OnTileClicked(Vector2Int tilePosition)
-    {
-        Debug.Log($"Tile {tilePosition} clicked");
-        puzzleUI.PlaceTile(tilePosition);
     }
 }
