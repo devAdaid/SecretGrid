@@ -1,38 +1,33 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GridPuzzlePiece
 {
-    // 이 피스가 얼마나 회전한 각도. (아직은 고려하지 말자)
-    public GridPuzzleRotateType RotateState { get; private set; }
+    public readonly int InstanceId;
 
-    // 가장 왼쪽 위 좌표를 기준으로, 어떤 모양이며 어떤 좌표를 차지하는지 나타냄.
-    // 예를 들어 T 모양은 (0, 0), (1, 0), (2, 0), (1, 1)
-    public readonly Vector2Int[] OccupyPositions;
-    public readonly int RowSize;
-    public readonly int ColumnSize;
+    public GridPuzzleRotateType RotateState { get; private set; }
 
     public readonly GridPuzzlePieceStaticData StaticData;
 
-    public GridPuzzlePiece(GridPuzzleRotateType rotateState, Vector2Int[] occupyPositions)
+    public GridPuzzlePiece(int instanceId, GridPuzzleRotateType rotateState, GridPuzzlePieceStaticData staticData)
     {
+        InstanceId = instanceId;
+        StaticData = staticData;
         RotateState = rotateState;
-        OccupyPositions = occupyPositions;
-        (RowSize, ColumnSize) = GetPieceSize(occupyPositions);
     }
 
-    private static (int rowSize, int columnSize) GetPieceSize(Vector2Int[] occupyPositions)
+    public (int rowSize, int columnSize) GetPieceSize()
     {
+        // TODO: 회전 적용
         var minRow = 0;
         var maxRow = 0;
         var minColumn = 0;
         var maxColumn = 0;
-        foreach (var position in occupyPositions)
+        foreach (var position in StaticData.OccupyPositions)
         {
-            minRow = Math.Min(minRow, position.x);
-            maxRow = Math.Max(maxRow, position.x);
-            minColumn = Math.Min(minColumn, position.y);
-            maxColumn = Math.Max(maxColumn, position.y);
+            minRow = Mathf.Min(minRow, position.x);
+            maxRow = Mathf.Max(maxRow, position.x);
+            minColumn = Mathf.Min(minColumn, position.y);
+            maxColumn = Mathf.Max(maxColumn, position.y);
         }
 
         return (maxRow - minRow + 1, maxColumn - minColumn + 1);
@@ -40,7 +35,7 @@ public class GridPuzzlePiece
 
     public Vector2Int[] GetOccupyPositions(Vector2Int basePosition)
     {
-        var occupyPositions = GridPuzzleUtility.GetRotatedPositions(OccupyPositions, RotateState);
+        var occupyPositions = GridPuzzleUtility.GetRotatedPositions(StaticData.OccupyPositions, RotateState);
         for (int i = 0; i < occupyPositions.Length; i++)
         {
             var occupyPosition = occupyPositions[i];

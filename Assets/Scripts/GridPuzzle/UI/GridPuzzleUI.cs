@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI
 {
+    public GridPuzzlePiece HoldingPiece { get; private set; }
+
+    [SerializeField]
+    private GridPuzzleBoardStaticData boardData;
+
+    [SerializeField]
+    private List<GridPuzzlePieceStaticData> pieceDataList = new List<GridPuzzlePieceStaticData>();
+
     [SerializeField]
     private float tileSize = 100f;
 
@@ -10,17 +18,12 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI
     private GridPuzzleBoardControl boardControl;
 
     [SerializeField]
-    private List<GridPuzzlePieceControl> pieces = new List<GridPuzzlePieceControl>();
+    private GridPuzzlePieceListControl pieceListControl;
 
     [SerializeField]
-    private GridPuzzlePiecePlacePreviewControl piecePreviewPrefab;
-
-    private GridPuzzlePieceControl holdingPiece;
     private GridPuzzlePiecePlacePreviewControl piecePreviewControl;
 
     private GridPuzzleGame puzzleGame;
-
-    public GridPuzzlePieceControl HoldingPiece => holdingPiece;
 
     public float TileSize => tileSize;
 
@@ -31,17 +34,14 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI
 
     private void Initialize()
     {
-        puzzleGame = new GridPuzzleGame(3, 5, new List<GridPuzzlePiece>());
+        puzzleGame = new GridPuzzleGame(boardData.RowCount, boardData.ColumnCount, pieceDataList);
         boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), tileSize, this);
-        foreach (var piece in pieces)
-        {
-            piece.Initialize(this);
-        }
+        pieceListControl.Initialize(puzzleGame.Pieces, this);
     }
 
     private void Update()
     {
-        if (piecePreviewControl == null)
+        if (!IsHoldingPiece())
         {
             return;
         }
@@ -52,50 +52,57 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI
 
     public bool IsHoldingPiece()
     {
-        return holdingPiece != null;
+        return HoldingPiece != null;
     }
 
-    public void SetHoldingPiece(GridPuzzlePieceControl piece)
+    public void SetHoldingPiece(GridPuzzlePiece piece)
     {
-        holdingPiece = piece;
+        HoldingPiece = piece;
 
-        piecePreviewControl = Instantiate(piecePreviewPrefab, transform);
-        piecePreviewControl.Initialize(holdingPiece.Piece, holdingPiece.TempTileSprite, tileSize);
+        piecePreviewControl.Show(piece, tileSize);
         Debug.Log($"piece held");
     }
 
     public void PlacePiece(Vector2Int tilePosition)
     {
-        if (holdingPiece == null)
+        if (!IsHoldingPiece())
         {
             return;
         }
 
-        if (!boardControl.PuzzleBoard.CanPlace(holdingPiece.Piece, tilePosition))
+        if (!boardControl.PuzzleBoard.CanPlace(HoldingPiece, tilePosition))
         {
             return;
         }
 
-        puzzleGame.Place(holdingPiece.Piece, tilePosition);
+        puzzleGame.Place(HoldingPiece, tilePosition);
 
         piecePreviewControl.Hide();
-        Destroy(piecePreviewControl.gameObject);
 
         boardControl.UpdateBoard(puzzleGame.BuildBoardSnapshot());
 
-        holdingPiece = null;
+        pieceListControl.Apply(GetHidePieces());
+
+        HoldingPiece = null;
     }
 
-    // TODO: 그냥 타일 데이터를 만들자. sprite 참조할 수 있게.
     public void DisplacePiece(Vector2Int tilePosition)
     {
-        if (boardControl.PuzzleBoard.IsOccupiedByPiece(tilePosition, out var placedPiece))
-        {
-            puzzleGame.Displace(placedPiece);
+    }
 
-            //holdingPiece = placedPiece;
-            piecePreviewControl = Instantiate(piecePreviewPrefab, transform);
-            piecePreviewControl.Initialize(holdingPiece.Piece, holdingPiece.TempTileSprite, tileSize);
+    private HashSet<int> GetHidePieces()
+    {
+        var result = new HashSet<int>();
+        foreach (var id in puzzleGame.PlacedPieces.Keys)
+        {
+            result.Add(id);
         }
+
+        if (HoldingPiece != null)
+        {
+            result.Add(HoldingPiece.InstanceId);
+        }
+
+        return result;
     }
 }

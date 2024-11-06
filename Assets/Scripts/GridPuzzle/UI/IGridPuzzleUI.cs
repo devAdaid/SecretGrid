@@ -3,10 +3,10 @@
 public interface IGridPuzzleUI
 {
     float TileSize { get; }
-    GridPuzzlePieceControl HoldingPiece { get; }
+    GridPuzzlePiece HoldingPiece { get; }
     bool IsHoldingPiece();
     // TODO: 인터페이스보다는 이벤트 콜백로 연결해야할듯?
-    void SetHoldingPiece(GridPuzzlePieceControl piece);
+    void SetHoldingPiece(GridPuzzlePiece piece);
     void PlacePiece(Vector2Int tilePosition);
     void DisplacePiece(Vector2Int tilePosition);
 }

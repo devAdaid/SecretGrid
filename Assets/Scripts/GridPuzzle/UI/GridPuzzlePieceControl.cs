@@ -1,33 +1,31 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GridPuzzlePieceControl : MonoBehaviour, IPointerClickHandler
+public class GridPuzzlePieceControl : MonoBehaviour
 {
-    public List<Vector2Int> TempShape;
-
-    private RectTransform rectTransform;
-    private IGridPuzzleUI puzzleUI;
     public GridPuzzlePiece Piece { get; private set; }
 
-    public Sprite TempTileSprite => GetComponent<Image>().sprite;
+    [SerializeField]
+    private Image pieceImage;
 
-    private void Awake()
+    private IGridPuzzleUI puzzleUI;
+
+    public void Initialize(GridPuzzlePiece piece, IGridPuzzleUI puzzleUI)
     {
-        rectTransform = GetComponent<RectTransform>();
-
-        var occupyPositions = TempShape.ToArray();
-        Piece = new GridPuzzlePiece(GridPuzzleRotateType.Rotate0, occupyPositions);
-    }
-
-    public void Initialize(IGridPuzzleUI puzzleUI)
-    {
+        Piece = piece;
         this.puzzleUI = puzzleUI;
+
+        pieceImage.sprite = piece.StaticData.Sprite;
+        GetComponent<RectTransform>().sizeDelta = new Vector2(puzzleUI.TileSize * piece.StaticData.ColumnCount, puzzleUI.TileSize * piece.StaticData.RowCount);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void SetActive(bool active)
     {
-        puzzleUI.SetHoldingPiece(this);
+        pieceImage.gameObject.SetActive(active);
+    }
+
+    public void OnClick()
+    {
+        puzzleUI.SetHoldingPiece(Piece);
     }
 }

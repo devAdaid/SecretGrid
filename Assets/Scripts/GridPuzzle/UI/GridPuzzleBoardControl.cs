@@ -28,6 +28,7 @@ public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
         this.tileSize = tileSize;
         this.puzzleUI = puzzleUI;
 
+        RectTransform.sizeDelta = new Vector2(tileSize * board.ColumnCount, tileSize * board.RowCount);
         gridLayoutGroup.cellSize = new Vector2(tileSize, tileSize);
 
         SpawnTiles();
@@ -81,7 +82,7 @@ public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
 
         if (puzzleUI.HoldingPiece != null)
         {
-            localPoint += GridPuzzleUIUtility.GetLeftUpOffset(puzzleUI.HoldingPiece.Piece, puzzleUI.TileSize);
+            localPoint += GridPuzzleUIUtility.GetLeftUpOffset(puzzleUI.HoldingPiece, puzzleUI.TileSize);
 
             Vector2Int tilePosition = CalculateTilePosition(localPoint);
             if (PuzzleBoard.IsValidPosition(tilePosition))

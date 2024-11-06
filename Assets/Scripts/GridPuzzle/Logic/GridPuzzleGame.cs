@@ -8,26 +8,37 @@ public class GridPuzzleGame
     private readonly int columnCount;
 
     // 주어진 피스를 모두 보드에 꽉 채워넣을 수 있어야 한다.
-    private readonly List<GridPuzzlePiece> pieces;
+    public readonly List<GridPuzzlePiece> Pieces;
 
     // key는 배치된 위치(row, col), value는 배치된 피스
-    private readonly Dictionary<Vector2Int, GridPuzzlePiece> placedPieces;
+    public readonly Dictionary<int, GridPuzzlePiece> PieceMap;
+    public readonly Dictionary<int, Vector2Int> PlacedPieces;
 
-    public GridPuzzleGame(int rowCount, int columnCount, List<GridPuzzlePiece> pieces)
+    public GridPuzzleGame(int rowCount, int columnCount, List<GridPuzzlePieceStaticData> pieceDataList)
     {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
-        this.pieces = pieces;
-        placedPieces = new Dictionary<Vector2Int, GridPuzzlePiece>();
+
+        Pieces = new List<GridPuzzlePiece>();
+        PieceMap = new Dictionary<int, GridPuzzlePiece>();
+        for (int i = 0; i < pieceDataList.Count; i++)
+        {
+            var piece = new GridPuzzlePiece(i + 1, GridPuzzleRotateType.Rotate0, pieceDataList[i]);
+            Pieces.Add(piece);
+            PieceMap.Add(piece.InstanceId, piece);
+        }
+
+        PlacedPieces = new Dictionary<int, Vector2Int>();
     }
 
     public GridPuzzleBoard BuildBoardSnapshot()
     {
         var occupying = new bool[rowCount, columnCount];
 
-        foreach (var (position, piece) in placedPieces)
+        foreach (var (pieceId, position) in PlacedPieces)
         {
-            Vector2Int[] occupiedPositions = GetOccupiedPositions(piece, position);
+            var piece = PieceMap[pieceId];
+            var occupiedPositions = piece.GetOccupyPositions(position);
 
             // 각 위치에 대해 체크
             foreach (var occupiedPosition in occupiedPositions)
@@ -53,51 +64,24 @@ public class GridPuzzleGame
 
     public void Place(GridPuzzlePiece piece, Vector2Int position)
     {
+        // 놓을 수 없는 자리
         if (!CanPlace(piece, position))
         {
             return;
         }
 
-        if (placedPieces.ContainsKey(position))
+        // 이미 배치된 피스
+        if (PlacedPieces.ContainsKey(piece.InstanceId))
         {
             return;
         }
 
-        placedPieces.Add(position, piece);
+        PlacedPieces[piece.InstanceId] = position;
     }
 
     // TODO 코드정리, 구조 변경
     public void Displace(GridPuzzlePiece piece)
     {
-        Vector2Int? removeKey = null;
-        foreach (var (pos, p) in placedPieces)
-        {
-            if (p == piece)
-            {
-                removeKey = pos;
-            }
-        }
-
-        if (removeKey.HasValue)
-        {
-            placedPieces.Remove(removeKey.Value);
-        }
-    }
-
-    private Vector2Int[] GetOccupiedPositions(GridPuzzlePiece piece, Vector2Int basePosition)
-    {
-        Vector2Int[] rotatedPositions = new Vector2Int[piece.OccupyPositions.Length];
-
-        for (int i = 0; i < piece.OccupyPositions.Length; i++)
-        {
-            Vector2Int originalPos = piece.OccupyPositions[i];
-
-            Vector2Int rotatedPos = RotatePosition(originalPos, piece.RotateState);
-
-            rotatedPositions[i] = new Vector2Int(rotatedPos.x + basePosition.x, rotatedPos.y + basePosition.y);
-        }
-
-        return rotatedPositions;
     }
 
     private Vector2Int RotatePosition(Vector2Int position, GridPuzzleRotateType rotateState)
