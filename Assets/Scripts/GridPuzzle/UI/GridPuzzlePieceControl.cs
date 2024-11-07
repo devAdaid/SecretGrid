@@ -16,11 +16,13 @@ public class GridPuzzlePieceControl : MonoBehaviour
         this.puzzleUI = puzzleUI;
 
         pieceImage.sprite = piece.StaticData.Sprite;
+        pieceImage.rectTransform.localEulerAngles = piece.RotateState.ToEulerAngles();
         GetComponent<RectTransform>().sizeDelta = new Vector2(puzzleUI.TileSize * piece.StaticData.ColumnCount, puzzleUI.TileSize * piece.StaticData.RowCount);
     }
 
     public void SetActive(bool active)
     {
+        pieceImage.rectTransform.localEulerAngles = Piece.RotateState.ToEulerAngles();
         pieceImage.gameObject.SetActive(active);
     }
 

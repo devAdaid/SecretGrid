@@ -33,27 +33,13 @@ public class GridPuzzleGame
 
     public GridPuzzleBoard BuildBoardSnapshot()
     {
-        var occupying = new bool[rowCount, columnCount];
-
+        var placedPieceWithPositions = new List<(GridPuzzlePiece piece, Vector2Int position)>();
         foreach (var (pieceId, position) in PlacedPieces)
         {
-            var piece = PieceMap[pieceId];
-            var occupiedPositions = piece.GetOccupyPositions(position);
-
-            // 각 위치에 대해 체크
-            foreach (var occupiedPosition in occupiedPositions)
-            {
-                // 해당 위치가 유효한지 확인
-                if (!IsValidPosition(occupiedPosition))
-                {
-                    continue;
-                }
-
-                occupying[occupiedPosition.x, occupiedPosition.y] = true;
-            }
+            placedPieceWithPositions.Add((PieceMap[pieceId], position));
         }
 
-        return new GridPuzzleBoard(occupying);
+        return new GridPuzzleBoard(rowCount, columnCount, placedPieceWithPositions);
     }
 
     public bool CanPlace(GridPuzzlePiece piece, Vector2Int position)
@@ -79,9 +65,9 @@ public class GridPuzzleGame
         PlacedPieces[piece.InstanceId] = position;
     }
 
-    // TODO 코드정리, 구조 변경
-    public void Displace(GridPuzzlePiece piece)
+    public void Displace(int pieceId)
     {
+        PlacedPieces.Remove(pieceId);
     }
 
     private Vector2Int RotatePosition(Vector2Int position, GridPuzzleRotateType rotateState)

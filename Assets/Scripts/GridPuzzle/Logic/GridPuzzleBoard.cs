@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public struct GridPuzzleBoard : IGridPuzzleBoardContext
@@ -6,6 +7,39 @@ public struct GridPuzzleBoard : IGridPuzzleBoardContext
     public int ColumnCount => TileArray.GetLength(1);
 
     public readonly GridPuzzleTile[,] TileArray;
+
+    public GridPuzzleBoard(int rowCount, int columnCount, List<(GridPuzzlePiece piece, Vector2Int position)> placedPiecesWithPositions)
+    {
+        this.TileArray = new GridPuzzleTile[rowCount, columnCount];
+
+        for (var row = 0; row < rowCount; row++)
+        {
+            for (var column = 0; column < columnCount; column++)
+            {
+                TileArray[row, column] = new GridPuzzleTile(row, column, false, 0);
+            }
+        }
+
+        foreach (var (piece, position) in placedPiecesWithPositions)
+        {
+            var occupiedPositions = piece.GetOccupyPositions(position);
+
+            // 각 위치에 대해 체크
+            foreach (var occupiedPosition in occupiedPositions)
+            {
+                // 해당 위치가 유효한지 확인
+                if (!IsValidPosition(occupiedPosition))
+                {
+                    continue;
+                }
+
+                var tile = TileArray[occupiedPosition.x, occupiedPosition.y];
+                tile.IsOccupied = true;
+                tile.OccupyingPieceId = piece.InstanceId;
+                TileArray[occupiedPosition.x, occupiedPosition.y] = tile;
+            }
+        }
+    }
 
     public GridPuzzleBoard(bool[,] tileOccupying)
     {
@@ -17,7 +51,7 @@ public struct GridPuzzleBoard : IGridPuzzleBoardContext
         {
             for (var column = 0; column < columnCount; column++)
             {
-                TileArray[row, column] = new GridPuzzleTile(row, column, tileOccupying[row, column]);
+                TileArray[row, column] = new GridPuzzleTile(row, column, tileOccupying[row, column], 0);
             }
         }
     }
@@ -29,7 +63,7 @@ public struct GridPuzzleBoard : IGridPuzzleBoardContext
         {
             for (var column = 0; column < columnCount; column++)
             {
-                TileArray[row, column] = new GridPuzzleTile(row, column, false);
+                TileArray[row, column] = new GridPuzzleTile(row, column, false, 0);
             }
         }
     }
@@ -60,22 +94,34 @@ public struct GridPuzzleBoard : IGridPuzzleBoardContext
         return position.x >= 0 && position.y >= 0 && position.x < RowCount && position.y < ColumnCount;
     }
 
-    public bool IsOccupiedByPiece(Vector2Int position, out GridPuzzlePiece piece)
+    public bool IsOccupiedByPiece(Vector2Int position, out int pieceId)
     {
         if (!IsValidPosition(position))
         {
-            piece = null;
+            pieceId = 0;
             return false;
         }
 
         var tile = TileArray[position.x, position.y];
         if (!tile.IsOccupied)
         {
-            piece = null;
+            pieceId = 0;
             return false;
         }
 
-        piece = tile.OccupyingPiece;
+        pieceId = tile.OccupyingPieceId;
+        return true;
+    }
+
+    public bool TryGetTile(Vector2Int position, out GridPuzzleTile tile)
+    {
+        if (!IsValidPosition(position))
+        {
+            tile = GridPuzzleTile.Invalid;
+            return false;
+        }
+
+        tile = TileArray[position.x, position.y];
         return true;
     }
 }

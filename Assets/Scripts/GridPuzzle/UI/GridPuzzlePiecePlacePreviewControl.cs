@@ -12,21 +12,19 @@ public class GridPuzzlePiecePlacePreviewControl : MonoBehaviour
     //[SerializeField]
     //private GridPuzzleBoardTileControl tilePrefab;
 
-    private RectTransform rectTransform;
-
-    private bool show;
     private GridPuzzlePiece holdingPiece;
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
+        gameObject.SetActive(false);
     }
 
     public void Show(GridPuzzlePiece piece, float tileSize)
     {
         holdingPiece = piece;
         gameObject.SetActive(true);
-        rectTransform.sizeDelta = new Vector2(piece.StaticData.ColumnCount * tileSize, piece.StaticData.RowCount * tileSize);
+        previewImage.rectTransform.localEulerAngles = piece.RotateState.ToEulerAngles();
+        previewImage.rectTransform.sizeDelta = new Vector2(piece.StaticData.ColumnCount * tileSize, piece.StaticData.RowCount * tileSize);
         previewImage.sprite = piece.StaticData.Sprite;
 
         //var leftUpPosition = GridPuzzleUIUtility.GetLeftUpOffset(piece, tileSize);
@@ -46,5 +44,10 @@ public class GridPuzzlePiecePlacePreviewControl : MonoBehaviour
     {
         holdingPiece = null;
         gameObject.SetActive(false);
+    }
+
+    public void UpdateRoate()
+    {
+        previewImage.rectTransform.localEulerAngles = holdingPiece.RotateState.ToEulerAngles();
     }
 }

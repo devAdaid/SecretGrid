@@ -44,4 +44,9 @@ public class GridPuzzlePiece
 
         return occupyPositions;
     }
+
+    public void Rotate90()
+    {
+        RotateState = RotateState.Rotate90();
+    }
 }

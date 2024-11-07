@@ -33,11 +33,11 @@ public static class GridPuzzleUtility
         switch (rotateState)
         {
             case GridPuzzleRotateType.Rotate90:
-                return new Vector2Int(-y, x);
+                return new Vector2Int(y, -x);
             case GridPuzzleRotateType.Rotate180:
                 return new Vector2Int(-x, -y);
             case GridPuzzleRotateType.Rotate270:
-                return new Vector2Int(y, -x);
+                return new Vector2Int(-y, x);
             case GridPuzzleRotateType.Rotate0:
             default:
                 return new Vector2Int(x, y);

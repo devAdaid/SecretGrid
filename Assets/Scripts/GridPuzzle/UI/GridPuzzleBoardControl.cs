@@ -1,8 +1,7 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
+public class GridPuzzleBoardControl : MonoBehaviour
 {
     [SerializeField]
     private GridLayoutGroup gridLayoutGroup;
@@ -67,7 +66,7 @@ public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
         return tileObject;
     }
 
-
+    /*
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left)
@@ -101,8 +100,8 @@ public class GridPuzzleBoardControl : MonoBehaviour, IPointerClickHandler
         }
 
     }
-
-    private Vector2Int CalculateTilePosition(Vector2 localPoint)
+    */
+    public Vector2Int CalculateTilePosition(Vector2 localPoint)
     {
         float offsetX = RectTransform.rect.width / 2f;
         float offsetY = RectTransform.rect.height / 2f;
