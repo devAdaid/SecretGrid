@@ -41,33 +41,6 @@ public struct GridPuzzleBoard : IGridPuzzleBoardContext
         }
     }
 
-    public GridPuzzleBoard(bool[,] tileOccupying)
-    {
-        var rowCount = tileOccupying.GetLength(0);
-        var columnCount = tileOccupying.GetLength(1);
-
-        TileArray = new GridPuzzleTile[rowCount, columnCount];
-        for (var row = 0; row < rowCount; row++)
-        {
-            for (var column = 0; column < columnCount; column++)
-            {
-                TileArray[row, column] = new GridPuzzleTile(row, column, tileOccupying[row, column], 0);
-            }
-        }
-    }
-
-    public GridPuzzleBoard(int rowCount, int columnCount)
-    {
-        TileArray = new GridPuzzleTile[rowCount, columnCount];
-        for (var row = 0; row < rowCount; row++)
-        {
-            for (var column = 0; column < columnCount; column++)
-            {
-                TileArray[row, column] = new GridPuzzleTile(row, column, false, 0);
-            }
-        }
-    }
-
     public bool CanPlace(GridPuzzlePiece piece, Vector2Int position)
     {
         Vector2Int[] occupiedPositions = piece.GetOccupyPositions(position);
@@ -94,25 +67,6 @@ public struct GridPuzzleBoard : IGridPuzzleBoardContext
         return position.x >= 0 && position.y >= 0 && position.x < RowCount && position.y < ColumnCount;
     }
 
-    public bool IsOccupiedByPiece(Vector2Int position, out int pieceId)
-    {
-        if (!IsValidPosition(position))
-        {
-            pieceId = 0;
-            return false;
-        }
-
-        var tile = TileArray[position.x, position.y];
-        if (!tile.IsOccupied)
-        {
-            pieceId = 0;
-            return false;
-        }
-
-        pieceId = tile.OccupyingPieceId;
-        return true;
-    }
-
     public bool TryGetTile(Vector2Int position, out GridPuzzleTile tile)
     {
         if (!IsValidPosition(position))
@@ -122,6 +76,19 @@ public struct GridPuzzleBoard : IGridPuzzleBoardContext
         }
 
         tile = TileArray[position.x, position.y];
+        return true;
+    }
+
+    public bool IsAllOccupied()
+    {
+        foreach (var tile in TileArray)
+        {
+            if (!tile.IsOccupied)
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 }

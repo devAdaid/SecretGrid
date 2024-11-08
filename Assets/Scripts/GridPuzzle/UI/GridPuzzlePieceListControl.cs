@@ -13,6 +13,8 @@ public class GridPuzzlePieceListControl : MonoBehaviour
 
     public void Initialize(List<GridPuzzlePiece> pieces, float tileSize)
     {
+        Clear();
+
         foreach (var piece in pieces)
         {
             var pieceControl = ObjectPoolHolder.I.PiecePool.Spawn(pieceRoot, new GridPuzzlePieceControlInitializeParameter(piece, tileSize));
@@ -26,5 +28,14 @@ public class GridPuzzlePieceListControl : MonoBehaviour
         {
             pieceControl.SetActive(!hidePieceIds.Contains(pieceControl.Piece.InstanceId));
         }
+    }
+
+    private void Clear()
+    {
+        foreach (var piece in pieceControls)
+        {
+            piece.Despawn();
+        }
+        pieceControls.Clear();
     }
 }

@@ -9,6 +9,7 @@ public class GridPuzzleBoardControl : MonoBehaviour
     [SerializeField]
     private Transform pieceRoot;
 
+    [field: SerializeField]
     public RectTransform RectTransform { get; private set; }
 
     public GridPuzzleBoard PuzzleBoard { get; private set; }
@@ -17,13 +18,10 @@ public class GridPuzzleBoardControl : MonoBehaviour
 
     private Dictionary<int, GridPuzzlePlacePieceControl> placePieceMap = new Dictionary<int, GridPuzzlePlacePieceControl>();
 
-    private void Awake()
-    {
-        RectTransform = GetComponent<RectTransform>();
-    }
-
     public void Initialize(GridPuzzleBoard board, List<GridPuzzlePiece> pieces, float tileSize)
     {
+        Clear();
+
         this.PuzzleBoard = board;
         this.tileSize = tileSize;
 
@@ -61,11 +59,14 @@ public class GridPuzzleBoardControl : MonoBehaviour
 
     private void Clear()
     {
-        foreach (var tile in tileArray)
+        if (tileArray != null)
         {
-            tile.Despawn();
+            foreach (var tile in tileArray)
+            {
+                tile.Despawn();
+            }
+            tileArray = null;
         }
-        tileArray = null;
 
         var pieces = placePieceMap.Values;
         foreach (var piece in pieces)

@@ -31,7 +31,7 @@ public class GridPuzzlePieceScriptableData : ScriptableObject
         {
             for (var col = 0; col < ColumnCount; col++)
             {
-                var index = row * col + col;
+                var index = row * ColumnCount + col;
                 if (OccupyList[index])
                 {
                     occupyPositionList.Add(new Vector2Int(row, col));

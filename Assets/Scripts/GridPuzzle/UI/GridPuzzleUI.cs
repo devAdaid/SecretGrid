@@ -1,16 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
 {
     public GridPuzzlePiece HoldingPiece { get; private set; }
 
     [SerializeField]
-    private GridPuzzleBoardStaticData boardData;
-
-    [SerializeField]
-    private List<GridPuzzlePieceScriptableData> pieceDataList = new List<GridPuzzlePieceScriptableData>();
+    private GridPuzzleGameScriptableData testGameData;
 
     [SerializeField]
     private float tileSize = 100f;
@@ -24,9 +22,15 @@ public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
     [SerializeField]
     private GridPuzzlePiecePlacePreviewControl piecePreviewControl;
 
+    [SerializeField]
+    private Button nextButton;
+
     private GridPuzzleGame puzzleGame;
 
-    public float TileSize => tileSize;
+    private void Awake()
+    {
+        nextButton.onClick.AddListener(OnNextButtonClicked);
+    }
 
     public void SetHoldingPiece(GridPuzzlePiece piece)
     {
@@ -36,20 +40,8 @@ public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
 
     private void Start()
     {
-        Initialize();
-    }
-
-    private void Initialize()
-    {
-        var pieceStaticDataList = new List<GridPuzzlePieceStaticData>();
-        foreach (var pieceData in pieceDataList)
-        {
-            pieceStaticDataList.Add(pieceData.ToStaticData());
-        }
-
-        puzzleGame = new GridPuzzleGame(boardData.RowCount, boardData.ColumnCount, pieceStaticDataList);
-        boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), puzzleGame.Pieces, tileSize);
-        pieceListControl.Initialize(puzzleGame.Pieces, tileSize);
+        InitializeStage(testGameData.ToStaticData());
+        UpdateUI();
     }
 
     private void Update()
@@ -57,7 +49,7 @@ public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
         // 프리뷰 피스가 마우스를 따라가도록
         if (IsHoldingPiece())
         {
-            Vector2 mousePosition = Input.mousePosition;
+            var mousePosition = Input.mousePosition;
             piecePreviewControl.transform.position = mousePosition;
         }
     }
@@ -91,7 +83,7 @@ public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
         if (IsHoldingPiece())
         {
             var tilePosition = boardControl.CalculateTilePosition(localPoint);
-            var leftUpAdjustedPosition = localPoint + GridPuzzleUIUtility.GetCenterToLeftUpOffset(HoldingPiece, TileSize);
+            var leftUpAdjustedPosition = localPoint + GridPuzzleUIUtility.GetCenterToLeftUpOffset(HoldingPiece, tileSize);
             var placeTilePosition = boardControl.CalculateTilePosition(leftUpAdjustedPosition);
 
             if (boardControl.PuzzleBoard.CanPlace(HoldingPiece, placeTilePosition))
@@ -129,10 +121,11 @@ public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
         piecePreviewControl.UpdateRoate();
     }
 
-
-    private bool IsHoldingPiece()
+    private void OnNextButtonClicked()
     {
-        return HoldingPiece != null;
+        // TODO: 다음 게임으로 초기화
+        InitializeStage(testGameData.ToStaticData());
+        UpdateUI();
     }
 
     private void PlacePiece(Vector2Int tilePosition)
@@ -170,11 +163,18 @@ public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
         UpdateUI();
     }
 
+    private void InitializeStage(GridPuzzleGameStaticData gameData)
+    {
+        puzzleGame = new GridPuzzleGame(gameData);
+        boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), puzzleGame.Pieces, tileSize);
+        pieceListControl.Initialize(puzzleGame.Pieces, tileSize);
+    }
+
     private void UpdateUI()
     {
         if (IsHoldingPiece())
         {
-            piecePreviewControl.Show(HoldingPiece, TileSize);
+            piecePreviewControl.Show(HoldingPiece, tileSize);
         }
         else
         {
@@ -184,6 +184,13 @@ public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
         boardControl.Apply(puzzleGame.BuildBoardSnapshot(), puzzleGame.PlacedPiecePositionMap);
 
         pieceListControl.Apply(GetHidePieces());
+
+        nextButton.gameObject.SetActive(puzzleGame.IsCleared());
+    }
+
+    private bool IsHoldingPiece()
+    {
+        return HoldingPiece != null;
     }
 
     private HashSet<int> GetHidePieces()

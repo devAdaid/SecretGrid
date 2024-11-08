@@ -14,11 +14,6 @@ public class GridPuzzlePiecePlacePreviewControl : MonoBehaviour
 
     private GridPuzzlePiece holdingPiece;
 
-    private void Awake()
-    {
-        gameObject.SetActive(false);
-    }
-
     public void Show(GridPuzzlePiece piece, float tileSize)
     {
         holdingPiece = piece;

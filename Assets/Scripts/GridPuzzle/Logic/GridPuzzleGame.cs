@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,16 +13,16 @@ public class GridPuzzleGame
     public readonly Dictionary<int, GridPuzzlePiece> PieceMap;
     public readonly Dictionary<int, Vector2Int> PlacedPiecePositionMap;
 
-    public GridPuzzleGame(int rowCount, int columnCount, List<GridPuzzlePieceStaticData> pieceDataList)
+    public GridPuzzleGame(GridPuzzleGameStaticData data)
     {
-        this.rowCount = rowCount;
-        this.columnCount = columnCount;
+        this.rowCount = data.BoardData.RowCount;
+        this.columnCount = data.BoardData.ColumnCount;
 
         Pieces = new List<GridPuzzlePiece>();
         PieceMap = new Dictionary<int, GridPuzzlePiece>();
-        for (int i = 0; i < pieceDataList.Count; i++)
+        for (int i = 0; i < data.PieceDataList.Count; i++)
         {
-            var piece = new GridPuzzlePiece(i + 1, GridPuzzleRotateType.Rotate0, pieceDataList[i]);
+            var piece = new GridPuzzlePiece(i + 1, GridPuzzleRotateType.Rotate0, data.PieceDataList[i]);
             Pieces.Add(piece);
             PieceMap.Add(piece.InstanceId, piece);
         }
@@ -70,20 +69,9 @@ public class GridPuzzleGame
         PlacedPiecePositionMap.Remove(pieceId);
     }
 
-    private Vector2Int RotatePosition(Vector2Int position, GridPuzzleRotateType rotateState)
+    public bool IsCleared()
     {
-        return rotateState switch
-        {
-            GridPuzzleRotateType.Rotate0 => position,
-            GridPuzzleRotateType.Rotate90 => new Vector2Int(-position.y, position.x),
-            GridPuzzleRotateType.Rotate180 => new Vector2Int(-position.x, -position.y),
-            GridPuzzleRotateType.Rotate270 => new Vector2Int(position.y, -position.x),
-            _ => throw new ArgumentOutOfRangeException(nameof(rotateState), rotateState, null)
-        };
-    }
-
-    public bool IsValidPosition(Vector2Int position)
-    {
-        return position.x >= 0 && position.y >= 0 && position.x < rowCount && position.y < columnCount;
+        var boardSnapshot = BuildBoardSnapshot();
+        return boardSnapshot.IsAllOccupied();
     }
 }

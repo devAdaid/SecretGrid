@@ -53,7 +53,7 @@ public class ObjectPoolBase<T> : MonoBehaviour where T : MonoBehaviour, ISpawnab
     {
         // 비활성화 큐에 오브젝트를 반환한다.
         obj.gameObject.SetActive(false);
-        obj.transform.parent = transform;
+        obj.transform.SetParent(transform);
         activeObjects.Remove(obj);
         inactiveObjectQueue.Enqueue(obj);
     }

@@ -32,7 +32,9 @@ public class GridPuzzlePieceScriptableDataInspector : Editor
         var texture = AssetPreview.GetAssetPreview(data.Sprite);
         if (texture != null)
         {
-            GUILayout.Label("", GUILayout.Height(80), GUILayout.Width(80));
+            var width = data.ColumnCount * 40f;
+            var height = data.RowCount * 40f;
+            GUILayout.Label("", GUILayout.Height(height), GUILayout.Width(width));
             GUI.DrawTexture(GUILayoutUtility.GetLastRect(), texture);
         }
 
