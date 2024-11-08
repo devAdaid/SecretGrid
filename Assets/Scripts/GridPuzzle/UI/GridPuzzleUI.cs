@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI, IPointerClickHandler
+public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
 {
     public GridPuzzlePiece HoldingPiece { get; private set; }
 
@@ -28,6 +28,12 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI, IPointerClickHandler
 
     public float TileSize => tileSize;
 
+    public void SetHoldingPiece(GridPuzzlePiece piece)
+    {
+        HoldingPiece = piece;
+        UpdateUI();
+    }
+
     private void Start()
     {
         Initialize();
@@ -36,8 +42,8 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI, IPointerClickHandler
     private void Initialize()
     {
         puzzleGame = new GridPuzzleGame(boardData.RowCount, boardData.ColumnCount, pieceDataList);
-        boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), puzzleGame.Pieces, tileSize, this);
-        pieceListControl.Initialize(puzzleGame.Pieces, this);
+        boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), puzzleGame.Pieces, tileSize);
+        pieceListControl.Initialize(puzzleGame.Pieces, tileSize);
     }
 
     private void Update()
@@ -118,18 +124,12 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI, IPointerClickHandler
     }
 
 
-    public bool IsHoldingPiece()
+    private bool IsHoldingPiece()
     {
         return HoldingPiece != null;
     }
 
-    public void SetHoldingPiece(GridPuzzlePiece piece)
-    {
-        HoldingPiece = piece;
-        UpdateUI();
-    }
-
-    public void PlacePiece(Vector2Int tilePosition)
+    private void PlacePiece(Vector2Int tilePosition)
     {
         if (!IsHoldingPiece())
         {
@@ -147,7 +147,7 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI, IPointerClickHandler
 
     }
 
-    public void DisplacePiece(Vector2Int tilePosition)
+    private void DisplacePiece(Vector2Int tilePosition)
     {
         if (!boardControl.PuzzleBoard.TryGetTile(tilePosition, out var tile))
         {

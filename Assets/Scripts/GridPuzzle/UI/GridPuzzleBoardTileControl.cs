@@ -1,33 +1,42 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GridPuzzleBoardTileControl : MonoBehaviour
+public struct GridPuzzleBoardTileControlInitializeParameter : ISpawnableObjectInitializeParameter
+{
+    public readonly float TileSize;
+
+    public GridPuzzleBoardTileControlInitializeParameter(float tileSize)
+    {
+        TileSize = tileSize;
+    }
+}
+
+public class GridPuzzleBoardTileControl : MonoBehaviour, ISpawnableObject
 {
     [SerializeField]
     private Image tileImage;
-    public RectTransform RectTransform { get; private set; }
 
-    private Vector2Int position;
+    [SerializeField]
+    private RectTransform rectTransform;
 
-    private void Awake()
+    public void Initialize(ISpawnableObjectInitializeParameter parameter)
     {
-        RectTransform = GetComponent<RectTransform>();
+        if (parameter is not GridPuzzleBoardTileControlInitializeParameter param)
+        {
+            return;
+        }
+
+        rectTransform.sizeDelta = new Vector2(param.TileSize, param.TileSize);
     }
 
-    public void Initialize(Vector2Int pos, float tileSize)
+    public void Despawn()
     {
-        position = pos;
-        RectTransform.sizeDelta = new Vector2(tileSize, tileSize);
-    }
-
-    public void SetSize(float tileSize)
-    {
-        RectTransform.sizeDelta = new Vector2(tileSize, tileSize);
+        ObjectPoolHolder.I.BoardTilePool.Despawn(this);
     }
 
     public void SetOccupy(bool occupy)
     {
-        tileImage.color = occupy ? Color.red : Color.white;
+        //tileImage.color = occupy ? Color.red : Color.white;
     }
 
     public void SetPreview(bool preview)

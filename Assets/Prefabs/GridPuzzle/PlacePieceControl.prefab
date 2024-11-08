@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6687779733300085278}
   - component: {fileID: 6335972529433147818}
   m_Layer: 5
-  m_Name: PlacePiece
+  m_Name: PlacePieceControl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pieceImage: {fileID: 1019456107391960761}
+  rectTransform: {fileID: 6687779733300085278}
 --- !u!1 &1275096912007333304
 GameObject:
   m_ObjectHideFlags: 0

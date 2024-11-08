@@ -1,23 +1,44 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GridPuzzlePieceControl : MonoBehaviour
+public class GridPuzzlePieceControlInitializeParameter : ISpawnableObjectInitializeParameter
+{
+    public readonly GridPuzzlePiece Piece;
+    public readonly float TileSize;
+
+    public GridPuzzlePieceControlInitializeParameter(GridPuzzlePiece piece, float tileSize)
+    {
+        Piece = piece;
+        TileSize = tileSize;
+    }
+}
+
+public class GridPuzzlePieceControl : MonoBehaviour, ISpawnableObject
 {
     public GridPuzzlePiece Piece { get; private set; }
 
     [SerializeField]
     private Image pieceImage;
 
-    private IGridPuzzleUI puzzleUI;
+    [SerializeField]
+    private RectTransform rectTransform;
 
-    public void Initialize(GridPuzzlePiece piece, IGridPuzzleUI puzzleUI)
+    public void Initialize(ISpawnableObjectInitializeParameter parameter)
     {
-        Piece = piece;
-        this.puzzleUI = puzzleUI;
+        if (parameter is not GridPuzzlePieceControlInitializeParameter param)
+        {
+            return;
+        }
 
-        pieceImage.sprite = piece.StaticData.Sprite;
+        Piece = param.Piece;
+        pieceImage.sprite = param.Piece.StaticData.Sprite;
         transform.localEulerAngles = Piece.RotateState.ToEulerAngles();
-        GetComponent<RectTransform>().sizeDelta = new Vector2(puzzleUI.TileSize * piece.StaticData.ColumnCount, puzzleUI.TileSize * piece.StaticData.RowCount);
+        rectTransform.sizeDelta = new Vector2(param.TileSize * param.Piece.ColumnSize, param.TileSize * param.Piece.RowSize);
+    }
+
+    public void Despawn()
+    {
+        ObjectPoolHolder.I.PiecePool.Despawn(this);
     }
 
     public void SetActive(bool active)
@@ -28,6 +49,6 @@ public class GridPuzzlePieceControl : MonoBehaviour
 
     public void OnClick()
     {
-        puzzleUI.SetHoldingPiece(Piece);
+        GridPuzzleUI.I.SetHoldingPiece(Piece);
     }
 }

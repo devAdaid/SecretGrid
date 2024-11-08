@@ -8,26 +8,14 @@ public class GridPuzzlePiece
 
     public readonly GridPuzzlePieceStaticData StaticData;
 
+    public int RowSize => GetRowSize();
+    public int ColumnSize => GetColumnSize();
+
     public GridPuzzlePiece(int instanceId, GridPuzzleRotateType rotateState, GridPuzzlePieceStaticData staticData)
     {
         InstanceId = instanceId;
         StaticData = staticData;
         RotateState = rotateState;
-    }
-
-    public (int rowSize, int columnSize) GetPieceSize()
-    {
-        switch (RotateState)
-        {
-            case GridPuzzleRotateType.Rotate0:
-            case GridPuzzleRotateType.Rotate180:
-                return (StaticData.RowCount, StaticData.ColumnCount);
-            case GridPuzzleRotateType.Rotate90:
-            case GridPuzzleRotateType.Rotate270:
-                return (StaticData.ColumnCount, StaticData.RowCount);
-        }
-
-        return (StaticData.RowCount, StaticData.ColumnCount);
     }
 
     public Vector2Int[] GetOccupyPositions(Vector2Int basePosition)
@@ -45,5 +33,35 @@ public class GridPuzzlePiece
     public void Rotate90()
     {
         RotateState = RotateState.Rotate90();
+    }
+
+    private int GetRowSize()
+    {
+        switch (RotateState)
+        {
+            case GridPuzzleRotateType.Rotate0:
+            case GridPuzzleRotateType.Rotate180:
+                return StaticData.RowCount;
+            case GridPuzzleRotateType.Rotate90:
+            case GridPuzzleRotateType.Rotate270:
+                return StaticData.ColumnCount;
+        }
+
+        return StaticData.RowCount;
+    }
+
+    private int GetColumnSize()
+    {
+        switch (RotateState)
+        {
+            case GridPuzzleRotateType.Rotate0:
+            case GridPuzzleRotateType.Rotate180:
+                return StaticData.ColumnCount;
+            case GridPuzzleRotateType.Rotate90:
+            case GridPuzzleRotateType.Rotate270:
+                return StaticData.RowCount;
+        }
+
+        return StaticData.ColumnCount;
     }
 }

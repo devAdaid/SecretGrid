@@ -9,18 +9,11 @@ public class GridPuzzleBoardControl : MonoBehaviour
     [SerializeField]
     private Transform pieceRoot;
 
-    [SerializeField]
-    private GridPuzzleBoardTileControl tilePrefab;
-
-    [SerializeField]
-    private GridPuzzlePlacePieceControl piecePrefab;
-
     public RectTransform RectTransform { get; private set; }
 
     public GridPuzzleBoard PuzzleBoard { get; private set; }
     private float tileSize;
     private GridPuzzleBoardTileControl[,] tileArray;
-    private IGridPuzzleUI puzzleUI;
 
     private Dictionary<int, GridPuzzlePlacePieceControl> placePieceMap = new Dictionary<int, GridPuzzlePlacePieceControl>();
 
@@ -29,11 +22,10 @@ public class GridPuzzleBoardControl : MonoBehaviour
         RectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(GridPuzzleBoard board, List<GridPuzzlePiece> pieces, float tileSize, IGridPuzzleUI puzzleUI)
+    public void Initialize(GridPuzzleBoard board, List<GridPuzzlePiece> pieces, float tileSize)
     {
         this.PuzzleBoard = board;
         this.tileSize = tileSize;
-        this.puzzleUI = puzzleUI;
 
         RectTransform.sizeDelta = new Vector2(tileSize * board.ColumnCount, tileSize * board.RowCount);
 
@@ -67,6 +59,22 @@ public class GridPuzzleBoardControl : MonoBehaviour
         }
     }
 
+    private void Clear()
+    {
+        foreach (var tile in tileArray)
+        {
+            tile.Despawn();
+        }
+        tileArray = null;
+
+        var pieces = placePieceMap.Values;
+        foreach (var piece in pieces)
+        {
+            piece.Despawn();
+        }
+        placePieceMap.Clear();
+    }
+
     private void SpawnTiles()
     {
         tileArray = new GridPuzzleBoardTileControl[PuzzleBoard.RowCount, PuzzleBoard.ColumnCount];
@@ -90,8 +98,7 @@ public class GridPuzzleBoardControl : MonoBehaviour
     {
         foreach (var piece in pieces)
         {
-            var pieceControl = Instantiate(piecePrefab, pieceRoot);
-            pieceControl.Initialize(piece, tileSize);
+            var pieceControl = ObjectPoolHolder.I.PlacePiecePool.Spawn(tileRoot, new GridPuzzlePlacePieceControlInitializeParameter(piece, tileSize));
             pieceControl.gameObject.SetActive(false);
             placePieceMap.Add(piece.InstanceId, pieceControl);
         }
@@ -99,9 +106,8 @@ public class GridPuzzleBoardControl : MonoBehaviour
 
     private GridPuzzleBoardTileControl CreateTile(int row, int column, float tileSize)
     {
-        var tileObject = Instantiate(tilePrefab, tileRoot);
+        var tileObject = ObjectPoolHolder.I.BoardTilePool.Spawn(tileRoot, new GridPuzzleBoardTileControlInitializeParameter(tileSize));
         tileObject.name = $"Tile_{row}_{column}";
-        tileObject.Initialize(new Vector2Int(column, row), tileSize);
         return tileObject;
     }
 

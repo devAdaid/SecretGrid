@@ -1,28 +1,47 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GridPuzzlePlacePieceControl : MonoBehaviour
+public class GridPuzzlePlacePieceControlInitializeParameter : ISpawnableObjectInitializeParameter
+{
+    public readonly GridPuzzlePiece Piece;
+    public readonly float TileSize;
+
+    public GridPuzzlePlacePieceControlInitializeParameter(GridPuzzlePiece piece, float tileSize)
+    {
+        Piece = piece;
+        TileSize = tileSize;
+    }
+}
+
+public class GridPuzzlePlacePieceControl : MonoBehaviour, ISpawnableObject
 {
     [SerializeField]
     private Image pieceImage;
 
+    [SerializeField]
+    public RectTransform rectTransform;
+
     public GridPuzzlePiece Piece { get; private set; }
-    public RectTransform RectTransform { get; private set; }
 
     private float tileSize;
 
-    private void Awake()
+    public void Initialize(ISpawnableObjectInitializeParameter parameter)
     {
-        RectTransform = GetComponent<RectTransform>();
+        if (parameter is not GridPuzzlePlacePieceControlInitializeParameter param)
+        {
+            return;
+        }
+
+        Piece = param.Piece;
+        tileSize = param.TileSize;
+
+        rectTransform.sizeDelta = new Vector2(Piece.ColumnSize * tileSize, Piece.RowSize * tileSize);
+        pieceImage.sprite = param.Piece.StaticData.Sprite;
     }
 
-    public void Initialize(GridPuzzlePiece piece, float tileSize)
+    public void Despawn()
     {
-        Piece = piece;
-        this.tileSize = tileSize;
-        var (rowSize, colSize) = piece.GetPieceSize();
-        RectTransform.sizeDelta = new Vector2(colSize * tileSize, rowSize * tileSize);
-        pieceImage.sprite = piece.StaticData.Sprite;
+        ObjectPoolHolder.I.PlacePiecePool.Despawn(this);
     }
 
     public void SetActive(bool active)
@@ -33,9 +52,8 @@ public class GridPuzzlePlacePieceControl : MonoBehaviour
 
     public Vector2 GetLeftUpToCenterOffset()
     {
-        var (rowSize, columnSize) = Piece.GetPieceSize();
-        var leftOffset = tileSize / 2 * (columnSize - 1);
-        var upOffset = -tileSize / 2 * (rowSize - 1);
+        var leftOffset = tileSize / 2 * (Piece.ColumnSize - 1);
+        var upOffset = -tileSize / 2 * (Piece.RowSize - 1);
         return new Vector2(leftOffset, upOffset);
     }
 }

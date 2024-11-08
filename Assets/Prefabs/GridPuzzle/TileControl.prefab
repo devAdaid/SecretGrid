@@ -89,3 +89,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileImage: {fileID: 343035220914671260}
+  rectTransform: {fileID: 97761112781723030}

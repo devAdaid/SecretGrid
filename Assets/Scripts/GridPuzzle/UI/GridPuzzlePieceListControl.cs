@@ -11,12 +11,11 @@ public class GridPuzzlePieceListControl : MonoBehaviour
 
     private List<GridPuzzlePieceControl> pieceControls = new List<GridPuzzlePieceControl>();
 
-    public void Initialize(List<GridPuzzlePiece> pieces, IGridPuzzleUI puzzleUI)
+    public void Initialize(List<GridPuzzlePiece> pieces, float tileSize)
     {
         foreach (var piece in pieces)
         {
-            var pieceControl = Instantiate(piecePrefab, pieceRoot);
-            pieceControl.Initialize(piece, puzzleUI);
+            var pieceControl = ObjectPoolHolder.I.PiecePool.Spawn(pieceRoot, new GridPuzzlePieceControlInitializeParameter(piece, tileSize));
             pieceControls.Add(pieceControl);
         }
     }
