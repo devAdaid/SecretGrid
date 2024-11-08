@@ -1,13 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GridPuzzleBoardControl : MonoBehaviour
 {
     [SerializeField]
-    private GridLayoutGroup gridLayoutGroup;
+    private Transform tileRoot;
+
+    [SerializeField]
+    private Transform pieceRoot;
 
     [SerializeField]
     private GridPuzzleBoardTileControl tilePrefab;
+
+    [SerializeField]
+    private GridPuzzlePlacePieceControl piecePrefab;
 
     public RectTransform RectTransform { get; private set; }
 
@@ -16,26 +22,28 @@ public class GridPuzzleBoardControl : MonoBehaviour
     private GridPuzzleBoardTileControl[,] tileArray;
     private IGridPuzzleUI puzzleUI;
 
+    private Dictionary<int, GridPuzzlePlacePieceControl> placePieceMap = new Dictionary<int, GridPuzzlePlacePieceControl>();
+
     private void Awake()
     {
         RectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(GridPuzzleBoard board, float tileSize, IGridPuzzleUI puzzleUI)
+    public void Initialize(GridPuzzleBoard board, List<GridPuzzlePiece> pieces, float tileSize, IGridPuzzleUI puzzleUI)
     {
         this.PuzzleBoard = board;
         this.tileSize = tileSize;
         this.puzzleUI = puzzleUI;
 
         RectTransform.sizeDelta = new Vector2(tileSize * board.ColumnCount, tileSize * board.RowCount);
-        gridLayoutGroup.cellSize = new Vector2(tileSize, tileSize);
 
         SpawnTiles();
+        PreSpawnPieces(pieces);
     }
 
-    public void UpdateBoard(GridPuzzleBoard board)
+    public void Apply(GridPuzzleBoard board, Dictionary<int, Vector2Int> placedPiecePositionMap)
     {
-        this.PuzzleBoard = board;
+        PuzzleBoard = board;
         for (int row = 0; row < PuzzleBoard.RowCount; row++)
         {
             for (int column = 0; column < PuzzleBoard.ColumnCount; column++)
@@ -43,26 +51,57 @@ public class GridPuzzleBoardControl : MonoBehaviour
                 tileArray[row, column].SetOccupy(board.TileArray[row, column].IsOccupied);
             }
         }
+
+        foreach (var pieceControl in placePieceMap.Values)
+        {
+            pieceControl.SetActive(placedPiecePositionMap.ContainsKey(pieceControl.Piece.InstanceId));
+
+            if (placedPiecePositionMap.TryGetValue(pieceControl.Piece.InstanceId, out var placedPosition))
+            {
+                var localPos = tileArray[placedPosition.x, placedPosition.y].transform.localPosition;
+                var offset = pieceControl.GetLeftUpToCenterOffset();
+                localPos.x += offset.x;
+                localPos.y += offset.y;
+                pieceControl.transform.localPosition = localPos;
+            }
+        }
     }
 
     private void SpawnTiles()
     {
-        this.tileArray = new GridPuzzleBoardTileControl[PuzzleBoard.RowCount, PuzzleBoard.ColumnCount];
+        tileArray = new GridPuzzleBoardTileControl[PuzzleBoard.RowCount, PuzzleBoard.ColumnCount];
+
+        var startX = -((PuzzleBoard.ColumnCount - 1) * tileSize) / 2;
+        var startY = ((PuzzleBoard.RowCount - 1) * tileSize) / 2;
         for (int row = 0; row < PuzzleBoard.RowCount; row++)
         {
             for (int column = 0; column < PuzzleBoard.ColumnCount; column++)
             {
-                var tile = CreateTile(row, column);
+                var tile = CreateTile(row, column, tileSize);
+                var posX = startX + column * tileSize;
+                var posY = startY - row * tileSize;
+                tile.transform.localPosition = new Vector3(posX, posY, 0);
                 tileArray[row, column] = tile;
             }
         }
     }
 
-    private GridPuzzleBoardTileControl CreateTile(int row, int column)
+    private void PreSpawnPieces(List<GridPuzzlePiece> pieces)
     {
-        var tileObject = Instantiate(tilePrefab, gridLayoutGroup.transform);
+        foreach (var piece in pieces)
+        {
+            var pieceControl = Instantiate(piecePrefab, pieceRoot);
+            pieceControl.Initialize(piece, tileSize);
+            pieceControl.gameObject.SetActive(false);
+            placePieceMap.Add(piece.InstanceId, pieceControl);
+        }
+    }
+
+    private GridPuzzleBoardTileControl CreateTile(int row, int column, float tileSize)
+    {
+        var tileObject = Instantiate(tilePrefab, tileRoot);
         tileObject.name = $"Tile_{row}_{column}";
-        tileObject.Initialize(new Vector2Int(column, row));
+        tileObject.Initialize(new Vector2Int(column, row), tileSize);
         return tileObject;
     }
 

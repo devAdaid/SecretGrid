@@ -4,8 +4,8 @@ using UnityEngine;
 public class GridPuzzleBoardStaticData : ScriptableObject
 {
     [field: SerializeField]
-    public int RowCount;
+    public int ColumnCount;
 
     [field: SerializeField]
-    public int ColumnCount;
+    public int RowCount;
 }

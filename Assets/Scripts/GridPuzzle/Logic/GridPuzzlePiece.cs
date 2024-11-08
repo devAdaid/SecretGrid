@@ -17,20 +17,17 @@ public class GridPuzzlePiece
 
     public (int rowSize, int columnSize) GetPieceSize()
     {
-        // TODO: 회전 적용
-        var minRow = 0;
-        var maxRow = 0;
-        var minColumn = 0;
-        var maxColumn = 0;
-        foreach (var position in StaticData.OccupyPositions)
+        switch (RotateState)
         {
-            minRow = Mathf.Min(minRow, position.x);
-            maxRow = Mathf.Max(maxRow, position.x);
-            minColumn = Mathf.Min(minColumn, position.y);
-            maxColumn = Mathf.Max(maxColumn, position.y);
+            case GridPuzzleRotateType.Rotate0:
+            case GridPuzzleRotateType.Rotate180:
+                return (StaticData.RowCount, StaticData.ColumnCount);
+            case GridPuzzleRotateType.Rotate90:
+            case GridPuzzleRotateType.Rotate270:
+                return (StaticData.ColumnCount, StaticData.RowCount);
         }
 
-        return (maxRow - minRow + 1, maxColumn - minColumn + 1);
+        return (StaticData.RowCount, StaticData.ColumnCount);
     }
 
     public Vector2Int[] GetOccupyPositions(Vector2Int basePosition)

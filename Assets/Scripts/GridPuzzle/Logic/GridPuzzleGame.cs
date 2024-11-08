@@ -12,7 +12,7 @@ public class GridPuzzleGame
 
     // key는 배치된 위치(row, col), value는 배치된 피스
     public readonly Dictionary<int, GridPuzzlePiece> PieceMap;
-    public readonly Dictionary<int, Vector2Int> PlacedPieces;
+    public readonly Dictionary<int, Vector2Int> PlacedPiecePositionMap;
 
     public GridPuzzleGame(int rowCount, int columnCount, List<GridPuzzlePieceStaticData> pieceDataList)
     {
@@ -28,13 +28,13 @@ public class GridPuzzleGame
             PieceMap.Add(piece.InstanceId, piece);
         }
 
-        PlacedPieces = new Dictionary<int, Vector2Int>();
+        PlacedPiecePositionMap = new Dictionary<int, Vector2Int>();
     }
 
     public GridPuzzleBoard BuildBoardSnapshot()
     {
         var placedPieceWithPositions = new List<(GridPuzzlePiece piece, Vector2Int position)>();
-        foreach (var (pieceId, position) in PlacedPieces)
+        foreach (var (pieceId, position) in PlacedPiecePositionMap)
         {
             placedPieceWithPositions.Add((PieceMap[pieceId], position));
         }
@@ -57,17 +57,17 @@ public class GridPuzzleGame
         }
 
         // 이미 배치된 피스
-        if (PlacedPieces.ContainsKey(piece.InstanceId))
+        if (PlacedPiecePositionMap.ContainsKey(piece.InstanceId))
         {
             return;
         }
 
-        PlacedPieces[piece.InstanceId] = position;
+        PlacedPiecePositionMap[piece.InstanceId] = position;
     }
 
     public void Displace(int pieceId)
     {
-        PlacedPieces.Remove(pieceId);
+        PlacedPiecePositionMap.Remove(pieceId);
     }
 
     private Vector2Int RotatePosition(Vector2Int position, GridPuzzleRotateType rotateState)

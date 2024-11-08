@@ -36,7 +36,7 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI, IPointerClickHandler
     private void Initialize()
     {
         puzzleGame = new GridPuzzleGame(boardData.RowCount, boardData.ColumnCount, pieceDataList);
-        boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), tileSize, this);
+        boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), puzzleGame.Pieces, tileSize, this);
         pieceListControl.Initialize(puzzleGame.Pieces, this);
     }
 
@@ -79,8 +79,8 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI, IPointerClickHandler
         if (IsHoldingPiece())
         {
             var tilePosition = boardControl.CalculateTilePosition(localPoint);
-            var leftUpPosition = localPoint + GridPuzzleUIUtility.GetLeftUpOffset(HoldingPiece, TileSize);
-            var placeTilePosition = boardControl.CalculateTilePosition(leftUpPosition);
+            var leftUpAdjustedPosition = localPoint + GridPuzzleUIUtility.GetCenterToLeftUpOffset(HoldingPiece, TileSize);
+            var placeTilePosition = boardControl.CalculateTilePosition(leftUpAdjustedPosition);
 
             if (boardControl.PuzzleBoard.CanPlace(HoldingPiece, placeTilePosition))
             {
@@ -175,7 +175,7 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI, IPointerClickHandler
             piecePreviewControl.Hide();
         }
 
-        boardControl.UpdateBoard(puzzleGame.BuildBoardSnapshot());
+        boardControl.Apply(puzzleGame.BuildBoardSnapshot(), puzzleGame.PlacedPiecePositionMap);
 
         pieceListControl.Apply(GetHidePieces());
     }
@@ -183,7 +183,7 @@ public class GridPuzzleUI : MonoBehaviour, IGridPuzzleUI, IPointerClickHandler
     private HashSet<int> GetHidePieces()
     {
         var result = new HashSet<int>();
-        foreach (var id in puzzleGame.PlacedPieces.Keys)
+        foreach (var id in puzzleGame.PlacedPiecePositionMap.Keys)
         {
             result.Add(id);
         }

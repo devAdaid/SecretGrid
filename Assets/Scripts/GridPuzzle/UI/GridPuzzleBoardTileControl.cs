@@ -5,23 +5,24 @@ public class GridPuzzleBoardTileControl : MonoBehaviour
 {
     [SerializeField]
     private Image tileImage;
+    public RectTransform RectTransform { get; private set; }
 
     private Vector2Int position;
-    private RectTransform rectTransform;
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
+        RectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(Vector2Int pos)
+    public void Initialize(Vector2Int pos, float tileSize)
     {
         position = pos;
+        RectTransform.sizeDelta = new Vector2(tileSize, tileSize);
     }
 
     public void SetSize(float tileSize)
     {
-        rectTransform.sizeDelta = new Vector2(tileSize, tileSize);
+        RectTransform.sizeDelta = new Vector2(tileSize, tileSize);
     }
 
     public void SetOccupy(bool occupy)
