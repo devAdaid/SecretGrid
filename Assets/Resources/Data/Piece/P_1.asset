@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a24bd971f4bfa8b43b2930d5cd737ade, type: 3}
   m_Name: P_1
   m_EditorClassIdentifier: 
+  ColumnCount: 1
+  RowCount: 1
+  OccupyList: 01
   Sprite: {fileID: -2362249629595997409, guid: 122bbf6ed9465d84d9d6a4731a52d9fc, type: 3}
-  OccupyPositions:
-  - {x: 0, y: 0}

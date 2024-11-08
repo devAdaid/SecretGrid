@@ -10,7 +10,7 @@ public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
     private GridPuzzleBoardStaticData boardData;
 
     [SerializeField]
-    private List<GridPuzzlePieceStaticData> pieceDataList = new List<GridPuzzlePieceStaticData>();
+    private List<GridPuzzlePieceScriptableData> pieceDataList = new List<GridPuzzlePieceScriptableData>();
 
     [SerializeField]
     private float tileSize = 100f;
@@ -41,7 +41,13 @@ public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
 
     private void Initialize()
     {
-        puzzleGame = new GridPuzzleGame(boardData.RowCount, boardData.ColumnCount, pieceDataList);
+        var pieceStaticDataList = new List<GridPuzzlePieceStaticData>();
+        foreach (var pieceData in pieceDataList)
+        {
+            pieceStaticDataList.Add(pieceData.ToStaticData());
+        }
+
+        puzzleGame = new GridPuzzleGame(boardData.RowCount, boardData.ColumnCount, pieceStaticDataList);
         boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), puzzleGame.Pieces, tileSize);
         pieceListControl.Initialize(puzzleGame.Pieces, tileSize);
     }
