@@ -15,15 +15,17 @@ public class GridPuzzleBoardControl : MonoBehaviour
     public GridPuzzleBoard PuzzleBoard { get; private set; }
     private float tileSize;
     private GridPuzzleBoardTileControl[,] tileArray;
+    private GridPuzzleGameStaticData gameStaticData;
 
     private Dictionary<int, GridPuzzlePlacePieceControl> placePieceMap = new Dictionary<int, GridPuzzlePlacePieceControl>();
 
-    public void Initialize(GridPuzzleBoard board, List<GridPuzzlePiece> pieces, float tileSize)
+    public void Initialize(GridPuzzleBoard board, List<GridPuzzlePiece> pieces, float tileSize, GridPuzzleGameStaticData gameStaticData)
     {
         Clear();
 
         this.PuzzleBoard = board;
         this.tileSize = tileSize;
+        this.gameStaticData = gameStaticData;
 
         RectTransform.sizeDelta = new Vector2(tileSize * board.ColumnCount, tileSize * board.RowCount);
 
@@ -48,10 +50,7 @@ public class GridPuzzleBoardControl : MonoBehaviour
 
             if (placedPiecePositionMap.TryGetValue(pieceControl.Piece.InstanceId, out var placedPosition))
             {
-                var localPos = tileArray[placedPosition.x, placedPosition.y].transform.localPosition;
-                var offset = pieceControl.GetLeftUpToCenterOffset();
-                localPos.x += offset.x;
-                localPos.y += offset.y;
+                var localPos = GridPuzzleUIUtility.GetBoardCenterToPieceCenterOffset(placedPosition, pieceControl.Piece, gameStaticData.BoardData, tileSize);
                 pieceControl.transform.localPosition = localPos;
             }
         }
@@ -89,7 +88,7 @@ public class GridPuzzleBoardControl : MonoBehaviour
                 var tile = CreateTile(row, column, tileSize);
                 var posX = startX + column * tileSize;
                 var posY = startY - row * tileSize;
-                tile.transform.localPosition = new Vector3(posX, posY, 0);
+                tile.transform.localPosition = GridPuzzleUIUtility.GetBoardCenterToTileCenterOffset(new Vector2Int(row, column), gameStaticData.BoardData, tileSize);
                 tileArray[row, column] = tile;
             }
         }
@@ -99,7 +98,7 @@ public class GridPuzzleBoardControl : MonoBehaviour
     {
         foreach (var piece in pieces)
         {
-            var pieceControl = ObjectPoolHolder.I.PlacePiecePool.Spawn(tileRoot, new GridPuzzlePlacePieceControlInitializeParameter(piece, tileSize));
+            var pieceControl = ObjectPoolHolder.I.PlacePiecePool.Spawn(pieceRoot, new GridPuzzlePieceControlInitializeParameter(piece, tileSize, gameStaticData));
             pieceControl.gameObject.SetActive(false);
             placePieceMap.Add(piece.InstanceId, pieceControl);
         }

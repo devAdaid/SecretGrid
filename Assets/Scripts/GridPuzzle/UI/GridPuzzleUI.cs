@@ -40,7 +40,8 @@ public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
 
     private void Start()
     {
-        InitializeStage(testGameData.ToStaticData());
+        var gameData = StaticDataHolder.I.GetGameData(testGameData.name);
+        InitializeStage(gameData);
         UpdateUI();
     }
 
@@ -124,7 +125,8 @@ public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
     private void OnNextButtonClicked()
     {
         // TODO: 다음 게임으로 초기화
-        InitializeStage(testGameData.ToStaticData());
+        var gameData = StaticDataHolder.I.GetGameData(testGameData.name);
+        InitializeStage(gameData);
         UpdateUI();
     }
 
@@ -166,15 +168,15 @@ public class GridPuzzleUI : MonoSingleton<GridPuzzleUI>, IPointerClickHandler
     private void InitializeStage(GridPuzzleGameStaticData gameData)
     {
         puzzleGame = new GridPuzzleGame(gameData);
-        boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), puzzleGame.Pieces, tileSize);
-        pieceListControl.Initialize(puzzleGame.Pieces, tileSize);
+        boardControl.Initialize(puzzleGame.BuildBoardSnapshot(), puzzleGame.Pieces, tileSize, gameData);
+        pieceListControl.Initialize(puzzleGame.Pieces, tileSize, gameData);
     }
 
     private void UpdateUI()
     {
         if (IsHoldingPiece())
         {
-            piecePreviewControl.Show(HoldingPiece, tileSize);
+            piecePreviewControl.Show(new GridPuzzlePieceControlInitializeParameter(HoldingPiece, tileSize, puzzleGame.StaticData));
         }
         else
         {

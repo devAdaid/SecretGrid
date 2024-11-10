@@ -1,42 +1,15 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class GridPuzzlePlacePieceControlInitializeParameter : ISpawnableObjectInitializeParameter
+public class GridPuzzlePlacePieceControl : GridPuzzlePlacePieceControlBase, ISpawnableObject
 {
-    public readonly GridPuzzlePiece Piece;
-    public readonly float TileSize;
-
-    public GridPuzzlePlacePieceControlInitializeParameter(GridPuzzlePiece piece, float tileSize)
-    {
-        Piece = piece;
-        TileSize = tileSize;
-    }
-}
-
-public class GridPuzzlePlacePieceControl : MonoBehaviour, ISpawnableObject
-{
-    [SerializeField]
-    private Image pieceImage;
-
-    [SerializeField]
-    public RectTransform rectTransform;
-
-    public GridPuzzlePiece Piece { get; private set; }
-
-    private float tileSize;
-
     public void Initialize(ISpawnableObjectInitializeParameter parameter)
     {
-        if (parameter is not GridPuzzlePlacePieceControlInitializeParameter param)
+        if (parameter is not GridPuzzlePieceControlInitializeParameter param)
         {
             return;
         }
 
-        Piece = param.Piece;
-        tileSize = param.TileSize;
-
-        rectTransform.sizeDelta = new Vector2(Piece.ColumnSize * tileSize, Piece.RowSize * tileSize);
-        pieceImage.sprite = param.Piece.StaticData.Sprite;
+        DoInitialize(param);
     }
 
     public void Despawn()

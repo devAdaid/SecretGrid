@@ -10,12 +10,14 @@ public class GridPuzzlePiece
 
     public int RowSize => GetRowSize();
     public int ColumnSize => GetColumnSize();
+    public readonly GridPuzzlePiecePlaceInfo AnswerPlaceInfo;
 
-    public GridPuzzlePiece(int instanceId, GridPuzzleRotateType rotateState, GridPuzzlePieceStaticData staticData)
+    public GridPuzzlePiece(int instanceId, GridPuzzleRotateType rotateState, GridPuzzlePieceStaticData staticData, GridPuzzlePiecePlaceInfo answerPlaceInfo)
     {
         InstanceId = instanceId;
         StaticData = staticData;
         RotateState = rotateState;
+        AnswerPlaceInfo = answerPlaceInfo;
     }
 
     public Vector2Int[] GetOccupyPositions(Vector2Int basePosition)

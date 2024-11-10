@@ -42,4 +42,23 @@ public static class GridPuzzleRotateTypeExtension
         }
         return Vector3.zero;
     }
+
+    public static Vector2 ToMultipler(this GridPuzzleRotateType rotateType)
+    {
+        int x = 1;
+        int y = 1;
+
+        switch (rotateType)
+        {
+            case GridPuzzleRotateType.Rotate90:
+                return new Vector2Int(y, -x);
+            case GridPuzzleRotateType.Rotate180:
+                return new Vector2Int(-x, -y);
+            case GridPuzzleRotateType.Rotate270:
+                return new Vector2Int(-y, x);
+            case GridPuzzleRotateType.Rotate0:
+            default:
+                return new Vector2Int(x, y);
+        }
+    }
 }

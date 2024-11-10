@@ -1,26 +1,15 @@
-using UnityEngine;
-using UnityEngine.UI;
-
-public class GridPuzzlePiecePlacePreviewControl : MonoBehaviour
+public class GridPuzzlePiecePlacePreviewControl : GridPuzzlePlacePieceControlBase
 {
-    [SerializeField]
-    private Image previewImage;
-
     //[SerializeField]
     //private RectTransform tileRoot;
 
     //[SerializeField]
     //private GridPuzzleBoardTileControl tilePrefab;
 
-    private GridPuzzlePiece holdingPiece;
-
-    public void Show(GridPuzzlePiece piece, float tileSize)
+    public void Show(GridPuzzlePieceControlInitializeParameter param)
     {
-        holdingPiece = piece;
         gameObject.SetActive(true);
-        previewImage.rectTransform.localEulerAngles = piece.RotateState.ToEulerAngles();
-        previewImage.rectTransform.sizeDelta = new Vector2(piece.StaticData.ColumnCount * tileSize, piece.StaticData.RowCount * tileSize);
-        previewImage.sprite = piece.StaticData.Sprite;
+        DoInitialize(param);
 
         //var leftUpPosition = GridPuzzleUIUtility.GetLeftUpOffset(piece, tileSize);
         //foreach (var occupyPosition in holdingPiece.OccupyPositions)
@@ -37,12 +26,12 @@ public class GridPuzzlePiecePlacePreviewControl : MonoBehaviour
 
     public void Hide()
     {
-        holdingPiece = null;
+        Piece = null;
         gameObject.SetActive(false);
     }
 
     public void UpdateRoate()
     {
-        previewImage.rectTransform.localEulerAngles = holdingPiece.RotateState.ToEulerAngles();
+        rectTransform.localEulerAngles = Piece.RotateState.ToEulerAngles();
     }
 }

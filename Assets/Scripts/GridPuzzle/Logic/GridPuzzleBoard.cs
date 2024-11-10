@@ -8,9 +8,11 @@ public struct GridPuzzleBoard : IGridPuzzleBoardContext
 
     public readonly GridPuzzleTile[,] TileArray;
 
-    public GridPuzzleBoard(int rowCount, int columnCount, List<(GridPuzzlePiece piece, Vector2Int position)> placedPiecesWithPositions)
+    public GridPuzzleBoard(GridPuzzleBoardStaticData staticData, List<(GridPuzzlePiece piece, Vector2Int position)> placedPiecesWithPositions)
     {
-        this.TileArray = new GridPuzzleTile[rowCount, columnCount];
+        var rowCount = staticData.RowCount;
+        var columnCount = staticData.ColumnCount;
+        TileArray = new GridPuzzleTile[rowCount, columnCount];
 
         for (var row = 0; row < rowCount; row++)
         {

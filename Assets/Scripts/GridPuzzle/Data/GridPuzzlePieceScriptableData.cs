@@ -1,18 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 public class GridPuzzlePieceStaticData
 {
+    public readonly string StaticId;
     public readonly Sprite Sprite;
     public readonly Vector2Int[] OccupyPositions;
     public readonly int RowCount;
     public readonly int ColumnCount;
 
-    public GridPuzzlePieceStaticData(Sprite sprite, Vector2Int[] occupyPositions, int rowCount, int columnCount)
+    public GridPuzzlePieceStaticData(string staticId, Sprite sprite, Vector2Int[] occupyPositions, int rowCount, int columnCount)
     {
-        this.Sprite = sprite;
-        this.OccupyPositions = occupyPositions;
-        this.RowCount = rowCount;
-        this.ColumnCount = columnCount;
+        StaticId = staticId;
+        Sprite = sprite;
+        OccupyPositions = occupyPositions;
+        RowCount = rowCount;
+        ColumnCount = columnCount;
     }
 }
 
@@ -39,6 +42,39 @@ public class GridPuzzlePieceScriptableData : ScriptableObject
             }
         }
 
-        return new GridPuzzlePieceStaticData(Sprite, occupyPositionList.ToArray(), RowCount, ColumnCount);
+        return new GridPuzzlePieceStaticData(name, BuildSprite(), occupyPositionList.ToArray(), RowCount, ColumnCount);
+    }
+
+    private static readonly int pixelPerBlock = 1;
+    public Sprite BuildSprite()
+    {
+        var texture = new Texture2D(ColumnCount * pixelPerBlock, RowCount * pixelPerBlock);
+        texture.filterMode = FilterMode.Point; // 선명한 픽셀 렌더링
+
+        // 각 픽셀을 순회하며 색 설정
+        for (int row = 0; row < RowCount; row++)
+        {
+            for (int col = 0; col < ColumnCount; col++)
+            {
+                var occupyIndex = row * ColumnCount + col;
+                var occupy = OccupyList[occupyIndex];
+                var color = occupy ? Color.white : Color.clear;
+
+                // 블록 하나를 pixelPerBlock 크기로 칠함
+                for (int py = 0; py < pixelPerBlock; py++)
+                {
+                    for (int px = 0; px < pixelPerBlock; px++)
+                    {
+                        texture.SetPixel(col * pixelPerBlock + px, (RowCount - 1 - row) * pixelPerBlock + py, color);
+                    }
+                }
+            }
+        }
+
+        // 텍스처 적용
+        texture.Apply();
+
+        // 스프라이트로 변환하여 Image에 적용
+        return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 }

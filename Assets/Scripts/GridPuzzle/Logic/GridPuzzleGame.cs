@@ -12,19 +12,26 @@ public class GridPuzzleGame
     // key는 배치된 위치(row, col), value는 배치된 피스
     public readonly Dictionary<int, GridPuzzlePiece> PieceMap;
     public readonly Dictionary<int, Vector2Int> PlacedPiecePositionMap;
+    private readonly Dictionary<int, GridPuzzlePiecePlaceInfo> piecePlaceAnswerMap;
+
+    public readonly GridPuzzleGameStaticData StaticData;
 
     public GridPuzzleGame(GridPuzzleGameStaticData data)
     {
-        this.rowCount = data.BoardData.RowCount;
-        this.columnCount = data.BoardData.ColumnCount;
+        StaticData = data;
+        rowCount = data.BoardData.RowCount;
+        columnCount = data.BoardData.ColumnCount;
 
         Pieces = new List<GridPuzzlePiece>();
         PieceMap = new Dictionary<int, GridPuzzlePiece>();
+        piecePlaceAnswerMap = new Dictionary<int, GridPuzzlePiecePlaceInfo>();
         for (int i = 0; i < data.PieceDataList.Count; i++)
         {
-            var piece = new GridPuzzlePiece(i + 1, GridPuzzleRotateType.Rotate0, data.PieceDataList[i]);
+            var instanceId = i + 1;
+            var piece = new GridPuzzlePiece(instanceId, GridPuzzleRotateType.Rotate0, data.PieceDataList[i].Piece, data.PieceDataList[i].PlaceInfo);
             Pieces.Add(piece);
-            PieceMap.Add(piece.InstanceId, piece);
+            PieceMap.Add(instanceId, piece);
+            piecePlaceAnswerMap.Add(instanceId, data.PieceDataList[i].PlaceInfo);
         }
 
         PlacedPiecePositionMap = new Dictionary<int, Vector2Int>();
@@ -38,7 +45,7 @@ public class GridPuzzleGame
             placedPieceWithPositions.Add((PieceMap[pieceId], position));
         }
 
-        return new GridPuzzleBoard(rowCount, columnCount, placedPieceWithPositions);
+        return new GridPuzzleBoard(StaticData.BoardData, placedPieceWithPositions);
     }
 
     public bool CanPlace(GridPuzzlePiece piece, Vector2Int position)
@@ -71,7 +78,20 @@ public class GridPuzzleGame
 
     public bool IsCleared()
     {
-        var boardSnapshot = BuildBoardSnapshot();
-        return boardSnapshot.IsAllOccupied();
+        foreach (var (pieceInstanceId, answer) in piecePlaceAnswerMap)
+        {
+            var pieceAnwerRotateType = answer.RotateType;
+            if (!PlacedPiecePositionMap.TryGetValue(pieceInstanceId, out var placedPosition) || answer.Position != placedPosition)
+            {
+                return false;
+            }
+
+            if (!PieceMap.TryGetValue(pieceInstanceId, out var piece) || answer.RotateType != piece.RotateState)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

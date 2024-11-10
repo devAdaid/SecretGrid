@@ -11,13 +11,13 @@ public class GridPuzzlePieceListControl : MonoBehaviour
 
     private List<GridPuzzlePieceControl> pieceControls = new List<GridPuzzlePieceControl>();
 
-    public void Initialize(List<GridPuzzlePiece> pieces, float tileSize)
+    public void Initialize(List<GridPuzzlePiece> pieces, float tileSize, GridPuzzleGameStaticData gameStaticData)
     {
         Clear();
 
         foreach (var piece in pieces)
         {
-            var pieceControl = ObjectPoolHolder.I.PiecePool.Spawn(pieceRoot, new GridPuzzlePieceControlInitializeParameter(piece, tileSize));
+            var pieceControl = ObjectPoolHolder.I.PiecePool.Spawn(pieceRoot, new GridPuzzlePieceControlInitializeParameter(piece, tileSize, gameStaticData));
             pieceControls.Add(pieceControl);
         }
     }

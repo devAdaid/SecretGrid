@@ -7,6 +7,7 @@ public abstract class PersistentSingleton<T> : MonoSingleton<T> where T : MonoBe
         if (_instance == null)
         {
             _instance = this as T;
+            Initialize();
         }
         else if (_instance != this)
         {
@@ -15,4 +16,6 @@ public abstract class PersistentSingleton<T> : MonoSingleton<T> where T : MonoBe
         }
         DontDestroyOnLoad(gameObject);
     }
+
+    protected abstract void Initialize();
 }

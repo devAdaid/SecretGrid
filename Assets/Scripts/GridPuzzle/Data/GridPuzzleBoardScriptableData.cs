@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class GridPuzzleBoardStaticData
 {
+    public readonly string StaticId;
     public readonly int ColumnCount;
     public readonly int RowCount;
 
-    public GridPuzzleBoardStaticData(int columnCount, int rowCount)
+    public GridPuzzleBoardStaticData(string staticId, int columnCount, int rowCount)
     {
+        StaticId = staticId;
         ColumnCount = columnCount;
         RowCount = rowCount;
     }
@@ -20,6 +22,6 @@ public class GridPuzzleBoardScriptableData : ScriptableObject
 
     public GridPuzzleBoardStaticData ToStaticData()
     {
-        return new GridPuzzleBoardStaticData(ColumnCount, RowCount);
+        return new GridPuzzleBoardStaticData(name, ColumnCount, RowCount);
     }
 }

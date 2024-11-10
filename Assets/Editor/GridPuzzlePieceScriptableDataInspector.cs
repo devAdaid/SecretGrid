@@ -26,10 +26,8 @@ public class GridPuzzlePieceScriptableDataInspector : Editor
         Bool2DArrayEditorUtility.BoolGrid(occupyList, columnCount, rowCount);
 
         EditorGUILayout.PropertyField(sprite);
-
         GUILayout.Space(3);
-
-        var texture = AssetPreview.GetAssetPreview(data.Sprite);
+        var texture = AssetPreview.GetAssetPreview(data.BuildSprite());
         if (texture != null)
         {
             var width = data.ColumnCount * 40f;
