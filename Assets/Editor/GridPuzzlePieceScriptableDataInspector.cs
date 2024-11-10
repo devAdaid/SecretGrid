@@ -5,7 +5,6 @@ using UnityEngine;
 public class GridPuzzlePieceScriptableDataInspector : Editor
 {
     private GridPuzzlePieceScriptableData data;
-    private SerializedProperty sprite;
     private SerializedProperty occupyList;
     private SerializedProperty columnCount;
     private SerializedProperty rowCount;
@@ -13,7 +12,6 @@ public class GridPuzzlePieceScriptableDataInspector : Editor
     public void OnEnable()
     {
         data = target as GridPuzzlePieceScriptableData;
-        sprite = this.serializedObject.FindProperty("Sprite");
         occupyList = this.serializedObject.FindProperty("OccupyList");
         columnCount = this.serializedObject.FindProperty("ColumnCount");
         rowCount = this.serializedObject.FindProperty("RowCount");
@@ -25,8 +23,8 @@ public class GridPuzzlePieceScriptableDataInspector : Editor
 
         Bool2DArrayEditorUtility.BoolGrid(occupyList, columnCount, rowCount);
 
-        EditorGUILayout.PropertyField(sprite);
         GUILayout.Space(3);
+        EditorGUILayout.LabelField("Sprite Preview", EditorStyles.boldLabel);
         var texture = AssetPreview.GetAssetPreview(data.BuildSprite());
         if (texture != null)
         {

@@ -25,7 +25,6 @@ public class GridPuzzlePieceScriptableData : ScriptableObject
     public int ColumnCount;
     public int RowCount;
     public bool[] OccupyList;
-    public Sprite Sprite;
 
     public GridPuzzlePieceStaticData ToStaticData()
     {
