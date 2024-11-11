@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/SettingButtonStyle.uss?fileID=7433441132597879392&amp;guid=fb8dde975ab913b43bdd1c82e98f00fe&amp;type=3#SettingButtonStyle" />
+    <ui:Button class="button" />
+</ui:UXML>

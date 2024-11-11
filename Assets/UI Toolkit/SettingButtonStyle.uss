@@ -1,0 +1,11 @@
+.button {
+    align-self: flex-end;
+    background-image: url("project://database/Assets/Sprites/Dummy/SettingIcon.png?fileID=1675278923246743948&guid=9229fc43f9a9fb5449ff65eb1bad4441&type=3#SettingIcon_0");
+    background-size: contain;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+}
