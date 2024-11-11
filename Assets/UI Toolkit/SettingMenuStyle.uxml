@@ -5,8 +5,8 @@
             <ui:Label text="SETTINGS" class="title" />
             <ui:SliderInt label="Background Music" value="42" high-value="100" fill="true" class="slider" />
             <ui:SliderInt label="Sound Effects" value="42" high-value="100" fill="true" class="slider" />
-            <ui:VisualElement name="Exit" style="flex-grow: 1; align-content: flex-start; justify-content: flex-end;">
-                <ui:Button text="Save" class="exit-button" style="-unity-text-align: upper-center; transform-origin: center;" />
+            <ui:VisualElement name="Save" style="flex-grow: 1; align-content: flex-start; justify-content: flex-end;">
+                <ui:Button text="Save" name="SaveButton" class="exit-button" style="-unity-text-align: upper-center; transform-origin: center;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
