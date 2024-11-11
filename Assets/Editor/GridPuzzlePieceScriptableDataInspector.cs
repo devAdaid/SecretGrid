@@ -25,13 +25,17 @@ public class GridPuzzlePieceScriptableDataInspector : Editor
 
         GUILayout.Space(3);
         EditorGUILayout.LabelField("Sprite Preview", EditorStyles.boldLabel);
-        var texture = AssetPreview.GetAssetPreview(data.BuildSprite());
-        if (texture != null)
+        var sprite = data.BuildSprite();
+        if (sprite != null)
         {
-            var width = data.ColumnCount * 40f;
-            var height = data.RowCount * 40f;
-            GUILayout.Label("", GUILayout.Height(height), GUILayout.Width(width));
-            GUI.DrawTexture(GUILayoutUtility.GetLastRect(), texture);
+            var texture = AssetPreview.GetAssetPreview(data.BuildSprite());
+            if (texture != null)
+            {
+                var width = data.ColumnCount * 40f;
+                var height = data.RowCount * 40f;
+                GUILayout.Label("", GUILayout.Height(height), GUILayout.Width(width));
+                GUI.DrawTexture(GUILayoutUtility.GetLastRect(), texture);
+            }
         }
 
         serializedObject.ApplyModifiedProperties();

@@ -47,6 +47,11 @@ public class GridPuzzlePieceScriptableData : ScriptableObject
     private static readonly int pixelPerBlock = 1;
     public Sprite BuildSprite()
     {
+        if (ColumnCount == 0 || RowCount == 0)
+        {
+            return null;
+        }
+
         var texture = new Texture2D(ColumnCount * pixelPerBlock, RowCount * pixelPerBlock);
         texture.filterMode = FilterMode.Point; // º±∏Ì«— «»ºø ∑ª¥ı∏µ
 
