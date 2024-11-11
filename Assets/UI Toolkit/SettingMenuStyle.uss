@@ -1,0 +1,53 @@
+.panel {
+    background-color: rgba(140, 140, 140, 0.39);
+    align-items: center;
+    justify-content: flex-start;
+    align-self: auto;
+    align-content: flex-start;
+    padding-top: 3%;
+    padding-right: 3%;
+    padding-bottom: 3%;
+    padding-left: 3%;
+}
+
+.menu {
+    background-color: rgb(186, 168, 95);
+    width: 40%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    height: auto;
+    align-items: stretch;
+    justify-content: flex-start;
+    align-self: auto;
+    align-content: flex-start;
+    border-left-color: rgba(195, 117, 28, 0.78);
+    border-right-color: rgba(195, 117, 28, 0.78);
+    border-top-color: rgba(195, 117, 28, 0.78);
+    border-bottom-color: rgba(195, 117, 28, 0.78);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+}
+
+.title {
+    color: rgb(255, 255, 255);
+    align-self: center;
+}
+
+.slider {
+    color: rgb(255, 255, 255);
+}
+
+.exit-button {
+    align-content: flex-start;
+    justify-content: flex-start;
+    align-self: center;
+    align-items: stretch;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-wrap: nowrap;
+    transform-origin: center;
+}
