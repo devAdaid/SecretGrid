@@ -3,9 +3,9 @@
     <ui:VisualElement name="Panel" class="panel" style="flex-grow: 1; align-items: center;">
         <ui:VisualElement name="Menu" class="menu" style="flex-grow: 1;">
             <ui:Label text="SETTINGS" class="title" />
-            <ui:SliderInt label="Background Music" value="42" high-value="100" fill="true" class="slider" />
-            <ui:SliderInt label="Sound Effects" value="42" high-value="100" fill="true" class="slider" />
-            <ui:VisualElement name="Save" style="flex-grow: 1; align-content: flex-start; justify-content: flex-end;">
+            <ui:Slider label="Background Music" value="42" high-value="1" name="MusicSlider" class="slider" />
+            <ui:Slider label="Sound Effects" value="42" high-value="1" name="SoundSlider" class="slider" />
+            <ui:VisualElement name="Save" style="flex-grow: 1; align-content: flex-start; justify-content: flex-end; margin-top: 0; margin-right: 0; margin-bottom: 5px; margin-left: 0;">
                 <ui:Button text="Save" name="SaveButton" class="exit-button" style="-unity-text-align: upper-center; transform-origin: center;" />
             </ui:VisualElement>
         </ui:VisualElement>
