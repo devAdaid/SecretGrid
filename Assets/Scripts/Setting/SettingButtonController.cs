@@ -3,9 +3,9 @@ using UnityEngine.UIElements;
 
 public class SettingButtonController : MonoBehaviour
 {
-    public GameObject settingMenu;
     private UIDocument _document;
     private Button _settingButton;
+    public UIDocument settingMenuDocument;
 
     private void Awake()
     {
@@ -16,9 +16,6 @@ public class SettingButtonController : MonoBehaviour
 
     private void OnSettingButtonClicked()
     {
-        if (!settingMenu.activeSelf)
-        {
-            settingMenu.SetActive(true);
-        }
+        settingMenuDocument.rootVisualElement.Q<VisualElement>("Panel").style.display = DisplayStyle.Flex;
     }
 }
