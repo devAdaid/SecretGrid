@@ -41,7 +41,7 @@ public class SecretGridServer : MonoBehaviour
         var nicknameBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(nickname));
         
         var formData = new List<IMultipartFormSection>();
-        using var www = UnityWebRequest.Post($"http://{serverAddr}/score", formData);
+        using var www = UnityWebRequest.Post($"{serverAddr}/score", formData);
         www.SetRequestHeader("X-User-Id", userId);
         www.SetRequestHeader("X-Stage-Id", stageId);
         www.SetRequestHeader("X-Score", score.ToString());
