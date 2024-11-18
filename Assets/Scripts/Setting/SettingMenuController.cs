@@ -24,6 +24,8 @@ public class SettingMenuController : MonoBehaviour
 
         _saveButton = _document.rootVisualElement.Q<Button>("SaveButton");
         _saveButton.clicked += OnSaveButtonClicked;
+
+        _document.rootVisualElement.Q<VisualElement>("Panel").style.display = DisplayStyle.None;
     }
 
     private void OnMusicVolumeChanged(ChangeEvent<float> evt)
