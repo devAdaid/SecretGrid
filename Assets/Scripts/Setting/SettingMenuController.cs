@@ -5,8 +5,6 @@ using UnityEngine.UIElements;
 
 public class SettingMenuController : MonoBehaviour
 {
-    public AudioSource musicSource;
-    public AudioSource[] soundSources;
     private UIDocument _document;
     private Slider _musicSlider;
     private Slider _soundSlider;
@@ -17,10 +15,10 @@ public class SettingMenuController : MonoBehaviour
         _document = GetComponent<UIDocument>();
 
         _musicSlider = _document.rootVisualElement.Q<Slider>("MusicSlider");
-        _musicSlider.RegisterValueChangedCallback(OnMusicVolumeChanged);
+        _musicSlider.RegisterValueChangedCallback(OnBGMVolumeChanged);
 
         _soundSlider = _document.rootVisualElement.Q<Slider>("SoundSlider");
-        _soundSlider.RegisterValueChangedCallback(OnSoundVolumeChanged);
+        _soundSlider.RegisterValueChangedCallback(OnSFXVolumeChanged);
 
         _saveButton = _document.rootVisualElement.Q<Button>("SaveButton");
         _saveButton.clicked += OnSaveButtonClicked;
@@ -28,17 +26,14 @@ public class SettingMenuController : MonoBehaviour
         _document.rootVisualElement.Q<VisualElement>("Panel").style.display = DisplayStyle.None;
     }
 
-    private void OnMusicVolumeChanged(ChangeEvent<float> evt)
+    private void OnBGMVolumeChanged(ChangeEvent<float> evt)
     {
-        musicSource.volume = evt.newValue;
+        AudioManager.instance.SetBGMVolume(evt.newValue);
     }
 
-    private void OnSoundVolumeChanged(ChangeEvent<float> evt)
+    private void OnSFXVolumeChanged(ChangeEvent<float> evt)
     {
-        foreach (var sound in soundSources)
-        {
-            sound.volume = evt.newValue;
-        }
+        AudioManager.instance.SetSFXVolume(evt.newValue);
     }
 
     private void OnSaveButtonClicked()
