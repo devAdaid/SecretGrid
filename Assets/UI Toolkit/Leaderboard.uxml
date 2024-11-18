@@ -1,0 +1,11 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:Label text="Leaderboard" style="align-items: stretch; align-self: center;" />
+    <engine:MultiColumnListView data-source="project://database/Assets/TestData/Leaderboard/LeaderboardDataSource.asset?fileID=11400000&amp;guid=80f4b3b1b98277b41b3bc1e288e1d989&amp;type=2#LeaderboardDataSource" data-source-path="Leaderboard" allow-add="false" allow-remove="false" reorderable="false" name="MultiColumnListView" virtualization-method="FixedHeight" show-border="false" show-foldout-header="false" horizontal-scrolling="false" focusable="true">
+        <engine:Columns reorderable="false" resizable="false" resize-preview="false">
+            <engine:Column name="Rank" title="Rank" stretchable="true" binding-path="Rank" />
+            <engine:Column name="Nickname" title="Nickname" stretchable="true" binding-path="Nickname" />
+            <engine:Column name="Score" title="Score" stretchable="true" binding-path="Score" sortable="false" visible="true" />
+        </engine:Columns>
+    </engine:MultiColumnListView>
+    <engine:Button text="Close" />
+</engine:UXML>
