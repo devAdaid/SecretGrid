@@ -72,3 +72,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /UIElementsSchema
 /.idea
+/Assets/Resources/Server/SecretGridServerSettings.asset
+/Assets/Resources/Server/SecretGridServerSettings.asset.meta

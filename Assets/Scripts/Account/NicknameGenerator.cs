@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class NicknameGenerator : MonoBehaviour
+public class NicknameGenerator : MonoSingleton<NicknameGenerator>
 {
     [SerializeField]
     private TextAsset nounsEn;
@@ -22,6 +22,14 @@ public class NicknameGenerator : MonoBehaviour
 
     private void Start()
     {
+        LoadData();
+    }
+    
+    private void LoadData()
+    {
+        nouns.Clear();
+        adjectives.Clear();
+        
         var nounStrings = nounsEn.text;
         var adjectiveStrings = adjectivesEn.text;
         if (Application.systemLanguage == SystemLanguage.Korean)
@@ -43,11 +51,21 @@ public class NicknameGenerator : MonoBehaviour
         }
     }
 
-    public void OnGenerate()
+    public string Generate()
     {
+        if (adjectives.Count == 0)
+        {
+            LoadData();
+        }
+        
         var adj = adjectives[Random.Range(0, adjectives.Count)];
         adj = adj[0].ToString().ToUpper() + adj[1..];
         var noun = nouns[Random.Range(0, nouns.Count)];
-        nickname.text = $"{adj} {noun}";
+        return $"{adj} {noun}";
+    }
+
+    public void OnGenerate()
+    {
+        nickname.text = Generate();
     }
 }
