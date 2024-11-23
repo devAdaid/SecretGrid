@@ -99,13 +99,20 @@ func handleScore(writer http.ResponseWriter, request *http.Request) {
 	var spread int64
 	spread = 7
 	rankRange := rdb.ZRangeWithScores(ctx, rankKey, max(0, rank64-spread), rank64+spread)
-	s := []string{strconv.Itoa(int(rank64))}
+
+	/*
+
+	s 변수는 최종적으로 다음과 같은 구조를 가진다.
+
+	플레이어 순위 <tab> 플레이어ID <tab> 유저1 ID <tab> 점수1 <tab> 닉네임1 <tab> 유저2 ID <tab> 점수2 <tab> 닉네임2 <tab> ...
+
+	 */
+	s := []string{strconv.Itoa(int(rank64)), userId}
 	for _, element := range rankRange.Val() {
 		memberStr := element.Member.(string)
 
 		nn, _ := rdb.HGet(ctx, nicknameSetKey, memberStr).Result()
 
-		memberStr = substr(memberStr, 0, 16)
 		s = append(s, memberStr, fmt.Sprintf("%f", element.Score), nn)
 	}
 	ss := strings.Join(s, "\t")
