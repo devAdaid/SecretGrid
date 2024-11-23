@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -19,14 +20,31 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
     private void Awake()
     {
-        userId = PlayerPrefs.GetString("UserId");
-        if (userId.Length != 0)
+        var serverSettings = Resources.LoadAll<SecretGridServerSettings>("Server/SecretGridServerSettings").SingleOrDefault();
+        if (serverSettings != null)
         {
-            return;
+            serverAddr = serverSettings.ServerAddr;
+        }
+        else
+        {
+            // 이 메시지가 나왔다면 서버 관리자에게 파일을 어떻게 생성하면 되는지 안내를 받으면 됩니다!
+            Debug.LogError($"Create SecretGridServerSettings asset in Assets/Resources/Server!");
         }
         
-        userId = Guid.NewGuid().ToString();
-        PlayerPrefs.SetString("UserId", userId);
+        nickname = PlayerPrefs.GetString("Nickname");
+        if (nickname.Length == 0)
+        {
+            nickname = NicknameGenerator.I.Generate();
+            PlayerPrefs.SetString("Nickname", nickname);
+        }
+        
+        userId = PlayerPrefs.GetString("UserId");
+        if (userId.Length == 0)
+        {
+            userId = Guid.NewGuid().ToString();
+            PlayerPrefs.SetString("UserId", userId);    
+        }
+        
         PlayerPrefs.Save();
     }
 
@@ -78,14 +96,12 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         www.SetRequestHeader("X-User-Nickname", nicknameBase64);
         yield return www.SendWebRequest();
 
-        if (!serverLogText)
-        {
-            yield break;
-        }
-
         CachedLeaderboardResult = www.result == UnityWebRequest.Result.Success ? ParseResult(www.downloadHandler.text) : null;
-
-        serverLogText.text = CachedLeaderboardResult != null ? CachedLeaderboardResult.ToString() : www.error;
+        
+        if (serverLogText)
+        {
+            serverLogText.text = CachedLeaderboardResult != null ? CachedLeaderboardResult.ToString() : www.error;
+        }
     }
 
     public IEnumerator GetLeaderboardResultCoro(string stageId)

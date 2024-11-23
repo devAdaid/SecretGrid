@@ -76,7 +76,8 @@ func handleScore(writer http.ResponseWriter, request *http.Request) {
 
 	score, err := strconv.Atoi(scoreStr)
 	if err != nil {
-		score = 0
+		writer.WriteHeader(400)
+		return
 	}
 
 	userNicknameBase64 := request.Header.Get("X-User-Nickname")
@@ -87,18 +88,26 @@ func handleScore(writer http.ResponseWriter, request *http.Request) {
 
 	_, _ = rdb.HSet(ctx, nicknameSetKey, userId, userNicknameStr).Result()
 
-	var z redis.Z
-	z.Score = float64(score)
-	z.Member = userId
-	rdb.ZAdd(ctx, rankKey, z)
+	if score >= 0 {
+		var z redis.Z
+		z.Score = float64(score)
+		z.Member = userId
+		rdb.ZAdd(ctx, rankKey, z)
+	}
 
-	rank := rdb.ZRank(ctx, rankKey, userId)
+	rank, err := rdb.ZRank(ctx, rankKey, userId).Result()
+	if err != nil && err != redis.Nil {
+		writer.WriteHeader(400)
+		return
+	}
 
-	rank64 := rank.Val()
+	if err == redis.Nil {
+		rank = -1
+	}
 
 	var spread int64
 	spread = 7
-	rankRange := rdb.ZRangeWithScores(ctx, rankKey, max(0, rank64-spread), rank64+spread)
+	rankRange := rdb.ZRangeWithScores(ctx, rankKey, max(0, rank-spread), rank+spread)
 
 	/*
 
@@ -107,7 +116,7 @@ func handleScore(writer http.ResponseWriter, request *http.Request) {
 	플레이어 순위 <tab> 플레이어ID <tab> 유저1 ID <tab> 점수1 <tab> 닉네임1 <tab> 유저2 ID <tab> 점수2 <tab> 닉네임2 <tab> ...
 
 	 */
-	s := []string{strconv.Itoa(int(rank64)), userId}
+	s := []string{strconv.Itoa(int(rank)), userId}
 	for _, element := range rankRange.Val() {
 		memberStr := element.Member.(string)
 
