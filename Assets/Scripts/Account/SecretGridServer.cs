@@ -27,6 +27,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
         else
         {
+            // 이 메시지가 나왔다면 서버 관리자에게 파일을 어떻게 생성하면 되는지 안내를 받으면 됩니다!
             Debug.LogError($"Create SecretGridServerSettings asset in Assets/Resources/Server!");
         }
         
