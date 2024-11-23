@@ -18,6 +18,7 @@ public class LeaderboardManager : MonoBehaviour
     int Testcount = 0;
 
     public GameObject targetItem;  // 스크롤할 대상 항목
+    public GameObject EndItem;
     public ScrollRect scrollRect;
     private int UserCount
     {
@@ -54,45 +55,24 @@ public class LeaderboardManager : MonoBehaviour
                 myInstance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
                 targetItem = myInstance;
             }
+            if(Testcount == userCount)
+            {
+                EndItem = myInstance;
+            }
         }
 
-        RefreshMyInfo();
     }
     public void RefreshMyInfo()
     {
         if(targetItem != null && scrollRect != null)
         {
-            // 대상 항목의 RectTransform을 가져옵니다
-            RectTransform targetRectTransform = targetItem.GetComponent<RectTransform>();
 
-            // ScrollView 내에서 대상 항목의 위치를 계산합니다
-            Vector3[] worldCorners = new Vector3[4];
-            targetRectTransform.GetWorldCorners(worldCorners);
+            float targetNormalizedPosition = targetItem.GetComponent<RectTransform>().transform.localPosition.y +220 - EndItem.GetComponent<RectTransform>().transform.localPosition.y;
+            targetNormalizedPosition /= EndItem.GetComponent<RectTransform>().transform.localPosition.y;
 
-            // ScrollView의 월드 위치를 가져옵니다
-            RectTransform scrollRectTransform = scrollRect.GetComponent<RectTransform>();
-            Vector3[] scrollCorners = new Vector3[4];
-            scrollRectTransform.GetWorldCorners(scrollCorners);
+            // 스크롤을 맨 위로 위치시키기 위해, targetNormalizedPosition을 사용
+            scrollRect.verticalNormalizedPosition = 1 + targetNormalizedPosition;
 
-            // ScrollView의 영역 내에서 항목의 상대적인 위치 계산
-            float itemPositionY = worldCorners[0].y - scrollCorners[0].y;
-            float scrollHeight = scrollRectTransform.rect.height;
-
-            // 항목의 높이를 계산합니다 (Y 좌표 차이를 사용)
-            float itemHeight = worldCorners[2].y - worldCorners[0].y;
-
-            // 스크롤 위치를 설정 (0 - 1 사이로)
-            float targetNormalizedPosition = itemPositionY / scrollHeight;
-
-            // 한 항목 아래로 스크롤 이동
-            float newNormalizedPosition = targetNormalizedPosition - (itemHeight / scrollHeight);
-
-            Debug.Log(newNormalizedPosition);
-            // 유효한 범위로 제한 (0 ~ 1 사이)
-            newNormalizedPosition = Mathf.Clamp01(newNormalizedPosition);
-
-            // 스크롤을 한 항목 아래로 이동
-            scrollRect.verticalNormalizedPosition = 1 - newNormalizedPosition;
         }
     }
 }
