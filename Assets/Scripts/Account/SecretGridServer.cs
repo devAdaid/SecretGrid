@@ -19,16 +19,15 @@ public class SecretGridServer : MonoBehaviour
 
     private void Awake()
     {
-        var userIdPath = Path.Combine(Application.persistentDataPath, "UserId.txt");
-        try
+        userId = PlayerPrefs.GetString("UserId");
+        if (userId.Length != 0)
         {
-            userId = File.ReadAllText(userIdPath);
+            return;
         }
-        catch (FileNotFoundException)
-        {
-            userId = Guid.NewGuid().ToString();
-            File.WriteAllText(userIdPath, userId);
-        }
+        
+        userId = Guid.NewGuid().ToString();
+        PlayerPrefs.SetString("UserId", userId);
+        PlayerPrefs.Save();
     }
 
     public void SetServerAddr(string text)

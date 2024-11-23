@@ -18,6 +18,11 @@ public class LeaderboardTestPanel : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI serverLogText;
 
+    private void Awake()
+    {
+        serverAddrInputField.text = PlayerPrefs.GetString("LastServerAddr", "http://localhost:24110");
+    }
+
     public void OnSubmit()
     {
         secretGridServer.SetServerAddr(serverAddrInputField.text);
@@ -25,5 +30,8 @@ public class LeaderboardTestPanel : MonoBehaviour
         secretGridServer.SetNickname(nicknameText.text);
         serverLogText.text = "Wait for result...";
         StartCoroutine(secretGridServer.SubmitScoreCoro(stageIdInputField.text, int.Parse(scoreInputField.text)));
+        
+        PlayerPrefs.SetString("LastServerAddr", serverAddrInputField.text);
+        PlayerPrefs.Save();
     }
 }
