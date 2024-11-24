@@ -1,12 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System.Collections;
-using TMPro;
-using NUnit.Framework;
-using System.Collections.Generic;
-using static SecretGridServer;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 
 public class LeaderboardManager : MonoBehaviour
 {
@@ -67,7 +63,7 @@ public class LeaderboardManager : MonoBehaviour
     public void RefreshRankInfo()
     {
 
-        for(int i=0; i< userCount; i++)
+        for (int i = 0; i < userCount; i++)
         {
             GameObject myInstance = Instantiate(RankPrefab, ScollViewContent.transform);
             myInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = entriesArray[i].Item1.ToString();
@@ -93,9 +89,9 @@ public class LeaderboardManager : MonoBehaviour
     {
         yield return EndItem;
 
-        if (targetItem != null && scrollRect != null && EndItem!=null)
-        {   
-            if(targetItem.GetComponent<RectTransform>().transform.localPosition.y == -50 || targetItem.GetComponent<RectTransform>().transform.localPosition.y == -150)
+        if (targetItem != null && scrollRect != null && EndItem != null)
+        {
+            if (targetItem.GetComponent<RectTransform>().transform.localPosition.y == -50 || targetItem.GetComponent<RectTransform>().transform.localPosition.y == -150)
             {
                 scrollRect.verticalNormalizedPosition = 1;
             }
@@ -109,7 +105,7 @@ public class LeaderboardManager : MonoBehaviour
             }
             else if (targetItem.GetComponent<RectTransform>().transform.localPosition.y - EndItem.GetComponent<RectTransform>().transform.localPosition.y <= 500)
             {
-                scrollRect.verticalNormalizedPosition =0;
+                scrollRect.verticalNormalizedPosition = 0;
             }
         }
     }
