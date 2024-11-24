@@ -1,17 +1,19 @@
+using UnityEngine;
+
 public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
 {
+    [SerializeField]
+    private HeroGameUI ui;
+
     public HeroGameContext GameContext { get; private set; }
-    private IHeroGameUI ui;
 
     private void Awake()
     {
         GameContext = new HeroGameContext();
-
     }
 
     private void Start()
     {
-        ui = HeroGameUI.I;
         ActiveCaseListUI();
     }
 
@@ -26,5 +28,11 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
         var caseData = HeroGameUIDataBuilder.BuildCase(GameContext);
         ui.ApplyCaseUI(caseData);
         ui.ActiveCaseListUI();
+        ApplyStatUI();
+    }
+
+    private void ApplyStatUI()
+    {
+        ui.ApplyStatUI(GameContext.Player);
     }
 }

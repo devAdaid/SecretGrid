@@ -70,16 +70,16 @@ public class HeroGameContext
     private static HeroGameCaseStaticData TempBuildCaseStaticData1()
     {
         return new HeroGameCaseStaticData(
-            "Case1", "제목1", "설명1",
+            "Case1", "The Elevator Entrapment", "People are stuck in an elevator in a high-rise building.",
             new List<HeroGameCaseSelectionStaticData>()
             {
                 new HeroGameCaseSelectionStaticData(
-                    "선택지1",
+                    "Communicate to keep them calm.",
                     new HeroGameCaseStatRequirement(0, 0, 20),
                     new HeroGameCaseStatReward(0, 0, 15)
                 ),
                 new HeroGameCaseSelectionStaticData(
-                    "선택지2",
+                    "Send snacks via a makeshift pulley system.",
                     new HeroGameCaseStatRequirement(10, 5, 0),
                     new HeroGameCaseStatReward(5,5,0)
                 ),
@@ -90,16 +90,16 @@ public class HeroGameContext
     private static HeroGameCaseStaticData TempBuildCaseStaticData2()
     {
         return new HeroGameCaseStaticData(
-            "Case2", "제목2", "설명2",
+            "Case2", "The Transportation Strike", "A citywide public transport strike immobilizes daily commuters.",
             new List<HeroGameCaseSelectionStaticData>()
             {
                 new HeroGameCaseSelectionStaticData(
-                    "선택지1",
+                    "Organize carpools and alternative transport.",
                     new HeroGameCaseStatRequirement(5, 5, 5),
                     new HeroGameCaseStatReward(3, 3, 3)
                 ),
                 new HeroGameCaseSelectionStaticData(
-                    "선택지2",
+                    "Mediate negotiations to resolve the strike.",
                     new HeroGameCaseStatRequirement(0, 10, 0),
                     new HeroGameCaseStatReward(15, 0, 0)
                 ),
@@ -110,16 +110,16 @@ public class HeroGameContext
     private static HeroGameCaseStaticData TempBuildCaseStaticData3()
     {
         return new HeroGameCaseStaticData(
-            "Case3", "제목3", "설명3",
+            "Case3", "The Flood Disaster", "Unprecedented rainfall leads to severe flooding, displacing thousands.",
             new List<HeroGameCaseSelectionStaticData>()
             {
                 new HeroGameCaseSelectionStaticData(
-                    "선택지1",
+                    "Assist in evacuation and rescue missions.",
                     new HeroGameCaseStatRequirement(10, 0, 0),
                     new HeroGameCaseStatReward(20, 0, 0)
                 ),
                 new HeroGameCaseSelectionStaticData(
-                    "선택지2",
+                    "Coordinate donation drives for food and clothing.",
                     new HeroGameCaseStatRequirement(0, 0, 40),
                     new HeroGameCaseStatReward(0, 0, 100)
                 ),
