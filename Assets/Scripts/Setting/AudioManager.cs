@@ -1,14 +1,35 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum BGMType
 {
     EXCITING,
     Game1,
+    Game2,
 }
 
 public enum SFXType
 {
     BUTTON,
+    Select,
+    Cancel,
+    Success,
+    Fail,
+}
+
+[Serializable]
+public class BGMClipInfo
+{
+    public BGMType BGMType;
+    public AudioClip AudioClip;
+}
+
+[Serializable]
+public class SFXClipInfo
+{
+    public SFXType SFXType;
+    public AudioClip AudioClip;
 }
 
 public class AudioManager : PersistentSingleton<AudioManager>
@@ -18,13 +39,25 @@ public class AudioManager : PersistentSingleton<AudioManager>
     [SerializeField] AudioSource sfxSource;
 
     [Header("---------- Audio Clip ----------")]
-    [SerializeField] AudioClip[] bgmClips;
-    [SerializeField] AudioClip[] sfxClips;
+    [SerializeField] BGMClipInfo[] bgmClips;
+    [SerializeField] SFXClipInfo[] sfxClips;
 
-    private void Start()
+    private Dictionary<BGMType, AudioClip> bgmMap = new();
+    private Dictionary<SFXType, AudioClip> sfxMap = new();
+
+    protected override void Awake()
     {
-        //instance.bgmSource.loop = true;
-        //instance.PlayBGM(BGMType.EXCITING);
+        base.Awake();
+
+        foreach (var bgm in bgmClips)
+        {
+            bgmMap.Add(bgm.BGMType, bgm.AudioClip);
+        }
+
+        foreach (var sfx in sfxClips)
+        {
+            sfxMap.Add(sfx.SFXType, sfx.AudioClip);
+        }
     }
 
     public void SetBGMVolume(float volume)
@@ -39,12 +72,12 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public void PlayBGM(BGMType bgm)
     {
-        bgmSource.clip = bgmClips[(int)bgm];
+        bgmSource.clip = bgmMap[bgm];
         bgmSource.Play();
     }
 
     public void PlaySFX(SFXType sfx)
     {
-        sfxSource.PlayOneShot(sfxClips[(int)sfx]);
+        sfxSource.PlayOneShot(sfxMap[sfx]);
     }
 }

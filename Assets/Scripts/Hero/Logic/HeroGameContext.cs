@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class HeroGameContext
 {
-    public readonly HeroPlayerContext Player;
+    public HeroPlayerContext Player { get; private set; }
 
     public List<HeroGameCase> CurrentCases;
 
@@ -14,6 +14,11 @@ public class HeroGameContext
     private int turn;
 
     public HeroGameContext()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
     {
         Player = new HeroPlayerContext(10, 10, 10);
         CurrentCases = new List<HeroGameCase>();
@@ -25,6 +30,7 @@ public class HeroGameContext
         }
 
         turn = 0;
+        AudioManager.I.PlayBGM(BGMType.Game1);
 
         PickCases();
     }
@@ -49,13 +55,27 @@ public class HeroGameContext
         {
             // 사건 성공
             Player.AddStatReward(selection.StatReward);
+            AudioManager.I.PlaySFX(SFXType.Success);
         }
         else
         {
             // 사건 실패
+            Player.DecreaseSecret(1);
+            AudioManager.I.PlaySFX(SFXType.Fail);
+
+            // 게임 오버
+            if (Player.Secret == 0)
+            {
+                Initialize();
+            }
         }
 
         turn += 1;
+
+        if (turn == 5)
+        {
+            AudioManager.I.PlayBGM(BGMType.Game2);
+        }
 
         //TODO: 게임오버, 챕터 처리
         // 다음 사건들을 구성한다.
@@ -68,8 +88,11 @@ public class HeroGameContext
 
         casePool.Shuffle();
 
+        //TODO: 챕터 구현
+        var pickCount = turn < 5 ? 2 : 3;
+
         var random = new Random();
-        for (var caseIndex = 0; caseIndex < 2; caseIndex++)
+        for (var caseIndex = 0; caseIndex < pickCount; caseIndex++)
         {
             var caseData = casePool[caseIndex];
 

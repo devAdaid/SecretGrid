@@ -79,6 +79,7 @@ public class HeroGameCaseDetailUIControl : MonoBehaviour
     public void OnBackButtonClicked()
     {
         HeroGameUI.I.ActiveCaseListUI();
+        AudioManager.I.PlaySFX(SFXType.Cancel);
     }
 
     public void OnLeftButtonClicked()
@@ -90,6 +91,7 @@ public class HeroGameCaseDetailUIControl : MonoBehaviour
         }
 
         HeroGameUI.I.ActiveCaseDetailUI(caseIndex);
+        AudioManager.I.PlaySFX(SFXType.Select);
     }
 
     public void OnRightButtonClicked()
@@ -101,5 +103,6 @@ public class HeroGameCaseDetailUIControl : MonoBehaviour
         }
 
         HeroGameUI.I.ActiveCaseDetailUI(caseIndex);
+        AudioManager.I.PlaySFX(SFXType.Select);
     }
 }

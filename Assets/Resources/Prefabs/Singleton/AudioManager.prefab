@@ -307,7 +307,20 @@ MonoBehaviour:
   bgmSource: {fileID: 1620784786144591562}
   sfxSource: {fileID: 1424438005081082879}
   bgmClips:
-  - {fileID: 8300000, guid: 18e68bc8d0027c5469013f2105d0f532, type: 3}
-  - {fileID: 8300000, guid: 3dd6be5653c36a8419c5ca15d234b401, type: 3}
+  - BGMType: 0
+    AudioClip: {fileID: 8300000, guid: 18e68bc8d0027c5469013f2105d0f532, type: 3}
+  - BGMType: 1
+    AudioClip: {fileID: 8300000, guid: 3dd6be5653c36a8419c5ca15d234b401, type: 3}
+  - BGMType: 2
+    AudioClip: {fileID: 8300000, guid: c54034ee3c4b3444eb0772428744ce3d, type: 3}
   sfxClips:
-  - {fileID: 8300000, guid: 78efc8057b99b9347a25a7663e277a1d, type: 3}
+  - SFXType: 0
+    AudioClip: {fileID: 8300000, guid: 78efc8057b99b9347a25a7663e277a1d, type: 3}
+  - SFXType: 1
+    AudioClip: {fileID: 8300000, guid: 89ccc8e5ac759e740b46add9cf797052, type: 3}
+  - SFXType: 2
+    AudioClip: {fileID: 8300000, guid: 3809357aa3fed4a4f922259256577358, type: 3}
+  - SFXType: 3
+    AudioClip: {fileID: 8300000, guid: 4158c232eb797994baf3627c4c63d420, type: 3}
+  - SFXType: 4
+    AudioClip: {fileID: 8300000, guid: 257084f439f9cf8469ec94975ef26a9d, type: 3}

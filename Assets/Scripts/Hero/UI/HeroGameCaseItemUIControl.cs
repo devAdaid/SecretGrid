@@ -31,5 +31,6 @@ public class HeroGameCaseItemUIControl : MonoBehaviour
     private void OnClick()
     {
         HeroGameUI.I.ActiveCaseDetailUI(data.CaseIndex);
+        AudioManager.I.PlaySFX(SFXType.Select);
     }
 }

@@ -24,6 +24,12 @@ public class HeroPlayerContext
         Intelligence += reward.Intelligence;
     }
 
+    public void DecreaseSecret(int amount)
+    {
+        Secret -= amount;
+        Secret = Math.Max(Secret, 0);
+    }
+
     public int GetSuccessPercent(HeroGameCaseStatRequirement requirement)
     {
         var result = 100;
