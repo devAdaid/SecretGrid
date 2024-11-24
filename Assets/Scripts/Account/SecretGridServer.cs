@@ -59,7 +59,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         var serverSettings = Resources.LoadAll<SecretGridServerSettings>("Server/SecretGridServerSettings").SingleOrDefault();
         if (serverSettings != null)
         {
-            serverAddr = serverSettings.ServerAddr.Trim();
+            serverAddr = serverSettings.ServerAddr;
         }
         else
         {
