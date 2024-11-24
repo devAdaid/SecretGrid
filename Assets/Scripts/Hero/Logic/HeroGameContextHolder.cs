@@ -14,6 +14,7 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
 
     private void Start()
     {
+        AudioManager.I.PlayBGM(BGMType.Game1);
         ActiveCaseListUI();
     }
 

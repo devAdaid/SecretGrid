@@ -3,6 +3,7 @@ using UnityEngine;
 public enum BGMType
 {
     EXCITING,
+    Game1,
 }
 
 public enum SFXType
@@ -10,10 +11,8 @@ public enum SFXType
     BUTTON,
 }
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : PersistentSingleton<AudioManager>
 {
-    public static AudioManager instance { get; private set; }
-
     [Header("---------- Audio Source ----------")]
     [SerializeField] AudioSource bgmSource;
     [SerializeField] AudioSource sfxSource;
@@ -22,23 +21,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip[] bgmClips;
     [SerializeField] AudioClip[] sfxClips;
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
-
     private void Start()
     {
-        instance.bgmSource.loop = true;
-        instance.PlayBGM(BGMType.EXCITING);
+        //instance.bgmSource.loop = true;
+        //instance.PlayBGM(BGMType.EXCITING);
     }
 
     public void SetBGMVolume(float volume)
@@ -53,12 +39,12 @@ public class AudioManager : MonoBehaviour
 
     public void PlayBGM(BGMType bgm)
     {
-        bgmSource.clip = instance.bgmClips[(int)bgm];
+        bgmSource.clip = bgmClips[(int)bgm];
         bgmSource.Play();
     }
 
     public void PlaySFX(SFXType sfx)
     {
-        sfxSource.PlayOneShot(instance.sfxClips[(int)sfx]);
+        sfxSource.PlayOneShot(sfxClips[(int)sfx]);
     }
 }
