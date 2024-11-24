@@ -8,15 +8,10 @@ public class PanelShake : MonoBehaviour
     private int randomInt = 0;
     private Vector3 initialPosition;
 
-    void Start()
-    {
-        // 초기 위치 저장
-        initialPosition = transform.localPosition;
-    }
-
     private void OnEnable()
     {
         randomInt = Random.Range(0, 100);
+        initialPosition = transform.localPosition;
     }
 
     void Update()
