@@ -8,7 +8,7 @@ public class SecretGridServerSettings : ScriptableObject
     [SerializeField]
     private string serverAddr;
     
-    public string ServerAddr => serverAddr.Trim();
+    public string ServerAddr => serverAddr?.Trim() ?? "";
     
 #if UNITY_EDITOR
     [Button("테스트 서버와 실서버 주소 토글")]

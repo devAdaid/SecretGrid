@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/hex"
+	"fmt"
 	"log"
 	"net/http"
 )
@@ -19,7 +20,7 @@ func handleClientSessionProof(writer http.ResponseWriter, request *http.Request)
 		return
 	}
 
-	server := srpServerMap[userId]
+	server := serverSessionMap[userId]
 	if server == nil {
 		log.Println("Couldn't set up server")
 		writer.WriteHeader(500)
@@ -32,11 +33,19 @@ func handleClientSessionProof(writer http.ResponseWriter, request *http.Request)
 		return
 	}
 
-	srpM2, err := server.CheckM1(clientSessionProofBytes)
-	if err != nil {
-		writer.WriteHeader(401)
+	// 서버가 클라이언트 증명 검증
+	if !server.VerifyClient(clientSessionProofBytes, server.A) {
+		fmt.Println("서버: 클라이언트 증명 검증 실패")
+		fmt.Println("A", toHexInt(server.A))
 		return
 	}
 
-	_, _ = writer.Write([]byte(hex.EncodeToString(srpM2)))
+	// 서버 증명 생성
+	serverM2 := server.ComputeServerProof(clientSessionProofBytes, server.A)
+
+
+	fmt.Println("sharedK", hex.EncodeToString(server.sharedK))
+
+
+	_, _ = writer.Write([]byte(hex.EncodeToString(serverM2)))
 }
