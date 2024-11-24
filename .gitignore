@@ -74,3 +74,4 @@ crashlytics-build.properties
 /.idea
 /Assets/Resources/Server/SecretGridServerSettings.asset
 /Assets/Resources/Server/SecretGridServerSettings.asset.meta
+/.serveraddress
