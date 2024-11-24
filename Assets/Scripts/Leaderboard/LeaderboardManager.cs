@@ -5,32 +5,64 @@ using System.Collections;
 using TMPro;
 using NUnit.Framework;
 using System.Collections.Generic;
+using static SecretGridServer;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 
 public class LeaderboardManager : MonoBehaviour
-{   
-
+{
+    //서버 관련 변수
+    public SecretGridServer secretGridServer = null;
+    public string[] leaderboardResult;
+    public TextMeshProUGUI serverLogText;
+    List<(int, string, string, string)> entriesArray = new List<(int, string, string, string)>();
+    //점수 불러오기 관련 변수
     public GameObject RankPrefab;
     public GameObject ScollViewContent;
-
-    public int userCount = 20;
-    public string Myuserkey = "Nick";
-
+    public int userCount = 0;
+    public string Myuserkey = "";
     int Testcount = 0;
-
     public GameObject targetItem;  // 스크롤할 대상 항목
+    public GameObject EndItem;
     public ScrollRect scrollRect;
-    private int UserCount
+    public static LeaderboardManager Instance = null;
+
+    private void Awake()
     {
-        get { return userCount; }
-        //set { userCount =  Count; } => 서버로 부터 받아오는 인원수
+        Instance = this;
+
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private IEnumerator Start()
     {
+        secretGridServer.SetServerLogText(serverLogText);
+        yield return secretGridServer.GetLeaderboardResultCoro("teststage");
+        userCount = secretGridServer.CachedLeaderboardResult.Entries.Count;
+        Myuserkey = PlayerPrefs.GetString("UserId");
+        secretGridServer.SetServerLogText(serverLogText);
+
+        // 줄바꿈을 기준으로 문자열을 나누기
+        string[] lines = serverLogText.text.Split(new[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
+
+        // 각 줄을 처리하여 Dictionary에 저장
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string[] entryParts = lines[i].Split(',');
+
+            // 각 항목을 배열에 저장
+            if (entryParts.Length == 4)
+            {
+                string userId = entryParts[1].Trim();        // 두 번째 항목 (UserId)
+                string score = entryParts[2].Trim(); // 세 번째 항목 (Score)
+                string nickname = entryParts[3].Trim();      // 네 번째 항목 (Nickname)
+
+                // 배열에 저장 (인덱스는 i로 설정)
+                entriesArray.Add((int.Parse(entryParts[0].Trim()), userId, score, nickname));
+            }
+        }
+
         RefreshRankInfo();
-    }
 
+    }
 
     public void RefreshRankInfo()
     {
@@ -38,61 +70,47 @@ public class LeaderboardManager : MonoBehaviour
         for(int i=0; i< userCount; i++)
         {
             GameObject myInstance = Instantiate(RankPrefab, ScollViewContent.transform);
-            //myInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Rank.ToString(); => 서버로 부터 받아오는 랭킹
-            //myInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = Nick; => 서버로 부터 받아오는 닉네임
-            //myInstance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = Score.ToString(); => => 서버로 부터 받아오는 점수
+            myInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = entriesArray[i].Item1.ToString();
+            myInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = entriesArray[i].Item4;
+            myInstance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = entriesArray[i].Item3;
+
             Testcount++;
-            myInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Testcount.ToString();
-            if (Testcount == 10)
-            {
-                myInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Nick";
-            }
-            if (Myuserkey == myInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text)
+            if (i == secretGridServer.CachedLeaderboardResult.MyRank)
             {
                 myInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255); // 나의 정보는 빨간색 표시
                 myInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
                 myInstance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
                 targetItem = myInstance;
             }
+            if (Testcount == userCount)
+            {
+                EndItem = myInstance;
+                StartCoroutine(RefreshMyInfo());
+            }
         }
-
-        RefreshMyInfo();
     }
-    public void RefreshMyInfo()
+    public IEnumerator RefreshMyInfo()
     {
-        if(targetItem != null && scrollRect != null)
-        {
-            // 대상 항목의 RectTransform을 가져옵니다
-            RectTransform targetRectTransform = targetItem.GetComponent<RectTransform>();
+        yield return EndItem;
 
-            // ScrollView 내에서 대상 항목의 위치를 계산합니다
-            Vector3[] worldCorners = new Vector3[4];
-            targetRectTransform.GetWorldCorners(worldCorners);
+        if (targetItem != null && scrollRect != null && EndItem!=null)
+        {   
+            if(targetItem.GetComponent<RectTransform>().transform.localPosition.y == -50 || targetItem.GetComponent<RectTransform>().transform.localPosition.y == -150)
+            {
+                scrollRect.verticalNormalizedPosition = 1;
+            }
+            else if (targetItem.GetComponent<RectTransform>().transform.localPosition.y - EndItem.GetComponent<RectTransform>().transform.localPosition.y > 500)
+            {
+                float targetNormalizedPosition = targetItem.GetComponent<RectTransform>().transform.localPosition.y + 220 - EndItem.GetComponent<RectTransform>().transform.localPosition.y;
+                targetNormalizedPosition /= EndItem.GetComponent<RectTransform>().transform.localPosition.y;
 
-            // ScrollView의 월드 위치를 가져옵니다
-            RectTransform scrollRectTransform = scrollRect.GetComponent<RectTransform>();
-            Vector3[] scrollCorners = new Vector3[4];
-            scrollRectTransform.GetWorldCorners(scrollCorners);
-
-            // ScrollView의 영역 내에서 항목의 상대적인 위치 계산
-            float itemPositionY = worldCorners[0].y - scrollCorners[0].y;
-            float scrollHeight = scrollRectTransform.rect.height;
-
-            // 항목의 높이를 계산합니다 (Y 좌표 차이를 사용)
-            float itemHeight = worldCorners[2].y - worldCorners[0].y;
-
-            // 스크롤 위치를 설정 (0 - 1 사이로)
-            float targetNormalizedPosition = itemPositionY / scrollHeight;
-
-            // 한 항목 아래로 스크롤 이동
-            float newNormalizedPosition = targetNormalizedPosition - (itemHeight / scrollHeight);
-
-            Debug.Log(newNormalizedPosition);
-            // 유효한 범위로 제한 (0 ~ 1 사이)
-            newNormalizedPosition = Mathf.Clamp01(newNormalizedPosition);
-
-            // 스크롤을 한 항목 아래로 이동
-            scrollRect.verticalNormalizedPosition = 1 - newNormalizedPosition;
+                // 스크롤을 맨 위로 위치시키기 위해, targetNormalizedPosition을 사용
+                scrollRect.verticalNormalizedPosition = 1 + targetNormalizedPosition;
+            }
+            else if (targetItem.GetComponent<RectTransform>().transform.localPosition.y - EndItem.GetComponent<RectTransform>().transform.localPosition.y <= 500)
+            {
+                scrollRect.verticalNormalizedPosition =0;
+            }
         }
     }
 }

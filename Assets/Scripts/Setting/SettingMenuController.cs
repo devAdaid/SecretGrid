@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -28,12 +26,12 @@ public class SettingMenuController : MonoBehaviour
 
     private void OnBGMVolumeChanged(ChangeEvent<float> evt)
     {
-        AudioManager.instance.SetBGMVolume(evt.newValue);
+        AudioManager.I.SetBGMVolume(evt.newValue);
     }
 
     private void OnSFXVolumeChanged(ChangeEvent<float> evt)
     {
-        AudioManager.instance.SetSFXVolume(evt.newValue);
+        AudioManager.I.SetSFXVolume(evt.newValue);
     }
 
     private void OnSaveButtonClicked()
