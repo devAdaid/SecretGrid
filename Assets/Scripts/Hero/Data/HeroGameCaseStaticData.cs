@@ -12,6 +12,7 @@ public class HeroGameCaseStaticData
     {
         Id = id;
         Title = title;
+        Description = description;
         SelectionDataList = selectionDataList;
     }
 }

@@ -2,25 +2,30 @@ using UnityEngine;
 
 public class PanelShake : MonoBehaviour
 {
-    public int index;
     public float shakeAmount = 1f;
     public float shakeSpeed = 1f;
 
+    private int randomInt = 0;
     private Vector3 initialPosition;
 
     void Start()
     {
-        // ÃÊ±â À§Ä¡ ÀúÀå
+        // ì´ˆê¸° ìœ„ì¹˜ ì €ì¥
         initialPosition = transform.localPosition;
+    }
+
+    private void OnEnable()
+    {
+        randomInt = Random.Range(0, 100);
     }
 
     void Update()
     {
-        // Perlin Noise¿¡ index¸¦ Ãß°¡ÇØ ¼­·Î ´Ù¸¥ Èçµé¸² »ı¼º
-        float offsetX = (Mathf.PerlinNoise(Time.time * shakeSpeed, index) - 0.5f) * shakeAmount;
-        float offsetY = (Mathf.PerlinNoise(index, Time.time * shakeSpeed) - 0.5f) * shakeAmount;
+        // Perlin Noiseì— indexë¥¼ ì¶”ê°€í•´ ì„œë¡œ ë‹¤ë¥¸ í”ë“¤ë¦¼ ìƒì„±
+        float offsetX = (Mathf.PerlinNoise(Time.time * shakeSpeed, randomInt) - 0.5f) * shakeAmount;
+        float offsetY = (Mathf.PerlinNoise(randomInt, Time.time * shakeSpeed) - 0.5f) * shakeAmount;
 
-        // Èçµé¸² Àû¿ë
+        // í”ë“¤ë¦¼ ì ìš©
         transform.localPosition = initialPosition + new Vector3(offsetX, offsetY, 0);
     }
 }
