@@ -1,12 +1,21 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public struct HeroGameCaseSelectionUIControlData
+public class HeroGameCaseSelectionUIControlData
 {
+    public int CaseIndex { get; private set; }
+    public int SelectionIndex { get; private set; }
+    public int SuccessPercent { get; private set; }
+    public HeroGameCaseSelectionStaticData SelectionStaticData { get; private set; }
 
+    public HeroGameCaseSelectionUIControlData(int caseIndex, int selectionIndex, int successPercent, HeroGameCaseSelectionStaticData selectionStaticData)
+    {
+        CaseIndex = caseIndex;
+        SelectionIndex = selectionIndex;
+        SuccessPercent = successPercent;
+        SelectionStaticData = selectionStaticData;
+    }
 }
-
 
 public class HeroGameCaseSelectionUIControl : MonoBehaviour
 {
@@ -14,8 +23,15 @@ public class HeroGameCaseSelectionUIControl : MonoBehaviour
     private TMP_Text descriptionText;
 
     [SerializeField]
-    private Button confirmButton;
+    private HeroGameCaseSelectionConfirmButtonUIControl confirmButton;
 
-    [SerializeField]
-    private TMP_Text confirmButtonText;
+    private HeroGameCaseSelectionUIControlData data;
+
+    public void Apply(HeroGameCaseSelectionUIControlData data)
+    {
+        this.data = data;
+
+        descriptionText.text = data.SelectionStaticData.Description;
+        confirmButton.Apply(data);
+    }
 }

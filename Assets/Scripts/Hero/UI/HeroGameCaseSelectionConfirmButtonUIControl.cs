@@ -4,15 +4,34 @@ using UnityEngine.EventSystems;
 public class HeroGameCaseSelectionConfirmButtonUIControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
-    private HintControl hintControl;
+    private HeroGameButtonBase button;
+
+    private HeroGameCaseSelectionUIControlData data;
+
+    private void Awake()
+    {
+        button.AddOnClickListener(OnClick);
+    }
+
+    public void Apply(HeroGameCaseSelectionUIControlData data)
+    {
+        this.data = data;
+
+        button.SetButtonText($"Success\n{data.SuccessPercent}%");
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        hintControl.gameObject.SetActive(true);
+        HeroGameTooltipUI.I.Show(new Vector2(-50, 50), "Temp");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        hintControl.gameObject.SetActive(false);
+        HeroGameTooltipUI.I.Hide();
+    }
+
+    private void OnClick()
+    {
+        HeroGameContextHolder.I.SelectCaseSelection(data.CaseIndex, data.SelectionIndex);
     }
 }

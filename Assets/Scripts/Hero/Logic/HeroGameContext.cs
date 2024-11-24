@@ -32,7 +32,7 @@ public class HeroGameContext
 
     public void SelectAndProcess(int caseIndex, int selectIndex)
     {
-        // TODO: ÀÎµ¦½º °ËÁõ
+        // TODO: ì¸ë±ìŠ¤ ê²€ì¦
         var caseData = CurrentCases[caseIndex];
         var selectData = caseData.StaticData.SelectionDataList[selectIndex];
         var successPercent = Player.GetSuccessPercent(selectData.StatRequirement);
@@ -41,15 +41,15 @@ public class HeroGameContext
         var randomValue = random.Next(100);
         if (randomValue < successPercent)
         {
-            // »ç°Ç ¼º°ø
+            // ì‚¬ê±´ ì„±ê³µ
             Player.AddStatReward(selectData.StatReward);
         }
         else
         {
-            // »ç°Ç ½ÇÆĞ
+            // ì‚¬ê±´ ì‹¤íŒ¨
         }
 
-        // ´ÙÀ½ »ç°ÇµéÀ» ±¸¼ºÇÑ´Ù.
+        // ë‹¤ìŒ ì‚¬ê±´ë“¤ì„ êµ¬ì„±í•œë‹¤.
         PickCases();
     }
 
@@ -57,7 +57,7 @@ public class HeroGameContext
     {
         CurrentCases.Clear();
 
-        // TODO: ·£´ıÀ¸·Î »ç°ÇÀ» ¼±ÅÃÇÑ´Ù.
+        // TODO: ëœë¤ìœ¼ë¡œ ì‚¬ê±´ì„ ì„ íƒí•œë‹¤.
         casePool.Shuffle();
 
         for (var i = 0; i < 2; i++)
@@ -70,16 +70,16 @@ public class HeroGameContext
     private static HeroGameCaseStaticData TempBuildCaseStaticData1()
     {
         return new HeroGameCaseStaticData(
-            "Case1", "Á¦¸ñ1", "¼³¸í1",
+            "Case1", "ì œëª©1", "ì„¤ëª…1",
             new List<HeroGameCaseSelectionStaticData>()
             {
                 new HeroGameCaseSelectionStaticData(
-                    "¼±ÅÃÁö1",
+                    "ì„ íƒì§€1",
                     new HeroGameCaseStatRequirement(0, 0, 20),
                     new HeroGameCaseStatReward(0, 0, 15)
                 ),
                 new HeroGameCaseSelectionStaticData(
-                    "¼±ÅÃÁö2",
+                    "ì„ íƒì§€2",
                     new HeroGameCaseStatRequirement(10, 5, 0),
                     new HeroGameCaseStatReward(5,5,0)
                 ),
@@ -90,16 +90,16 @@ public class HeroGameContext
     private static HeroGameCaseStaticData TempBuildCaseStaticData2()
     {
         return new HeroGameCaseStaticData(
-            "Case2", "Á¦¸ñ2", "¼³¸í2",
+            "Case2", "ì œëª©2", "ì„¤ëª…2",
             new List<HeroGameCaseSelectionStaticData>()
             {
                 new HeroGameCaseSelectionStaticData(
-                    "¼±ÅÃÁö1",
+                    "ì„ íƒì§€1",
                     new HeroGameCaseStatRequirement(5, 5, 5),
                     new HeroGameCaseStatReward(3, 3, 3)
                 ),
                 new HeroGameCaseSelectionStaticData(
-                    "¼±ÅÃÁö2",
+                    "ì„ íƒì§€2",
                     new HeroGameCaseStatRequirement(0, 10, 0),
                     new HeroGameCaseStatReward(15, 0, 0)
                 ),
@@ -110,16 +110,16 @@ public class HeroGameContext
     private static HeroGameCaseStaticData TempBuildCaseStaticData3()
     {
         return new HeroGameCaseStaticData(
-            "Case3", "Á¦¸ñ3", "¼³¸í3",
+            "Case3", "ì œëª©3", "ì„¤ëª…3",
             new List<HeroGameCaseSelectionStaticData>()
             {
                 new HeroGameCaseSelectionStaticData(
-                    "¼±ÅÃÁö1",
+                    "ì„ íƒì§€1",
                     new HeroGameCaseStatRequirement(10, 0, 0),
                     new HeroGameCaseStatReward(20, 0, 0)
                 ),
                 new HeroGameCaseSelectionStaticData(
-                    "¼±ÅÃÁö2",
+                    "ì„ íƒì§€2",
                     new HeroGameCaseStatRequirement(0, 0, 40),
                     new HeroGameCaseStatReward(0, 0, 100)
                 ),
