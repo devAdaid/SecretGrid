@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using SecureRemotePassword;
 using TMPro;
@@ -13,6 +14,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     [SerializeField]
     private string serverAddr;
 
+    [SerializeField]
     private TextMeshProUGUI serverLogText;
 
     private string srpSalt;
@@ -49,7 +51,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
 
         // SRP 프로토콜 시작
-        var client = new SrpClient();
+        var client = new SrpClient(SrpParameters.Create4096<SHA256>());
         srpSalt = PlayerPrefs.GetString("SrpSalt");
         if (srpSalt.Length == 0)
         {
@@ -67,11 +69,66 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         var privateKey = client.DerivePrivateKey(srpSalt, userId, password);
         var verifier = client.DeriveVerifier(privateKey);
         
+        Debug.Log($"User ID: {userId}");
+        Debug.Log($"Password: {password}");
         Debug.Log($"Verifier: {verifier}");
-
+        
         PlayerPrefs.Save();
         
+        // 신규 가입 신청 매번 한다. 서버에 이미 있는 계정이면 401 반환된다.
         yield return RequestEnrollment(verifier);
+
+        //
+        // 로그인 시작
+        //
+        yield return RequestLogin(client);
+    }
+
+    private IEnumerator RequestLogin(SrpClient client)
+    {
+        var clientEphemeral = client.GenerateEphemeral();
+        
+        var formData = new List<IMultipartFormSection>();
+        using var www = UnityWebRequest.Post($"{serverAddr}/login", formData);
+        www.SetRequestHeader("X-User-Id", userId);
+        www.SetRequestHeader("X-Public", clientEphemeral.Public);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            var tokens = www.downloadHandler.text.Split("\t");
+            var salt = tokens[0];
+            var serverPublic = tokens[1];
+            
+            Debug.Log($"User ID: {userId}");
+            Debug.Log($"User Password: {password}");
+            Debug.Log($"Salt: {salt}");
+            Debug.Log($"Server Public: {serverPublic}");
+            
+            var privateKey = client.DerivePrivateKey(salt, userId, password);
+            var clientSession = client.DeriveSession(clientEphemeral.Secret, serverPublic, salt, userId, privateKey);
+            
+            yield return SendClientSessionProof(clientSession.Proof);
+        }
+
+        if (serverLogText)
+        {
+            serverLogText.text += "\n" + (www.result == UnityWebRequest.Result.Success ? www.downloadHandler.text : www.error);
+        }
+    }
+
+    private IEnumerator SendClientSessionProof(string clientSessionProof)
+    {
+        var formData = new List<IMultipartFormSection>();
+        using var www = UnityWebRequest.Post($"{serverAddr}/clientSessionProof", formData);
+        www.SetRequestHeader("X-User-Id", userId);
+        www.SetRequestHeader("X-Client-Session-Proof", clientSessionProof);
+        yield return www.SendWebRequest();
+        
+        if (serverLogText)
+        {
+            serverLogText.text += "\n" + (www.result == UnityWebRequest.Result.Success ? www.downloadHandler.text : www.error);
+        }
     }
 
     public void SetServerAddr(string text)
@@ -119,7 +176,10 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         www.SetRequestHeader("X-Verifier", verifier);
         yield return www.SendWebRequest();
 
-        serverLogText.text = www.result == UnityWebRequest.Result.Success ? www.downloadHandler.text : www.error;
+        if (serverLogText)
+        {
+            serverLogText.text = www.result == UnityWebRequest.Result.Success ? www.downloadHandler.text : www.error;
+        }
     }
 
     public IEnumerator SubmitScoreCoro(string stageId, int score)
@@ -202,5 +262,11 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     public void SetNickname(string inNickname)
     {
         nickname = inNickname;
+    }
+
+    [Button("Test Button")]
+    private void TestButton()
+    {
+        Debug.Log("Test Button clicked!");
     }
 }

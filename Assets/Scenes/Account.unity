@@ -4084,6 +4084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverAddr: 
+  serverLogText: {fileID: 1207081958}
 --- !u!4 &1919568931
 Transform:
   m_ObjectHideFlags: 0
