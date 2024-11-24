@@ -40,33 +40,33 @@ public class Temp_HeroGameCaseUI : MonoBehaviour
 
     private void ApplyUI()
     {
-        statText.text = $"ÇöÀç ½ºÅÈ: " +
-                    $"Èû {HeroGameContextHolder.I.GameContext.Player.Strength} " +
-                    $"¹ÎÃ¸ {HeroGameContextHolder.I.GameContext.Player.Agility} " +
-                    $"Áö´É {HeroGameContextHolder.I.GameContext.Player.Intelligence}";
+        statText.text = $"í˜„ìž¬ ìŠ¤íƒ¯: " +
+                    $"íž˜ {HeroGameContextHolder.I.GameContext.Player.Strength} " +
+                    $"ë¯¼ì²© {HeroGameContextHolder.I.GameContext.Player.Agility} " +
+                    $"ì§€ëŠ¥ {HeroGameContextHolder.I.GameContext.Player.Intelligence}";
 
         caseText.text = string.Empty;
         foreach (var heroCase in HeroGameContextHolder.I.GameContext.CurrentCases)
         {
-            caseText.text += $"{heroCase.StaticData.Title}: {heroCase.StaticData.Description}";
+            caseText.text += $"{heroCase.StaticData.Title_En}: {heroCase.StaticData.Description_En}";
             caseText.text += System.Environment.NewLine;
 
             for (var selectIndex = 0; selectIndex < heroCase.StaticData.SelectionDataList.Count; selectIndex++)
             {
-                var selectData = heroCase.StaticData.SelectionDataList[selectIndex];
-                caseText.text += $"{selectData.Description}";
+                var selectData = heroCase.Selections[selectIndex];
+                caseText.text += $"{selectData.StaticData.Description_En}";
                 caseText.text += System.Environment.NewLine;
-                caseText.text += $"  - Á¶°Ç: " +
-                    $"Èû {selectData.StatRequirement.Strength} " +
-                    $"¹ÎÃ¸ {selectData.StatRequirement.Agility} " +
-                    $"Áö´É {selectData.StatRequirement.Intelligence}";
+                caseText.text += $"  - ì¡°ê±´: " +
+                    $"íž˜ {selectData.StatRequirement.Strength} " +
+                    $"ë¯¼ì²© {selectData.StatRequirement.Agility} " +
+                    $"ì§€ëŠ¥ {selectData.StatRequirement.Intelligence}";
                 caseText.text += System.Environment.NewLine;
-                caseText.text += $"  - º¸»ó: " +
-                    $"Èû {selectData.StatReward.Strength} " +
-                    $"¹ÎÃ¸ {selectData.StatReward.Agility} " +
-                    $"Áö´É {selectData.StatReward.Intelligence}";
+                caseText.text += $"  - ë³´ìƒ: " +
+                    $"íž˜ {selectData.StatReward.Strength} " +
+                    $"ë¯¼ì²© {selectData.StatReward.Agility} " +
+                    $"ì§€ëŠ¥ {selectData.StatReward.Intelligence}";
                 caseText.text += System.Environment.NewLine;
-                caseText.text += $"  - ¼º°ø È®·ü: 100%";
+                caseText.text += $"  - ì„±ê³µ í™•ë¥ : 100%";
                 caseText.text += System.Environment.NewLine;
             }
 

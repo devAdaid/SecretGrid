@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
+  m_Name: Case_Mountain
+  m_EditorClassIdentifier: 
+  Sprite: {fileID: 21300000, guid: 8b8e90aad3850474aa9353c13574ecde, type: 3}
+  Title_Ko: "\uC870\uB09C\uC790 \uAD6C\uC870"
+  Title_En: "\uC870\uB09C\uC790 \uAD6C\uC870"
+  Description_Ko: "\uD55C \uB4F1\uC0B0\uAC1D\uC774 \uC0B0\uC5D0\uC11C \uC870\uB09C\uB2F9\uD588\uB2E4."
+  Description_En: "\uD55C \uB4F1\uC0B0\uAC1D\uC774 \uC0B0\uC5D0\uC11C \uC870\uB09C\uB2F9\uD588\uB2E4."
+  Selections:
+  - Description_Ko: "\uC870\uB09C\uC790\uAC00 \uC0B0\uC744 \uBC97\uC5B4\uB098\uB3C4\uB85D
+      \uC720\uB3C4\uD55C\uB2E4."
+    Description_En: "\uC870\uB09C\uC790\uAC00 \uC0B0\uC744 \uBC97\uC5B4\uB098\uB3C4\uB85D
+      \uC720\uB3C4\uD55C\uB2E4."
+    MainRewardStatType: 1
+    MainRequirementStatType: 2
+  - Description_Ko: "\uC9C1\uC811 \uB4F1\uC0B0\uB85C\uB97C \uB530\uB77C\uAC00 \uC870\uB09C\uC790\uB97C
+      \uCC3E\uB294\uB2E4."
+    Description_En: "\uC9C1\uC811 \uB4F1\uC0B0\uB85C\uB97C \uB530\uB77C\uAC00 \uC870\uB09C\uC790\uB97C
+      \uCC3E\uB294\uB2E4."
+    MainRewardStatType: 2
+    MainRequirementStatType: 0

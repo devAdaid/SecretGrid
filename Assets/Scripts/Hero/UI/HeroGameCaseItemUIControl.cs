@@ -24,7 +24,8 @@ public class HeroGameCaseItemUIControl : MonoBehaviour
     {
         this.data = data;
 
-        titleText.text = data.CaseStaticData.Title;
+        image.sprite = data.CaseStaticData.Sprite;
+        titleText.text = data.CaseStaticData.Title_En;
     }
 
     private void OnClick()

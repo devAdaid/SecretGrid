@@ -17,10 +17,10 @@ public static class HeroGameUIDataBuilder
     private static HeroGameCaseDetailUIControlData BuildCaseDetail(HeroGameCase caseContext, HeroPlayerContext playerContext)
     {
         var selections = new List<HeroGameCaseSelectionUIControlData>();
-        for (var i = 0; i < caseContext.StaticData.SelectionDataList.Count; i++)
+        for (var i = 0; i < caseContext.Selections.Count; i++)
         {
-            var selectionData = caseContext.StaticData.SelectionDataList[i];
-            selections.Add(BuildSelection(caseContext.CaseIndex, i, selectionData, playerContext));
+            var selection = caseContext.Selections[i];
+            selections.Add(BuildSelection(selection, playerContext));
         }
 
         return new HeroGameCaseDetailUIControlData(
@@ -31,16 +31,12 @@ public static class HeroGameUIDataBuilder
     }
 
     private static HeroGameCaseSelectionUIControlData BuildSelection(
-        int caseIndex,
-        int selectionIndex,
-        HeroGameCaseSelectionStaticData selectionData,
+        HeroGameCaseSelection selection,
         HeroPlayerContext playerContext)
     {
         return new HeroGameCaseSelectionUIControlData(
-            caseIndex,
-            selectionIndex,
-            playerContext.GetSuccessPercent(selectionData.StatRequirement),
-            selectionData
+            playerContext.GetSuccessPercent(selection.StatRequirement),
+            selection
         );
     }
 }

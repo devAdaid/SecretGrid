@@ -4,15 +4,45 @@ using System.Collections.Generic;
 [Serializable]
 public struct HeroGameCaseStatRequirement
 {
-    public int Strength { get; private set; }
-    public int Agility { get; private set; }
-    public int Intelligence { get; private set; }
+    public int Strength;
+    public int Agility;
+    public int Intelligence;
 
     public HeroGameCaseStatRequirement(int strength, int agility, int intelligence)
     {
         Strength = strength;
         Agility = agility;
         Intelligence = intelligence;
+    }
+
+    public static HeroGameCaseStatRequirement BuildRandom(int totalValue, HeroGameStatType mainStatType)
+    {
+        var values = GetRandomValues(totalValue);
+        switch (mainStatType)
+        {
+            case HeroGameStatType.Strength:
+                return new HeroGameCaseStatRequirement(values[0], values[1], values[2]);
+            case HeroGameStatType.Agility:
+                return new HeroGameCaseStatRequirement(values[2], values[0], values[1]);
+            case HeroGameStatType.Intelligence:
+                return new HeroGameCaseStatRequirement(values[2], values[1], values[0]);
+        }
+
+        return new HeroGameCaseStatRequirement(0, 0, 0);
+    }
+
+    private static int[] GetRandomValues(int totalValue)
+    {
+        Random random = new Random();
+
+        int firstValue = (int)(totalValue * (random.Next(60, 71) / 100.0));
+
+        int remainingValue = totalValue - firstValue;
+
+        int secondValue = random.Next(1, remainingValue);
+        int thirdValue = remainingValue - secondValue;
+
+        return new int[] { firstValue, secondValue, thirdValue };
     }
 
     public string ToCompareString(HeroPlayerContext playerContext)

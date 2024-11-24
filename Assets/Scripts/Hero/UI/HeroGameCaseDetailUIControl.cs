@@ -23,6 +23,15 @@ public class HeroGameCaseDetailUIControl : MonoBehaviour
     private Button backButton;
 
     [SerializeField]
+    private Button leftButton;
+
+    [SerializeField]
+    private Button rightButton;
+
+    [SerializeField]
+    private Image caseImage;
+
+    [SerializeField]
     private TMP_Text titleText;
 
     [SerializeField]
@@ -36,17 +45,24 @@ public class HeroGameCaseDetailUIControl : MonoBehaviour
 
     public int CaseIndex { get; private set; }
 
+    private HeroGameCaseDetailUIControlData data;
+
     private void Awake()
     {
         backButton.onClick.AddListener(OnBackButtonClicked);
+        leftButton.onClick.AddListener(OnLeftButtonClicked);
+        rightButton.onClick.AddListener(OnRightButtonClicked);
     }
 
     public void Apply(HeroGameCaseDetailUIControlData data)
     {
+        this.data = data;
+
         CaseIndex = data.CaseIndex;
 
-        titleText.text = data.CaseStaticData.Title;
-        descriptionText.text = data.CaseStaticData.Description;
+        caseImage.sprite = data.CaseStaticData.Sprite;
+        titleText.text = data.CaseStaticData.Title_En;
+        descriptionText.text = data.CaseStaticData.Description_En;
 
         for (var i = 0; i < data.SelectionDataList.Count; i++)
         {
@@ -63,5 +79,27 @@ public class HeroGameCaseDetailUIControl : MonoBehaviour
     public void OnBackButtonClicked()
     {
         HeroGameUI.I.ActiveCaseListUI();
+    }
+
+    public void OnLeftButtonClicked()
+    {
+        var caseIndex = CaseIndex - 1;
+        if (caseIndex < 0)
+        {
+            caseIndex = HeroGameContextHolder.I.GameContext.CurrentCases.Count - 1;
+        }
+
+        HeroGameUI.I.ActiveCaseDetailUI(caseIndex);
+    }
+
+    public void OnRightButtonClicked()
+    {
+        var caseIndex = CaseIndex + 1;
+        if (caseIndex >= HeroGameContextHolder.I.GameContext.CurrentCases.Count)
+        {
+            caseIndex = 0;
+        }
+
+        HeroGameUI.I.ActiveCaseDetailUI(caseIndex);
     }
 }

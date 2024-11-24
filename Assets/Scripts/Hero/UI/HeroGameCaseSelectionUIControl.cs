@@ -3,17 +3,13 @@ using UnityEngine;
 
 public class HeroGameCaseSelectionUIControlData
 {
-    public int CaseIndex { get; private set; }
-    public int SelectionIndex { get; private set; }
     public int SuccessPercent { get; private set; }
-    public HeroGameCaseSelectionStaticData SelectionStaticData { get; private set; }
+    public HeroGameCaseSelection Selection { get; private set; }
 
-    public HeroGameCaseSelectionUIControlData(int caseIndex, int selectionIndex, int successPercent, HeroGameCaseSelectionStaticData selectionStaticData)
+    public HeroGameCaseSelectionUIControlData(int successPercent, HeroGameCaseSelection selection)
     {
-        CaseIndex = caseIndex;
-        SelectionIndex = selectionIndex;
         SuccessPercent = successPercent;
-        SelectionStaticData = selectionStaticData;
+        Selection = selection;
     }
 }
 
@@ -34,8 +30,8 @@ public class HeroGameCaseSelectionUIControl : MonoBehaviour
     {
         this.data = data;
 
-        descriptionText.text = data.SelectionStaticData.Description;
-        rewardText.text = data.SelectionStaticData.StatReward.ToUIString();
+        descriptionText.text = data.Selection.StaticData.Description_En;
+        rewardText.text = data.Selection.StatReward.ToUIString();
 
         confirmButton.Apply(data);
     }

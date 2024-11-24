@@ -405,7 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0324ece79f18bf84ba32a20092dfa782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 1589785159097077786}
+  image: {fileID: 7772356848926371381}
   titleText: {fileID: 2895224728168641685}
   button: {fileID: 3324375548642403272}
 --- !u!1001 &3739634744970347135

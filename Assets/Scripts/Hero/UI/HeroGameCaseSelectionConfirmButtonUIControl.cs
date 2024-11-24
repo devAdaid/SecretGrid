@@ -29,7 +29,7 @@ public class HeroGameCaseSelectionConfirmButtonUIControl : MonoBehaviour, IPoint
     public void OnPointerEnter(PointerEventData eventData)
     {
         HeroGameTooltipUI.I.Show(
-            data.SelectionStaticData.StatRequirement.ToCompareString(HeroGameContextHolder.I.GameContext.Player),
+            data.Selection.StatRequirement.ToCompareString(HeroGameContextHolder.I.GameContext.Player),
             tooltipOffset,
             tooltipWidth
         );
@@ -42,7 +42,7 @@ public class HeroGameCaseSelectionConfirmButtonUIControl : MonoBehaviour, IPoint
 
     private void OnClick()
     {
-        HeroGameContextHolder.I.SelectCaseSelection(data.CaseIndex, data.SelectionIndex);
+        HeroGameContextHolder.I.SelectCaseSelection(data.Selection.CaseIndex, data.Selection.SelectionIndex);
         HeroGameTooltipUI.I.Hide();
     }
 }
