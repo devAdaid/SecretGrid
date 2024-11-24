@@ -19,6 +19,8 @@ var rdb = redis.NewClient(&redis.Options{
 var ctx = context.Background()
 
 func main() {
+	testSrp()
+
 	m := http.NewServeMux()
 
 	m.HandleFunc("/score", handleScore)
