@@ -25,10 +25,41 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
     private IEnumerator Start()
     {
+        Init();
+
+        // SRP 프로토콜 시작
+        var client = new SrpClient(SrpParameters.Create4096<SHA256>());
+        srpSalt = PlayerPrefs.GetString("SrpSalt");
+        if (srpSalt.Length == 0)
+        {
+            srpSalt = client.GenerateSalt();
+            PlayerPrefs.SetString("SrpSalt", srpSalt);
+        }
+        PlayerPrefs.Save();
+        
+        var privateKey = client.DerivePrivateKey(srpSalt, userId, password);
+        var verifier = client.DeriveVerifier(privateKey);
+        
+        Debug.Log($"User ID: {userId}");
+        Debug.Log($"Password: {password}");
+        Debug.Log($"Verifier: {verifier}");
+        
+        
+        // 신규 가입 신청 매번 한다. 서버에 이미 있는 계정이면 401 반환된다.
+        yield return RequestEnrollment(verifier);
+
+        //
+        // 로그인 시작
+        //
+        yield return RequestLogin(client);
+    }
+
+    private void Init()
+    {
         var serverSettings = Resources.LoadAll<SecretGridServerSettings>("Server/SecretGridServerSettings").SingleOrDefault();
         if (serverSettings != null)
         {
-            serverAddr = serverSettings.ServerAddr;
+            serverAddr = serverSettings.ServerAddr.Trim();
         }
         else
         {
@@ -49,16 +80,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             userId = Guid.NewGuid().ToString();
             PlayerPrefs.SetString("UserId", userId);
         }
-
-        // SRP 프로토콜 시작
-        var client = new SrpClient(SrpParameters.Create4096<SHA256>());
-        srpSalt = PlayerPrefs.GetString("SrpSalt");
-        if (srpSalt.Length == 0)
-        {
-            srpSalt = client.GenerateSalt();
-            PlayerPrefs.SetString("SrpSalt", srpSalt);
-        }
-
+        
         password = PlayerPrefs.GetString("Password");
         if (password.Length == 0)
         {
@@ -66,22 +88,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             PlayerPrefs.SetString("Password", password);
         }
         
-        var privateKey = client.DerivePrivateKey(srpSalt, userId, password);
-        var verifier = client.DeriveVerifier(privateKey);
-        
-        Debug.Log($"User ID: {userId}");
-        Debug.Log($"Password: {password}");
-        Debug.Log($"Verifier: {verifier}");
-        
         PlayerPrefs.Save();
-        
-        // 신규 가입 신청 매번 한다. 서버에 이미 있는 계정이면 401 반환된다.
-        yield return RequestEnrollment(verifier);
-
-        //
-        // 로그인 시작
-        //
-        yield return RequestLogin(client);
     }
 
     private IEnumerator RequestLogin(SrpClient client)
@@ -194,7 +201,14 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         www.SetRequestHeader("X-User-Nickname", nicknameBase64);
         yield return www.SendWebRequest();
 
-        CachedLeaderboardResult = www.result == UnityWebRequest.Result.Success ? ParseResult(www.downloadHandler.text) : null;
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            CachedLeaderboardResult = ParseResult(www.downloadHandler.text);
+        }
+        else
+        {
+            Debug.LogError($"SubmitScoreCoro: Failed to parse result: {www.error} ({www.url})");
+        }
 
         if (serverLogText)
         {
@@ -204,6 +218,8 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
     public IEnumerator GetLeaderboardResultCoro(string stageId)
     {
+        Init();
+            
         yield return SubmitScoreCoro(stageId, -1);
     }
 
