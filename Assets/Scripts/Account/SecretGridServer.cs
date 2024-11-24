@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SecureRemotePassword;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,14 +12,16 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 {
     [SerializeField]
     private string serverAddr;
-    
+
     private TextMeshProUGUI serverLogText;
-    
+
+    private string srpSalt;
     private string userId;
+    private string password;
     private string nickname;
     public LeaderboardResult CachedLeaderboardResult { get; private set; }
 
-    private void Awake()
+    private IEnumerator Start()
     {
         var serverSettings = Resources.LoadAll<SecretGridServerSettings>("Server/SecretGridServerSettings").SingleOrDefault();
         if (serverSettings != null)
@@ -30,22 +33,45 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             // 이 메시지가 나왔다면 서버 관리자에게 파일을 어떻게 생성하면 되는지 안내를 받으면 됩니다!
             Debug.LogError($"Create SecretGridServerSettings asset in Assets/Resources/Server!");
         }
-        
+
         nickname = PlayerPrefs.GetString("Nickname");
         if (nickname.Length == 0)
         {
             nickname = NicknameGenerator.I.Generate();
             PlayerPrefs.SetString("Nickname", nickname);
         }
-        
+
         userId = PlayerPrefs.GetString("UserId");
         if (userId.Length == 0)
         {
             userId = Guid.NewGuid().ToString();
-            PlayerPrefs.SetString("UserId", userId);    
+            PlayerPrefs.SetString("UserId", userId);
+        }
+
+        // SRP 프로토콜 시작
+        var client = new SrpClient();
+        srpSalt = PlayerPrefs.GetString("SrpSalt");
+        if (srpSalt.Length == 0)
+        {
+            srpSalt = client.GenerateSalt();
+            PlayerPrefs.SetString("SrpSalt", srpSalt);
+        }
+
+        password = PlayerPrefs.GetString("Password");
+        if (password.Length == 0)
+        {
+            password = Guid.NewGuid().ToString();
+            PlayerPrefs.SetString("Password", password);
         }
         
+        var privateKey = client.DerivePrivateKey(srpSalt, userId, password);
+        var verifier = client.DeriveVerifier(privateKey);
+        
+        Debug.Log($"Verifier: {verifier}");
+
         PlayerPrefs.Save();
+        
+        yield return RequestEnrollment(verifier);
     }
 
     public void SetServerAddr(string text)
@@ -84,10 +110,22 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
     }
 
+    private IEnumerator RequestEnrollment(string verifier)
+    {
+        var formData = new List<IMultipartFormSection>();
+        using var www = UnityWebRequest.Post($"{serverAddr}/enroll", formData);
+        www.SetRequestHeader("X-User-Id", userId);
+        www.SetRequestHeader("X-Salt", srpSalt);
+        www.SetRequestHeader("X-Verifier", verifier);
+        yield return www.SendWebRequest();
+
+        serverLogText.text = www.result == UnityWebRequest.Result.Success ? www.downloadHandler.text : www.error;
+    }
+
     public IEnumerator SubmitScoreCoro(string stageId, int score)
     {
         var nicknameBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(nickname));
-        
+
         var formData = new List<IMultipartFormSection>();
         using var www = UnityWebRequest.Post($"{serverAddr}/score", formData);
         www.SetRequestHeader("X-User-Id", userId);
@@ -97,7 +135,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         yield return www.SendWebRequest();
 
         CachedLeaderboardResult = www.result == UnityWebRequest.Result.Success ? ParseResult(www.downloadHandler.text) : null;
-        
+
         if (serverLogText)
         {
             serverLogText.text = CachedLeaderboardResult != null ? CachedLeaderboardResult.ToString() : www.error;
@@ -115,7 +153,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             MyRank = -1,
             Entries = new List<LeaderboardEntry>(),
         };
-        
+
         var resultTokens = resultText.Split("\t");
         var tokenCounter = 0;
         if (resultTokens.Length > 0)
@@ -135,12 +173,12 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
                 Score = float.Parse(resultTokens[tokenCounter + 1]),
                 Nickname = resultTokens[tokenCounter + 2],
             };
-            
+
             if (leaderboardEntry.UserId == result.MyUserId)
             {
                 myRankIndex = result.Entries.Count;
             }
-            
+
             result.Entries.Add(leaderboardEntry);
 
             tokenCounter += 3;
