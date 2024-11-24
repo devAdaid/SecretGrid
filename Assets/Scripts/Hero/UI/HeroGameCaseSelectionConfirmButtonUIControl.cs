@@ -6,6 +6,12 @@ public class HeroGameCaseSelectionConfirmButtonUIControl : MonoBehaviour, IPoint
     [SerializeField]
     private HeroGameButtonBase button;
 
+    [SerializeField]
+    private Vector2 tooltipOffset = new Vector2(-50, 50);
+
+    [SerializeField]
+    private float tooltipWidth = 80f;
+
     private HeroGameCaseSelectionUIControlData data;
 
     private void Awake()
@@ -22,7 +28,11 @@ public class HeroGameCaseSelectionConfirmButtonUIControl : MonoBehaviour, IPoint
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        HeroGameTooltipUI.I.Show(new Vector2(-50, 50), "Temp");
+        HeroGameTooltipUI.I.Show(
+            data.SelectionStaticData.StatRequirement.ToCompareString(HeroGameContextHolder.I.GameContext.Player),
+            tooltipOffset,
+            tooltipWidth
+        );
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -33,5 +43,6 @@ public class HeroGameCaseSelectionConfirmButtonUIControl : MonoBehaviour, IPoint
     private void OnClick()
     {
         HeroGameContextHolder.I.SelectCaseSelection(data.CaseIndex, data.SelectionIndex);
+        HeroGameTooltipUI.I.Hide();
     }
 }

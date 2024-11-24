@@ -23,6 +23,9 @@ public class HeroGameCaseSelectionUIControl : MonoBehaviour
     private TMP_Text descriptionText;
 
     [SerializeField]
+    private TMP_Text rewardText;
+
+    [SerializeField]
     private HeroGameCaseSelectionConfirmButtonUIControl confirmButton;
 
     private HeroGameCaseSelectionUIControlData data;
@@ -32,6 +35,8 @@ public class HeroGameCaseSelectionUIControl : MonoBehaviour
         this.data = data;
 
         descriptionText.text = data.SelectionStaticData.Description;
+        rewardText.text = data.SelectionStaticData.StatReward.ToUIString();
+
         confirmButton.Apply(data);
     }
 }

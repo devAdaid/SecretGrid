@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeroGameTooltipUI : MonoSingleton<HeroGameTooltipUI>
 {
@@ -9,22 +10,24 @@ public class HeroGameTooltipUI : MonoSingleton<HeroGameTooltipUI>
     [SerializeField]
     private TMP_Text tooltipText;
 
+    [SerializeField]
+    private LayoutElement layoutElement;
+
     private Canvas canvas;
-    private RectTransform rectTransform;
 
     private Vector2 offset;
 
     private void Awake()
     {
         canvas = FindAnyObjectByType<Canvas>();
-        rectTransform = GetComponent<RectTransform>();
         tooltipRectTransform.gameObject.SetActive(false);
     }
 
-    public void Show(Vector2 tooltipOffset, string text)
+    public void Show(string text, Vector2 offset, float preferedWidth)
     {
         tooltipRectTransform.gameObject.SetActive(true);
-        offset = tooltipOffset;
+        this.offset = offset;
+        layoutElement.preferredWidth = preferedWidth;
         tooltipText.text = text;
         UpdatePosition();
     }
@@ -34,7 +37,6 @@ public class HeroGameTooltipUI : MonoSingleton<HeroGameTooltipUI>
         tooltipRectTransform.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdatePosition();

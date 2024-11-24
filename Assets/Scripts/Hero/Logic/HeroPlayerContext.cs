@@ -1,4 +1,6 @@
-﻿public class HeroPlayerContext
+using System;
+
+public class HeroPlayerContext
 {
     public int Strength { get; private set; }
     public int Agility { get; private set; }
@@ -24,7 +26,22 @@
 
     public int GetSuccessPercent(HeroGameCaseStatRequirement requirement)
     {
-        //TODO: 성공 확률을 계산한다
-        return 100;
+        var result = 100;
+        if (Strength < requirement.Strength)
+        {
+            result -= (100 - (Strength * 100 / requirement.Strength));
+        }
+        if (Agility < requirement.Agility)
+        {
+            result -= (100 - (Agility * 100 / requirement.Agility));
+        }
+        if (Intelligence < requirement.Intelligence)
+        {
+            result -= (100 - (Intelligence * 100 / requirement.Intelligence));
+        }
+
+        result = Math.Max(0, result);
+
+        return result;
     }
 }
