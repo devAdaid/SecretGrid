@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public struct HeroGameCaseStatRequirement
+public struct HeroGameCaseStatRequirement : IEquatable<HeroGameCaseStatRequirement>
 {
     public int Strength;
     public int Agility;
     public int Intelligence;
+
+    public static readonly HeroGameCaseStatRequirement None = new HeroGameCaseStatRequirement();
 
     public HeroGameCaseStatRequirement(int strength, int agility, int intelligence)
     {
@@ -35,11 +37,11 @@ public struct HeroGameCaseStatRequirement
     {
         Random random = new Random();
 
-        int firstValue = (int)(totalValue * (random.Next(60, 71) / 100.0));
+        int firstValue = (int)(totalValue * (random.Next(40, 60) / 100.0));
 
         int remainingValue = totalValue - firstValue;
 
-        int secondValue = random.Next(1, remainingValue);
+        int secondValue = remainingValue / 2;
         int thirdValue = remainingValue - secondValue;
 
         return new int[] { firstValue, secondValue, thirdValue };
@@ -74,4 +76,24 @@ public struct HeroGameCaseStatRequirement
         }
         return text;
     }
+
+    public bool Equals(HeroGameCaseStatRequirement other)
+    {
+        return Strength == other.Strength
+            && Agility == other.Agility
+            && Intelligence == other.Intelligence;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+
+    public static bool operator ==(HeroGameCaseStatRequirement lhs, HeroGameCaseStatRequirement rhs) => lhs.Equals(rhs);
+    public static bool operator !=(HeroGameCaseStatRequirement lhs, HeroGameCaseStatRequirement rhs) => !lhs.Equals(rhs);
 }

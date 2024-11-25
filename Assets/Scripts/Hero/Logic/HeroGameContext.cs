@@ -8,10 +8,10 @@ public class HeroGameContext
 
     public List<HeroGameCase> CurrentCases;
 
-    private List<HeroGameCaseStaticData> casePool;
+    private List<HeroGameCaseStaticData> chapterCasePool;
 
     // TODO: 챕터, 턴마다 난이도 밸런싱
-    private int turn;
+    public int Day { get; private set; }
 
     public HeroGameContext()
     {
@@ -23,16 +23,16 @@ public class HeroGameContext
         Player = new HeroPlayerContext(10, 10, 10);
         CurrentCases = new List<HeroGameCase>();
 
-        casePool = new List<HeroGameCaseStaticData>();
-        foreach (var caseData in StaticDataHolder.I.GetCaseList())
+        chapterCasePool = new List<HeroGameCaseStaticData>();
+        foreach (var caseData in CommonSingleton.I.StaticDataHolder.GetChapter1CaseList())
         {
-            casePool.Add(caseData);
+            chapterCasePool.Add(caseData);
         }
 
-        turn = 0;
+        Day = 0;
         AudioManager.I.PlayBGM(BGMType.Game1);
 
-        PickCases();
+        ProcessPickCases();
     }
 
     public int GetSuccessPercent(int caseIndex, int selectIndex)
@@ -70,50 +70,191 @@ public class HeroGameContext
             }
         }
 
-        turn += 1;
+        // TODO: 게임 엔딩 처리
+        if (Day == 25)
+        {
+            Initialize();
+            return;
+        }
 
-        if (turn == 5)
+        Day += 1;
+
+        if (Day == 6)
         {
             AudioManager.I.PlayBGM(BGMType.Game2);
+
+            chapterCasePool.Clear();
+            foreach (var caseData in CommonSingleton.I.StaticDataHolder.GetChapter2CaseList())
+            {
+                chapterCasePool.Add(caseData);
+            }
         }
 
         //TODO: 게임오버, 챕터 처리
         // 다음 사건들을 구성한다.
-        PickCases();
+        ProcessPickCases();
     }
 
-    private void PickCases()
+    private void ProcessPickCases()
     {
         CurrentCases.Clear();
 
-        casePool.Shuffle();
+        var pickedCases = PickCaseStaticDataList(out var isFixedDayCase);
 
-        //TODO: 챕터 구현
-        var pickCount = turn < 5 ? 2 : 3;
-
-        var random = new Random();
-        for (var caseIndex = 0; caseIndex < pickCount; caseIndex++)
+        for (var caseIndex = 0; caseIndex < pickedCases.Count; caseIndex++)
         {
-            var caseData = casePool[caseIndex];
+            var caseData = pickedCases[caseIndex];
 
             var selections = new List<HeroGameCaseSelection>();
-            for (var selectionIndex = 0; selectionIndex < caseData.SelectionDataList.Count; selectionIndex++)
+            var selectionDataList = caseData.SelectionDataList;
+            if (!isFixedDayCase)
             {
-                var selectionData = caseData.SelectionDataList[selectionIndex];
+                selectionDataList = caseData.SelectionDataList.GetShuffled();
+            }
 
-                //TODO: 턴에 따라 보상, 조건 밸런싱
-                var totalStatReward = random.Next(10, 15);
-                var statReward = HeroGameCaseStatReward.BuildRandom(totalStatReward, selectionData.MainRewardStatType);
-
-                var totalStatRequirement = random.Next(5, 10) + turn * 10;
-                var statRequirement = HeroGameCaseStatRequirement.BuildRandom(totalStatRequirement, selectionData.MainRequirementStatType);
-
-                var selection = new HeroGameCaseSelection(caseIndex, selectionIndex, selectionData, statReward, statRequirement);
+            for (var selectionIndex = 0; selectionIndex < selectionDataList.Count; selectionIndex++)
+            {
+                var selectionData = selectionDataList[selectionIndex];
+                var selection = BuildSelection(caseIndex, selectionIndex, selectionData);
                 selections.Add(selection);
             }
 
-            var heroCase = new HeroGameCase(caseIndex, casePool[caseIndex], selections);
+            var heroCase = new HeroGameCase(caseIndex, caseData, selections);
             CurrentCases.Add(heroCase);
         }
+    }
+
+    private List<HeroGameCaseStaticData> PickCaseStaticDataList(out bool isFixedDayCase)
+    {
+        var fixedDayCased = CommonSingleton.I.StaticDataHolder.GetFixedDayCaseList(Day);
+        if (fixedDayCased.Count > 0)
+        {
+            isFixedDayCase = true;
+            return fixedDayCased;
+        }
+
+        var result = new List<HeroGameCaseStaticData>();
+        var randomPickCount = GetRandomCasePickCount();
+        chapterCasePool.Shuffle();
+
+        for (var caseIndex = 0; caseIndex < randomPickCount; caseIndex++)
+        {
+            result.Add(chapterCasePool[caseIndex]);
+        }
+
+        isFixedDayCase = false;
+        return result;
+    }
+
+    private HeroGameCaseSelection BuildSelection(int caseIndex, int selectionIndex, IHeroGameCaseSelectionStaticData staticData)
+    {
+        HeroGameCaseStatReward statReward = new HeroGameCaseStatReward();
+        HeroGameCaseStatRequirement statRequirement = new HeroGameCaseStatRequirement();
+
+        switch (staticData)
+        {
+            case HeroGameCaseRandomSelectionStaticData data:
+                {
+                    var upVariationValue = selectionIndex;
+                    var totalStatReward = GetRandomStatRewardTotalCount(upVariationValue);
+                    statReward = HeroGameCaseStatReward.BuildRandom(totalStatReward, data.MainRewardStatType);
+
+                    var totalStatRequirement = GetRandomStatRequirementTotalCount(upVariationValue);
+                    statRequirement = HeroGameCaseStatRequirement.BuildRandom(totalStatRequirement, data.MainRequirementStatType);
+                    break;
+                }
+            case HeroGameCaseFixedSelectionStaticData data:
+                {
+                    statReward = data.FixedStatReward;
+                    statRequirement = data.FixedStatRequirement;
+                    break;
+                }
+        }
+
+        var selection = new HeroGameCaseSelection(caseIndex, selectionIndex, staticData, statReward, statRequirement);
+        return selection;
+    }
+
+    private int GetRandomStatRewardTotalCount(int upVariationValue)
+    {
+        var random = new Random();
+
+        // TODO: 데이터화
+        if (Day < 5)
+        {
+            return random.Next(-3, 3) + 15 + upVariationValue * 3;
+        }
+        else if (Day < 10)
+        {
+            return random.Next(-5, 5) + 25 + upVariationValue * 5;
+        }
+        else if (Day < 17)
+        {
+            return random.Next(-5, 5) + 40 + upVariationValue * 8;
+        }
+        else
+        {
+            return random.Next(-10, 10) + 70 + upVariationValue * 10;
+        }
+    }
+
+    private int GetRandomStatRequirementTotalCount(int upVariationValue)
+    {
+        var random = new Random();
+
+        // TODO: 데이터화
+        var countBase = GetRandomStatRequirementTotalCountBase();
+        if (Day < 5)
+        {
+            return random.Next(-2, 2) + countBase + upVariationValue * 3;
+        }
+        else if (Day < 10)
+        {
+            return random.Next(-10, 10) + countBase + upVariationValue * 10;
+        }
+        else if (Day < 17)
+        {
+            return random.Next(-10, 10) + countBase + upVariationValue * 15;
+        }
+        else
+        {
+            return random.Next(-15, 15) + countBase + upVariationValue * 20;
+        }
+    }
+
+    private int GetRandomStatRequirementTotalCountBase()
+    {
+        var result = 10;
+        result += Day * 8;
+
+        if (Day > 5)
+        {
+            result += 45;
+            result += (Day - 5) * 15;
+        }
+
+        if (Day > 10)
+        {
+            result += 50;
+            result += (Day - 10) * 20;
+        }
+
+        if (Day > 17)
+        {
+            result += 80;
+            result += (Day - 17) * 30;
+        }
+
+        return result;
+    }
+
+    private int GetRandomCasePickCount()
+    {
+        // TODO: 데이터화
+        if (Day < 10)
+        {
+            return 2;
+        }
+        return 3;
     }
 }

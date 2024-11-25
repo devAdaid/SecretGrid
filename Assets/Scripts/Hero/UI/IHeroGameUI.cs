@@ -1,6 +1,6 @@
 public interface IHeroGameUI
 {
-    void ApplyStatUI(HeroPlayerContext playerContext);
+    void ApplyStatUI(int day, HeroPlayerContext playerContext);
 
     void ApplyCaseUI(HeroGameCaseUIData data);
     void ActiveCaseListUI();

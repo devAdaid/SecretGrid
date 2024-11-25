@@ -6,12 +6,14 @@ public struct HeroGameCaseStatReward
     public int Strength;
     public int Agility;
     public int Intelligence;
+    public int Secret;
 
-    public HeroGameCaseStatReward(int strength, int agility, int intelligence)
+    public HeroGameCaseStatReward(int strength, int agility, int intelligence, int secret = 0)
     {
         Strength = strength;
         Agility = agility;
         Intelligence = intelligence;
+        Secret = secret;
     }
 
     public static HeroGameCaseStatReward BuildRandom(int totalValue, HeroGameStatType mainStatType)
@@ -38,8 +40,8 @@ public struct HeroGameCaseStatReward
 
         int remainingValue = totalValue - firstValue;
 
-        int secondValue = random.Next(1, remainingValue);
-        int thirdValue = remainingValue - secondValue;
+        var secondValue = random.Next(1, remainingValue);
+        var thirdValue = remainingValue - secondValue;
 
         return new int[] { firstValue, secondValue, thirdValue };
     }
@@ -58,6 +60,10 @@ public struct HeroGameCaseStatReward
         if (Intelligence > 0)
         {
             result += $"{HeroGameStatType.Intelligence.ToIconString()} +{Intelligence}  ";
+        }
+        if (Secret > 0)
+        {
+            result += $"{HeroGameStatType.Secret.ToIconString()} +{Secret}  ";
         }
 
         return result;

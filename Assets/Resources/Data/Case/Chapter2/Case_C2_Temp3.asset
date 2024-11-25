@@ -10,20 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: Case_Dog
+  m_Name: Case_C2_Temp3
   m_EditorClassIdentifier: 
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: 84aced6405b5d0e408e6bb9374641944, type: 3}
-  Title_Ko: "\uC678\uB85C\uC6B4 \uAC15\uC544\uC9C0"
-  Title_En: "\uC678\uB85C\uC6B4 \uAC15\uC544\uC9C0"
-  Description_Ko: "\uD55C \uAC15\uC544\uC9C0\uAC00 \uC2AC\uD504\uAC8C \uC6B8\uBD80\uC9D6\uC73C\uBA70
-    \uAC70\uB9AC\uB97C \uB3CC\uC544\uB2E4\uB2C8\uACE0 \uC788\uB2E4."
-  Description_En: "\uD55C \uAC15\uC544\uC9C0\uAC00 \uC2AC\uD504\uAC8C \uC6B8\uBD80\uC9D6\uC73C\uBA70
-    \uAC70\uB9AC\uB97C \uB3CC\uC544\uB2E4\uB2C8\uACE0 \uC788\uB2E4."
+  Title_Ko: "(\uC784\uC2DC) \uC784\uC2DC \uC0AC\uAC743"
+  Title_En: "(\uC784\uC2DC) \uC784\uC2DC \uC0AC\uAC743"
+  Description_Ko: "(\uC784\uC2DC) \uB0B4\uC6A9"
+  Description_En: "(\uC784\uC2DC) \uB0B4\uC6A9"
   Selections:
   - Type: 0
-    Description_Ko: "\uB3D9\uBB3C \uBCF4\uD638\uC18C\uC5D0 \uB370\uB824\uB2E4 \uC900\uB2E4."
-    Description_En: "\uB3D9\uBB3C \uBCF4\uD638\uC18C\uC5D0 \uB370\uB824\uB2E4 \uC900\uB2E4."
+    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 3
+    RandomMainRequirementStatType: 1
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 1
+    RandomMainRequirementStatType: 1
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 2
     RandomMainRequirementStatType: 1
@@ -31,22 +59,7 @@ MonoBehaviour:
       Strength: 0
       Agility: 0
       Intelligence: 0
-    FixedStatRequirement:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
-  - Type: 0
-    Description_Ko: "\uB3D9\uB124\uB97C \uB6F0\uC5B4\uB2E4\uB2C8\uBA70 \uC8FC\uC778\uC744
-      \uCC3E\uC544\uC900\uB2E4."
-    Description_En: "\uB3D9\uB124\uB97C \uB6F0\uC5B4\uB2E4\uB2C8\uBA70 \uC8FC\uC778\uC744
-      \uCC3E\uC544\uC900\uB2E4."
-    DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 2
-    RandomMainRequirementStatType: 2
-    FixedStatReward:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
+      Secret: 0
     FixedStatRequirement:
       Strength: 0
       Agility: 0

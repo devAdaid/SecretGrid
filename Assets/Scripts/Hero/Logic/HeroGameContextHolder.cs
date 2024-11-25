@@ -33,6 +33,6 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
 
     private void ApplyStatUI()
     {
-        ui.ApplyStatUI(GameContext.Player);
+        ui.ApplyStatUI(GameContext.Day, GameContext.Player);
     }
 }

@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
+  m_Name: Case_C2_Temp1
+  m_EditorClassIdentifier: 
+  FixedDay: 0
+  Sprite: {fileID: 21300000, guid: 54522495c008cd14e9ab51630717b7b8, type: 3}
+  Title_Ko: "(\uC784\uC2DC) \uC784\uC2DC \uC0AC\uAC741"
+  Title_En: "(\uC784\uC2DC) \uC784\uC2DC \uC0AC\uAC741"
+  Description_Ko: "(\uC784\uC2DC) \uB0B4\uC6A9"
+  Description_En: "(\uC784\uC2DC) \uB0B4\uC6A9"
+  Selections:
+  - Type: 0
+    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 1
+    RandomMainRequirementStatType: 2
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 2
+    RandomMainRequirementStatType: 3
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 3
+    RandomMainRequirementStatType: 1
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0

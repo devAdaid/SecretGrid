@@ -28,8 +28,14 @@ public class HeroGameCaseSelectionConfirmButtonUIControl : MonoBehaviour, IPoint
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        var tooltipText = data.Selection.GetTooltipText(data.SuccessPercent);
+        if (string.IsNullOrEmpty(tooltipText))
+        {
+            return;
+        }
+
         HeroGameTooltipUI.I.Show(
-            data.Selection.StatRequirement.ToCompareString(HeroGameContextHolder.I.GameContext.Player),
+            tooltipText,
             tooltipOffset,
             tooltipWidth
         );

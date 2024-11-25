@@ -1,5 +1,7 @@
 public enum HeroGameStatType
 {
+    None = 0,
+
     Strength,
     Agility,
     Intelligence,

@@ -16,4 +16,16 @@ public static class ListUtil
             list[j] = temp;
         }
     }
+
+    public static List<T> GetShuffled<T>(this List<T> list)
+    {
+        var result = new List<T>();
+        foreach (var item in list)
+        {
+            result.Add(item);
+        }
+
+        result.Shuffle();
+        return result;
+    }
 }

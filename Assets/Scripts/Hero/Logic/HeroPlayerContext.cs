@@ -7,14 +7,14 @@ public class HeroPlayerContext
     public int Intelligence { get; private set; }
     public int Secret { get; private set; }
 
-    private static readonly int SECRET_MAX = 5;
+    private static readonly int SECRET_INITIAL = 5;
 
     public HeroPlayerContext(int strength, int agility, int intelligence)
     {
         Strength = strength;
         Agility = agility;
         Intelligence = intelligence;
-        Secret = SECRET_MAX;
+        Secret = SECRET_INITIAL;
     }
 
     public void AddStatReward(HeroGameCaseStatReward reward)
@@ -22,6 +22,7 @@ public class HeroPlayerContext
         Strength += reward.Strength;
         Agility += reward.Agility;
         Intelligence += reward.Intelligence;
+        Secret += reward.Secret;
     }
 
     public void DecreaseSecret(int amount)
@@ -33,18 +34,24 @@ public class HeroPlayerContext
     public int GetSuccessPercent(HeroGameCaseStatRequirement requirement)
     {
         var result = 100;
+        var decreaseValueMax = 0;
         if (Strength < requirement.Strength)
         {
-            result -= (100 - (Strength * 100 / requirement.Strength));
+            var decreaseValue = (requirement.Strength - Strength) * 100 / requirement.Strength;
+            decreaseValueMax = Math.Max(decreaseValueMax, decreaseValue);
         }
         if (Agility < requirement.Agility)
         {
-            result -= (100 - (Agility * 100 / requirement.Agility));
+            var decreaseValue = (requirement.Agility - Agility) * 100 / requirement.Agility;
+            decreaseValueMax = Math.Max(decreaseValueMax, decreaseValue);
         }
         if (Intelligence < requirement.Intelligence)
         {
-            result -= (100 - (Intelligence * 100 / requirement.Intelligence));
+            var decreaseValue = (requirement.Intelligence - Intelligence) * 100 / requirement.Intelligence;
+            decreaseValueMax = Math.Max(decreaseValueMax, decreaseValue);
         }
+
+        result -= decreaseValueMax;
 
         result = Math.Max(0, result);
 

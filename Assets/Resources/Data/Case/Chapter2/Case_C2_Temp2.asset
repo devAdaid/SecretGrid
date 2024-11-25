@@ -10,20 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: Case_Child
+  m_Name: Case_C2_Temp2
   m_EditorClassIdentifier: 
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: f466bd14292de894ab90273fda998e06, type: 3}
-  Title_Ko: "\uBBF8\uC544 \uCC3E\uAE30"
-  Title_En: "\uBBF8\uC544 \uCC3E\uAE30"
-  Description_Ko: "\uB300\uD615 \uC1FC\uD551\uBAB0\uC5D0\uC11C \uBD80\uBAA8\uAC00
-    \uC2E4\uC885\uB41C \uC544\uC774\uB97C \uC560\uD0C0\uAC8C \uCC3E\uACE0 \uC788\uB2E4."
-  Description_En: "\uB300\uD615 \uC1FC\uD551\uBAB0\uC5D0\uC11C \uBD80\uBAA8\uAC00
-    \uC2E4\uC885\uB41C \uC544\uC774\uB97C \uC560\uD0C0\uAC8C \uCC3E\uACE0 \uC788\uB2E4."
+  Title_Ko: "(\uC784\uC2DC) \uC784\uC2DC \uC0AC\uAC742"
+  Title_En: "(\uC784\uC2DC) \uC784\uC2DC \uC0AC\uAC742"
+  Description_Ko: "(\uC784\uC2DC) \uB0B4\uC6A9"
+  Description_En: "(\uC784\uC2DC) \uB0B4\uC6A9"
   Selections:
   - Type: 0
-    Description_Ko: "\uC544\uC774\uAC00 \uAC08 \uB9CC\uD55C \uACF3\uC744 \uC218\uC0C9\uD55C\uB2E4."
-    Description_En: "\uC544\uC774\uAC00 \uAC08 \uB9CC\uD55C \uACF3\uC744 \uC218\uC0C9\uD55C\uB2E4."
+    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 2
+    RandomMainRequirementStatType: 2
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 3
     RandomMainRequirementStatType: 2
@@ -31,13 +44,14 @@ MonoBehaviour:
       Strength: 0
       Agility: 0
       Intelligence: 0
+      Secret: 0
     FixedStatRequirement:
       Strength: 0
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uC8FC\uBCC0 \uC0AC\uB78C\uB4E4\uC5D0\uAC8C \uC218\uC18C\uBB38\uD55C\uB2E4."
-    Description_En: "\uC8FC\uBCC0 \uC0AC\uB78C\uB4E4\uC5D0\uAC8C \uC218\uC18C\uBB38\uD55C\uB2E4."
+    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 1
     RandomMainRequirementStatType: 2
@@ -45,6 +59,7 @@ MonoBehaviour:
       Strength: 0
       Agility: 0
       Intelligence: 0
+      Secret: 0
     FixedStatRequirement:
       Strength: 0
       Agility: 0

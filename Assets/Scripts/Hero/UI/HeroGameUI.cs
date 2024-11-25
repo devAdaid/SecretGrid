@@ -8,9 +8,9 @@ public class HeroGameUI : MonoSingleton<HeroGameUI>, IHeroGameUI
     [SerializeField]
     private HeroGameCaseUI caseUI;
 
-    public void ApplyStatUI(HeroPlayerContext playerContext)
+    public void ApplyStatUI(int day, HeroPlayerContext playerContext)
     {
-        statUI.Apply(playerContext);
+        statUI.Apply(day, playerContext);
     }
 
     public void ApplyCaseUI(HeroGameCaseUIData data)

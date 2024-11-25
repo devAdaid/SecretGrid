@@ -5,6 +5,8 @@ using UnityEngine;
 [Serializable]
 public class HeroGameCaseSelectionScriptableData
 {
+    public HeroGameCaseSelectionType Type;
+
     [SerializeField]
     [TextArea]
     public string Description_Ko;
@@ -12,17 +14,22 @@ public class HeroGameCaseSelectionScriptableData
     [TextArea]
     public string Description_En;
 
-    [SerializeField]
-    public HeroGameStatType MainRewardStatType;
+    public int DecreaseSecretValueOnFail = 1;
 
-    [SerializeField]
-    public HeroGameStatType MainRequirementStatType;
+    // Random 타입일 경우
+    public HeroGameStatType RandomMainRewardStatType;
+    public HeroGameStatType RandomMainRequirementStatType;
+
+    // Fixed 타입일 경우
+    public HeroGameCaseStatReward FixedStatReward;
+    public HeroGameCaseStatRequirement FixedStatRequirement;
 }
 
 
 [CreateAssetMenu(fileName = "Case", menuName = "Scriptable Objects/HeroGameCaseScriptableData")]
 public class HeroGameCaseScriptableData : ScriptableObject
 {
+    public int FixedDay;
     public Sprite Sprite;
 
     [TextArea]
