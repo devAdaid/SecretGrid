@@ -1,6 +1,6 @@
 ﻿using System.IO;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "SecretGridServerSettings", menuName = "Scriptable Objects/Server/SecretGridServerSettings")]
 public class SecretGridServerSettings : ScriptableObject
@@ -15,6 +15,8 @@ public class SecretGridServerSettings : ScriptableObject
     private void DoSomething()
     {
         serverAddr = (serverAddr?.StartsWith("http://") ?? false) ? File.ReadAllText(".serveraddress") : "http://localhost:24110";
+        
+        EditorUtility.SetDirty(this);
     }
 #endif
 }

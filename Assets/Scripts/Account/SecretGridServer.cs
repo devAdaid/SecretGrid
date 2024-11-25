@@ -27,7 +27,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     {
         Init();
 
-        var account = SRPClient.Program.CreateAccount(userId, password);
+        var account = SRPAccount.CreateAccount(userId, password);
         
         // 신규 가입 신청 매번 한다. 서버에 이미 있는 계정이면 401 반환된다.
         yield return RequestEnrollment(account);
@@ -246,7 +246,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
     }
 
-    private IEnumerator RequestEnrollment(SRPClient.Server.UserRecord userRecord)
+    private IEnumerator RequestEnrollment(Server.UserRecord userRecord)
     {
         var formData = new List<IMultipartFormSection>();
         using var www = UnityWebRequest.Post($"{serverAddr}/enroll", formData);

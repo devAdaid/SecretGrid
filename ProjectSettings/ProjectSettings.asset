@@ -770,7 +770,9 @@ PlayerSettings:
   webGLWebAssemblyBigInt: 0
   webGLCloseOnQuit: 0
   webWasm2023: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Standalone: CONDITIONAL_DEBUG
+    WebGL: CONDITIONAL_DEBUG
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
