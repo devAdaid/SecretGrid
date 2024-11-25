@@ -206,7 +206,7 @@ public class HeroGameContext
         var countBase = GetRandomStatRequirementTotalCountBase();
         if (Day < 5)
         {
-            return random.Next(-2, 2) + countBase + upVariationValue * 3;
+            return random.Next(-2, 2) + countBase + upVariationValue * 5;
         }
         else if (Day < 10)
         {
@@ -230,13 +230,13 @@ public class HeroGameContext
         if (Day > 5)
         {
             result += 45;
-            result += (Day - 5) * 15;
+            result += (Day - 5) * 10;
         }
 
         if (Day > 10)
         {
             result += 50;
-            result += (Day - 10) * 20;
+            result += (Day - 10) * 15;
         }
 
         if (Day > 17)

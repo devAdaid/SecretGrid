@@ -11,7 +11,7 @@ public class PanelShake : MonoBehaviour
     private void OnEnable()
     {
         randomInt = Random.Range(0, 100);
-        initialPosition = transform.localPosition;
+        initialPosition = Vector3.zero;
     }
 
     void Update()

@@ -416,7 +416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 0}
   tooltipOffset: {x: -50, y: 50}
-  tooltipWidth: 80
+  tooltipWidth: 90
 --- !u!1 &5225351554678963829
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,8 +534,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4820fc214a755d4988e1b38dfdefd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeAmount: 5
-  shakeSpeed: 0.5
+  shakeAmount: 4
+  shakeSpeed: 0.3
 --- !u!222 &9133395570767469220
 CanvasRenderer:
   m_ObjectHideFlags: 0
