@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using ConditionalDebug;
 using UnityEngine;
 
 public class LeaderboardAPITester : MonoBehaviour
@@ -8,6 +9,6 @@ public class LeaderboardAPITester : MonoBehaviour
     {
         yield return SecretGridServer.I.GetLeaderboardResultCoro("teststage");
         
-        Debug.Log(SecretGridServer.I.CachedLeaderboardResult);
+        ConDebug.Log(SecretGridServer.I.CachedLeaderboardResult);
     }
 }

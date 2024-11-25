@@ -2,16 +2,16 @@ using System.Security.Cryptography;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using System.Text;
-using Unity.VisualScripting;
+using ConditionalDebug;
 
 public class Security : MonoBehaviour
 {
     void Start()
     {
+        ConDebug.Log("test message");
         SRPClient.Program.CreateAccount("testid", "testpw");
     }
 }
@@ -20,7 +20,7 @@ namespace SRPClient
 {
     class Program
     {
-        public static Server.UserRecord CreateAccount(string username, string password)
+        public static Server.UserRecord CreateAccount(string userId, string password)
         {
             // 솔트 생성 (16바이트)
             byte[] salt = new byte[16];
@@ -37,15 +37,15 @@ namespace SRPClient
             BigInteger v = BigInteger.ModPow(SRPParameters.g, x, SRPParameters.N);
 
             // 서버로 솔트와 검증자 전송 (예시로 콘솔에 출력)
-            Debug.Log("\n서버로 전송할 데이터:");
-            Debug.Log($"사용자 이름: {username}");
-            Debug.Log($"솔트(salt): {SRPUtils.ToHex(salt)}");
-            Debug.Log($"검증자(v): {v}");
+            ConDebug.Log("\n서버로 전송할 데이터:");
+            ConDebug.Log($"사용자 이름: {userId}");
+            ConDebug.Log($"솔트(salt): {SRPUtils.ToHex(salt)}");
+            ConDebug.Log($"검증자(v): {v}");
 
             // 서버에 사용자 정보 저장 (예시로 로컬 변수에 저장)
             return new Server.UserRecord
             {
-                Username = username,
+                Username = userId,
                 Salt = salt,
                 Verifier = v
             };
@@ -90,7 +90,7 @@ namespace SRPClient
                 var k = new BigInteger(k_bytes, isUnsigned: true, isBigEndian: true);
 
                 
-                Debug.Log($"K: {SRPUtils.ToHex(k.ToByteArray(isUnsigned: true, isBigEndian: true))}");
+                ConDebug.Log($"K: {SRPUtils.ToHex(k.ToByteArray(isUnsigned: true, isBigEndian: true))}");
                 
                 
                 return k;

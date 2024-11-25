@@ -133,7 +133,7 @@ public class GridPuzzleBoardControl : MonoBehaviour
             if (PuzzleBoard.IsValidPosition(tilePosition))
             {
                 puzzleUI.PlacePiece(tilePosition);
-                Debug.Log($"Tile place to {tilePosition}");
+                ConDebug.Log($"Tile place to {tilePosition}");
             }
         }
         else

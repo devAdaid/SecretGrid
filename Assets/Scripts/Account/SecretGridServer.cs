@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Security.Cryptography;
 using System.Text;
-using SecureRemotePassword;
+using ConditionalDebug;
 using SRPClient;
 using TMPro;
 using UnityEngine;
@@ -49,7 +48,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         else
         {
             // 이 메시지가 나왔다면 서버 관리자에게 파일을 어떻게 생성하면 되는지 안내를 받으면 됩니다!
-            Debug.LogError($"Create SecretGridServerSettings asset in Assets/Resources/Server!");
+            ConDebug.LogError($"Create SecretGridServerSettings asset in Assets/Resources/Server!");
         }
 
         nickname = PlayerPrefs.GetString("Nickname");
@@ -83,7 +82,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         var A_bytes = A.ToByteArray(isUnsigned: true, isBigEndian: true);
         var A_hex = SRPUtils.ToHex(A_bytes);
         
-        Debug.Log($"A: {A_hex}");
+        ConDebug.Log($"A: {A_hex}");
         
         var formData = new List<IMultipartFormSection>();
         using var www = UnityWebRequest.Post($"{serverAddr}/login", formData);
@@ -99,10 +98,10 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             
             var B = new BigInteger(SRPParameters.StringToByteArray(serverPublic), isUnsigned: true, isBigEndian: true);
             
-            Debug.Log($"User ID: {userId}");
-            Debug.Log($"User Password: {password}");
-            Debug.Log($"Salt: {salt}");
-            Debug.Log($"Server Public: {serverPublic}");
+            ConDebug.Log($"User ID: {userId}");
+            ConDebug.Log($"User Password: {password}");
+            ConDebug.Log($"Salt: {salt}");
+            ConDebug.Log($"Server Public: {serverPublic}");
             
             byte[] uHash = SRPUtils.SHA256Hash(
                 A.ToByteArray(isUnsigned: true, isBigEndian: true),
@@ -112,7 +111,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
             if (u.IsZero)
             {
-                Debug.LogError("u 값이 0입니다. 인증 실패.");
+                ConDebug.LogError("u 값이 0입니다. 인증 실패.");
                 yield break;
             }
 
@@ -196,12 +195,12 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
             if (!CompareByteArrays(M2, M2_client))
             {
-                Debug.LogError("클라이언트에서 M2 검증 실패. 인증 거부.");
+                ConDebug.LogError("클라이언트에서 M2 검증 실패. 인증 거부.");
             }
             else
             {
-                Debug.Log("로그인 성공");
-                Debug.Log($"K_client: {SRPUtils.ToHex(K_client)}");
+                ConDebug.Log("로그인 성공");
+                ConDebug.Log($"K_client: {SRPUtils.ToHex(K_client)}");
             }
         }
 
@@ -280,7 +279,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
         else
         {
-            Debug.LogError($"SubmitScoreCoro: Failed to parse result: {www.error} ({www.url})");
+            ConDebug.LogError($"SubmitScoreCoro: Failed to parse result: {www.error} ({www.url})");
         }
 
         if (serverLogText)
@@ -356,6 +355,6 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     [Button("Test Button")]
     private void TestButton()
     {
-        Debug.Log("Test Button clicked!");
+        ConDebug.Log("Test Button clicked!");
     }
 }
