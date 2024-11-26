@@ -98,6 +98,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Btn_Confirm Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3475243582783084948, guid: a71197001c9d84d45b62d261d02923d3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.099975586
+      objectReference: {fileID: 0}
     - target: {fileID: 6649745158206778646, guid: a71197001c9d84d45b62d261d02923d3, type: 3}
       propertyPath: m_text
       value: 'Success
@@ -164,4 +168,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 2279458293035894358}
   tooltipOffset: {x: -50, y: 50}
-  tooltipWidth: 100
+  tooltipWidth: 120

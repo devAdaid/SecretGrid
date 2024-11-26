@@ -8,12 +8,19 @@ public struct HeroGameCaseStatReward
     public int Intelligence;
     public int Secret;
 
+    public static readonly HeroGameCaseStatReward Empty = new HeroGameCaseStatReward();
+
     public HeroGameCaseStatReward(int strength, int agility, int intelligence, int secret = 0)
     {
         Strength = strength;
         Agility = agility;
         Intelligence = intelligence;
         Secret = secret;
+    }
+
+    public bool IsEmpty()
+    {
+        return Strength == 0 && Agility == 0 && Intelligence == 0 && Secret == 0;
     }
 
     public static HeroGameCaseStatReward BuildRandom(int totalValue, HeroGameStatType mainStatType)

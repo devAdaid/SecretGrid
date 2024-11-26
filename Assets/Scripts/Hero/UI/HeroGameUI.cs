@@ -11,6 +11,9 @@ public class HeroGameUI : MonoSingleton<HeroGameUI>, IHeroGameUI
     [SerializeField]
     private HeroGameCaseResultUI caseResultUI;
 
+    [SerializeField]
+    public HeroGameDialogueUI DialogueUI;
+
     private void Start()
     {
         caseUI.ActiveCaseListUI();
