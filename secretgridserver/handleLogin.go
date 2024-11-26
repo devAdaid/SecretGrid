@@ -49,19 +49,12 @@ func sha256Hash(data ...[]byte) []byte {
 	return h.Sum(nil)
 }
 
-// 서버에 저장된 사용자 정보
-type User struct {
-	Username string
-	Salt     []byte
-	Verifier *big.Int
-}
-
 // 간단한 사용자 데이터베이스 (예시)
 var serverSessionMap = make(map[string]*ServerSession)
 
 // 서버의 임시 세션 정보
 type ServerSession struct {
-	A *big.Int
+	A        *big.Int
 	b        *big.Int
 	B        *big.Int
 	u        *big.Int
@@ -69,6 +62,7 @@ type ServerSession struct {
 	username string
 	salt     []byte
 	v        *big.Int
+	cipher   SimpleCipher
 }
 
 func (s *ServerSession) Step1(A *big.Int) error {
@@ -113,7 +107,6 @@ func (s *ServerSession) ComputeServerProof(M1 []byte, A *big.Int) []byte {
 func handleLogin(writer http.ResponseWriter, request *http.Request) {
 	initK()
 
-
 	userId := request.Header.Get("X-User-Id")
 	if len(userId) == 0 {
 		writer.WriteHeader(400)
@@ -152,13 +145,12 @@ func handleLogin(writer http.ResponseWriter, request *http.Request) {
 
 	saltBytes, _ := hex.DecodeString(salt)
 
-
 	// 서버 세션 생성 및 Step1 수행
 	serverSession := &ServerSession{
 		b:        b,
 		B:        B,
 		username: userId,
-		salt:      saltBytes,
+		salt:     saltBytes,
 		v:        v,
 	}
 

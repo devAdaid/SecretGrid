@@ -8,9 +8,16 @@ using ConditionalDebug;
 
 namespace SRPClient
 {
-    internal static class SRPAccount
+    internal static class Account
     {
-        public static Server.UserRecord CreateAccount(string userId, string password)
+        public class UserRecord
+        {
+            public string Username { get; set; }
+            public byte[] Salt { get; set; }
+            public BigInteger Verifier { get; set; }
+        }
+        
+        public static UserRecord CreateAccount(string userId, string password)
         {
             // 솔트 생성 (16바이트)
             byte[] salt = new byte[16];
@@ -20,20 +27,20 @@ namespace SRPClient
             }
 
             // x = H(salt || password)
-            byte[] xHash = SRPUtils.SHA256Hash(salt, Encoding.UTF8.GetBytes(password));
+            byte[] xHash = Utils.SHA256Hash(salt, Encoding.UTF8.GetBytes(password));
             BigInteger x = new BigInteger(xHash, isUnsigned: true, isBigEndian: true);
 
             // v = g^x % N
-            BigInteger v = BigInteger.ModPow(SRPParameters.g, x, SRPParameters.N);
+            BigInteger v = BigInteger.ModPow(Parameters.g, x, Parameters.N);
 
             // 서버로 솔트와 검증자 전송 (예시로 콘솔에 출력)
-            ConDebug.Log("\n서버로 전송할 데이터:");
+            ConDebug.Log("서버로 전송할 데이터:");
             ConDebug.Log($"사용자 이름: {userId}");
-            ConDebug.Log($"솔트(salt): {SRPUtils.ToHex(salt)}");
+            ConDebug.Log($"솔트(salt): {Utils.ToHex(salt)}");
             ConDebug.Log($"검증자(v): {v}");
 
             // 서버에 사용자 정보 저장 (예시로 로컬 변수에 저장)
-            return new Server.UserRecord
+            return new UserRecord
             {
                 Username = userId,
                 Salt = salt,
@@ -43,7 +50,7 @@ namespace SRPClient
     }
 
     // SRP 파라미터 클래스
-    public static class SRPParameters
+    public static class Parameters
     {
         public static byte[] StringToByteArray(string hex) {
             return Enumerable.Range(0, hex.Length)
@@ -78,7 +85,7 @@ namespace SRPClient
             var k = new BigInteger(k_bytes, isUnsigned: true, isBigEndian: true);
 
                 
-            ConDebug.Log($"K: {SRPUtils.ToHex(k.ToByteArray(isUnsigned: true, isBigEndian: true))}");
+            ConDebug.Log($"K: {Utils.ToHex(k.ToByteArray(isUnsigned: true, isBigEndian: true))}");
                 
                 
             return k;
@@ -87,7 +94,7 @@ namespace SRPClient
     }
 
     // 유틸리티 함수 클래스
-    class SRPUtils
+    internal static class Utils
     {
         public static BigInteger GenerateRandomBigInteger(int numBytes)
         {
@@ -106,7 +113,7 @@ namespace SRPClient
             {
                 sha256.TransformBlock(d, 0, d.Length, null, 0);
             }
-            sha256.TransformFinalBlock(new byte[0], 0, 0);
+            sha256.TransformFinalBlock(Array.Empty<byte>(), 0, 0);
             return sha256.Hash;
         }
 
@@ -127,19 +134,6 @@ namespace SRPClient
             for (int i = 0; i < numberChars; i += 2)
                 bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
             return bytes;
-        }
-    }
-
-    // 서버 측 코드 (예시)
-    static class Server
-    {
-        public static Dictionary<string, UserRecord> UserDatabase = new Dictionary<string, UserRecord>();
-
-        public class UserRecord
-        {
-            public string Username { get; set; }
-            public byte[] Salt { get; set; }
-            public BigInteger Verifier { get; set; }
         }
     }
 }

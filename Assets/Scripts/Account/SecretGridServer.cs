@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Security.Cryptography;
 using System.Text;
 using ConditionalDebug;
 using SRPClient;
@@ -27,7 +28,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     {
         Init();
 
-        var account = SRPAccount.CreateAccount(userId, password);
+        var account = Account.CreateAccount(userId, password);
         
         // 신규 가입 신청 매번 한다. 서버에 이미 있는 계정이면 401 반환된다.
         yield return RequestEnrollment(account);
@@ -77,10 +78,10 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
     private IEnumerator RequestLogin()
     {
-        BigInteger a = SRPUtils.GenerateRandomBigInteger(32); // 256비트 랜덤 수
-        BigInteger A = BigInteger.ModPow(SRPParameters.g, a, SRPParameters.N);
+        BigInteger a = Utils.GenerateRandomBigInteger(32); // 256비트 랜덤 수
+        BigInteger A = BigInteger.ModPow(Parameters.g, a, Parameters.N);
         var A_bytes = A.ToByteArray(isUnsigned: true, isBigEndian: true);
-        var A_hex = SRPUtils.ToHex(A_bytes);
+        var A_hex = Utils.ToHex(A_bytes);
         
         ConDebug.Log($"A: {A_hex}");
         
@@ -96,14 +97,14 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             var salt = tokens[0];
             var serverPublic = tokens[1];
             
-            var B = new BigInteger(SRPParameters.StringToByteArray(serverPublic), isUnsigned: true, isBigEndian: true);
+            var B = new BigInteger(Parameters.StringToByteArray(serverPublic), isUnsigned: true, isBigEndian: true);
             
             ConDebug.Log($"User ID: {userId}");
             ConDebug.Log($"User Password: {password}");
             ConDebug.Log($"Salt: {salt}");
             ConDebug.Log($"Server Public: {serverPublic}");
             
-            byte[] uHash = SRPUtils.SHA256Hash(
+            byte[] uHash = Utils.SHA256Hash(
                 A.ToByteArray(isUnsigned: true, isBigEndian: true),
                 B.ToByteArray(isUnsigned: true, isBigEndian: true)
             );
@@ -116,23 +117,23 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             }
 
             // 클라이언트: x 계산
-            byte[] xHash = SRPUtils.SHA256Hash(SRPUtils.FromHex(salt), Encoding.UTF8.GetBytes(password));
+            byte[] xHash = Utils.SHA256Hash(Utils.FromHex(salt), Encoding.UTF8.GetBytes(password));
             BigInteger x = new BigInteger(xHash, isUnsigned: true, isBigEndian: true);
 
             // 클라이언트: S 계산
-            BigInteger kx = (SRPParameters.k * BigInteger.ModPow(SRPParameters.g, x, SRPParameters.N)) % SRPParameters.N;
-            BigInteger diff = (B + SRPParameters.N - kx) % SRPParameters.N; // (B - k * g^x) mod N
-            BigInteger exponent = (a + u * x) % (SRPParameters.N - 1); // a + u * x
-            BigInteger S_client = BigInteger.ModPow(diff, exponent, SRPParameters.N);
+            BigInteger kx = (Parameters.k * BigInteger.ModPow(Parameters.g, x, Parameters.N)) % Parameters.N;
+            BigInteger diff = (B + Parameters.N - kx) % Parameters.N; // (B - k * g^x) mod N
+            BigInteger exponent = (a + u * x) % (Parameters.N - 1); // a + u * x
+            BigInteger S_client = BigInteger.ModPow(diff, exponent, Parameters.N);
 
             // 클라이언트: K 계산
-            byte[] K_client = SRPUtils.SHA256Hash(S_client.ToByteArray(isUnsigned: true, isBigEndian: true));
+            byte[] K_client = Utils.SHA256Hash(S_client.ToByteArray(isUnsigned: true, isBigEndian: true));
 
             // H(N) 계산
-            byte[] H_N = SRPUtils.SHA256Hash(SRPParameters.N.ToByteArray(isUnsigned: true, isBigEndian: true));
+            byte[] H_N = Utils.SHA256Hash(Parameters.N.ToByteArray(isUnsigned: true, isBigEndian: true));
 
             // H(g) 계산
-            byte[] H_g = SRPUtils.SHA256Hash(SRPParameters.g.ToByteArray(isUnsigned: true, isBigEndian: true));
+            byte[] H_g = Utils.SHA256Hash(Parameters.g.ToByteArray(isUnsigned: true, isBigEndian: true));
 
             // H(N) XOR H(g)
             byte[] H_N_xor_H_g = new byte[H_N.Length];
@@ -142,10 +143,10 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             }
             
             // 클라이언트: M1 계산
-            byte[] M1 = SRPUtils.SHA256Hash(
+            byte[] M1 = Utils.SHA256Hash(
                 H_N_xor_H_g,
-                SRPUtils.SHA256Hash(Encoding.UTF8.GetBytes(userId)),
-                SRPUtils.FromHex(salt),
+                Utils.SHA256Hash(Encoding.UTF8.GetBytes(userId)),
+                Utils.FromHex(salt),
                 A.ToByteArray(isUnsigned: true, isBigEndian: true),
                 B.ToByteArray(isUnsigned: true, isBigEndian: true),
                 K_client
@@ -179,15 +180,15 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         var formData = new List<IMultipartFormSection>();
         using var www = UnityWebRequest.Post($"{serverAddr}/clientSessionProof", formData);
         www.SetRequestHeader("X-User-Id", userId);
-        www.SetRequestHeader("X-Client-Session-Proof", SRPUtils.ToHex(clientSessionProof));
+        www.SetRequestHeader("X-Client-Session-Proof", Utils.ToHex(clientSessionProof));
         yield return www.SendWebRequest();
 
         if (www.result == UnityWebRequest.Result.Success)
         {
             var serverProof = www.downloadHandler.text; // M2
-            var M2 = SRPParameters.StringToByteArray(serverProof);
+            var M2 = Parameters.StringToByteArray(serverProof);
             
-            byte[] M2_client = SRPUtils.SHA256Hash(
+            byte[] M2_client = Utils.SHA256Hash(
                 A.ToByteArray(isUnsigned: true, isBigEndian: true),
                 clientSessionProof,
                 K_client
@@ -199,8 +200,15 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             }
             else
             {
-                ConDebug.Log("로그인 성공");
-                ConDebug.Log($"K_client: {SRPUtils.ToHex(K_client)}");
+                ConDebug.Log("Login successful!");
+                ConDebug.Log($"K_client: {Utils.ToHex(K_client)}");
+                var iv = new byte[16];
+                RandomNumberGenerator.Fill(iv);
+                var encrypted = AESUtil.Cipher.Encrypt(Encoding.UTF8.GetBytes("Hello from the client!"), K_client, iv);
+                
+                ConDebug.Log($"encrypted: {Convert.ToBase64String(encrypted)}");
+
+                yield return SendSecureMessage(encrypted, iv);
             }
         }
 
@@ -208,6 +216,16 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         {
             serverLogText.text += "\n" + (www.result == UnityWebRequest.Result.Success ? www.downloadHandler.text : www.error);
         }
+    }
+
+    private IEnumerator SendSecureMessage(byte[] encrypted, byte[] iv)
+    {
+        var encryptedB64 = Convert.ToBase64String(encrypted);
+        var ivB64 = Convert.ToBase64String(iv);
+        
+        using var www = UnityWebRequest.Post($"{serverAddr}/message", $"{encryptedB64}&{ivB64}", "text/plain");
+        www.SetRequestHeader("X-User-Id", userId);
+        yield return www.SendWebRequest();
     }
 
     public void SetServerAddr(string text)
@@ -246,13 +264,13 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
     }
 
-    private IEnumerator RequestEnrollment(Server.UserRecord userRecord)
+    private IEnumerator RequestEnrollment(Account.UserRecord userRecord)
     {
         var formData = new List<IMultipartFormSection>();
         using var www = UnityWebRequest.Post($"{serverAddr}/enroll", formData);
         www.SetRequestHeader("X-User-Id", userId);
-        www.SetRequestHeader("X-Salt", SRPUtils.ToHex(userRecord.Salt));
-        www.SetRequestHeader("X-Verifier", SRPUtils.ToHex(userRecord.Verifier.ToByteArray(isUnsigned: true, isBigEndian: true)));
+        www.SetRequestHeader("X-Salt", Utils.ToHex(userRecord.Salt));
+        www.SetRequestHeader("X-Verifier", Utils.ToHex(userRecord.Verifier.ToByteArray(isUnsigned: true, isBigEndian: true)));
         yield return www.SendWebRequest();
 
         if (serverLogText)

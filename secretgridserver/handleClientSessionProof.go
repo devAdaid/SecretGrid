@@ -43,9 +43,18 @@ func handleClientSessionProof(writer http.ResponseWriter, request *http.Request)
 	// 서버 증명 생성
 	serverM2 := server.ComputeServerProof(clientSessionProofBytes, server.A)
 
+	sharedKHex := hex.EncodeToString(server.sharedK)
 
-	fmt.Println("sharedK", hex.EncodeToString(server.sharedK))
+	fmt.Println("sharedK", sharedKHex, len(server.sharedK), "bytes")
 
+	c := SimpleCipher{}
+	err = c.Init(server.sharedK)
+	if err != nil {
+		log.Println("Unknown error while creating cipher:", err)
+	} else {
+		_, _ = rdb.HSet(ctx, "secretGrid:k", userId, sharedKHex).Result()
+		serverSessionMap[userId].cipher = c
+	}
 
 	_, _ = writer.Write([]byte(hex.EncodeToString(serverM2)))
 }

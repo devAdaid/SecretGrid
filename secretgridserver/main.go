@@ -44,7 +44,9 @@ func main() {
 	m.HandleFunc("/enroll", handleEnroll) // 신규 가입
 	m.HandleFunc("/login", handleLogin) // 로그인 (1단계)
 	m.HandleFunc("/clientSessionProof", handleClientSessionProof) // 로그인 (2단계)
+	m.HandleFunc("/message", handleMessage) // 보안 메시지
 	m.HandleFunc("/score", handleScore) // 점수 등록 및 랭킹 조회
+
 
 	var server *http.Server
 	server = &http.Server{Addr: ":24110", Handler: m}
