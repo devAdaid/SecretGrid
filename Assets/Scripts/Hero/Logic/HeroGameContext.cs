@@ -131,10 +131,6 @@ public class HeroGameContext
 
             var selections = new List<HeroGameCaseSelection>();
             var selectionDataList = caseData.SelectionDataList;
-            if (!isFixedDayCase)
-            {
-                selectionDataList = caseData.SelectionDataList.GetShuffled();
-            }
 
             for (var selectionIndex = 0; selectionIndex < selectionDataList.Count; selectionIndex++)
             {

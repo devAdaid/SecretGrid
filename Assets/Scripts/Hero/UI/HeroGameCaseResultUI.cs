@@ -60,8 +60,9 @@ public class HeroGameCaseResultUI : MonoBehaviour
         {
             loadingText.text = "Working" + new string('.', dotCount);
             dotCount = (dotCount + 1) % 4;
-            yield return new WaitForSeconds(0.3f);
-            elapsedTime += 0.3f;
+            AudioManager.I.PlaySFX(SFXType.Wait);
+            yield return new WaitForSeconds(0.5f);
+            elapsedTime += 0.5f;
         }
 
         ProcessSelect();
@@ -92,6 +93,7 @@ public class HeroGameCaseResultUI : MonoBehaviour
 
     private void OnClickNextButton()
     {
+        AudioManager.I.PlaySFX(SFXType.Select);
         HeroGameContextHolder.I.ProcessNext();
     }
 }

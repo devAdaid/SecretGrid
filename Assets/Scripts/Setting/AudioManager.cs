@@ -16,6 +16,7 @@ public enum SFXType
     Cancel,
     Success,
     Fail,
+    Wait,
 }
 
 [Serializable]
