@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeroGameStatUI : MonoBehaviour
 {
@@ -18,6 +19,13 @@ public class HeroGameStatUI : MonoBehaviour
     [SerializeField]
     private HeroGameStatItemUIControl secretStatControl;
 
+    [SerializeField]
+    private Button settingButton;
+
+    private void Awake()
+    {
+        settingButton.onClick.AddListener(OnSettingButtonClicked);
+    }
 
     public void Apply(int day, HeroPlayerContext playerContext)
     {
@@ -27,5 +35,11 @@ public class HeroGameStatUI : MonoBehaviour
         agilityStatControl.Apply(playerContext.Agility);
         intelligenceStatControl.Apply(playerContext.Intelligence);
         secretStatControl.Apply(playerContext.Secret);
+    }
+
+    private void OnSettingButtonClicked()
+    {
+        SettingUI.I.Show();
+        AudioManager.I.PlaySFX(SFXType.Select);
     }
 }

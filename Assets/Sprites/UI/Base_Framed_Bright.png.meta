@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e6d7e1066d6f6a443abec9f73f6ab011
+guid: 0a1e97e2b576cb14883a1552c1752ac1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8217987628080693078
-    second: Icon_Strength_0
+      213: -6926958602457094594
+    second: Base_Framed_Bright_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,6 +97,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -113,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_Strength_0
+      name: Base_Framed_Bright_0
       rect:
         serializedVersion: 2
         x: 0
@@ -121,15 +134,15 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 8, y: 8, z: 8, w: 8}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 65ffd4cf4382c0270800000000000000
-      internalID: 8217987628080693078
+      spriteID: e3665b60adf7edf90800000000000000
+      internalID: -6926958602457094594
       vertices: []
       indices: 
       edges: []
@@ -138,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 34654946d4ab6934dbbceaef587cbb1f
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Icon_Strength_0: 8217987628080693078
+      Base_Framed_Bright_0: -6926958602457094594
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

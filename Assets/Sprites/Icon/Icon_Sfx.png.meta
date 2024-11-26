@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: e649a2e3fb09d4c48b182ef2d44c8b73
+guid: 070086c77a4838446a91792a69cd5e64
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6166594698369401799
-    second: Icon_Agility_0
+      213: 901727761590036391
+    second: Icon_Sfx_0
+  - first:
+      213: 5212107901868093025
+    second: Icon_Sfx_1
+  - first:
+      213: 1690594580142109078
+    second: Icon_Sfx_2
+  - first:
+      213: 3828263525285817553
+    second: Icon_Sfx_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +55,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -97,6 +106,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -113,13 +135,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_Agility_0
+      name: Icon_Sfx_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
-        width: 32
-        height: 30
+        y: 6
+        width: 8
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +150,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 93c72e93bcadb6aa0800000000000000
-      internalID: -6166594698369401799
+      spriteID: 7a7aea12f94938c00800000000000000
+      internalID: 901727761590036391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_Sfx_1
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 2
+        width: 11
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16eaad59580255840800000000000000
+      internalID: 5212107901868093025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_Sfx_2
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 6
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 691329040d2367710800000000000000
+      internalID: 1690594580142109078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icon_Sfx_3
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 3
+        width: 6
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dcee3ba469b02530800000000000000
+      internalID: 3828263525285817553
       vertices: []
       indices: 
       edges: []
@@ -138,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +236,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Icon_Agility_0: -6166594698369401799
+      Icon_Sfx_0: 901727761590036391
+      Icon_Sfx_1: 5212107901868093025
+      Icon_Sfx_2: 1690594580142109078
+      Icon_Sfx_3: 3828263525285817553
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
