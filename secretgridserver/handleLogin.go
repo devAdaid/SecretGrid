@@ -63,6 +63,7 @@ type ServerSession struct {
 	salt     []byte
 	v        *big.Int
 	cipher   SimpleCipher
+	counter  int
 }
 
 func (s *ServerSession) Step1(A *big.Int) error {

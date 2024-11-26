@@ -1,4 +1,5 @@
 using System;
+using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     private string password;
     private string nickname;
     public LeaderboardResult CachedLeaderboardResult { get; private set; }
+    private byte[] sharedK;
 
     private IEnumerator Start()
     {
@@ -202,9 +204,13 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             {
                 ConDebug.Log("Login successful!");
                 ConDebug.Log($"K_client: {Utils.ToHex(K_client)}");
+                sharedK = K_client;
+                
                 var iv = new byte[16];
                 RandomNumberGenerator.Fill(iv);
-                var encrypted = AESUtil.Cipher.Encrypt(Encoding.UTF8.GetBytes("Hello from the client!"), K_client, iv);
+                ConDebug.Log($"IV: {Utils.ToHex(iv)}");
+                const int messageCounter = 1;
+                var encrypted = AESUtil.Cipher.Encrypt(Encoding.UTF8.GetBytes($"{messageCounter}\t암호화된 세션으로 처음 보내는 메시지! 게임잼 재미있다"), sharedK, iv);
                 
                 ConDebug.Log($"encrypted: {Convert.ToBase64String(encrypted)}");
 
@@ -226,6 +232,19 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         using var www = UnityWebRequest.Post($"{serverAddr}/message", $"{encryptedB64}&{ivB64}", "text/plain");
         www.SetRequestHeader("X-User-Id", userId);
         yield return www.SendWebRequest();
+
+        var response = www.downloadHandler.text;
+        Debug.Log($"Response from server (ciphertext): {response}");
+        
+        var responseTokens = response.Split("&");
+        var responseCiphertextB64 = responseTokens[0];
+        var responseIVB64 = responseTokens[1];
+        
+        var responseCiphertext = Convert.FromBase64String(responseCiphertextB64);
+        var responseIV = Convert.FromBase64String(responseIVB64);
+        var responsePlaintext = AESUtil.Cipher.Decrypt(responseCiphertext, sharedK, responseIV);
+        var responseStr = Encoding.UTF8.GetString(responsePlaintext);
+        Debug.Log($"Response from server (plaintext): {responseStr}");
     }
 
     public void SetServerAddr(string text)

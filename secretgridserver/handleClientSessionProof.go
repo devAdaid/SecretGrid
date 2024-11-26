@@ -54,6 +54,7 @@ func handleClientSessionProof(writer http.ResponseWriter, request *http.Request)
 	} else {
 		_, _ = rdb.HSet(ctx, "secretGrid:k", userId, sharedKHex).Result()
 		serverSessionMap[userId].cipher = c
+		serverSessionMap[userId].counter = 0
 	}
 
 	_, _ = writer.Write([]byte(hex.EncodeToString(serverM2)))
