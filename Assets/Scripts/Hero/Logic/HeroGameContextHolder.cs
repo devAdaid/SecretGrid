@@ -14,16 +14,26 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
 
     private void Start()
     {
-        ActiveCaseListUI();
+        ShowCaseListUI();
     }
 
-    public void SelectCaseSelection(int caseIndex, int selectionIndex)
+    public bool SelectCaseSelection(int caseIndex, int selectionIndex)
     {
-        GameContext.SelectAndProcess(caseIndex, selectionIndex);
-        ActiveCaseListUI();
+        var result = GameContext.SelectAndProcess(caseIndex, selectionIndex);
+        ApplyStatUI();
+        return result;
     }
 
-    private void ActiveCaseListUI()
+    public void ProcessNext()
+    {
+        GameContext.ProcessNext();
+        ui.HideResultUI();
+
+        ApplyStatUI();
+        ShowCaseListUI();
+    }
+
+    private void ShowCaseListUI()
     {
         var caseData = HeroGameUIDataBuilder.BuildCase(GameContext);
         ui.ApplyCaseUI(caseData);

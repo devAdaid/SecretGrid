@@ -2,6 +2,13 @@
 using System;
 using System.Collections.Generic;
 
+public enum HeroGameProcessNextResult
+{
+    NextDay,
+    GameEnd,
+    GameOverBySecretZero,
+}
+
 public class HeroGameContext
 {
     public HeroPlayerContext Player { get; private set; }
@@ -42,13 +49,14 @@ public class HeroGameContext
         return Player.GetSuccessPercent(selection.StatRequirement);
     }
 
-    public void SelectAndProcess(int caseIndex, int selectIndex)
+    public bool SelectAndProcess(int caseIndex, int selectIndex)
     {
         // TODO: 인덱스 검증
         var heroCase = CurrentCases[caseIndex];
         var selection = heroCase.Selections[selectIndex];
         var successPercent = Player.GetSuccessPercent(selection.StatRequirement);
 
+        var result = false;
         var random = new Random();
         var randomValue = random.Next(100);
         if (randomValue < successPercent)
@@ -56,29 +64,44 @@ public class HeroGameContext
             // 사건 성공
             Player.AddStatReward(selection.StatReward);
             AudioManager.I.PlaySFX(SFXType.Success);
+            result = true;
         }
         else
         {
             // 사건 실패
             Player.DecreaseSecret(1);
             AudioManager.I.PlaySFX(SFXType.Fail);
+            result = false;
 
             // 게임 오버
             if (Player.Secret == 0)
             {
-                Initialize();
+                //Initialize();
             }
         }
+
+        return result;
+    }
+
+
+    public HeroGameProcessNextResult ProcessNext()
+    {
+        if (Player.Secret == 0)
+        {
+            Initialize();
+            return HeroGameProcessNextResult.GameOverBySecretZero;
+        }
+
+        Day += 1;
 
         // TODO: 게임 엔딩 처리
         if (Day == 25)
         {
             Initialize();
-            return;
+            return HeroGameProcessNextResult.GameEnd;
         }
 
-        Day += 1;
-
+        // TODO: 임시 챕터 2 이후 처리해둠. 추후 디벨롧.
         if (Day == 6)
         {
             AudioManager.I.PlayBGM(BGMType.Game2);
@@ -90,9 +113,10 @@ public class HeroGameContext
             }
         }
 
-        //TODO: 게임오버, 챕터 처리
+
         // 다음 사건들을 구성한다.
         ProcessPickCases();
+        return HeroGameProcessNextResult.NextDay;
     }
 
     private void ProcessPickCases()

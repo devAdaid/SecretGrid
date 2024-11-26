@@ -59,11 +59,11 @@ public struct HeroGameCaseStatReward
         }
         if (Intelligence > 0)
         {
-            result += $"{HeroGameStatType.Intelligence.ToIconString()} +{Intelligence}  ";
+            result += $"{HeroGameStatType.Intelligence.ToIconString()}+{Intelligence}  ";
         }
         if (Secret > 0)
         {
-            result += $"{HeroGameStatType.Secret.ToIconString()} +{Secret}  ";
+            result += $"{HeroGameStatType.Secret.ToIconString()}+{Secret}  ";
         }
 
         return result;
