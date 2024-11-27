@@ -84,8 +84,7 @@ public class SettingUI : MonoSingleton<SettingUI>
 
     private void OnTitleConfirmButtonClicked()
     {
-        // TODO: 타이틀 씬 연결
-        SceneManager.LoadScene("SceneSelector");
+        SceneManager.LoadScene("Title");
         AudioManager.I.PlaySFX(SFXType.Select);
     }
 }

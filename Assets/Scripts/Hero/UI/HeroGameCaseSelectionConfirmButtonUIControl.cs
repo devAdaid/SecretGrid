@@ -49,7 +49,7 @@ public class HeroGameCaseSelectionConfirmButtonUIControl : MonoBehaviour, IPoint
     private void OnClick()
     {
         //HeroGameContextHolder.I.SelectCaseSelection(data.Selection.CaseIndex, data.Selection.SelectionIndex);
-        HeroGameUI.I.ShowResultUI(data);
+        HeroGameUI.I.ShowCaseResultUI(data);
         HeroGameTooltipUI.I.Hide();
     }
 }

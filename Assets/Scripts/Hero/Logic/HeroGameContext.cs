@@ -9,6 +9,14 @@ public enum HeroGameProcessNextResult
     GameOverBySecretZero,
 }
 
+public enum GameState
+{
+    NeedStart,
+    Playing,
+    EndByGameOver,
+    EndByEnding
+}
+
 public class HeroGameContext
 {
     public HeroPlayerContext Player { get; private set; }
@@ -18,6 +26,13 @@ public class HeroGameContext
     private List<HeroGameCaseStaticData> chapterCasePool;
 
     public int Day { get; private set; }
+
+    public int Score { get; private set; }
+
+    public GameState GameState { get; private set; }
+
+    private float gameStartTime;
+    private float gameEndTime;
 
     public HeroGameContext()
     {
@@ -39,6 +54,15 @@ public class HeroGameContext
         AudioManager.I.PlayBGM(BGMType.Game1);
 
         ProcessPickCases();
+
+        gameStartTime = 0f;
+        GameState = GameState.Playing;
+        Score = 0;
+    }
+
+    public void SetStart(float startTime)
+    {
+        gameStartTime = startTime;
     }
 
     public int GetSuccessPercent(int caseIndex, int selectIndex)
@@ -72,20 +96,20 @@ public class HeroGameContext
         return result;
     }
 
-    public HeroGameProcessNextResult ProcessNext()
+    public HeroGameProcessNextResult ProcessNext(float time)
     {
-        if (Player.Secret == 0)
+        if (Player.Secret <= 0)
         {
-            ProcessGameOver();
+            ProcessGameOver(time);
             return HeroGameProcessNextResult.GameOverBySecretZero;
         }
 
         Day += 1;
 
         // TODO: 엔딩 기준은 데이터화
-        if (Day == 25)
+        if (Day == 26)
         {
-            ProcessGameEnd();
+            ProcessGameEnd(time);
             return HeroGameProcessNextResult.GameEnd;
         }
 
@@ -144,16 +168,33 @@ public class HeroGameContext
         AudioManager.I.PlaySFX(SFXType.Fail);
     }
 
-    private void ProcessGameOver()
+    private void ProcessGameOver(float endTime)
     {
+        gameEndTime = endTime;
+        GameState = GameState.EndByGameOver;
+
         //TODO: 초기화 대신 결과 UI 표시 및 랭킹 기록하도록 수정
-        Initialize();
+        //Initialize();
     }
 
-    private void ProcessGameEnd()
+    private void ProcessGameEnd(float endTime)
     {
+        gameEndTime = endTime;
+        GameState = GameState.EndByEnding;
+
         //TODO: 초기화 대신 결과 UI 표시 및 랭킹 기록하도록 수정
-        Initialize();
+        //Initialize();
+    }
+
+    public float GetPlayTime()
+    {
+        return Math.Max(gameEndTime - gameStartTime, 0);
+    }
+
+    public int GetScore()
+    {
+        var playTime = Math.Max(gameEndTime - gameStartTime, 0);
+        return HeroGameFormula.CalculateScore(GameState == GameState.EndByEnding, Day, playTime, Player);
     }
 
     private List<HeroGameCaseStaticData> PickCaseStaticDataList(out bool isFixedDayCase)

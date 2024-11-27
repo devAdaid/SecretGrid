@@ -7,6 +7,7 @@ public enum BGMType
     EXCITING,
     Game1,
     Game2,
+    Title,
 }
 
 public enum SFXType

@@ -7,19 +7,24 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
 
     public HeroGameContext GameContext { get; private set; }
 
-    private void Awake()
-    {
-        GameContext = new HeroGameContext();
-    }
-
     private void Start()
     {
-        ApplyStatUI();
-        OnDayStarted(GameContext.Day);
+        ProcessGameStart();
+    }
+
+    public void RestartGame()
+    {
+        ProcessGameStart();
     }
 
     public bool SelectCaseSelection(int caseIndex, int selectionIndex)
     {
+        if (GameContext.GameState != GameState.Playing)
+        {
+            Debug.LogError($"게임 상태가 Playing이 아닌데 선택 처리가 들어왔습니다. GameState[{GameContext.GameState}]"); ;
+            return false;
+        }
+
         var result = GameContext.SelectAndProcess(caseIndex, selectionIndex);
         ApplyStatUI();
         return result;
@@ -27,6 +32,12 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
 
     public void ProcessNext()
     {
+        if (GameContext.GameState != GameState.Playing)
+        {
+            Debug.LogError($"게임 상태가 Playing이 아닌데 진행 처리가 들어왔습니다. GameState[{GameContext.GameState}]"); ;
+            return;
+        }
+
         ui.HideResultUI();
         OnDayEnd(GameContext.Day);
     }
@@ -42,6 +53,16 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
     private void ApplyStatUI()
     {
         ui.ApplyStatUI(GameContext.Day, GameContext.Player);
+    }
+
+    private void ProcessGameStart()
+    {
+        GameContext = new HeroGameContext();
+        GameContext.SetStart(Time.time);
+
+        ui.HideScoreResultUI();
+        ApplyStatUI();
+        OnDayStarted(GameContext.Day);
     }
 
     private void OnDayStarted(int day)
@@ -75,9 +96,19 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
 
     private void ProcessDayEnd()
     {
-        GameContext.ProcessNext();
+        var result = GameContext.ProcessNext(Time.time);
 
         ApplyStatUI();
-        ShowCaseListUI();
+
+        switch (result)
+        {
+            case HeroGameProcessNextResult.NextDay:
+                ShowCaseListUI();
+                break;
+            case HeroGameProcessNextResult.GameOverBySecretZero:
+            case HeroGameProcessNextResult.GameEnd:
+                ui.ShowScoreResultUI(GameContext);
+                break;
+        }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HeroGameUI : MonoSingleton<HeroGameUI>, IHeroGameUI
+public class HeroGameUI : MonoSingleton<HeroGameUI>
 {
     [SerializeField]
     private HeroGameStatUI statUI;
@@ -13,6 +13,9 @@ public class HeroGameUI : MonoSingleton<HeroGameUI>, IHeroGameUI
 
     [SerializeField]
     public HeroGameDialogueUI DialogueUI;
+
+    [SerializeField]
+    private HeroGameScoreResultUI scoreResultUI;
 
     public void ApplyStatUI(int day, HeroPlayerContext playerContext)
     {
@@ -34,7 +37,7 @@ public class HeroGameUI : MonoSingleton<HeroGameUI>, IHeroGameUI
         caseUI.ActiveDetailUI(caseIndex);
     }
 
-    public void ShowResultUI(HeroGameCaseSelectionUIControlData data)
+    public void ShowCaseResultUI(HeroGameCaseSelectionUIControlData data)
     {
         caseResultUI.Show(data);
     }
@@ -42,5 +45,15 @@ public class HeroGameUI : MonoSingleton<HeroGameUI>, IHeroGameUI
     public void HideResultUI()
     {
         caseResultUI.Hide();
+    }
+
+    public void ShowScoreResultUI(HeroGameContext gameContext)
+    {
+        scoreResultUI.Show(gameContext);
+    }
+
+    public void HideScoreResultUI()
+    {
+        scoreResultUI.Hide();
     }
 }

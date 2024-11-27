@@ -85,4 +85,67 @@ public static class HeroGameFormula
         }
         return 3;
     }
+
+    public static int CalculateScore(bool endByEnding, int day, float playTime, HeroPlayerContext playerContext)
+    {
+        var score = 0;
+
+        score += CalculateScore_End(endByEnding, day);
+        score += CalculateScore_PlayTime(playTime);
+        score += CalculateScore_Stat(playerContext);
+
+        return score;
+    }
+
+    public static int CalculateScore_End(bool endByEnding, int day)
+    {
+        // 엔딩 도달 보너스
+        if (endByEnding)
+        {
+            return 2000;
+        }
+        // 엔딩 전 게임 오버 시, 진행된 Day에 비례해 점수 가점
+        else
+        {
+            return day * 10;
+        }
+    }
+
+    public static int CalculateScore_PlayTime(float playTimeInSeconds)
+    {
+        float maxTime = 300f;  // 5분
+        float minTime = 0f;    // 0초
+        float maxScore = 2000f;  // 최대 점수
+        float minScore = 1000f;  // 기본 점수 (5분에 해당)
+
+        if (playTimeInSeconds <= maxTime && playTimeInSeconds > minTime)
+        {
+            // 로그 함수 적용 (편차가 적도록 하기 위해)
+            float score = maxScore - (float)(Math.Log(playTimeInSeconds + 1) * (maxScore - minScore) / Math.Log(maxTime + 1));
+            return (int)Math.Round(score);
+        }
+        else if (playTimeInSeconds == minTime)
+        {
+            return (int)maxScore; // 0초일 경우 2000점
+        }
+        else
+        {
+            return (int)minScore; // 5분 이상은 기본 점수 1000점
+        }
+    }
+
+    public static int CalculateScore_Stat(HeroPlayerContext playerContext)
+    {
+        var score = 0;
+
+        // 스탯 보너스
+        score += playerContext.Strength;
+        score += playerContext.Agility;
+        score += playerContext.Intelligence;
+
+        // 남은 Secret 보너스
+        score += playerContext.Secret * 100;
+
+        return score;
+    }
 }

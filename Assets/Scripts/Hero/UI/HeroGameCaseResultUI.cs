@@ -58,7 +58,7 @@ public class HeroGameCaseResultUI : MonoBehaviour
 
                 if (CommonSingleton.I.PersistentContext.IsSecret3Enabled)
                 {
-                    if (continuousClickCount == 2)
+                    if (continuousClickCount >= 2)
                     {
                         StopAllCoroutines();
 
