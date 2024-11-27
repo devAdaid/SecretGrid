@@ -17,7 +17,6 @@ public class HeroGameContext
 
     private List<HeroGameCaseStaticData> chapterCasePool;
 
-    // TODO: 챕터, 턴마다 난이도 밸런싱
     public int Day { get; private set; }
 
     public HeroGameContext()
@@ -36,7 +35,7 @@ public class HeroGameContext
             chapterCasePool.Add(caseData);
         }
 
-        Day = 0;
+        Day = 1;
         AudioManager.I.PlayBGM(BGMType.Game1);
 
         ProcessPickCases();
@@ -61,43 +60,32 @@ public class HeroGameContext
         var randomValue = random.Next(100);
         if (randomValue < successPercent)
         {
-            // 사건 성공
-            Player.AddStatReward(selection.StatReward);
-            AudioManager.I.PlaySFX(SFXType.Success);
+            ProcessSelectionSuccess(selection);
             result = true;
         }
         else
         {
-            // 사건 실패
-            Player.DecreaseSecret(1);
-            AudioManager.I.PlaySFX(SFXType.Fail);
+            ProcessSelectionFail(selection);
             result = false;
-
-            // 게임 오버
-            if (Player.Secret == 0)
-            {
-                //Initialize();
-            }
         }
 
         return result;
     }
 
-
     public HeroGameProcessNextResult ProcessNext()
     {
         if (Player.Secret == 0)
         {
-            Initialize();
+            ProcessGameOver();
             return HeroGameProcessNextResult.GameOverBySecretZero;
         }
 
         Day += 1;
 
-        // TODO: 게임 엔딩 처리
+        // TODO: 엔딩 기준은 데이터화
         if (Day == 25)
         {
-            Initialize();
+            ProcessGameEnd();
             return HeroGameProcessNextResult.GameEnd;
         }
 
@@ -144,6 +132,30 @@ public class HeroGameContext
         }
     }
 
+    private void ProcessSelectionSuccess(HeroGameCaseSelection selection)
+    {
+        Player.AddStatReward(selection.StatReward);
+        AudioManager.I.PlaySFX(SFXType.Success);
+    }
+
+    private void ProcessSelectionFail(HeroGameCaseSelection selection)
+    {
+        Player.DecreaseSecret(selection.StaticData.DecreaseSecretValueOnFail);
+        AudioManager.I.PlaySFX(SFXType.Fail);
+    }
+
+    private void ProcessGameOver()
+    {
+        //TODO: 초기화 대신 결과 UI 표시 및 랭킹 기록하도록 수정
+        Initialize();
+    }
+
+    private void ProcessGameEnd()
+    {
+        //TODO: 초기화 대신 결과 UI 표시 및 랭킹 기록하도록 수정
+        Initialize();
+    }
+
     private List<HeroGameCaseStaticData> PickCaseStaticDataList(out bool isFixedDayCase)
     {
         var fixedDayCased = CommonSingleton.I.StaticDataHolder.GetFixedDayCaseList(Day);
@@ -154,7 +166,7 @@ public class HeroGameContext
         }
 
         var result = new List<HeroGameCaseStaticData>();
-        var randomPickCount = GetRandomCasePickCount();
+        var randomPickCount = HeroGameFormula.GetRandomCasePickCount(Day);
         chapterCasePool.Shuffle();
 
         for (var caseIndex = 0; caseIndex < randomPickCount; caseIndex++)
@@ -176,10 +188,10 @@ public class HeroGameContext
             case HeroGameCaseRandomSelectionStaticData data:
                 {
                     var upVariationValue = selectionIndex;
-                    var totalStatReward = GetRandomStatRewardTotalCount(upVariationValue);
+                    var totalStatReward = HeroGameFormula.GetRandomStatRewardTotalCount(Day, upVariationValue);
                     statReward = HeroGameCaseStatReward.BuildRandom(totalStatReward, data.MainRewardStatType);
 
-                    var totalStatRequirement = GetRandomStatRequirementTotalCount(upVariationValue);
+                    var totalStatRequirement = HeroGameFormula.GetRandomStatRequirementTotalCount(Day, upVariationValue);
                     statRequirement = HeroGameCaseStatRequirement.BuildRandom(totalStatRequirement, data.MainRequirementStatType);
                     break;
                 }
@@ -193,88 +205,5 @@ public class HeroGameContext
 
         var selection = new HeroGameCaseSelection(caseIndex, selectionIndex, staticData, statReward, statRequirement);
         return selection;
-    }
-
-    private int GetRandomStatRewardTotalCount(int upVariationValue)
-    {
-        var random = new Random();
-
-        // TODO: 데이터화
-        if (Day < 5)
-        {
-            return random.Next(-3, 3) + 15 + upVariationValue * 3;
-        }
-        else if (Day < 10)
-        {
-            return random.Next(-5, 5) + 25 + upVariationValue * 5;
-        }
-        else if (Day < 17)
-        {
-            return random.Next(-5, 5) + 40 + upVariationValue * 8;
-        }
-        else
-        {
-            return random.Next(-10, 10) + 70 + upVariationValue * 10;
-        }
-    }
-
-    private int GetRandomStatRequirementTotalCount(int upVariationValue)
-    {
-        var random = new Random();
-
-        // TODO: 데이터화
-        var countBase = GetRandomStatRequirementTotalCountBase();
-        if (Day < 5)
-        {
-            return random.Next(-2, 2) + countBase + upVariationValue * 5;
-        }
-        else if (Day < 10)
-        {
-            return random.Next(-10, 10) + countBase + upVariationValue * 10;
-        }
-        else if (Day < 17)
-        {
-            return random.Next(-10, 10) + countBase + upVariationValue * 15;
-        }
-        else
-        {
-            return random.Next(-15, 15) + countBase + upVariationValue * 20;
-        }
-    }
-
-    private int GetRandomStatRequirementTotalCountBase()
-    {
-        var result = 10;
-        result += Day * 8;
-
-        if (Day > 5)
-        {
-            result += 45;
-            result += (Day - 5) * 10;
-        }
-
-        if (Day > 10)
-        {
-            result += 50;
-            result += (Day - 10) * 15;
-        }
-
-        if (Day > 17)
-        {
-            result += 80;
-            result += (Day - 17) * 30;
-        }
-
-        return result;
-    }
-
-    private int GetRandomCasePickCount()
-    {
-        // TODO: 데이터화
-        if (Day < 10)
-        {
-            return 2;
-        }
-        return 3;
     }
 }

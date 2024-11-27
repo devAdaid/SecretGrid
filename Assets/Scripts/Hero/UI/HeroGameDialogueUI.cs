@@ -2,6 +2,7 @@ using RedBlueGames.Tools.TextTyper;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public interface IHeroGameDialogueUI
 {
@@ -12,6 +13,9 @@ public interface IHeroGameDialogueUI
 
 public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
 {
+    [SerializeField]
+    private GameObject root;
+
     [SerializeField]
     private TextTyper textTyper;
 
@@ -32,13 +36,46 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     private int currentCommandIndex = 0;
     private bool isChoiceActive = false; // 선택지가 활성화 상태인지 여부
 
-    private void Start()
+    private bool isDialoguePlaying;
+    private UnityAction onDialogueEnd = null;
+
+    public void PlayDialogue(TextAsset xmlText, UnityAction dialogueEndCallback)
     {
-        choiceRoot.SetActive(false); // 초기 선택지 UI 비활성화
+        isDialoguePlaying = true;
+
+        onDialogueEnd = dialogueEndCallback;
+
+        root.SetActive(true);
+        choiceRoot.SetActive(false);
+
+        var commands = DialogueXMLSerializer.LoadDialogueFromXML(xmlText.text);
+        dialoguePlayer = new DialoguePlayer(commands);
+        currentCommandIndex = 0;
+
+        // 첫 번째 명령 실행
+        ProceedToNextCommand();
+    }
+
+    private void OnDialogueEnd()
+    {
+        isDialoguePlaying = false;
+
+        root.SetActive(false);
+        onDialogueEnd?.Invoke();
+    }
+
+    private void Awake()
+    {
+        textTyper.CharacterPrinted.AddListener((_) => AudioManager.I.PlaySFX(SFXType.Type));
     }
 
     private void Update()
     {
+        if (!isDialoguePlaying)
+        {
+            return;
+        }
+
         if (isChoiceActive)
         {
             return;
@@ -71,7 +108,7 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
         // 기존 버튼 제거
         foreach (var button in activeChoiceButtons)
         {
-            Destroy(button);
+            Destroy(button.gameObject);
         }
         activeChoiceButtons.Clear();
 
@@ -81,7 +118,7 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
             var choice = choiceItems[i];
             var button = Instantiate(choiceItemPrefab, choiceRoot.transform);
             int index = choice.CommandIndex;
-            button.Apply(choice.Text_En, HeroGameCaseStatReward.Empty, index);
+            button.Apply(choice.Text_En, choice.StatReward, index);
 
             activeChoiceButtons.Add(button);
         }
@@ -106,6 +143,7 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
         if (dialoguePlayer == null || currentCommandIndex >= dialoguePlayer.Commands.Count)
         {
             //Debug.Log("대화 종료");
+            OnDialogueEnd();
             return;
         }
 
@@ -119,15 +157,6 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
         {
             ProceedToNextCommand();
         }
-    }
-
-    public void PlayDialogue(List<IDialogueCommand> commands)
-    {
-        dialoguePlayer = new DialoguePlayer(commands);
-        currentCommandIndex = 0;
-
-        // 첫 번째 명령 실행
-        ProceedToNextCommand();
     }
 
     // GotoCommand 실행 (D_Goto 커맨드에서 호출)

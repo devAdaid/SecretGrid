@@ -43,14 +43,17 @@ public class D_ChoiceItem
     public readonly string Text_Ko;
     public readonly string Text_En;
     public readonly int CommandIndex;
+    public readonly HeroGameCaseStatReward StatReward;
 
-    public D_ChoiceItem(string text_ko, string text_en, int commandIndex)
+    public D_ChoiceItem(string text_ko, string text_en, int commandIndex, HeroGameCaseStatReward statReward)
     {
         Text_Ko = text_ko;
         Text_En = text_en;
         CommandIndex = commandIndex;
+        StatReward = statReward;
     }
 }
+
 public class D_Goto : IDialogueCommand
 {
     public readonly int gotoIndex;
@@ -84,5 +87,29 @@ public class D_SpeakerName : IDialogueCommand
     public void ApplyUI(IHeroGameDialogueUI ui)
     {
         ui.UpdateSpeakerName(Text_En);
+    }
+}
+
+public class D_PauseBgm : IDialogueCommand
+{
+    public D_PauseBgm()
+    {
+    }
+
+    public void ApplyUI(IHeroGameDialogueUI ui)
+    {
+        AudioManager.I.PauseBGM();
+    }
+}
+
+public class D_ResumeBgm : IDialogueCommand
+{
+    public D_ResumeBgm()
+    {
+    }
+
+    public void ApplyUI(IHeroGameDialogueUI ui)
+    {
+        AudioManager.I.ResumeBGM();
     }
 }

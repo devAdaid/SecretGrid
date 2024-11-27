@@ -14,12 +14,6 @@ public class HeroGameUI : MonoSingleton<HeroGameUI>, IHeroGameUI
     [SerializeField]
     public HeroGameDialogueUI DialogueUI;
 
-    private void Start()
-    {
-        caseUI.ActiveCaseListUI();
-        caseResultUI.Hide();
-    }
-
     public void ApplyStatUI(int day, HeroPlayerContext playerContext)
     {
         statUI.Apply(day, playerContext);

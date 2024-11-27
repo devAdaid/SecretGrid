@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
-using static D_Goto;
 
 public class DialogueXMLSerializer : MonoBehaviour
 {
@@ -45,6 +44,7 @@ public class DialogueXMLSerializer : MonoBehaviour
                 commandElement.SetAttribute("Text_Ko", dSpeakerName.Text_Ko);
                 commandElement.SetAttribute("Text_En", dSpeakerName.Text_En);
             }
+            //TODO 명령어 추가
 
             if (commandElement != null)
             {
@@ -79,7 +79,17 @@ public class DialogueXMLSerializer : MonoBehaviour
                     var textKo = choiceElement.GetAttribute("Text_Ko");
                     var textEn = choiceElement.GetAttribute("Text_En");
                     var commandIndex = int.Parse(choiceElement.GetAttribute("CommandIndex"));
-                    choices.Add(new D_ChoiceItem(textKo, textEn, commandIndex));
+
+                    var strAttribute = choiceElement.GetAttribute("STR");
+                    var aglAttribute = choiceElement.GetAttribute("AGL");
+                    var intAttribute = choiceElement.GetAttribute("INT");
+                    var secretAttribute = choiceElement.GetAttribute("Secret");
+
+                    int.TryParse(strAttribute, out var strength);
+                    int.TryParse(aglAttribute, out var agility);
+                    int.TryParse(intAttribute, out var intelligence);
+                    int.TryParse(secretAttribute, out var secret);
+                    choices.Add(new D_ChoiceItem(textKo, textEn, commandIndex, new HeroGameCaseStatReward(strength, agility, intelligence, secret)));
                 }
                 commands.Add(new D_Choice(choices));
             }
@@ -93,6 +103,14 @@ public class DialogueXMLSerializer : MonoBehaviour
                 var textKo = commandElement.GetAttribute("Text_Ko");
                 var textEn = commandElement.GetAttribute("Text_En");
                 commands.Add(new D_SpeakerName(textKo, textEn));
+            }
+            else if (commandElement.Name == "PauseBgm")
+            {
+                commands.Add(new D_PauseBgm());
+            }
+            else if (commandElement.Name == "ResumeBgm")
+            {
+                commands.Add(new D_ResumeBgm());
             }
         }
 

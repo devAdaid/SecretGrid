@@ -17,6 +17,7 @@ public enum SFXType
     Success,
     Fail,
     Wait,
+    Type,
 }
 
 [Serializable]
@@ -93,8 +94,19 @@ public class AudioManager : PersistentSingleton<AudioManager>
         bgmSource.Stop();
     }
 
+    public void PauseBGM()
+    {
+        bgmSource.Pause();
+    }
+
+    public void ResumeBGM()
+    {
+        bgmSource.Play();
+    }
+
     public void PlaySFX(SFXType sfx)
     {
-        sfxSource.PlayOneShot(sfxMap[sfx]);
+        sfxSource.clip = sfxMap[sfx];
+        sfxSource.Play();
     }
 }

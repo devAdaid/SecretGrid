@@ -8,12 +8,12 @@
         Text_En="Hello! My name is John." />
     <Choice>
         <Choices>
-            <Choice
+            <Item
                 Text_Ko="어떤 도움을 줄 수 있나요?"
                 Text_En="What help can you offer?"
                 CommandIndex="3"
             />
-            <Choice
+            <Item
                 Text_Ko="가이드가 필요 없어요."
                 Text_En="I don't need a guide."
                 CommandIndex="5"

@@ -7,6 +7,7 @@ public class StaticDataHolder
     private readonly List<HeroGameCaseStaticData> chapter2CaseList = new List<HeroGameCaseStaticData>();
 
     private readonly Dictionary<int, List<HeroGameCaseStaticData>> casesByFixedDay = new Dictionary<int, List<HeroGameCaseStaticData>>();
+    private readonly Dictionary<int, HeroGameDayData> dayMap = new Dictionary<int, HeroGameDayData>();
 
     private bool isInitialized;
 
@@ -40,6 +41,12 @@ public class StaticDataHolder
             casesByFixedDay[caseData.FixedDay].Add(caseData);
         }
 
+        var dayList = Resources.LoadAll<HeroGameDayData>("Data/Day");
+        foreach (var dayData in dayList)
+        {
+            dayMap[dayData.Day] = dayData;
+        }
+
         isInitialized = true;
     }
 
@@ -59,5 +66,10 @@ public class StaticDataHolder
             return caseDataList;
 
         return new List<HeroGameCaseStaticData>();
+    }
+
+    public bool TryGetDayData(int day, out HeroGameDayData data)
+    {
+        return dayMap.TryGetValue(day, out data);
     }
 }

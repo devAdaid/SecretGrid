@@ -1,0 +1,68 @@
+<DialogueCommands>
+    <SpeakerName
+        Text_Ko="???"
+        Text_En="???"
+    />
+    <Text
+        Text_Ko="어때요? 사람을 도우니 강해지신 것이 느껴지시나요?"
+        Text_En="어때요? 사람을 도우니 강해지신 것이 느껴지시나요?"
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="아직 한참 약한 것 같은데."
+                Text_En="아직 한참 약한 것 같은데."
+                CommandIndex="3"
+            />
+            <Item
+                Text_Ko="좀 더 대단한 사건을 해결하고 싶은걸."
+                Text_En="좀 더 대단한 사건을 해결하고 싶은걸."
+                CommandIndex="3"
+            />
+            <Item
+                Text_Ko="그건 잘 모르겠는데, 보람은 있어."
+                Text_En="그건 잘 모르겠는데, 보람은 있어."
+                CommandIndex="3"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="지금은 당신의 능력이 약해져있지만, 계속 사람을 돕다 보면 점점 강해질 것입니다. 힘도, 민첩성도, 지능도 말이죠."
+        Text_En="지금은 당신의 능력이 약해져있지만, 계속 사람을 돕다 보면 점점 강해질 것입니다. 힘도, 민첩성도, 지능도 말이죠."
+    />
+    <Text
+        Text_Ko="그렇지만... 주의하세요."
+        Text_En="그렇지만... 주의하세요."
+    />
+    <PauseBgm />
+    <Text
+        Text_Ko="&lt;color=#579C9A&gt;당신이 비밀 히어로라는 것은 들켜서는 안 됩니다.&lt;/color&gt;"
+        Text_En="&lt;color=#579C9A&gt;당신의 비밀 히어로라는 것은 들켜서는 안 됩니다.&lt;/color&gt;"
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="어째서?"
+                Text_En="어째서?"
+                CommandIndex="9"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="음, 그건 말이죠..."
+        Text_En="음, 그건 말이죠..."
+    />
+    <Text
+        Text_Ko="......"
+        Text_En="......"
+    />
+    <ResumeBgm />
+    <Text
+        Text_Ko="아, 저는 중요한 일이 생각나서 이만!"
+        Text_En="아, 저는 중요한 일이 생각나서 이만!"
+    />
+    <Text
+        Text_Ko="내일도 열심히 비밀 히어로 활동을 하시죠!"
+        Text_En="내일도 열심히 비밀 히어로 활동을 하시죠!"
+    />
+</DialogueCommands>

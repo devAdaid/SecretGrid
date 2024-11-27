@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -27,9 +28,40 @@ public class HeroGameCaseResultUI : MonoBehaviour
 
     private HeroGameCaseSelectionUIControlData data;
 
+    private DateTime resultShowTime = DateTime.MinValue;
+
     private void Awake()
     {
         nextButton.AddOnClickListener(OnClickNextButton);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnSkipRequested();
+        }
+    }
+
+    private void OnSkipRequested()
+    {
+        if (!nextButton.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        if (resultShowTime == DateTime.MinValue)
+        {
+            return;
+        }
+
+        var now = DateTime.Now;
+        if (now < resultShowTime + TimeSpan.FromSeconds(0.5f))
+        {
+            return;
+        }
+
+        OnClickNextButton();
     }
 
     public void Show(HeroGameCaseSelectionUIControlData data)
@@ -65,6 +97,7 @@ public class HeroGameCaseResultUI : MonoBehaviour
             elapsedTime += 0.5f;
         }
 
+        resultShowTime = DateTime.Now;
         ProcessSelect();
     }
 
