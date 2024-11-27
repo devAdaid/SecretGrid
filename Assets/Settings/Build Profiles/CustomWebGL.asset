@@ -18,8 +18,24 @@ MonoBehaviour:
   m_PlatformId: 84a3bb9e7420477f885e98145999eb20
   m_PlatformBuildProfile:
     rid: 8393798826625597440
-  m_OverrideGlobalSceneList: 0
-  m_Scenes: []
+  m_OverrideGlobalSceneList: 1
+  m_Scenes:
+  - m_enabled: 1
+    m_path: Assets/Scenes/SceneSelector.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Hero.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Account.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/GridPuzzleTest.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Hero_UI.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Leaderboard.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/LeaderboardAPITest.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/SettingMenu.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings: []
