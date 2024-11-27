@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public interface IHeroGameDialogueUI
 {
@@ -26,6 +27,9 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     private GameObject choiceRoot;
     [SerializeField]
     private DialogueChoiceItemControl choiceItemPrefab; // 선택지 버튼 프리팹
+
+    [SerializeField]
+    private Button dialogueBoxButton;
 
     [SerializeField]
     private TMP_Text speakerNameText; // 화자 이름 표시용 텍스트 UI
@@ -66,7 +70,8 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
 
     private void Awake()
     {
-        textTyper.CharacterPrinted.AddListener((_) => AudioManager.I.PlaySFX(SFXType.Type));
+        textTyper.CharacterPrinted.AddListener((_) => AudioManager.I.PlayTypeSFX(SFXType.Type));
+        dialogueBoxButton.onClick.AddListener(RequestProceed);
     }
 
     private void Update()
@@ -83,14 +88,19 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (textTyper.IsSkippable())
-            {
-                textTyper.Skip();
-                return;
-            }
-
-            ProceedToNextCommand();
+            RequestProceed();
         }
+    }
+
+    private void RequestProceed()
+    {
+        if (textTyper.IsSkippable())
+        {
+            textTyper.Skip();
+            return;
+        }
+
+        ProceedToNextCommand();
     }
 
     public void PlayText(string text)

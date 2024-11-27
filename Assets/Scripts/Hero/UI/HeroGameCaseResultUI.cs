@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -24,11 +23,20 @@ public class HeroGameCaseResultUI : MonoBehaviour
     private TMP_Text rewardText;
 
     [SerializeField]
+    private float spaceCheckMaxInterval = 0.5f;
+
+    [SerializeField]
     private HeroGameButtonBase nextButton;
 
     private HeroGameCaseSelectionUIControlData data;
 
-    private DateTime resultShowTime = DateTime.MinValue;
+    private float resultShowTime = 0f;
+    private int continuousClickCount = 0;
+    private float lastClickTime = 0;
+
+    private bool isWaiting;
+
+    private static readonly int SPACE_CHECK_COUNT = 10;
 
     private void Awake()
     {
@@ -39,24 +47,57 @@ public class HeroGameCaseResultUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            OnSkipRequested();
+            if (nextButton.gameObject.activeInHierarchy)
+            {
+                continuousClickCount = 0;
+                OnNextButtonRequested();
+            }
+            else if (isWaiting)
+            {
+                UpdateContinuousClickCount();
+
+                if (CommonSingleton.I.PersistentContext.IsSecret3Enabled)
+                {
+                    if (continuousClickCount == 2)
+                    {
+                        StopAllCoroutines();
+
+                        resultShowTime = Time.time;
+                        isWaiting = false;
+                        ProcessSelect();
+                    }
+                }
+                else
+                {
+                    if (continuousClickCount >= SPACE_CHECK_COUNT)
+                    {
+                        CommonSingleton.I.PersistentContext.SetSecret3Enable(true);
+                        continuousClickCount = 0;
+                    }
+                }
+            }
         }
     }
 
-    private void OnSkipRequested()
+    private void UpdateContinuousClickCount()
     {
-        if (!nextButton.gameObject.activeInHierarchy)
-        {
-            return;
-        }
+        float currentTime = Time.time;
+        lastClickTime = currentTime;
 
-        if (resultShowTime == DateTime.MinValue)
+        if (currentTime - lastClickTime <= spaceCheckMaxInterval)
         {
-            return;
+            continuousClickCount++;
         }
+        else
+        {
+            continuousClickCount = 1;
+        }
+    }
 
-        var now = DateTime.Now;
-        if (now < resultShowTime + TimeSpan.FromSeconds(0.5f))
+    private void OnNextButtonRequested()
+    {
+        var now = Time.time;
+        if (now < resultShowTime + 0.5f)
         {
             return;
         }
@@ -84,6 +125,8 @@ public class HeroGameCaseResultUI : MonoBehaviour
 
     private IEnumerator UpdateLoadingText()
     {
+        isWaiting = true;
+
         int dotCount = 0;
         float elapsedTime = 0f;
         float duration = 2f;
@@ -97,7 +140,10 @@ public class HeroGameCaseResultUI : MonoBehaviour
             elapsedTime += 0.5f;
         }
 
-        resultShowTime = DateTime.Now;
+        resultShowTime = Time.time;
+
+        isWaiting = false;
+
         ProcessSelect();
     }
 

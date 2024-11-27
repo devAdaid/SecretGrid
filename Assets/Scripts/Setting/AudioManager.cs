@@ -18,6 +18,7 @@ public enum SFXType
     Fail,
     Wait,
     Type,
+    Secret,
 }
 
 [Serializable]
@@ -42,6 +43,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
     [Header("---------- Audio Source ----------")]
     [SerializeField] AudioSource bgmSource;
     [SerializeField] AudioSource sfxSource;
+    [SerializeField] AudioSource typeSfxSource;
 
     [Header("---------- Audio Clip ----------")]
     [SerializeField] BGMClipInfo[] bgmClips;
@@ -69,6 +71,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
         bgmSource.volume = PlayerPrefs.GetFloat(KEY_VOLUME_BGM, 0.5f);
         sfxSource.volume = PlayerPrefs.GetFloat(KEY_VOLUME_SFX, 0.5f);
+        typeSfxSource.volume = PlayerPrefs.GetFloat(KEY_VOLUME_SFX, 0.5f);
     }
 
     public void SetBGMVolume(float volume)
@@ -80,6 +83,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
     public void SetSFXVolume(float volume)
     {
         sfxSource.volume = volume;
+        typeSfxSource.volume = volume;
         PlayerPrefs.SetFloat(KEY_VOLUME_SFX, volume);
     }
 
@@ -106,7 +110,12 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public void PlaySFX(SFXType sfx)
     {
-        sfxSource.clip = sfxMap[sfx];
-        sfxSource.Play();
+        sfxSource.PlayOneShot(sfxMap[sfx]);
+    }
+
+    public void PlayTypeSFX(SFXType sfx)
+    {
+        typeSfxSource.clip = sfxMap[sfx];
+        typeSfxSource.Play();
     }
 }
