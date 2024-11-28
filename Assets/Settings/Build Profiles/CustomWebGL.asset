@@ -23,7 +23,9 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/SceneSelector.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Hero.unity
+    m_path: Assets/Scenes/HeroGame/Title.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/HeroGame/Hero.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Account.unity
   - m_enabled: 1
