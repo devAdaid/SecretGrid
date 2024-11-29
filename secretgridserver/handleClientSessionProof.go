@@ -45,7 +45,7 @@ func handleClientSessionProof(writer http.ResponseWriter, request *http.Request)
 
 	sharedKHex := hex.EncodeToString(server.sharedK)
 
-	fmt.Println("sharedK", sharedKHex, len(server.sharedK), "bytes")
+	//fmt.Println("sharedK", sharedKHex, len(server.sharedK), "bytes")
 
 	c := SimpleCipher{}
 	err = c.Init(server.sharedK)

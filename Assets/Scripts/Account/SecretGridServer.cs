@@ -3,6 +3,7 @@ using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
@@ -98,6 +99,8 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             var tokens = www.downloadHandler.text.Split("\t");
             var salt = tokens[0];
             var serverPublic = tokens[1];
+            
+            Debug.Log($"ServerPublic: {serverPublic}");
             
             var B = new BigInteger(Parameters.StringToByteArray(serverPublic), isUnsigned: true, isBigEndian: true);
             
@@ -233,18 +236,25 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         www.SetRequestHeader("X-User-Id", userId);
         yield return www.SendWebRequest();
 
-        var response = www.downloadHandler.text;
-        Debug.Log($"Response from server (ciphertext): {response}");
-        
-        var responseTokens = response.Split("&");
-        var responseCiphertextB64 = responseTokens[0];
-        var responseIVB64 = responseTokens[1];
-        
-        var responseCiphertext = Convert.FromBase64String(responseCiphertextB64);
-        var responseIV = Convert.FromBase64String(responseIVB64);
-        var responsePlaintext = AESUtil.Cipher.Decrypt(responseCiphertext, sharedK, responseIV);
-        var responseStr = Encoding.UTF8.GetString(responsePlaintext);
-        Debug.Log($"Response from server (plaintext): {responseStr}");
+        if (www.responseCode == (long)HttpStatusCode.OK)
+        {
+            var response = www.downloadHandler.text;
+            Debug.Log($"Response from server (ciphertext): {response}");
+
+            var responseTokens = response.Split("&");
+            var responseCiphertextB64 = responseTokens[0];
+            var responseIVB64 = responseTokens[1];
+
+            var responseCiphertext = Convert.FromBase64String(responseCiphertextB64);
+            var responseIV = Convert.FromBase64String(responseIVB64);
+            var responsePlaintext = AESUtil.Cipher.Decrypt(responseCiphertext, sharedK, responseIV);
+            var responseStr = Encoding.UTF8.GetString(responsePlaintext);
+            Debug.Log($"Response from server (plaintext): {responseStr}");
+        }
+        else
+        {
+            Debug.LogWarning($"Response from server with {www.responseCode}");
+        }
     }
 
     public void SetServerAddr(string text)

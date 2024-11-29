@@ -24,9 +24,10 @@ func initK() {
 	h.Write(g.Bytes())
 	k = new(big.Int).SetBytes(h.Sum(nil))
 
-	fmt.Println("K", toHexInt(k))
+	//fmt.Println("K", toHexInt(k))
 }
 
+// 4095 -> fff와 같이 반환되는 문자열 길이가 홀수인 경우가 있다는 점에 유의하자.
 func toHexInt(n *big.Int) string {
 	return fmt.Sprintf("%x", n) // or %x or upper case
 }

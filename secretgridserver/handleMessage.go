@@ -57,27 +57,37 @@ func handleMessage(writer http.ResponseWriter, request *http.Request) {
 
 	plaintextStr := string(plaintext[:])
 
+	// [메시지 번호]\t[메시지 본문] 형태여야만 한다.
 	messageTokens := strings.Split(plaintextStr, "\t")
-
 	if len(messageTokens) != 2 {
 		writer.WriteHeader(400)
 		return
 	}
 
+	// 메시지 번호 파싱
 	messageCounter, err := strconv.Atoi(messageTokens[0])
 	if err != nil {
 		writer.WriteHeader(400)
 		return
 	}
 
+	// 메시지 번호 확인 (중복 메시지 번호로 온 것은 무시해야한다.)
 	if messageCounter != serverSessionMap[userId].counter + 1 {
 		writer.WriteHeader(400)
 		return
 	}
 
+	// 다음 메시지 번호 처리를 위해 1 증가
 	serverSessionMap[userId].counter = serverSessionMap[userId].counter + 1
 
-	log.Println("Valid Message:", messageTokens[1])
+	// 닉네임 조회
+	nickname, err := rdb.HGet(ctx, "secretGrid:nickname", userId).Result()
+	if err != nil {
+		writer.WriteHeader(500)
+		return
+	}
+
+	log.Printf("RECV %s (%s): %s", userId, nickname, messageTokens[1])
 
 	responseIv := make([]byte, 16)
 	// then we can call rand.Read.

@@ -53,6 +53,16 @@ namespace SRPClient
     public static class Parameters
     {
         public static byte[] StringToByteArray(string hex) {
+            if (hex.Length == 0)
+            {
+                throw new ArgumentException("String is empty");
+            }
+
+            if (hex.Length % 2 == 1)
+            {
+                hex = "0" + hex;
+            }
+            
             return Enumerable.Range(0, hex.Length)
                 .Where(x => x % 2 == 0)
                 .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
