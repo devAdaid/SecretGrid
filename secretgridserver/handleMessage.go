@@ -3,6 +3,8 @@ package main
 import (
 	"crypto/rand"
 	"encoding/base64"
+	"fmt"
+	"github.com/redis/go-redis/v9"
 	"io"
 	"log"
 	"net/http"
@@ -57,9 +59,9 @@ func handleMessage(writer http.ResponseWriter, request *http.Request) {
 
 	plaintextStr := string(plaintext[:])
 
-	// [메시지 번호]\t[메시지 본문] 형태여야만 한다.
+	// [메시지 번호]\t[메시지 본문]\t[옵션1]\t[옵션2]... 형태여야만 한다.
 	messageTokens := strings.Split(plaintextStr, "\t")
-	if len(messageTokens) != 2 {
+	if len(messageTokens) < 2 {
 		writer.WriteHeader(400)
 		return
 	}
@@ -77,23 +79,46 @@ func handleMessage(writer http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	// 다음 메시지 번호 처리를 위해 1 증가
-	serverSessionMap[userId].counter = serverSessionMap[userId].counter + 1
+	// 유효한 메시지
 
 	// 닉네임 조회
 	nickname, err := rdb.HGet(ctx, "secretGrid:nickname", userId).Result()
-	if err != nil {
+	if err == redis.Nil {
+		nickname = "---"
+	} else if err != nil {
 		writer.WriteHeader(500)
 		return
 	}
 
 	log.Printf("RECV %s (%s): %s", userId, nickname, messageTokens[1])
 
+	// 다음 메시지 번호 처리를 위해 1 증가
+	serverSessionMap[userId].counter = serverSessionMap[userId].counter + 1
+
+	cmd := messageTokens[1]
+	switch cmd {
+	case "SetNickname":
+		// 닉네임 설정
+		if len(messageTokens) > 2 {
+			nickname = messageTokens[2]
+			if len(nickname) > 32 {
+				nickname = nickname[:32]
+			}
+			_, _ = rdb.HSet(ctx, "secretGrid:nickname", userId, nickname).Result()
+		} else {
+			writer.WriteHeader(400)
+			return
+		}
+	default:
+		writer.WriteHeader(400)
+		return
+	}
+
 	responseIv := make([]byte, 16)
 	// then we can call rand.Read.
 	_, err = rand.Read(responseIv)
 
-	replyCiphertext, err := s.cipher.encrypt([]byte("Welcome to secretgrid server"), responseIv)
+	replyCiphertext, err := s.cipher.encrypt([]byte(fmt.Sprintf("%d\tOK", messageCounter)), responseIv)
 	if err != nil {
 		writer.WriteHeader(500)
 		return

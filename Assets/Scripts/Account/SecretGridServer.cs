@@ -26,6 +26,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     private string nickname;
     public LeaderboardResult CachedLeaderboardResult { get; private set; }
     private byte[] sharedK;
+    private int messageCounter = -1;
 
     private IEnumerator Start()
     {
@@ -208,16 +209,9 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
                 ConDebug.Log("Login successful!");
                 ConDebug.Log($"K_client: {Utils.ToHex(K_client)}");
                 sharedK = K_client;
+                messageCounter = 0;
                 
-                var iv = new byte[16];
-                RandomNumberGenerator.Fill(iv);
-                ConDebug.Log($"IV: {Utils.ToHex(iv)}");
-                const int messageCounter = 1;
-                var encrypted = AESUtil.Cipher.Encrypt(Encoding.UTF8.GetBytes($"{messageCounter}\t암호화된 세션으로 처음 보내는 메시지! 게임잼 재미있다"), sharedK, iv);
-                
-                ConDebug.Log($"encrypted: {Convert.ToBase64String(encrypted)}");
-
-                yield return SendSecureMessage(encrypted, iv);
+                yield return SendSecureMessage($"SetNickname\t{nickname}");
             }
         }
 
@@ -227,7 +221,22 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
     }
 
-    private IEnumerator SendSecureMessage(byte[] encrypted, byte[] iv)
+    private IEnumerator SendSecureMessage(string plaintext)
+    {
+        messageCounter++;
+        
+        var iv = new byte[16];
+        RandomNumberGenerator.Fill(iv);
+        ConDebug.Log($"IV: {Utils.ToHex(iv)}");
+                
+        var encrypted = AESUtil.Cipher.Encrypt(Encoding.UTF8.GetBytes($"{messageCounter}\t{plaintext}"), sharedK, iv);
+                
+        ConDebug.Log($"encrypted: {Convert.ToBase64String(encrypted)}");
+
+        return SendCiphertextMessage(encrypted, iv);
+    }
+
+    private IEnumerator SendCiphertextMessage(byte[] encrypted, byte[] iv)
     {
         var encryptedB64 = Convert.ToBase64String(encrypted);
         var ivB64 = Convert.ToBase64String(iv);
