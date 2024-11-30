@@ -5,7 +5,10 @@ using UnityEngine;
 public class HeroGameDayData : ScriptableObject
 {
     public int Day;
+    public bool IsDayStartDialogueSkippable = true;
     public TextAsset DayStartDialogue;
+    public bool IsDayEndDialogueSkippable = true;
     public TextAsset DayEndDialogue;
-    public List<string> CaseIdList;
+    public int MaxPhase;
+    public List<HeroGameCaseScriptableData> CaseIdList;
 }

@@ -39,7 +39,15 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
         }
 
         ui.HideResultUI();
-        OnDayEnd(GameContext.Day);
+        
+        if (GameContext.NeedProcessPhaseEnd())
+        {
+            OnPhaseEnd();
+        }
+        else
+        {
+            OnDayEnd(GameContext.Day);
+        }
     }
 
     private void ShowCaseListUI()
@@ -52,7 +60,14 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
 
     private void ApplyStatUI()
     {
-        ui.ApplyStatUI(GameContext.Day, GameContext.Player);
+        if (GameContext.NeedProcessPhaseEnd())
+        {
+            ui.ApplyStatUI(GameContext.Day, GameContext.RemainPhase, GameContext.MaxRemainPhase, GameContext.Player);
+        }
+        else
+        {
+            ui.ApplyStatUI(GameContext.Day, null, null, GameContext.Player);
+        }
     }
 
     private void ProcessGameStart()
@@ -93,11 +108,28 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
             ProcessDayEnd();
         }
     }
+    
+    private void OnPhaseEnd()
+    {
+        var result = GameContext.ProcessNext(Time.time);
+        switch (result)
+        {
+            case HeroGameProcessNextResult.NextPhase:
+                ShowCaseListUI();
+                break;
+            case HeroGameProcessNextResult.GameOverBySecretZero:
+            case HeroGameProcessNextResult.GameOverByRemainPhaseZero:
+            case HeroGameProcessNextResult.GameEnd:
+                ui.ShowScoreResultUI(GameContext);
+                SecretGridServer.I.StartSendScore(GameContext);
+                break;
+        }
+    }
 
     private void ProcessDayEnd()
     {
         var result = GameContext.ProcessNext(Time.time);
-
+        
         ApplyStatUI();
 
         switch (result)
@@ -106,6 +138,7 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
                 OnDayStarted(GameContext.Day);
                 break;
             case HeroGameProcessNextResult.GameOverBySecretZero:
+            case HeroGameProcessNextResult.GameOverByRemainPhaseZero:
             case HeroGameProcessNextResult.GameEnd:
                 ui.ShowScoreResultUI(GameContext);
                 SecretGridServer.I.StartSendScore(GameContext);

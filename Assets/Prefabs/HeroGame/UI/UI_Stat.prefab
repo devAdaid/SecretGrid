@@ -102,7 +102,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 20, y: -16.5}
-  m_SizeDelta: {x: 110, y: 27}
+  m_SizeDelta: {x: 220, y: 27}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &984919140171686381
 CanvasRenderer:
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Day 99/99
+  m_text: Day 99/99 (Remain 99)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fac1bd6979f644246b984c11bc4cd432, type: 2}
   m_sharedMaterial: {fileID: 37157748277955255, guid: fac1bd6979f644246b984c11bc4cd432, type: 2}

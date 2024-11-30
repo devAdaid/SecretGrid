@@ -86,7 +86,22 @@ public class D_SpeakerName : IDialogueCommand
 
     public void ApplyUI(IHeroGameDialogueUI ui)
     {
-        ui.UpdateSpeakerName(Text_Ko);
+        ui.ApplySpeakerName(Text_Ko);
+    }
+}
+
+public class D_SpeakerSprite : IDialogueCommand
+{
+    public readonly string SpritePath;
+
+    public D_SpeakerSprite(string spritePath)
+    {
+        SpritePath = spritePath;
+    }
+
+    public void ApplyUI(IHeroGameDialogueUI ui)
+    {
+        ui.ApplySpeakerSprite(SpritePath);
     }
 }
 

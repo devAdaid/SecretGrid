@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: Case_01_Start
+  m_Name: Main0
   m_EditorClassIdentifier: 
   FixedDay: 1
   Sprite: {fileID: 6714369015438526544, guid: 6d983e9b854b0e84a976d87c0105e5f1, type: 3}

@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Day5
   m_EditorClassIdentifier: 
   Day: 5
-  DayStartDialogue: {fileID: 4900000, guid: aab785149ab3c824da5a05c350fd702f, type: 3}
-  DayEndDialogue: {fileID: 4900000, guid: b53544c1874d0c546b0acf123c288d90, type: 3}
+  DayStartDialogue: {fileID: 4900000, guid: 902c534e96c865940a2c3417594e9e65, type: 3}
+  DayEndDialogue: {fileID: 4900000, guid: 902c534e96c865940a2c3417594e9e65, type: 3}
+  MaxPhase: 3
+  CaseIdList:
+  - {fileID: 11400000, guid: ae3a4c2b3537fde46addd432fd97fbfe, type: 2}
+  - {fileID: 11400000, guid: 8defe28589853459b89cdfbbb2213a31, type: 2}

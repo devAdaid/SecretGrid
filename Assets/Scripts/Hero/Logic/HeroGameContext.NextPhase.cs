@@ -6,8 +6,8 @@ public partial class HeroGameContext
     private void ProcessNextPhase()
     {
         // 남은 페이즈 차감
-        RemainPhase = Math.Max(0, RemainPhase - 1);
-
+        RemainPhase = Math.Max(0, RemainPhase.Value - 1);
+        ProcessPickCases(PickSpecialCaseStaticDataList());
     }
 
     private List<HeroGameCaseStaticData> PickSpecialCaseStaticDataList()

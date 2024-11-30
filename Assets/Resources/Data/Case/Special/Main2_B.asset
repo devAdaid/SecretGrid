@@ -10,42 +10,46 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: Case_10_Main
+  m_Name: Main2_B
   m_EditorClassIdentifier: 
-  FixedDay: 10
-  Sprite: {fileID: 6714369015438526544, guid: 6d983e9b854b0e84a976d87c0105e5f1, type: 3}
-  Title_Ko: "(\uC784\uC2DC) \uCC55\uD1302 \uC2A4\uD399\uCEF7"
-  Title_En: "(\uC784\uC2DC) \uCC55\uD1302 \uC2A4\uD399\uCEF7"
-  Description_Ko: "(\uC784\uC2DC) \uC2A4\uD399\uCEF7"
-  Description_En: "(\uC784\uC2DC) \uC2A4\uD399\uCEF7"
+  FixedDay: 0
+  Sprite: {fileID: 21300000, guid: 84aced6405b5d0e408e6bb9374641944, type: 3}
+  Title_Ko: "(\uC784\uC2DC) 2\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 B"
+  Title_En: "(\uC784\uC2DC) 2\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 B"
+  Description_Ko: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
+    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
+    \uD568"
+  Description_En: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
+    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
+    \uD568"
   Selections:
   - Type: 1
     Description_Ko: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
     Description_En: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
-    DecreaseSecretValueOnFail: 3
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 0
+    RandomMainRequirementStatType: 0
+    FixedStatReward:
+      Strength: 5
+      Agility: 5
+      Intelligence: 5
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 60
+      Agility: 60
+      Intelligence: 60
+  - Type: 1
+    Description_Ko: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134"
+    Description_En: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134"
+    DecreaseSecretValueOnFail: 2
     RandomMainRewardStatType: 0
     RandomMainRequirementStatType: 0
     FixedStatReward:
       Strength: 25
-      Agility: 25
-      Intelligence: 25
-      Secret: 0
-    FixedStatRequirement:
-      Strength: 70
-      Agility: 70
-      Intelligence: 70
-  - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134"
-    Description_En: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134"
-    DecreaseSecretValueOnFail: 5
-    RandomMainRewardStatType: 0
-    RandomMainRequirementStatType: 0
-    FixedStatReward:
-      Strength: 30
       Agility: 35
-      Intelligence: 25
+      Intelligence: 30
       Secret: 0
     FixedStatRequirement:
-      Strength: 65
-      Agility: 100
-      Intelligence: 65
+      Strength: 90
+      Agility: 75
+      Intelligence: 75

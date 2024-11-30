@@ -6,6 +6,7 @@ public enum HeroGameProcessNextResult
     NextPhase,
     GameEnd,
     GameOverBySecretZero,
+    GameOverByRemainPhaseZero,
 }
 
 public enum GameState
@@ -26,6 +27,7 @@ public partial class HeroGameContext
     private List<HeroGameCaseStaticData> specialCasePool;
 
     public int Day { get; private set; }
+    public int? MaxRemainPhase { get; private set; }
     public int? RemainPhase { get; private set; }
 
     public int Score { get; private set; }
@@ -51,10 +53,13 @@ public partial class HeroGameContext
             normalCasePool.Add(caseData);
         }
 
+        specialCasePool = new List<HeroGameCaseStaticData>();
+
         Day = 1;
+        RemainPhase = null;
         AudioManager.I.PlayBGM(BGMType.Game1);
 
-        ProcessPickCases(PickNormalCaseStaticDataList());
+        HandleDayStart();
 
         gameStartTime = 0f;
         GameState = GameState.Playing;
@@ -73,6 +78,12 @@ public partial class HeroGameContext
             ProcessGameOver(time);
             return HeroGameProcessNextResult.GameOverBySecretZero;
         }
+        
+        if (RemainPhase.HasValue && RemainPhase.Value <= 0)
+        {
+            ProcessGameOver(time);
+            return HeroGameProcessNextResult.GameOverByRemainPhaseZero;
+        }
 
         // TODO: 엔딩 기준은 데이터화
         if (Day == 25)
@@ -82,7 +93,7 @@ public partial class HeroGameContext
         }
 
         // 페이즈가 남아있음 = 풀에서 케이스 구성
-        if (RemainPhase > 0 || specialCasePool.Count > 0)
+        if (NeedProcessPhaseEnd())
         {
             ProcessNextPhase();
             return HeroGameProcessNextResult.NextPhase;
@@ -91,6 +102,11 @@ public partial class HeroGameContext
         // 다음 날로 진행
         ProcessNextDay();
         return HeroGameProcessNextResult.NextDay;
+    }
+    
+    public bool NeedProcessPhaseEnd()
+    {
+        return Player.Secret > 0 && RemainPhase.HasValue && specialCasePool.Count > 0;
     }
 
     private HeroGameCaseSelection BuildSelection(int caseIndex, int selectionIndex, IHeroGameCaseSelectionStaticData staticData)

@@ -9,7 +9,8 @@ public interface IHeroGameDialogueUI
 {
     void PlayText(string text);
     void ApplyChoice(List<D_ChoiceItem> choiceItems);
-    void UpdateSpeakerName(string speakerName);
+    void ApplySpeakerName(string speakerName);
+    void ApplySpeakerSprite(string spritePath);
     void EndDialogue();
 }
 
@@ -33,7 +34,10 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     private Button dialogueBoxButton;
 
     [SerializeField]
-    private TMP_Text speakerNameText; // 화자 이름 표시용 텍스트 UI
+    private Image speakerImage;
+
+    [SerializeField]
+    private TMP_Text speakerNameText;
 
     private List<DialogueChoiceItemControl> activeChoiceButtons = new List<DialogueChoiceItemControl>();
     private DialoguePlayer dialoguePlayer;
@@ -186,9 +190,15 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     }
 
     // 화자 이름 갱신 (D_SpeakerName 커맨드에서 호출)
-    public void UpdateSpeakerName(string speakerName)
+    public void ApplySpeakerName(string speakerName)
     {
         speakerNameText.text = speakerName; // UI 텍스트 갱신
+    }
+    
+    public void ApplySpeakerSprite(string spritePath)
+    {
+        var sprite = Resources.Load<Sprite>(spritePath);
+        speakerImage.sprite = sprite;
     }
 
     public void EndDialogue()

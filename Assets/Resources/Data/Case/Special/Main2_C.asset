@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
+  m_Name: Main2_C
+  m_EditorClassIdentifier: 
+  FixedDay: 0
+  Sprite: {fileID: 0}
+  Title_Ko: "(\uC784\uC2DC) 2\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 C"
+  Title_En: "(\uC784\uC2DC) 2\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 C"
+  Description_Ko: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
+    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
+    \uD568"
+  Description_En: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
+    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
+    \uD568"
+  Selections:
+  - Type: 1
+    Description_Ko: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74. \uB2E4\uB978
+      \uC0AC\uAC74\uBCF4\uB2E4 \uC870\uAE08 \uC5B4\uB824\uC6C0"
+    Description_En: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74. \uB2E4\uB978
+      \uC0AC\uAC74\uBCF4\uB2E4 \uC870\uAE08 \uC5B4\uB824\uC6C0"
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 0
+    RandomMainRequirementStatType: 0
+    FixedStatReward:
+      Strength: 10
+      Agility: 10
+      Intelligence: 10
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 75
+      Agility: 75
+      Intelligence: 75
+  - Type: 1
+    Description_Ko: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134"
+    Description_En: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134"
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 0
+    RandomMainRequirementStatType: 0
+    FixedStatReward:
+      Strength: 40
+      Agility: 25
+      Intelligence: 25
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 90
+      Agility: 70
+      Intelligence: 60

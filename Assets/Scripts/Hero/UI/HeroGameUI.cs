@@ -20,9 +20,16 @@ public class HeroGameUI : MonoSingleton<HeroGameUI>
     [SerializeField]
     public HeroGameTooltipUI TooltipUI;
 
-    public void ApplyStatUI(int day, HeroPlayerContext playerContext)
+    public void ApplyStatUI(int day, int? remainPhase, int? maxPhase, HeroPlayerContext playerContext)
     {
-        statUI.Apply(day, playerContext);
+        if (remainPhase.HasValue && maxPhase.HasValue && maxPhase.Value > 1)
+        {
+            statUI.ApplyWithRemainPhase(day, remainPhase.Value, playerContext);
+        }
+        else
+        {
+            statUI.Apply(day, playerContext);
+        }
     }
 
     public void ApplyCaseUI(HeroGameCaseUIData data)

@@ -7,6 +7,12 @@ public partial class HeroGameContext
         // 다음 날로
         Day += 1;
 
+        HandleDayStart();
+    }
+    
+    private void HandleDayStart()
+    {
+
         // TODO: 임시 챕터 2 이후 처리해둠. 추후 디벨롧.
         if (Day == 6)
         {
@@ -24,18 +30,19 @@ public partial class HeroGameContext
         // 다음 사건들을 구성한다.
         if (CommonSingleton.I.StaticDataHolder.TryGetDayData(Day, out var dayData))
         {
-            // 데이터화
-            RemainPhase = 5;
-            foreach (var caseId in dayData.CaseIdList)
+            MaxRemainPhase = dayData.MaxPhase;
+            RemainPhase = dayData.MaxPhase;
+            foreach (var caseIdData in dayData.CaseIdList)
             {
-                var caseData = CommonSingleton.I.StaticDataHolder.GetCaseData(caseId);
+                var caseData = CommonSingleton.I.StaticDataHolder.GetCaseData(caseIdData.name);
                 specialCasePool.Add(caseData);
                 ProcessPickCases(PickSpecialCaseStaticDataList());
             }
         }
         else
         {
-            RemainPhase = 0;
+            MaxRemainPhase = null;
+            RemainPhase = null;
             ProcessPickCases(PickNormalCaseStaticDataList());
         }
     }
