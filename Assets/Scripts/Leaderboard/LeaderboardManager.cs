@@ -32,7 +32,7 @@ public class LeaderboardManager : MonoBehaviour
     {
         secretGridServer.SetServerLogText(serverLogText);
         yield return secretGridServer.GetLeaderboardResultCoro("teststage");
-        userCount = secretGridServer.CachedLeaderboardResult.Entries.Count;
+        userCount = secretGridServer.CachedLeaderboardResult.entries.Count;
         Myuserkey = PlayerPrefs.GetString("UserId");
         secretGridServer.SetServerLogText(serverLogText);
 
@@ -71,7 +71,7 @@ public class LeaderboardManager : MonoBehaviour
             myInstance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = entriesArray[i].Item3;
 
             Testcount++;
-            if (i == secretGridServer.CachedLeaderboardResult.MyRank)
+            if (i == secretGridServer.CachedLeaderboardResult.myRank)
             {
                 myInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255); // 나의 정보는 빨간색 표시
                 myInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);

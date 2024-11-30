@@ -136,17 +136,20 @@ func handleMessage(writer http.ResponseWriter, request *http.Request) {
 
 			var entries []LeaderboardEntry
 			for i, e := range rankRange.Val() {
-				nn, _ := rdb.HGet(ctx, "secretGrid:nickname", e.Member.(string)).Result()
+				eUserId := e.Member.(string)
+				nn, _ := rdb.HGet(ctx, "secretGrid:nickname", eUserId).Result()
 				entries = append(entries, LeaderboardEntry{
 					Rank:     startRank + int64(i),
-					Nickname: nn,
+					UserId:   eUserId,
 					Score:    e.Score,
+					Nickname: nn,
 				})
 			}
 
-			leaderboard := Leaderboard{
-				Rank:    rank,
-				Entries: entries,
+			leaderboard := LeaderboardResult{
+				MyRank:   rank,
+				MyUserId: userId,
+				Entries:  entries,
 			}
 
 			leaderboardJson, err := json.Marshal(leaderboard)
