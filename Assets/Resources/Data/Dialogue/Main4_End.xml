@@ -37,11 +37,11 @@
     />
     <Text
         Text_Ko="(박사 K가 자리를 떠나자, 당신에게 익숙한 목소리가 들려온다. 제로스다.)"
-        Text_En="(As Dr. K leaves, a familiar voice reaches you. It’s Zero.)"
+        Text_En="(As Dr. K leaves, a familiar voice reaches you. It’s Xeros.)"
     />
     <SpeakerName
         Text_Ko="제로스"
-        Text_En="Zero"
+        Text_En="Xeros"
     />
     <Text
         Text_Ko="후, 겨우 따돌렸네."
@@ -112,7 +112,7 @@
     />
     <SpeakerName
         Text_Ko="제로스"
-        Text_En="Zero"
+        Text_En="Xeros"
     />
     <Text
         Text_Ko="속지 마! 녀석은 너를 이용할 생각일 뿐이야!"
@@ -144,7 +144,7 @@
 
     <SpeakerName
         Text_Ko="제로스"
-        Text_En="Zero"
+        Text_En="Xeros"
     />
     <Text
         Text_Ko="하하하..."
@@ -160,7 +160,7 @@
     />
     <Text
         Text_Ko="(제로스와의 교신이 끊어졌다.)"
-        Text_En="(The communication with Zero is cut off.)"
+        Text_En="(The communication with Xeros is cut off.)"
     />
     <SpeakerName
         Text_Ko="박사 K"
@@ -261,7 +261,7 @@
 
     <SpeakerName
         Text_Ko="제로스"
-        Text_En="Zero"
+        Text_En="Xeros"
     />
     <Text
         Text_Ko="그래, 그래야지!"

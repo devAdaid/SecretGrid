@@ -7,23 +7,17 @@ public class StaticDataHolder
     private readonly List<HeroGameCaseStaticData> chapter2CaseList = new List<HeroGameCaseStaticData>();
 
     private readonly Dictionary<int, List<HeroGameCaseStaticData>> casesByFixedDay = new Dictionary<int, List<HeroGameCaseStaticData>>();
+    private readonly Dictionary<string, HeroGameCaseStaticData> caseMap = new();
     private readonly Dictionary<int, HeroGameDayData> dayMap = new Dictionary<int, HeroGameDayData>();
-
-    private bool isInitialized;
 
     public StaticDataHolder()
     {
-        if (isInitialized) return;
-
-        chapter1CaseList.Clear();
-        chapter2CaseList.Clear();
-        casesByFixedDay.Clear();
-
         var chapter1Cases = Resources.LoadAll<HeroGameCaseScriptableData>("Data/Case/Chapter1");
         foreach (var caseScriptableData in chapter1Cases)
         {
             var caseData = HeroGameCaseStaticData.Build(caseScriptableData);
             chapter1CaseList.Add(caseData);
+            caseMap[caseData.Id] = caseData;
         }
 
         var chapter2Cases = Resources.LoadAll<HeroGameCaseScriptableData>("Data/Case/Chapter2");
@@ -31,6 +25,7 @@ public class StaticDataHolder
         {
             var caseData = HeroGameCaseStaticData.Build(caseScriptableData);
             chapter2CaseList.Add(caseData);
+            caseMap[caseData.Id] = caseData;
         }
 
         var fixedDayCases = Resources.LoadAll<HeroGameCaseScriptableData>("Data/Case/Special");
@@ -39,6 +34,7 @@ public class StaticDataHolder
             var caseData = HeroGameCaseStaticData.Build(caseScriptableData);
             casesByFixedDay.TryAdd(caseData.FixedDay, new List<HeroGameCaseStaticData>());
             casesByFixedDay[caseData.FixedDay].Add(caseData);
+            caseMap[caseData.Id] = caseData;
         }
 
         var dayList = Resources.LoadAll<HeroGameDayData>("Data/Day");
@@ -46,8 +42,6 @@ public class StaticDataHolder
         {
             dayMap[dayData.Day] = dayData;
         }
-
-        isInitialized = true;
     }
 
     public List<HeroGameCaseStaticData> GetChapter1CaseList()
@@ -58,6 +52,11 @@ public class StaticDataHolder
     public List<HeroGameCaseStaticData> GetChapter2CaseList()
     {
         return chapter2CaseList;
+    }
+
+    public HeroGameCaseStaticData GetCaseData(string id)
+    {
+        return caseMap[id];
     }
 
     public List<HeroGameCaseStaticData> GetFixedDayCaseList(int day)

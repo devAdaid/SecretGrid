@@ -1,0 +1,10 @@
+<DialogueCommands>
+    <SpeakerName
+        Text_Ko="제로스"
+        Text_En="Xeros"
+    />
+    <Text
+        Text_Ko="(임시) 엔딩3 대화"
+        Text_En="(임시) 엔딩3 대화"
+    />
+</DialogueCommands>

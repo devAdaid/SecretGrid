@@ -1,0 +1,10 @@
+<DialogueCommands>
+    <SpeakerName
+        Text_Ko="박사 K"
+        Text_En="Dr. K"
+    />
+    <Text
+        Text_Ko="(임시) 엔딩2 대화"
+        Text_En="(임시) 엔딩2 대화"
+    />
+</DialogueCommands>
