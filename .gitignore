@@ -75,3 +75,7 @@ crashlytics-build.properties
 /Assets/Resources/Server/SecretGridServerSettings.asset
 /Assets/Resources/Server/SecretGridServerSettings.asset.meta
 /.serveraddress
+/Assets/Resources/PerformanceTestRunInfo.json
+/Assets/Resources/PerformanceTestRunInfo.json.meta
+/Assets/Resources/PerformanceTestRunSettings.json
+/Assets/Resources/PerformanceTestRunSettings.json.meta
