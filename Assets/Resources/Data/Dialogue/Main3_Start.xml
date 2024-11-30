@@ -1,0 +1,54 @@
+<DialogueCommands>
+    <SpeakerName
+        Text_Ko="박사 K"
+        Text_En="Dr. K"
+    />
+    <Text
+        Text_Ko="긴급 상황이야. 이번에는 신속히 괴물을 물리쳐야겠어."
+        Text_En="This is an emergency. We need to defeat the monster quickly this time."
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="드디어!"
+                Text_En="Finally!"
+            />
+            <Item
+                Text_Ko="이번에는 좀 더 쉬운 일이면 좋겠네."
+                Text_En="I hope this one is easier."
+            />
+            <Item
+                Text_Ko="혹시 이번에도 모기 퇴치?"
+                Text_En="Is it another mosquito to deal with?"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="이번에는 모기는 아니야. 뿔이 달린 박쥐처럼 생긴 괴물이 도시 한복판에 출몰했어."
+        Text_En="This time it’s not a mosquito. A monster that looks like a bat with horns has appeared in the middle of the city."
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="이런 괴물이 흔하게 나오는 거야?"
+                Text_En="Are these kinds of monsters common?"
+            />
+            <Item
+                Text_Ko="모기보단 박쥐가 낫지."
+                Text_En="A bat is better than a mosquito."
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="이런 괴물들이 지구에 나타나기 시작한 것은 몇 십년 전부터야."
+        Text_En="These kinds of monsters started appearing on Earth a few decades ago."
+    />
+    <Text
+        Text_Ko="전부 그 망할 놈들 때문에..."
+        Text_En="All because of those damn bastards..."
+    />
+    <Text
+        Text_Ko="...어쨌거나, 이번에도 잘 진행해보자고."
+        Text_En="...Anyway, let’s handle this well like last time."
+    />
+</DialogueCommands>

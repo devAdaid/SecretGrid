@@ -40,7 +40,7 @@ public class DialogueXMLSerializer : MonoBehaviour
             else if (command is D_Goto dGoto)
             {
                 commandElement = doc.CreateElement("Goto");
-                commandElement.SetAttribute("GotoIndex", dGoto.gotoIndex.ToString());
+                commandElement.SetAttribute("CommandIndex", dGoto.commandIndex.ToString());
             }
             else if (command is D_SpeakerName dSpeakerName)
             {
@@ -103,8 +103,8 @@ public class DialogueXMLSerializer : MonoBehaviour
             }
             else if (commandElement.Name == "Goto")
             {
-                var gotoIndex = int.Parse(commandElement.GetAttribute("GotoIndex"));
-                commands.Add(new D_Goto(gotoIndex));
+                var commandIndex = int.Parse(commandElement.GetAttribute("CommandIndex"));
+                commands.Add(new D_Goto(commandIndex));
             }
             else if (commandElement.Name == "SpeakerName")
             {

@@ -31,6 +31,14 @@
         Text_Ko="나는 널 돕는 사이드킥이고, 넌... 지구를 지키는 &lt;color=#579C9A&gt;'비밀 히어로'&lt;/color&gt;야."
         Text_En="I'm a sidekick to help you, and... you are the &lt;color=#579C9A&gt;'Secret Hero'&lt;/color&gt; who protects Earth."
     />
+    <SpeakerName
+        Text_Ko="박사 K"
+        Text_En="Dr. K"
+    />
+    <Text
+        Text_Ko="나는 박사 K라고 해."
+        Text_En="Call me Dr. K."
+    />
     <Choice>
         <Choices>
             <Item

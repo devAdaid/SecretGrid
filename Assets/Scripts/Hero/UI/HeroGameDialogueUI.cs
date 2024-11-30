@@ -10,6 +10,7 @@ public interface IHeroGameDialogueUI
     void PlayText(string text);
     void ApplyChoice(List<D_ChoiceItem> choiceItems);
     void UpdateSpeakerName(string speakerName);
+    void EndDialogue();
 }
 
 public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
@@ -153,6 +154,11 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
 
     private void ProceedToNextCommand()
     {
+        if (!isDialoguePlaying)
+        {
+            return;
+        }
+
         if (dialoguePlayer == null || currentCommandIndex >= dialoguePlayer.Commands.Count)
         {
             //Debug.Log("대화 종료");
@@ -173,15 +179,21 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     }
 
     // GotoCommand 실행 (D_Goto 커맨드에서 호출)
-    public void GoToCommand(int gotoIndex)
+    public void GoToCommand(int commandIndex)
     {
-        currentCommandIndex = gotoIndex;
-        ProceedToNextCommand(); // 이동 후 다음 명령 실행
+        currentCommandIndex = commandIndex;
+        //ProceedToNextCommand(); // 이동 후 다음 명령 실행
     }
 
     // 화자 이름 갱신 (D_SpeakerName 커맨드에서 호출)
     public void UpdateSpeakerName(string speakerName)
     {
         speakerNameText.text = speakerName; // UI 텍스트 갱신
+    }
+
+    public void EndDialogue()
+    {
+        OnDialogueEnd();
+        return;
     }
 }

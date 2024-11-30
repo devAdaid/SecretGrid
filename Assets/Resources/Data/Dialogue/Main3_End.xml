@@ -1,0 +1,212 @@
+<DialogueCommands>
+    <SpeakerName
+        Text_Ko="박사 K"
+        Text_En="Dr. K"
+    />
+    <Text
+        Text_Ko="고마워. 나 혼자였으면 못 해냈을 거야."
+        Text_En="Thank you. I couldn't have done it alone."
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="슬슬 내 잃어버린 기억에 대해 듣고 싶은데..."
+                Text_En="I’m starting to want to hear about my lost memories..."
+                CommandIndex="4"
+            />
+            <Item
+                Text_Ko="너는 왜 이 일을 시작하게 되었어?"
+                Text_En="Why did you start doing this work?"
+                CommandIndex="4"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="......"
+        Text_En="......"
+    />
+    <Text
+        Text_Ko="좀 더 기다려줘. 내가 확신을 얻을 수 있을 때까지..."
+        Text_En="Just wait a little longer. Until I can gain the certainty..."
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="확신?"
+                Text_En="Certainty?"
+                CommandIndex="8"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="내가 너를 믿을 수 있을..."
+        Text_En="I can trust you..."
+    />
+    <Text
+        Text_Ko="...아니, 아무것도 아니야."
+        Text_En="...No, never mind."
+    />
+    <Text
+        Text_Ko="오늘도 피곤할 테니, 빨리 쉬러 가."
+        Text_En="You must be tired today too, so go rest quickly."
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="그래, 알겠어."
+                Text_En="Alright, I understand."
+                CommandIndex="10"
+            />
+            <Item
+                Text_Ko="지금 말 돌리는 거야?"
+                Text_En="Are you avoiding the subject right now?"
+                CommandIndex="10"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="......"
+        Text_En="......"
+    />
+    <Text
+        Text_Ko="(박사 K는 말없이 자리를 떠났다.)"
+        Text_En="(Dr.K left without saying anything.)"
+    />
+    <Text
+        Text_Ko="(그때, 이전과 같은 이상한 목소리가 당신에게 들려온다.)"
+        Text_En="(At that moment, the same strange voice you heard before echoes in your head.)"
+    />
+    <SpeakerName
+        Text_Ko="???"
+        Text_En="???"
+    />
+    <Text
+        Text_Ko="%@*$$^@!#"
+        Text_En="%@*$$^@!#"
+    />
+    <Text
+        Text_Ko="$!^$!@^$%!$!!%@$^"
+        Text_En="$!^$!@^$%!$!!%@$^"
+    />
+    <Text
+        Text_Ko="@%^*@$!...... 어이, 들려?"
+        Text_En="@%^*@$!...... Hey, can you hear me?"
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="누구?"
+                Text_En="Who?"
+                CommandIndex="15"
+            />
+            <Item
+                Text_Ko="나한테 말하는 거야?"
+                Text_En="Are you talking to me?"
+                CommandIndex="15"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="아, 드디어! 저번부터 계속 불렀는데, 이제서야 대답하는구만..."
+        Text_En="Ah, finally! I’ve been calling you since last time, and now you’re answering..."
+    />
+    <SpeakerName
+        Text_Ko="제로스"
+        Text_En="Xeros"
+    />
+    <Text
+        Text_Ko="어쨌거나, 나는 제로스라고 불러."
+        Text_En="Anyway, you can call me Xeros."
+    />
+    <Text
+        Text_Ko="계속 찾고 있었다고. 이제 돌아가자."
+        Text_En="I’ve been searching for you. Let’s go back now."
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="너는 누구야?"
+                Text_En="Who are you?"
+                CommandIndex="20"
+            />
+            <Item
+                Text_Ko="무슨 이야기를 하는 건지 전혀 모르겠어."
+                Text_En="I have no idea what you’re talking about."
+                CommandIndex="20"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="뭐? 그게 무슨 소리야?"
+        Text_En="What? What do you mean by that?"
+    />
+    <Text
+        Text_Ko="네가 누구인지도 기억이 안 나는거야?"
+        Text_En="You don’t even remember who you are?"
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="비밀 히어로?"
+                Text_En="Secret Hero?"
+                CommandIndex="23"
+            />
+            <Item
+                Text_Ko="네가 뭐라고 하는지 잘 들리지가 않아."
+                Text_En="I can’t hear you clearly."
+                CommandIndex="23"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="대체 무슨 일이 있었던 거야? 기억나는 것 있어?"
+        Text_En="What the hell happened? Do you remember anything?"
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="나는 사람들을 도와야 해."
+                Text_En="I need to help people."
+                CommandIndex="26"
+            />
+            <Item
+                Text_Ko="내 사이드킥이 내가 비밀 히어로라고 말해줬어."
+                Text_En="My sidekick told me I’m a Secret Hero."
+                CommandIndex="26"
+            />
+            <Item
+                Text_Ko="끔찍한 모기 괴물."
+                Text_En="A horrible mosquito monster."
+                CommandIndex="26"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="이건 또 뭐람... 어디서부터 설명해야 돼지?"
+        Text_En="What is this... where should I start explaining?"
+    />
+    <Text
+        Text_Ko="어이, 너와 같이 다니던 그 사람 있잖아..."
+        Text_En="Hey, that person who was with you..."
+    />
+    <Text
+        Text_Ko="그 사람 말을 믿지 마."
+        Text_En="Don’t trust what they said."
+    />
+    <Text
+        Text_Ko="너는 히어로 같은 게 아니라..."
+        Text_En="You’re not a hero, you know..."
+    />
+    <Text
+        Text_Ko="(그 순간, 무언가 쿵하는 커다란 소리가 끼어들어, 그의 말을 끊는다.)"
+        Text_En="(At that moment, a loud crashing sound interrupts, cutting off their words.)"
+    />
+    <Text
+        Text_Ko="젠장! 다음에 다시 연락하겠어."
+        Text_En="Damn it! I’ll contact you again later."
+    />
+    <Text
+        Text_Ko="참, 나와 연락했던 걸 들키진 말고."
+        Text_En="By the way, don’t let anyone find out we were in contact."
+    />
+</DialogueCommands>

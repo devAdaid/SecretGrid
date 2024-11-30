@@ -56,11 +56,11 @@ public class D_ChoiceItem
 
 public class D_Goto : IDialogueCommand
 {
-    public readonly int gotoIndex;
+    public readonly int commandIndex;
 
     public D_Goto(int index)
     {
-        gotoIndex = index;
+        commandIndex = index;
     }
 
     public void ApplyUI(IHeroGameDialogueUI ui)
@@ -68,7 +68,7 @@ public class D_Goto : IDialogueCommand
         var player = ui as HeroGameDialogueUI; // UI를 HeroGameDialogueUI로 캐스팅
         if (player != null)
         {
-            player.GoToCommand(gotoIndex); // 즉시 지정된 인덱스로 이동
+            player.GoToCommand(commandIndex); // 즉시 지정된 인덱스로 이동
         }
     }
 }
@@ -111,5 +111,18 @@ public class D_ResumeBgm : IDialogueCommand
     public void ApplyUI(IHeroGameDialogueUI ui)
     {
         AudioManager.I.ResumeBGM();
+    }
+}
+
+
+public class D_EndDialogue : IDialogueCommand
+{
+    public D_EndDialogue()
+    {
+    }
+
+    public void ApplyUI(IHeroGameDialogueUI ui)
+    {
+        ui.EndDialogue();
     }
 }

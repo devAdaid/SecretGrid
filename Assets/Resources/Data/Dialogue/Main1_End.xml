@@ -1,7 +1,7 @@
 <DialogueCommands>
     <SpeakerName
-        Text_Ko="???"
-        Text_En="???"
+        Text_Ko="박사 K"
+        Text_En="Dr. K"
     />
     <Text
         Text_Ko="훌륭해. 지금처럼 계속하는 거야."
