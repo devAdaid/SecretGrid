@@ -108,6 +108,7 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
             case HeroGameProcessNextResult.GameOverBySecretZero:
             case HeroGameProcessNextResult.GameEnd:
                 ui.ShowScoreResultUI(GameContext);
+                SecretGridServer.I.StartSendScore(GameContext);
                 break;
         }
     }
