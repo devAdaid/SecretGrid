@@ -28,7 +28,11 @@ public class DialogueXMLSerializer : MonoBehaviour
                     var choiceElement = doc.CreateElement("ChoiceItem");
                     choiceElement.SetAttribute("Text_Ko", choice.Text_Ko);
                     choiceElement.SetAttribute("Text_En", choice.Text_En);
-                    choiceElement.SetAttribute("CommandIndex", choice.CommandIndex.ToString());
+
+                    if (choice.CommandIndex >= 0)
+                    {
+                        choiceElement.SetAttribute("CommandIndex", choice.CommandIndex.ToString());
+                    }
                     choicesElement.AppendChild(choiceElement);
                 }
                 commandElement.AppendChild(choicesElement);
@@ -78,13 +82,17 @@ public class DialogueXMLSerializer : MonoBehaviour
                 {
                     var textKo = choiceElement.GetAttribute("Text_Ko");
                     var textEn = choiceElement.GetAttribute("Text_En");
-                    var commandIndex = int.Parse(choiceElement.GetAttribute("CommandIndex"));
+                    var commandIndexAttribute = choiceElement.GetAttribute("CommandIndex");
 
                     var strAttribute = choiceElement.GetAttribute("STR");
                     var aglAttribute = choiceElement.GetAttribute("AGL");
                     var intAttribute = choiceElement.GetAttribute("INT");
                     var secretAttribute = choiceElement.GetAttribute("Secret");
 
+                    if (!int.TryParse(commandIndexAttribute, out var commandIndex))
+                    {
+                        commandIndex = -1;
+                    }
                     int.TryParse(strAttribute, out var strength);
                     int.TryParse(aglAttribute, out var agility);
                     int.TryParse(intAttribute, out var intelligence);

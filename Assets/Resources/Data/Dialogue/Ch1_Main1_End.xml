@@ -1,0 +1,80 @@
+<DialogueCommands>
+    <SpeakerName
+        Text_Ko="???"
+        Text_En="???"
+    />
+    <Text
+        Text_Ko="훌륭해. 지금처럼 계속하는 거야."
+        Text_En="Excellent. Keep going just like that."
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="다른 사람은 나를 볼 수 없는 것 같아."
+                Text_En="It seems like others can't see me."
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="그래. 그것이 네 비밀 히어로의 능력 중 하나지."
+        Text_En="Yes, that's one of your Secret Hero abilities."
+    />
+    <Text
+        Text_Ko="그렇지만 네 능력은 아직 완전히 돌아오지 않았어."
+        Text_En="But your abilities haven’t fully returned yet."
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="내 능력?"
+                Text_En="My abilities?"
+            />
+            <Item
+                Text_Ko="어떻게 해야 돌아오는데?"
+                Text_En="How do I get them back?"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="이렇게 계속 사람들을 도와 나가면 능력을 되찾을 수 있을거야."
+        Text_En="If you keep helping people like this, you’ll regain your abilities."
+    />
+    <Text
+        Text_Ko="힘도 강해지고, 민첩해지고, 똑똑해지고..."
+        Text_En="You’ll become stronger, faster, and smarter..."
+    />
+    <Text
+        Text_Ko="그렇지만 명심해."
+        Text_En="But remember..."
+    />
+    <PauseBgm />
+    <Text
+        Text_Ko="절대 정체를 들키지 마."
+        Text_En="DO NOT EXPOSE YOURSELF."
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="어째서?"
+                Text_En="Why?"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="..."
+        Text_En="..."
+    />
+    <Text
+        Text_Ko="지금은 말할 수 없어."
+        Text_En="I can’t tell you right now."
+    />
+    <Text
+        Text_Ko="때가 되면 너도 알게 될 거야. 하지만 지금은 네가 할 수 있는 일을 해줘."
+        Text_En="You’ll understand when the time comes. But for now, do what you can."
+    />
+    <Text
+        Text_Ko="'비밀 히어로'로서 말이야."
+        Text_En="As a 'Secret Hero.'"
+    />
+    <ResumeBgm />
+</DialogueCommands>

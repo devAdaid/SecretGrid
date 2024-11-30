@@ -23,11 +23,11 @@ public class HeroGameStatItemUIControl : MonoBehaviour, IPointerEnterHandler, IP
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        HeroGameTooltipUI.I.Show(statType.ToTooltipString(), tooltipOffset, tooltipWidth);
+        HeroGameUI.I.TooltipUI.Show(statType.ToTooltipString(), tooltipOffset, tooltipWidth);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        HeroGameTooltipUI.I.Hide();
+        HeroGameUI.I.TooltipUI.Hide();
     }
 }

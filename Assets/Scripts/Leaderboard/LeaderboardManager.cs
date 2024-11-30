@@ -19,13 +19,15 @@ public class LeaderboardManager : MonoBehaviour
     public GameObject targetItem;  // 스크롤할 대상 항목
     public GameObject EndItem;
     public ScrollRect scrollRect;
+
     public GameObject content;
 
     private IEnumerator Start()
     {
         secretGridServer.SetServerLogText(serverLogText);
+
         yield return secretGridServer.GetLeaderboardResultCoro("teststage");
-        userCount = secretGridServer.CachedLeaderboardResult.Entries.Count;
+        userCount = secretGridServer.CachedLeaderboardResult.entries.Count;
         secretGridServer.SetServerLogText(serverLogText);
         ParsingDic();
     }
@@ -45,8 +47,11 @@ public class LeaderboardManager : MonoBehaviour
     public IEnumerator SetRankType(string LeaderboardType)
     {
         string tmpstring = LeaderboardType;
-        yield return secretGridServer.GetLeaderboardResultCoro(tmpstring);
-        userCount = secretGridServer.CachedLeaderboardResult.Entries.Count;
+
+        yield return secretGridServer.WaitForReady(); // 서버가 준비될 때까지 기다린다.
+        yield return secretGridServer.SendSecureMessageCoro("GetLeaderboard", tmpstring); // 테스트 리더보드 정보 가져온다.
+        userCount = secretGridServer.CachedLeaderboardResult.entries.Count;
+        Debug.Log($"userCount: {userCount}");
         secretGridServer.SetServerLogText(serverLogText);
 
         ParsingDic();
@@ -92,7 +97,7 @@ public class LeaderboardManager : MonoBehaviour
             myInstance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = entriesArray[i].Item3;
 
             Testcount++;
-            if (i == secretGridServer.CachedLeaderboardResult.MyRank)
+            if (i == secretGridServer.CachedLeaderboardResult.myRank)
             {
                 myInstance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255); // 나의 정보는 빨간색 표시
                 myInstance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);

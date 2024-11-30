@@ -34,7 +34,7 @@ public class HeroGameCaseSelectionConfirmButtonUIControl : MonoBehaviour, IPoint
             return;
         }
 
-        HeroGameTooltipUI.I.Show(
+        HeroGameUI.I.TooltipUI.Show(
             tooltipText,
             tooltipOffset,
             tooltipWidth
@@ -43,13 +43,13 @@ public class HeroGameCaseSelectionConfirmButtonUIControl : MonoBehaviour, IPoint
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        HeroGameTooltipUI.I.Hide();
+        HeroGameUI.I.TooltipUI.Hide();
     }
 
     private void OnClick()
     {
         //HeroGameContextHolder.I.SelectCaseSelection(data.Selection.CaseIndex, data.Selection.SelectionIndex);
         HeroGameUI.I.ShowCaseResultUI(data);
-        HeroGameTooltipUI.I.Hide();
+        HeroGameUI.I.TooltipUI.Hide();
     }
 }

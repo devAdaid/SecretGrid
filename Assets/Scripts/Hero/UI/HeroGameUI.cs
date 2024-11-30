@@ -17,6 +17,9 @@ public class HeroGameUI : MonoSingleton<HeroGameUI>
     [SerializeField]
     private HeroGameScoreResultUI scoreResultUI;
 
+    [SerializeField]
+    public HeroGameTooltipUI TooltipUI;
+
     public void ApplyStatUI(int day, HeroPlayerContext playerContext)
     {
         statUI.Apply(day, playerContext);

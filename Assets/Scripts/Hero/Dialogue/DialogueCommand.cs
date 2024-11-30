@@ -18,7 +18,7 @@ public class D_Text : IDialogueCommand
 
     public void ApplyUI(IHeroGameDialogueUI ui)
     {
-        ui.PlayText(Text_En);
+        ui.PlayText(Text_Ko);
     }
 }
 
@@ -86,7 +86,7 @@ public class D_SpeakerName : IDialogueCommand
 
     public void ApplyUI(IHeroGameDialogueUI ui)
     {
-        ui.UpdateSpeakerName(Text_En);
+        ui.UpdateSpeakerName(Text_Ko);
     }
 }
 

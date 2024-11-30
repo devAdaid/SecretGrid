@@ -1,5 +1,4 @@
 using System;
-using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,23 +27,48 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     private byte[] sharedK;
     private int messageCounter = -1;
 
-    private IEnumerator Start()
+    private string lastResponseStr;
+
+    // Awake 단계 초기화 완료됐는지?
+    private bool IsInit { get; set; }
+    // HTTP 네트워크가 진행 중인지?
+    private bool IsNetworkingInProgress { get; set; }
+    // Start() 시점의 초기화도 끝나서 이후 서버 작업을 진행할 수 있는 단계인지?
+    public bool IsReady { get; private set; }
+    // 로그인이 성공한 상태인지?
+    public bool IsLoggedIn { get; private set; }
+
+    private void Awake()
     {
         Init();
+    }
 
-        var account = Account.CreateAccount(userId, password);
-        
+    public IEnumerator WaitForReady()
+    {
+        while (IsReady == false)
+        {
+            yield return null;
+        }
+    }
+
+    private IEnumerator Start()
+    {
         // 신규 가입 신청 매번 한다. 서버에 이미 있는 계정이면 401 반환된다.
-        yield return RequestEnrollment(account);
+        yield return RequestEnrollmentCoro();
 
-        //
         // 로그인 시작
-        //
-        yield return RequestLogin();
+        yield return RequestLoginCoro();
+        
+        IsReady = true;
     }
 
     private void Init()
     {
+        if (IsInit)
+        {
+            return;
+        }
+
         var serverSettings = Resources.LoadAll<SecretGridServerSettings>("Server/SecretGridServerSettings").SingleOrDefault();
         if (serverSettings != null)
         {
@@ -69,26 +93,45 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             userId = Guid.NewGuid().ToString();
             PlayerPrefs.SetString("UserId", userId);
         }
-        
+
         password = PlayerPrefs.GetString("Password");
         if (password.Length == 0)
         {
             password = Guid.NewGuid().ToString();
             PlayerPrefs.SetString("Password", password);
         }
-        
+
         PlayerPrefs.Save();
+
+        IsInit = true;
     }
 
-    private IEnumerator RequestLogin()
+    private IEnumerator RequestLoginCoro()
     {
+        if (IsNetworkingInProgress)
+        {
+            Debug.LogWarning("Another networking request is in progress.");
+            yield break;
+        }
+        IsNetworkingInProgress = true;
+        yield return RequestLoginCoro_Internal();
+        IsNetworkingInProgress = false;
+    }
+
+    private IEnumerator RequestLoginCoro_Internal()
+    {
+        if (IsLoggedIn)
+        {
+            yield break;
+        }
+
         BigInteger a = Utils.GenerateRandomBigInteger(32); // 256비트 랜덤 수
         BigInteger A = BigInteger.ModPow(Parameters.g, a, Parameters.N);
         var A_bytes = A.ToByteArray(isUnsigned: true, isBigEndian: true);
         var A_hex = Utils.ToHex(A_bytes);
-        
+
         ConDebug.Log($"A: {A_hex}");
-        
+
         var formData = new List<IMultipartFormSection>();
         using var www = UnityWebRequest.Post($"{serverAddr}/login", formData);
         www.SetRequestHeader("X-User-Id", userId);
@@ -100,16 +143,16 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             var tokens = www.downloadHandler.text.Split("\t");
             var salt = tokens[0];
             var serverPublic = tokens[1];
-            
+
             Debug.Log($"ServerPublic: {serverPublic}");
-            
+
             var B = new BigInteger(Parameters.StringToByteArray(serverPublic), isUnsigned: true, isBigEndian: true);
-            
+
             ConDebug.Log($"User ID: {userId}");
             ConDebug.Log($"User Password: {password}");
             ConDebug.Log($"Salt: {salt}");
             ConDebug.Log($"Server Public: {serverPublic}");
-            
+
             byte[] uHash = Utils.SHA256Hash(
                 A.ToByteArray(isUnsigned: true, isBigEndian: true),
                 B.ToByteArray(isUnsigned: true, isBigEndian: true)
@@ -147,7 +190,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             {
                 H_N_xor_H_g[i] = (byte)(H_N[i] ^ H_g[i]);
             }
-            
+
             // 클라이언트: M1 계산
             byte[] M1 = Utils.SHA256Hash(
                 H_N_xor_H_g,
@@ -157,7 +200,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
                 B.ToByteArray(isUnsigned: true, isBigEndian: true),
                 K_client
             );
-            
+
             yield return SendClientSessionProof(M1, K_client, A);
         }
 
@@ -166,7 +209,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             serverLogText.text += "\n" + (www.result == UnityWebRequest.Result.Success ? www.downloadHandler.text : www.error);
         }
     }
-    
+
     // 바이트 배열 비교 함수
     static bool CompareByteArrays(byte[] a, byte[] b)
     {
@@ -193,7 +236,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         {
             var serverProof = www.downloadHandler.text; // M2
             var M2 = Parameters.StringToByteArray(serverProof);
-            
+
             byte[] M2_client = Utils.SHA256Hash(
                 A.ToByteArray(isUnsigned: true, isBigEndian: true),
                 clientSessionProof,
@@ -210,8 +253,24 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
                 ConDebug.Log($"K_client: {Utils.ToHex(K_client)}");
                 sharedK = K_client;
                 messageCounter = 0;
-                
-                yield return SendSecureMessage($"SetNickname\t{nickname}");
+
+                yield return SendSecureMessageCoro_Internal($"SetNickname\t{nickname}");
+
+                if (lastResponseStr != "OK")
+                {
+                    Debug.LogError($"Network protocol error 1");
+                }
+
+                yield return SendSecureMessageCoro_Internal($"GetLeaderboard\tteststage");
+
+                CachedLeaderboardResult ??= new LeaderboardResult();
+
+                JsonUtility.FromJsonOverwrite(lastResponseStr, CachedLeaderboardResult);
+
+                Debug.Log("== Leaderboard Result ==");
+                Debug.Log(JsonUtility.ToJson(CachedLeaderboardResult));
+
+                IsLoggedIn = true;
             }
         }
 
@@ -221,16 +280,28 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
     }
 
-    private IEnumerator SendSecureMessage(string plaintext)
+    public IEnumerator SendSecureMessageCoro(params string[] values)
+    {
+        if (IsNetworkingInProgress)
+        {
+            Debug.LogWarning("Another networking request is in progress.");
+            yield break;
+        }
+        IsNetworkingInProgress = true;
+        yield return SendSecureMessageCoro_Internal(string.Join('\t', values));
+        IsNetworkingInProgress = false;
+    }
+
+    private IEnumerator SendSecureMessageCoro_Internal(string plaintext)
     {
         messageCounter++;
-        
+
         var iv = new byte[16];
         RandomNumberGenerator.Fill(iv);
         ConDebug.Log($"IV: {Utils.ToHex(iv)}");
-                
+
         var encrypted = AESUtil.Cipher.Encrypt(Encoding.UTF8.GetBytes($"{messageCounter}\t{plaintext}"), sharedK, iv);
-                
+
         ConDebug.Log($"encrypted: {Convert.ToBase64String(encrypted)}");
 
         return SendCiphertextMessage(encrypted, iv);
@@ -240,7 +311,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     {
         var encryptedB64 = Convert.ToBase64String(encrypted);
         var ivB64 = Convert.ToBase64String(iv);
-        
+
         using var www = UnityWebRequest.Post($"{serverAddr}/message", $"{encryptedB64}&{ivB64}", "text/plain");
         www.SetRequestHeader("X-User-Id", userId);
         yield return www.SendWebRequest();
@@ -259,10 +330,21 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             var responsePlaintext = AESUtil.Cipher.Decrypt(responseCiphertext, sharedK, responseIV);
             var responseStr = Encoding.UTF8.GetString(responsePlaintext);
             Debug.Log($"Response from server (plaintext): {responseStr}");
+
+            var firstTabIndex = responseStr.IndexOf("\t", StringComparison.Ordinal);
+            if (int.TryParse(responseStr[..firstTabIndex], out var replyCounter) && replyCounter == messageCounter)
+            {
+                lastResponseStr = responseStr[(firstTabIndex + 1)..];
+            }
+            else
+            {
+                Debug.LogError($"Server replied with wrong counter! Expecting {messageCounter} but {replyCounter} arrived.");
+            }
         }
         else
         {
             Debug.LogWarning($"Response from server with {www.responseCode}");
+            lastResponseStr = string.Empty;
         }
     }
 
@@ -271,17 +353,18 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         serverAddr = text;
     }
 
+    [Serializable]
     public class LeaderboardResult
     {
-        public int MyRank; // 내 순위 (0이면 1등이란 뜻, -1이면 등록되지 않은 상태란 뜻)
-        public string MyUserId; // 내 유저 ID (GUID형식)
-        public List<LeaderboardEntry> Entries; // 내 순위 앞 7명, 뒤 7명 순위가 들어 있는 목록
+        public int myRank; // 내 순위 (0이면 1등이란 뜻, -1이면 등록되지 않은 상태란 뜻)
+        public string myUserId; // 내 유저 ID (GUID형식)
+        public List<LeaderboardEntry> entries; // 내 순위 앞 7명, 뒤 7명 순위가 들어 있는 목록
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"MyRank: {MyRank}, MyUserId: {MyUserId}, Entries: {Entries.Count}");
-            foreach (var t in Entries)
+            sb.AppendLine($"MyRank: {myRank}, MyUserId: {myUserId}, Entries: {entries.Count}");
+            foreach (var t in entries)
             {
                 sb.AppendLine(t.ToString());
             }
@@ -289,20 +372,35 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
     }
 
+    [Serializable]
     public class LeaderboardEntry
     {
-        public int Rank; // 0이면 1등이란 뜻
-        public string UserId; // 유저 ID (GUID 형식)
-        public float Score; // 점수
-        public string Nickname; // 닉네임
+        public long rank; // 0이면 1등이란 뜻
+        public string userId; // 유저 ID (GUID 형식)
+        public float score; // 점수
+        public string nickname; // 닉네임
 
         public override string ToString()
         {
-            return $"{Rank}, {UserId}, {Score}, {Nickname}";
+            return $"{rank}, {userId}, {score}, {nickname}";
         }
     }
 
-    private IEnumerator RequestEnrollment(Account.UserRecord userRecord)
+    public IEnumerator RequestEnrollmentCoro()
+    {
+        var userRecord = Account.CreateAccount(userId, password);
+
+        if (IsNetworkingInProgress)
+        {
+            Debug.LogWarning("Another networking request is in progress.");
+            yield break;
+        }
+        IsNetworkingInProgress = true;
+        yield return RequestEnrollmentCoro_Internal(userRecord);
+        IsNetworkingInProgress = false;
+    }
+
+    private IEnumerator RequestEnrollmentCoro_Internal(Account.UserRecord userRecord)
     {
         var formData = new List<IMultipartFormSection>();
         using var www = UnityWebRequest.Post($"{serverAddr}/enroll", formData);
@@ -346,25 +444,23 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
     public IEnumerator GetLeaderboardResultCoro(string stageId)
     {
-        Init();
-            
         yield return SubmitScoreCoro(stageId, -1);
     }
 
     private static LeaderboardResult ParseResult(string resultText)
     {
         LeaderboardResult result = new LeaderboardResult {
-            MyRank = -1,
-            Entries = new List<LeaderboardEntry>(),
+            myRank = -1,
+            entries = new List<LeaderboardEntry>(),
         };
 
         var resultTokens = resultText.Split("\t");
         var tokenCounter = 0;
         if (resultTokens.Length > 0)
         {
-            result.MyRank = int.Parse(resultTokens[tokenCounter]);
+            result.myRank = int.Parse(resultTokens[tokenCounter]);
             tokenCounter++;
-            result.MyUserId = resultTokens[tokenCounter];
+            result.myUserId = resultTokens[tokenCounter];
             tokenCounter++;
         }
 
@@ -373,26 +469,26 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         while (tokenCounter + 3 <= resultTokens.Length)
         {
             var leaderboardEntry = new LeaderboardEntry {
-                UserId = resultTokens[tokenCounter],
-                Score = float.Parse(resultTokens[tokenCounter + 1]),
-                Nickname = resultTokens[tokenCounter + 2],
+                userId = resultTokens[tokenCounter],
+                score = float.Parse(resultTokens[tokenCounter + 1]),
+                nickname = resultTokens[tokenCounter + 2],
             };
 
-            if (leaderboardEntry.UserId == result.MyUserId)
+            if (leaderboardEntry.userId == result.myUserId)
             {
-                myRankIndex = result.Entries.Count;
+                myRankIndex = result.entries.Count;
             }
 
-            result.Entries.Add(leaderboardEntry);
+            result.entries.Add(leaderboardEntry);
 
             tokenCounter += 3;
         }
 
-        for (var index = 0; index < result.Entries.Count; index++)
+        for (var index = 0; index < result.entries.Count; index++)
         {
-            var entry = result.Entries[index];
+            var entry = result.entries[index];
 
-            entry.Rank = index - myRankIndex + result.MyRank;
+            entry.rank = index - myRankIndex + result.myRank;
         }
 
         return result;
