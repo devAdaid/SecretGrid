@@ -1,5 +1,4 @@
 using System;
-using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +7,10 @@ using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 using ConditionalDebug;
-using JetBrains.Annotations;
 using SRPClient;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.Serialization;
 
 public class SecretGridServer : MonoSingleton<SecretGridServer>
 {
@@ -32,23 +29,46 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
     private string lastResponseStr;
 
-    private IEnumerator Start()
+    // Awake 단계 초기화 완료됐는지?
+    private bool IsInit { get; set; }
+    // HTTP 네트워크가 진행 중인지?
+    private bool IsNetworkingInProgress { get; set; }
+    // Start() 시점의 초기화도 끝나서 이후 서버 작업을 진행할 수 있는 단계인지?
+    public bool IsReady { get; private set; }
+    // 로그인이 성공한 상태인지?
+    public bool IsLoggedIn { get; private set; }
+
+    private void Awake()
     {
         Init();
+    }
 
-        var account = Account.CreateAccount(userId, password);
+    public IEnumerator WaitForReady()
+    {
+        while (IsReady == false)
+        {
+            yield return null;
+        }
+    }
 
+    private IEnumerator Start()
+    {
         // 신규 가입 신청 매번 한다. 서버에 이미 있는 계정이면 401 반환된다.
-        yield return RequestEnrollment(account);
+        yield return RequestEnrollmentCoro();
 
-        //
         // 로그인 시작
-        //
-        yield return RequestLogin();
+        yield return RequestLoginCoro();
+        
+        IsReady = true;
     }
 
     private void Init()
     {
+        if (IsInit)
+        {
+            return;
+        }
+
         var serverSettings = Resources.LoadAll<SecretGridServerSettings>("Server/SecretGridServerSettings").SingleOrDefault();
         if (serverSettings != null)
         {
@@ -82,10 +102,29 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
 
         PlayerPrefs.Save();
+
+        IsInit = true;
     }
 
-    private IEnumerator RequestLogin()
+    private IEnumerator RequestLoginCoro()
     {
+        if (IsNetworkingInProgress)
+        {
+            Debug.LogWarning("Another networking request is in progress.");
+            yield break;
+        }
+        IsNetworkingInProgress = true;
+        yield return RequestLoginCoro_Internal();
+        IsNetworkingInProgress = false;
+    }
+
+    private IEnumerator RequestLoginCoro_Internal()
+    {
+        if (IsLoggedIn)
+        {
+            yield break;
+        }
+
         BigInteger a = Utils.GenerateRandomBigInteger(32); // 256비트 랜덤 수
         BigInteger A = BigInteger.ModPow(Parameters.g, a, Parameters.N);
         var A_bytes = A.ToByteArray(isUnsigned: true, isBigEndian: true);
@@ -215,21 +254,23 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
                 sharedK = K_client;
                 messageCounter = 0;
 
-                yield return SendSecureMessage($"SetNickname\t{nickname}");
+                yield return SendSecureMessageCoro_Internal($"SetNickname\t{nickname}");
 
                 if (lastResponseStr != "OK")
                 {
                     Debug.LogError($"Network protocol error 1");
                 }
 
-                yield return SendSecureMessage($"GetLeaderboard\tteststage");
-                
+                yield return SendSecureMessageCoro_Internal($"GetLeaderboard\tteststage");
+
                 CachedLeaderboardResult ??= new LeaderboardResult();
 
                 JsonUtility.FromJsonOverwrite(lastResponseStr, CachedLeaderboardResult);
-                
+
                 Debug.Log("== Leaderboard Result ==");
                 Debug.Log(JsonUtility.ToJson(CachedLeaderboardResult));
+
+                IsLoggedIn = true;
             }
         }
 
@@ -239,7 +280,19 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
     }
 
-    private IEnumerator SendSecureMessage(string plaintext)
+    public IEnumerator SendSecureMessageCoro(params string[] values)
+    {
+        if (IsNetworkingInProgress)
+        {
+            Debug.LogWarning("Another networking request is in progress.");
+            yield break;
+        }
+        IsNetworkingInProgress = true;
+        yield return SendSecureMessageCoro_Internal(string.Join('\t', values));
+        IsNetworkingInProgress = false;
+    }
+
+    private IEnumerator SendSecureMessageCoro_Internal(string plaintext)
     {
         messageCounter++;
 
@@ -333,7 +386,21 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
     }
 
-    private IEnumerator RequestEnrollment(Account.UserRecord userRecord)
+    public IEnumerator RequestEnrollmentCoro()
+    {
+        var userRecord = Account.CreateAccount(userId, password);
+
+        if (IsNetworkingInProgress)
+        {
+            Debug.LogWarning("Another networking request is in progress.");
+            yield break;
+        }
+        IsNetworkingInProgress = true;
+        yield return RequestEnrollmentCoro_Internal(userRecord);
+        IsNetworkingInProgress = false;
+    }
+
+    private IEnumerator RequestEnrollmentCoro_Internal(Account.UserRecord userRecord)
     {
         var formData = new List<IMultipartFormSection>();
         using var www = UnityWebRequest.Post($"{serverAddr}/enroll", formData);
@@ -377,8 +444,6 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
     public IEnumerator GetLeaderboardResultCoro(string stageId)
     {
-        Init();
-
         yield return SubmitScoreCoro(stageId, -1);
     }
 

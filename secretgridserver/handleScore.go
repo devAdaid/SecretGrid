@@ -85,7 +85,7 @@ func handleScore(c *gin.Context) {
 
 type LeaderboardResult struct {
 	MyRank   int64              `json:"myRank,omitempty"`
-	MyUserId string             `json:"rank,omitempty"`
+	MyUserId string             `json:"myUserId,omitempty"`
 	Entries  []LeaderboardEntry `json:"entries,omitempty"`
 }
 

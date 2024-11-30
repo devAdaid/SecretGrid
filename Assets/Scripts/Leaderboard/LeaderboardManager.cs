@@ -25,14 +25,15 @@ public class LeaderboardManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
     }
 
     private IEnumerator Start()
     {
         secretGridServer.SetServerLogText(serverLogText);
-        yield return secretGridServer.GetLeaderboardResultCoro("teststage");
+        yield return secretGridServer.WaitForReady(); // 서버가 준비될 때까지 기다린다.
+        yield return secretGridServer.SendSecureMessageCoro("GetLeaderboard", "teststage"); // 테스트 리더보드 정보 가져온다.
         userCount = secretGridServer.CachedLeaderboardResult.entries.Count;
+        Debug.Log($"userCount: {userCount}");
         Myuserkey = PlayerPrefs.GetString("UserId");
         secretGridServer.SetServerLogText(serverLogText);
 
