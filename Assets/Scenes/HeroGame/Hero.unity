@@ -2580,12 +2580,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28dfabdd33c7d934598575f367a4d1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotalRankType: teststage
-  StatRankType: test
-  scoreInputField: {fileID: 0}
+  TotalRankType: totalScore
+  StatRankType: statScore
   TotalScore: 0
+  StatScore: 0
   secretGridServer: {fileID: 2094532260}
-  serverLogText: {fileID: 0}
 --- !u!1 &2103943766
 GameObject:
   m_ObjectHideFlags: 0

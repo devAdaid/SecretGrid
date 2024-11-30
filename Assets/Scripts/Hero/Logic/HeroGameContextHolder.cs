@@ -107,7 +107,6 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
                 break;
             case HeroGameProcessNextResult.GameOverBySecretZero:
             case HeroGameProcessNextResult.GameEnd:
-                LeaderboardSubmitScore.Instance.TotalScore = GameContext.GetScore();
                 ui.ShowScoreResultUI(GameContext);
                 break;
         }

@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -9,15 +10,10 @@ public class LeaderboardSubmitScore : MonoBehaviour
     private string StatRankType;
 
     public int TotalScore;
-    //    statScoreText.TypeText($"Stat: {HeroGameFormula.CalculateScore_Stat(gameContext.Player)}");
-    //    totalScoreText.TypeText($"Total: {gameContext.GetScore()}");
+    public int StatScore;
 
     [SerializeField]
     SecretGridServer secretGridServer;
-
-
-    [SerializeField]
-    TextMeshProUGUI serverLogText;
 
     public static LeaderboardSubmitScore Instance;
 
@@ -26,21 +22,14 @@ public class LeaderboardSubmitScore : MonoBehaviour
         Instance = this;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public IEnumerator OnSubmit()
     {
-        
-    }
+        yield return secretGridServer.WaitForReady(); // 서버가 준비될 때까지 기다린다.
 
-
-    public void OnSubmit()
-    {
         //TotalRankType 점수를 서버로 보내준다.
-        secretGridServer.SetServerAddr(TotalRankType);
-        StartCoroutine(secretGridServer.SubmitScoreCoro(TotalRankType, TotalScore));
+        StartCoroutine(secretGridServer.SubmitScoreCoro(TotalRankType,TotalScore));
 
         //StatRankType 점수를 서버로 보내준다.
-        secretGridServer.SetServerAddr(StatRankType);
-        StartCoroutine(secretGridServer.SubmitScoreCoro(StatRankType, TotalScore));
+        StartCoroutine(secretGridServer.SubmitScoreCoro(StatRankType,StatScore));
     }
 }

@@ -25,10 +25,10 @@ public class LeaderboardManager : MonoBehaviour
     private IEnumerator Start()
     {
         secretGridServer.SetServerLogText(serverLogText);
-
-        yield return secretGridServer.GetLeaderboardResultCoro("teststage");
+        yield return secretGridServer.WaitForReady(); // 서버가 준비될 때까지 기다린다.
+        yield return secretGridServer.SendSecureMessageCoro("GetLeaderboard","totalScore"); // 테스트 리더보드 정보 가져온다.
         userCount = secretGridServer.CachedLeaderboardResult.entries.Count;
-        secretGridServer.SetServerLogText(serverLogText);
+        serverLogText.text = secretGridServer.CachedLeaderboardResult.ToString();
         ParsingDic();
     }
 
@@ -49,11 +49,11 @@ public class LeaderboardManager : MonoBehaviour
         string tmpstring = LeaderboardType;
 
         yield return secretGridServer.WaitForReady(); // 서버가 준비될 때까지 기다린다.
-        yield return secretGridServer.SendSecureMessageCoro("GetLeaderboard", tmpstring); // 테스트 리더보드 정보 가져온다.
+        yield return secretGridServer.SendSecureMessageCoro("GetLeaderboard",tmpstring); // 테스트 리더보드 정보 가져온다.
         userCount = secretGridServer.CachedLeaderboardResult.entries.Count;
         Debug.Log($"userCount: {userCount}");
-        secretGridServer.SetServerLogText(serverLogText);
-
+        serverLogText.text = secretGridServer.CachedLeaderboardResult.ToString();
+        Debug.Log("serverLogText"+secretGridServer.CachedLeaderboardResult);
         ParsingDic();
     }
 
@@ -75,7 +75,7 @@ public class LeaderboardManager : MonoBehaviour
                 string nickname = entryParts[3].Trim();      // 네 번째 항목 (Nickname)
 
                 // 배열에 저장 (인덱스는 i로 설정)
-                entriesArray.Add((int.Parse(entryParts[0].Trim()), userId, score, nickname));
+                entriesArray.Add((int.Parse(entryParts[0].Trim())+1, userId, score, nickname));
             }
         }
 
@@ -139,9 +139,8 @@ public class LeaderboardManager : MonoBehaviour
             }
             else if (targetItem.GetComponent<RectTransform>().transform.localPosition.y - EndItem.GetComponent<RectTransform>().transform.localPosition.y > 500)
             {
-                float targetNormalizedPosition = targetItem.GetComponent<RectTransform>().transform.localPosition.y + 220 - EndItem.GetComponent<RectTransform>().transform.localPosition.y;
+                float targetNormalizedPosition = targetItem.GetComponent<RectTransform>().transform.localPosition.y - EndItem.GetComponent<RectTransform>().transform.localPosition.y;
                 targetNormalizedPosition /= EndItem.GetComponent<RectTransform>().transform.localPosition.y;
-
                 // 스크롤을 맨 위로 위치시키기 위해, targetNormalizedPosition을 사용
                 scrollRect.verticalNormalizedPosition = 1 + targetNormalizedPosition;
             }
