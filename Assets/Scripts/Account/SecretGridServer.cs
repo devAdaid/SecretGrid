@@ -31,10 +31,13 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
     // Awake 단계 초기화 완료됐는지?
     private bool IsInit { get; set; }
+
     // HTTP 네트워크가 진행 중인지?
     private bool IsNetworkingInProgress { get; set; }
+
     // Start() 시점의 초기화도 끝나서 이후 서버 작업을 진행할 수 있는 단계인지?
     public bool IsReady { get; private set; }
+
     // 로그인이 성공한 상태인지?
     public bool IsLoggedIn { get; private set; }
 
@@ -45,9 +48,16 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
     public IEnumerator WaitForReady()
     {
-        while (IsReady == false)
+        var waitStart = Time.realtimeSinceStartup;
+        const float timeout = 10.0f;
+        while (IsReady == false && Time.realtimeSinceStartup - waitStart < timeout)
         {
             yield return null;
+        }
+
+        if (IsReady == false)
+        {
+            Debug.LogError("WaitForReady() Timeout!!!");
         }
     }
 
@@ -58,7 +68,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
         // 로그인 시작
         yield return RequestLoginCoro();
-        
+
         IsReady = true;
     }
 
@@ -282,6 +292,8 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
     public IEnumerator SendSecureMessageCoro(params string[] values)
     {
+        yield return WaitForReady();
+        
         if (IsNetworkingInProgress)
         {
             Debug.LogWarning("Another networking request is in progress.");
@@ -508,5 +520,21 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     private void TestButton()
     {
         ConDebug.Log("Test Button clicked!");
+    }
+
+    public void StartSendScore(HeroGameContext gameContext)
+    {
+        var endingScore = HeroGameFormula.CalculateScore_End(gameContext.GameState == GameState.EndByEnding, gameContext.Day);
+        var playTimeScore = HeroGameFormula.CalculateScore_PlayTime(gameContext.GetPlayTime());
+        var statScore = HeroGameFormula.CalculateScore_Stat(gameContext.Player);
+        var totalScore = gameContext.GetScore();
+        StartCoroutine(
+            SendSecureMessageCoro(
+                "SetScore",
+                endingScore.ToString(),
+                playTimeScore.ToString(),
+                statScore.ToString(),
+                gameContext.GetScore().ToString()
+            ));
     }
 }
