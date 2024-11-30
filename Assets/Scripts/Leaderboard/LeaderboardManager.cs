@@ -15,28 +15,50 @@ public class LeaderboardManager : MonoBehaviour
     public GameObject RankPrefab;
     public GameObject ScollViewContent;
     public int userCount = 0;
-    public string Myuserkey = "";
     int Testcount = 0;
     public GameObject targetItem;  // 스크롤할 대상 항목
     public GameObject EndItem;
     public ScrollRect scrollRect;
-    public static LeaderboardManager Instance = null;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+    public GameObject content;
 
     private IEnumerator Start()
     {
         secretGridServer.SetServerLogText(serverLogText);
+
+        yield return secretGridServer.GetLeaderboardResultCoro("teststage");
+        userCount = secretGridServer.CachedLeaderboardResult.entries.Count;
+        secretGridServer.SetServerLogText(serverLogText);
+        ParsingDic();
+    }
+
+    public void ClickRankBtn(string LeaderboardType)
+    {
+        StartCoroutine(ClickRankType(LeaderboardType));
+    }
+
+    public IEnumerator ClickRankType(string LeaderboardType)
+    {
+        yield return ResetRankInfo();
+        string tmpstring = LeaderboardType;
+        StartCoroutine(SetRankType(tmpstring));
+    }
+
+    public IEnumerator SetRankType(string LeaderboardType)
+    {
+        string tmpstring = LeaderboardType;
+
         yield return secretGridServer.WaitForReady(); // 서버가 준비될 때까지 기다린다.
-        yield return secretGridServer.SendSecureMessageCoro("GetLeaderboard", "teststage"); // 테스트 리더보드 정보 가져온다.
+        yield return secretGridServer.SendSecureMessageCoro("GetLeaderboard", tmpstring); // 테스트 리더보드 정보 가져온다.
         userCount = secretGridServer.CachedLeaderboardResult.entries.Count;
         Debug.Log($"userCount: {userCount}");
-        Myuserkey = PlayerPrefs.GetString("UserId");
         secretGridServer.SetServerLogText(serverLogText);
 
+        ParsingDic();
+    }
+
+    public void ParsingDic()
+    {
         // 줄바꿈을 기준으로 문자열을 나누기
         string[] lines = serverLogText.text.Split(new[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
 
@@ -58,7 +80,6 @@ public class LeaderboardManager : MonoBehaviour
         }
 
         RefreshRankInfo();
-
     }
 
     public void RefreshRankInfo()
@@ -71,12 +92,16 @@ public class LeaderboardManager : MonoBehaviour
             myInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = entriesArray[i].Item4;
             myInstance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = entriesArray[i].Item3;
 
+            myInstance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = entriesArray[i].Item1.ToString();
+            myInstance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = entriesArray[i].Item4;
+            myInstance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = entriesArray[i].Item3;
+
             Testcount++;
             if (i == secretGridServer.CachedLeaderboardResult.myRank)
             {
-                myInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255); // 나의 정보는 빨간색 표시
-                myInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
-                myInstance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
+                myInstance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255); // 나의 정보는 빨간색 표시
+                myInstance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
+                myInstance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
                 targetItem = myInstance;
             }
             if (Testcount == userCount)
@@ -86,6 +111,22 @@ public class LeaderboardManager : MonoBehaviour
             }
         }
     }
+
+    public IEnumerator ResetRankInfo()
+    {
+        yield return null;
+        Testcount = 0;
+        userCount = 0;
+        entriesArray.Clear();
+        targetItem = null;
+        EndItem = null;
+        foreach (Transform child in content.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+    }
+
     public IEnumerator RefreshMyInfo()
     {
         yield return EndItem;
