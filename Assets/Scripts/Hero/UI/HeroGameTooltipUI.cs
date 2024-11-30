@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HeroGameTooltipUI : MonoSingleton<HeroGameTooltipUI>
+public class HeroGameTooltipUI : MonoBehaviour
 {
     [SerializeField]
     private RectTransform tooltipRectTransform;
@@ -13,13 +13,13 @@ public class HeroGameTooltipUI : MonoSingleton<HeroGameTooltipUI>
     [SerializeField]
     private LayoutElement layoutElement;
 
+    [SerializeField]
     private Canvas canvas;
 
     private Vector2 offset;
 
     private void Awake()
     {
-        canvas = FindAnyObjectByType<Canvas>();
         tooltipRectTransform.gameObject.SetActive(false);
     }
 

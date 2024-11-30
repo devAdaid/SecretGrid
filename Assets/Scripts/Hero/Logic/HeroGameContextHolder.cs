@@ -103,7 +103,7 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
         switch (result)
         {
             case HeroGameProcessNextResult.NextDay:
-                ShowCaseListUI();
+                OnDayStarted(GameContext.Day);
                 break;
             case HeroGameProcessNextResult.GameOverBySecretZero:
             case HeroGameProcessNextResult.GameEnd:

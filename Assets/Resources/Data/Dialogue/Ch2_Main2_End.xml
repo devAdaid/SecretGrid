@@ -1,0 +1,70 @@
+<DialogueCommands>
+    <SpeakerName
+        Text_Ko="A"
+        Text_En="A"
+    />
+    <Text
+        Text_Ko="날이 갈수록 더 잘하고 있어. 정말 훌륭한 대처였는걸?"
+        Text_En="You're getting better every day. That was really impressive handling."
+    />
+    <Text
+        Text_Ko="이제 숲도 안전해지겠지."
+        Text_En="The forest should be safe now."
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="오늘도 보람찬 하루였어."
+                Text_En="It was a rewarding day again."
+            />
+            <Item
+                Text_Ko="저렇게 커다란 모기라니... 끔찍했어."
+                Text_En="A mosquito that big... it was horrifying."
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="(그때, 당신에게 의미를 알 수 없는 이상한 목소리가 들려온다.)"
+        Text_En="(At that moment, you hear a strange voice whose meaning you can't understand.)"
+    />
+    <SpeakerName
+        Text_Ko="???"
+        Text_En="???"
+    />
+    <Text
+        Text_Ko="$%#!$@$!%!!~^%"
+        Text_En="$%#!$@$!%!!~^%"
+    />
+    <Text
+        Text_Ko="(당신은 놀라며 그 소리에 집중해 보지만, 단어의 의미를 이해할 수 없다. 머리가 어지럽고, 이상한 기분이 든다.)"
+        Text_En="(You focus on the sound in surprise, but can’t make sense of the words. Your head spins and you feel strange.)"
+    />
+    <SpeakerName
+        Text_Ko="A"
+        Text_En="A"
+    />
+    <Text
+        Text_Ko="무슨 일이야?"
+        Text_En="What’s going on?"
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="아무 것도 아니야."
+                Text_En="It’s nothing."
+            />
+            <Item
+                Text_Ko="이상한 목소리가..."
+                Text_En="That strange voice..."
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="흠, 피곤해서 그런 건가..."
+        Text_En="Hmm, maybe it’s just because you're tired..."
+    />
+    <Text
+        Text_Ko="오늘은 푹 쉬고 내일부터 다시 시작하자."
+        Text_En="Let’s rest today and start again tomorrow."
+    />
+</DialogueCommands>

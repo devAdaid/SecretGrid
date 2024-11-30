@@ -1,0 +1,58 @@
+<DialogueCommands>
+    <SpeakerName
+        Text_Ko="???"
+        Text_En="???"
+    />
+    <Text
+        Text_Ko="(당신이 눈을 뜨자 낯선 천장이 보인다. 아무것도 기억나지 않는다...)"
+        Text_En="(As you open your eyes, you see an unfamiliar ceiling. You remember nothing...)"
+    />
+    <Text
+        Text_Ko="깨어났구나. 다행이야."
+        Text_En="You're awake. Thank goodness."
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="당신은 누구?"
+                Text_En="Who are you?"
+            />
+            <Item
+                Text_Ko="너는 누구?"
+                Text_En="Who are you?"
+            />
+            <Item
+                Text_Ko="여긴 어디?"
+                Text_En="Where am I?"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="나는 널 돕는 사이드킥이고, 넌... 지구를 지키는 &lt;color=#579C9A&gt;'비밀 히어로'&lt;/color&gt;야."
+        Text_En="I'm a sidekick to help you, and... you are the &lt;color=#579C9A&gt;'Secret Hero'&lt;/color&gt; who protects Earth."
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="아무것도 기억나지 않아..."
+                Text_En="I can't remember anything..."
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="당장 떠오르지 않아도 돼. 지금은 할 수 있는 일에 집중하는 거야."
+        Text_En="It's okay if nothing comes to mind right now. Focus on what you can do now."
+    />
+    <Text
+        Text_Ko="(당신에게 도움을 요청하는 누군가의 희미한 목소리가 들려온다.)"
+        Text_En="(You hear a faint voice asking for help.)"
+    />
+    <Text
+        Text_Ko="네 마음의 소리에 귀를 기울여 봐. 도움을 요청하는 사람의 목소리가 들리지?"
+        Text_En="네 마음의 소리에 귀를 기울여 봐. 도움을 요청하는 사람의 목소리가 들리지?"
+    />
+    <Text
+        Text_Ko="그 목소리를 따라가 봐."
+        Text_En="Follow that voice."
+    />
+</DialogueCommands>

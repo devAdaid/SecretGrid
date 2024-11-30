@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06966baf3d6339c4499819a260df8207, type: 3}
-  m_Name: HeroGameDayData
+  m_Name: Day5
   m_EditorClassIdentifier: 
-  Day: 1
-  DayStartDialogue: {fileID: 4900000, guid: 1564b2106ebf2594db6f19950893d8e0, type: 3}
-  DayEndDialogue: {fileID: 4900000, guid: 5a8145c7035ac184795319aa701f9574, type: 3}
+  Day: 5
+  DayStartDialogue: {fileID: 4900000, guid: aab785149ab3c824da5a05c350fd702f, type: 3}
+  DayEndDialogue: {fileID: 4900000, guid: b53544c1874d0c546b0acf123c288d90, type: 3}

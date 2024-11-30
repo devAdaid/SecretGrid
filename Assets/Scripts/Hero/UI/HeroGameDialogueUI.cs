@@ -128,16 +128,19 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
             var choice = choiceItems[i];
             var button = Instantiate(choiceItemPrefab, choiceRoot.transform);
             int index = choice.CommandIndex;
-            button.Apply(choice.Text_En, choice.StatReward, index);
+            button.Apply(choice.Text_Ko, choice.StatReward, index);
 
             activeChoiceButtons.Add(button);
         }
     }
 
-    public void OnChoiceButtonSelected(int choiceIndex)
+    public void OnChoiceButtonSelected(int commandIndex)
     {
         // 선택한 선택지의 명령 인덱스로 이동
-        currentCommandIndex = choiceIndex;
+        if (commandIndex >= 0)
+        {
+            currentCommandIndex = commandIndex;
+        }
 
         // 선택지 UI 숨기기
         choiceRoot.SetActive(false);
