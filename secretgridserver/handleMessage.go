@@ -164,6 +164,59 @@ func handleMessage(c *gin.Context) {
 			c.Writer.WriteHeader(400)
 			return
 		}
+	case "SetScore":
+		if len(messageTokens) > 2 {
+			endingScore, err := strconv.Atoi(messageTokens[2])
+			if err != nil {
+				c.Writer.WriteHeader(400)
+				return 
+			}
+
+			playTimeScore, err := strconv.Atoi(messageTokens[3])
+			if err != nil {
+				c.Writer.WriteHeader(400)
+				return
+			}
+
+			statScore, err := strconv.Atoi(messageTokens[4])
+			if err != nil {
+				c.Writer.WriteHeader(400)
+				return
+			}
+
+			totalScore, err := strconv.Atoi(messageTokens[5])
+			if err != nil {
+				c.Writer.WriteHeader(400)
+				return
+			}
+
+			err = addToLeaderboard("secretGrid:rank:endingScore", userId, endingScore)
+			if err != nil {
+				c.Writer.WriteHeader(400)
+				return
+			}
+
+			err = addToLeaderboard("secretGrid:rank:playTimeScore", userId, playTimeScore)
+			if err != nil {
+				c.Writer.WriteHeader(400)
+				return
+			}
+
+			err = addToLeaderboard("secretGrid:rank:statScore", userId, statScore)
+			if err != nil {
+				c.Writer.WriteHeader(400)
+				return
+			}
+
+			err = addToLeaderboard("secretGrid:rank:totalScore", userId, totalScore)
+			if err != nil {
+				c.Writer.WriteHeader(400)
+				return
+			}
+		} else {
+			c.Writer.WriteHeader(400)
+			return
+		}
 	default:
 		c.Writer.WriteHeader(400)
 		return
@@ -180,4 +233,12 @@ func handleMessage(c *gin.Context) {
 
 	c.Writer.WriteHeader(200)
 	_, _ = c.Writer.WriteString(base64.StdEncoding.EncodeToString(replyCiphertext) + "&" + base64.StdEncoding.EncodeToString(responseIv))
+}
+
+func addToLeaderboard(key string, userId string, score int) error {
+	var z redis.Z
+	z.Score = float64(score)
+	z.Member = userId
+	_, err := rdb.ZAdd(ctx, key, z).Result()
+	return err
 }
