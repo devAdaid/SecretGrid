@@ -43,10 +43,6 @@ public class HeroGameScoreResultUI : MonoBehaviour
         playTimeScoreText.TypeText($"Play time: {HeroGameFormula.CalculateScore_PlayTime(gameContext.GetPlayTime())}");
         statScoreText.TypeText($"Stat: {HeroGameFormula.CalculateScore_Stat(gameContext.Player)}");
         totalScoreText.TypeText($"Total: {gameContext.GetScore()}");
-
-        LeaderboardSubmitScore.Instance.StatScore = HeroGameFormula.CalculateScore_Stat(gameContext.Player);
-        LeaderboardSubmitScore.Instance.TotalScore = gameContext.GetScore();
-        StartCoroutine(LeaderboardSubmitScore.Instance.OnSubmit());
     }
 
     public void Hide()

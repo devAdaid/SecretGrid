@@ -53,7 +53,6 @@ public class LeaderboardManager : MonoBehaviour
         userCount = secretGridServer.CachedLeaderboardResult.entries.Count;
         Debug.Log($"userCount: {userCount}");
         serverLogText.text = secretGridServer.CachedLeaderboardResult.ToString();
-        Debug.Log("serverLogText"+secretGridServer.CachedLeaderboardResult);
         ParsingDic();
     }
 
