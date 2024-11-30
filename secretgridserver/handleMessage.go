@@ -190,25 +190,25 @@ func handleMessage(c *gin.Context) {
 				return
 			}
 
-			err = addToLeaderboard("secretGrid:rank:endingScore", userId, endingScore)
+			err = addToLeaderboardGT("secretGrid:rank:endingScore", userId, endingScore)
 			if err != nil {
 				c.Writer.WriteHeader(400)
 				return
 			}
 
-			err = addToLeaderboard("secretGrid:rank:playTimeScore", userId, playTimeScore)
+			err = addToLeaderboardGT("secretGrid:rank:playTimeScore", userId, playTimeScore)
 			if err != nil {
 				c.Writer.WriteHeader(400)
 				return
 			}
 
-			err = addToLeaderboard("secretGrid:rank:statScore", userId, statScore)
+			err = addToLeaderboardGT("secretGrid:rank:statScore", userId, statScore)
 			if err != nil {
 				c.Writer.WriteHeader(400)
 				return
 			}
 
-			err = addToLeaderboard("secretGrid:rank:totalScore", userId, totalScore)
+			err = addToLeaderboardGT("secretGrid:rank:totalScore", userId, totalScore)
 			if err != nil {
 				c.Writer.WriteHeader(400)
 				return
@@ -235,10 +235,10 @@ func handleMessage(c *gin.Context) {
 	_, _ = c.Writer.WriteString(base64.StdEncoding.EncodeToString(replyCiphertext) + "&" + base64.StdEncoding.EncodeToString(responseIv))
 }
 
-func addToLeaderboard(key string, userId string, score int) error {
+func addToLeaderboardGT(key string, userId string, score int) error {
 	var z redis.Z
 	z.Score = float64(score)
 	z.Member = userId
-	_, err := rdb.ZAdd(ctx, key, z).Result()
+	_, err := rdb.ZAddGT(ctx, key, z).Result()
 	return err
 }
