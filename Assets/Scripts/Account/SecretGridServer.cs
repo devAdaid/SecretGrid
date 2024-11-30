@@ -212,6 +212,8 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
                 messageCounter = 0;
                 
                 yield return SendSecureMessage($"SetNickname\t{nickname}");
+                
+                yield return SendSecureMessage($"GetLeaderboard\tteststage");
             }
         }
 

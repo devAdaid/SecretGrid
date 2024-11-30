@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/rand"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"github.com/redis/go-redis/v9"
 	"io"
@@ -74,14 +75,14 @@ func handleMessage(writer http.ResponseWriter, request *http.Request) {
 	}
 
 	// 메시지 번호 확인 (중복 메시지 번호로 온 것은 무시해야한다.)
-	if messageCounter != serverSessionMap[userId].counter + 1 {
+	if messageCounter != serverSessionMap[userId].counter+1 {
 		writer.WriteHeader(400)
 		return
 	}
 
 	// 유효한 메시지
 
-	// 닉네임 조회
+	// 닉네임 조회 (미등록된 경우에는 ---로 설정)
 	nickname, err := rdb.HGet(ctx, "secretGrid:nickname", userId).Result()
 	if err == redis.Nil {
 		nickname = "---"
@@ -90,21 +91,72 @@ func handleMessage(writer http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	log.Printf("RECV %s (%s): %s", userId, nickname, messageTokens[1])
+	log.Printf("RECV %s (%s): %s", userId, nickname, strings.Join(messageTokens[1:], ","))
 
 	// 다음 메시지 번호 처리를 위해 1 증가
 	serverSessionMap[userId].counter = serverSessionMap[userId].counter + 1
 
+	// 회신할 메시지 본문
+	replyBody := ""
+
 	cmd := messageTokens[1]
+
 	switch cmd {
 	case "SetNickname":
-		// 닉네임 설정
 		if len(messageTokens) > 2 {
 			nickname = messageTokens[2]
 			if len(nickname) > 32 {
 				nickname = nickname[:32]
 			}
 			_, _ = rdb.HSet(ctx, "secretGrid:nickname", userId, nickname).Result()
+			replyBody = "OK"
+		} else {
+			writer.WriteHeader(400)
+			return
+		}
+	case "GetLeaderboard":
+		if len(messageTokens) > 2 {
+			stageId := messageTokens[2]
+
+			// 'Rev'가 붙으면 내림차순이다. (점수가 높은 사람이 1등)
+			// rank는 0부터 시작한다. 즉, 1등이면 0
+			rank, err := rdb.ZRevRank(ctx, "secretGrid:rank:"+stageId, userId).Result()
+			if err != nil {
+				if err == redis.Nil {
+					rank = -1
+				} else {
+					writer.WriteHeader(500)
+					return
+				}
+			}
+
+			var spread int64 = 7
+			startRank := max(0, rank-spread)
+			rankRange := rdb.ZRevRangeWithScores(ctx, "secretGrid:rank:"+stageId, startRank, rank+spread)
+
+			var entries []LeaderboardEntry
+			for i, e := range rankRange.Val() {
+				nn, _ := rdb.HGet(ctx, "secretGrid:nickname", e.Member.(string)).Result()
+				entries = append(entries, LeaderboardEntry{
+					Rank:     startRank + int64(i),
+					Nickname: nn,
+					Score:    e.Score,
+				})
+			}
+
+			leaderboard := Leaderboard{
+				Rank:    rank,
+				Entries: entries,
+			}
+
+			leaderboardJson, err := json.Marshal(leaderboard)
+			if err != nil {
+				writer.WriteHeader(500)
+				return
+			}
+
+			replyBody = string(leaderboardJson)
+
 		} else {
 			writer.WriteHeader(400)
 			return
@@ -115,10 +167,9 @@ func handleMessage(writer http.ResponseWriter, request *http.Request) {
 	}
 
 	responseIv := make([]byte, 16)
-	// then we can call rand.Read.
 	_, err = rand.Read(responseIv)
 
-	replyCiphertext, err := s.cipher.encrypt([]byte(fmt.Sprintf("%d\tOK", messageCounter)), responseIv)
+	replyCiphertext, err := s.cipher.encrypt([]byte(fmt.Sprintf("%d\t%s", messageCounter, replyBody)), responseIv)
 	if err != nil {
 		writer.WriteHeader(500)
 		return
