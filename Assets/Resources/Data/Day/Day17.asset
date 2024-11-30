@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06966baf3d6339c4499819a260df8207, type: 3}
-  m_Name: Day5
+  m_Name: Day17
   m_EditorClassIdentifier: 
-  Day: 5
+  Day: 17
   IsDayStartDialogueSkippable: 1
-  DayStartDialogue: {fileID: 4900000, guid: aab785149ab3c824da5a05c350fd702f, type: 3}
+  DayStartDialogue: {fileID: 4900000, guid: 8aace1d751d0d1f4eac8e3ce1a172d43, type: 3}
   IsDayEndDialogueSkippable: 1
-  DayEndDialogue: {fileID: 4900000, guid: b53544c1874d0c546b0acf123c288d90, type: 3}
-  MaxPhase: 3
+  DayEndDialogue: {fileID: 4900000, guid: 2f0ff9827d3521543884a41839d6f04a, type: 3}
+  MaxPhase: 5
   CaseIdList:
-  - {fileID: 11400000, guid: ae3a4c2b3537fde46addd432fd97fbfe, type: 2}
-  - {fileID: 11400000, guid: 8defe28589853459b89cdfbbb2213a31, type: 2}
+  - {fileID: 11400000, guid: bef8ec0e51e845a4faf74427647e014d, type: 2}
+  - {fileID: 11400000, guid: 2e41c22985a54b3459cc0a06d4697849, type: 2}
+  - {fileID: 11400000, guid: bd904958a50a043f6a466fe72c987a2c, type: 2}

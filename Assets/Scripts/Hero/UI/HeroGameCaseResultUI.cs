@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeroGameCaseResultUI : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class HeroGameCaseResultUI : MonoBehaviour
     [SerializeField]
     private HeroGameButtonBase nextButton;
 
+    [SerializeField]
+    private Button screenButton;
+
     private HeroGameCaseSelectionUIControlData data;
 
     private float resultShowTime = 0f;
@@ -41,39 +45,45 @@ public class HeroGameCaseResultUI : MonoBehaviour
     private void Awake()
     {
         nextButton.AddOnClickListener(OnClickNextButton);
+        screenButton.onClick.AddListener(HandleClick);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (nextButton.gameObject.activeInHierarchy)
-            {
-                continuousClickCount = 0;
-                OnNextButtonRequested();
-            }
-            else if (isWaiting)
-            {
-                UpdateContinuousClickCount();
+            HandleClick();
+        }
+    }
+    
+    private void HandleClick()
+    {
+        if (nextButton.gameObject.activeInHierarchy)
+        {
+            continuousClickCount = 0;
+            OnNextButtonRequested();
+        }
+        else if (isWaiting)
+        {
+            UpdateContinuousClickCount();
 
-                if (CommonSingleton.I.PersistentContext.IsSecret3Enabled)
+            if (CommonSingleton.I.PersistentContext.IsSecret3Enabled)
+            {
+                if (continuousClickCount >= 2)
                 {
-                    if (continuousClickCount >= 2)
-                    {
-                        StopAllCoroutines();
+                    StopAllCoroutines();
 
-                        resultShowTime = Time.time;
-                        isWaiting = false;
-                        ProcessSelect();
-                    }
+                    resultShowTime = Time.time;
+                    isWaiting = false;
+                    ProcessSelect();
                 }
-                else
+            }
+            else
+            {
+                if (continuousClickCount >= SPACE_CHECK_COUNT)
                 {
-                    if (continuousClickCount >= SPACE_CHECK_COUNT)
-                    {
-                        CommonSingleton.I.PersistentContext.SetSecret3Enable(true);
-                        continuousClickCount = 0;
-                    }
+                    CommonSingleton.I.PersistentContext.SetSecret3Enable(true);
+                    continuousClickCount = 0;
                 }
             }
         }
@@ -111,11 +121,19 @@ public class HeroGameCaseResultUI : MonoBehaviour
 
         root.SetActive(true);
 
-        loadingText.gameObject.SetActive(true);
-        resultTextRoot.gameObject.SetActive(false);
-        nextButton.gameObject.SetActive(false);
 
-        StartCoroutine(UpdateLoadingText());
+        if (CommonSingleton.I.PersistentContext.IsSecret3Enabled)
+        {
+            ProcessSelect();
+        }
+        else
+        {
+            loadingText.gameObject.SetActive(true);
+            resultTextRoot.gameObject.SetActive(false);
+            nextButton.gameObject.SetActive(false);
+
+            StartCoroutine(UpdateLoadingText());
+        }
     }
 
     public void Hide()

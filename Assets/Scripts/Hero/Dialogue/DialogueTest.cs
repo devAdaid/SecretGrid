@@ -18,6 +18,6 @@ public class DialogueTest : MonoBehaviour
             //Debug.Log(command.GetType().Name);
         }
 
-        dialogueUI.PlayDialogue(dialogueData, null);
+        dialogueUI.PlayDialogue(dialogueData, true, null);
     }
 }

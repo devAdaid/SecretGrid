@@ -84,7 +84,7 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
     {
         if (CommonSingleton.I.StaticDataHolder.TryGetDayData(day, out var dayData) && dayData.DayStartDialogue != null)
         {
-            ui.DialogueUI.PlayDialogue(dayData.DayStartDialogue, ProcessDayStart);
+            ui.DialogueUI.PlayDialogue(dayData.DayStartDialogue, dayData.IsDayStartDialogueSkippable, ProcessDayStart);
         }
         else
         {
@@ -101,7 +101,7 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
     {
         if (CommonSingleton.I.StaticDataHolder.TryGetDayData(day, out var dayData) && dayData.DayEndDialogue != null)
         {
-            ui.DialogueUI.PlayDialogue(dayData.DayEndDialogue, ProcessDayEnd);
+            ui.DialogueUI.PlayDialogue(dayData.DayEndDialogue, dayData.IsDayEndDialogueSkippable, ProcessDayEnd);
         }
         else
         {

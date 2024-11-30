@@ -20,6 +20,9 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     private GameObject root;
 
     [SerializeField]
+    private HeroGameButtonBase skipButton;
+
+    [SerializeField]
     private TextTyper textTyper;
 
     [SerializeField]
@@ -48,13 +51,15 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     private bool isDialoguePlaying;
     private UnityAction onDialogueEnd = null;
 
-    public void PlayDialogue(TextAsset xmlText, UnityAction dialogueEndCallback)
+    public void PlayDialogue(TextAsset xmlText, bool isSkippable, UnityAction dialogueEndCallback)
     {
         isDialoguePlaying = true;
 
         onDialogueEnd = dialogueEndCallback;
 
         root.SetActive(true);
+        skipButton.gameObject.SetActive(isSkippable);
+        textRoot.SetActive(true);
         choiceRoot.SetActive(false);
 
         var commands = DialogueXMLSerializer.LoadDialogueFromXML(xmlText.text);
@@ -77,6 +82,7 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     {
         textTyper.CharacterPrinted.AddListener((_) => AudioManager.I.PlayTypeSFX(SFXType.Type));
         dialogueBoxButton.onClick.AddListener(RequestProceed);
+        skipButton.AddOnClickListener(EndDialogue);
     }
 
     private void Update()
