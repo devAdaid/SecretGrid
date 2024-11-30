@@ -114,6 +114,15 @@ public class DialogueXMLSerializer : MonoBehaviour
                 var commandIndex = int.Parse(commandElement.GetAttribute("CommandIndex"));
                 commands.Add(new D_Goto(commandIndex));
             }
+            else if (commandElement.Name == "Flag")
+            {
+                var name = commandElement.GetAttribute("Name");
+                commands.Add(new D_Flag(name));
+            }
+            else if (commandElement.Name == "EndDialogue")
+            {
+                commands.Add(new D_EndDialogue());
+            }
             else if (commandElement.Name == "SpeakerName")
             {
                 var textKo = commandElement.GetAttribute("Text_Ko");

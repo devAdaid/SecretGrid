@@ -21,10 +21,11 @@ public partial class HeroGameContext
 {
     public HeroPlayerContext Player { get; private set; }
 
-    public List<HeroGameCase> CurrentCases;
+    public List<HeroGameCase> CurrentCases = new();
+    public HashSet<string> dialogueFlag = new();
 
-    private List<HeroGameCaseStaticData> normalCasePool;
-    private List<HeroGameCaseStaticData> specialCasePool;
+    private List<HeroGameCaseStaticData> normalCasePool = new();
+    private List<HeroGameCaseStaticData> specialCasePool = new();
 
     public int Day { get; private set; }
     public int? MaxRemainPhase { get; private set; }
@@ -45,15 +46,16 @@ public partial class HeroGameContext
     private void Initialize()
     {
         Player = new HeroPlayerContext(10, 10, 10);
-        CurrentCases = new List<HeroGameCase>();
 
-        normalCasePool = new List<HeroGameCaseStaticData>();
+        CurrentCases.Clear();
+        dialogueFlag.Clear();
+        normalCasePool.Clear();
         foreach (var caseData in CommonSingleton.I.StaticDataHolder.GetChapter1CaseList())
         {
             normalCasePool.Add(caseData);
         }
-
-        specialCasePool = new List<HeroGameCaseStaticData>();
+        specialCasePool.Clear();
+        
 
         Day = 1;
         RemainPhase = null;
@@ -70,6 +72,11 @@ public partial class HeroGameContext
     {
         gameStartTime = startTime;
     }
+    
+    public void AddDialogueFlag(string flagName)
+    {
+        dialogueFlag.Add(flagName);
+    }
 
     public HeroGameProcessNextResult ProcessNext(float time)
     {
@@ -85,18 +92,17 @@ public partial class HeroGameContext
             return HeroGameProcessNextResult.GameOverByRemainPhaseZero;
         }
 
-        // TODO: 엔딩 기준은 데이터화
-        if (Day == 25)
-        {
-            ProcessGameEnd(time);
-            return HeroGameProcessNextResult.GameEnd;
-        }
-
         // 페이즈가 남아있음 = 풀에서 케이스 구성
         if (NeedProcessPhaseEnd())
         {
             ProcessNextPhase();
             return HeroGameProcessNextResult.NextPhase;
+        }
+        
+        if (CommonSingleton.I.StaticDataHolder.IsLastDay(Day))
+        {
+            ProcessGameEnd(time);
+            return HeroGameProcessNextResult.GameEnd;
         }
 
         // 다음 날로 진행

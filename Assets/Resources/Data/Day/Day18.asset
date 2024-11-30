@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06966baf3d6339c4499819a260df8207, type: 3}
+  m_Name: Day18
+  m_EditorClassIdentifier: 
+  Day: 18
+  IsLastDay: 1
+  IsDayStartDialogueSkippable: 1
+  DayStartDialogue: {fileID: 0}
+  IsDayEndDialogueSkippable: 1
+  DayEndDialogue: {fileID: 0}
+  MaxPhase: 5
+  CaseIdList:
+  - {fileID: 11400000, guid: bef8ec0e51e845a4faf74427647e014d, type: 2}
+  - {fileID: 11400000, guid: 2e41c22985a54b3459cc0a06d4697849, type: 2}
+  - {fileID: 11400000, guid: bd904958a50a043f6a466fe72c987a2c, type: 2}

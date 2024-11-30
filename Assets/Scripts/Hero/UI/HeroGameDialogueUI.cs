@@ -211,6 +211,5 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     public void EndDialogue()
     {
         OnDialogueEnd();
-        return;
     }
 }

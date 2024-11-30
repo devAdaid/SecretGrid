@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Main3_A
   m_EditorClassIdentifier: 
   FixedDay: 17
-  Sprite: {fileID: 6714369015438526544, guid: 6d983e9b854b0e84a976d87c0105e5f1, type: 3}
+  Sprite: {fileID: 21300000, guid: 54522495c008cd14e9ab51630717b7b8, type: 3}
   Title_Ko: "(\uC784\uC2DC) 3\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 A"
   Title_En: "(\uC784\uC2DC) 3\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 A"
   Description_Ko: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C

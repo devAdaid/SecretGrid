@@ -142,6 +142,7 @@
     </Choice>
 
     <Label Name="DrK" />
+    <Flag Name="Side_K" />
     <SpeakerName
         Text_Ko="제로스"
         Text_En="Xeros"
@@ -260,6 +261,7 @@
     <EndDialogue />
 
     <Label Name="Xeros" />
+    <Flag Name="Side_X" />
     <SpeakerName
         Text_Ko="제로스"
         Text_En="Xeros"

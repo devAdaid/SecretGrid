@@ -9,6 +9,7 @@ public class StaticDataHolder
     private readonly Dictionary<int, List<HeroGameCaseStaticData>> casesByFixedDay = new Dictionary<int, List<HeroGameCaseStaticData>>();
     private readonly Dictionary<string, HeroGameCaseStaticData> caseMap = new();
     private readonly Dictionary<int, HeroGameDayData> dayMap = new Dictionary<int, HeroGameDayData>();
+    private readonly Dictionary<string, TextAsset> dialogueMap = new();
 
     public StaticDataHolder()
     {
@@ -35,6 +36,12 @@ public class StaticDataHolder
             casesByFixedDay.TryAdd(caseData.FixedDay, new List<HeroGameCaseStaticData>());
             casesByFixedDay[caseData.FixedDay].Add(caseData);
             caseMap[caseData.Id] = caseData;
+        }
+        
+        var dialogues = Resources.LoadAll<TextAsset>("Data/Dialogue");
+        foreach (var dialogue in dialogues)
+        {
+            dialogueMap[dialogue.name] = dialogue;
         }
 
         var dayList = Resources.LoadAll<HeroGameDayData>("Data/Day");
@@ -70,5 +77,20 @@ public class StaticDataHolder
     public bool TryGetDayData(int day, out HeroGameDayData data)
     {
         return dayMap.TryGetValue(day, out data);
+    }
+    
+    public bool IsLastDay(int day)
+    {
+        if (!dayMap.TryGetValue(day, out var data))
+        {
+            return false;
+        }
+
+        return data.IsLastDay;
+    }
+    
+    public bool TryGetDialogue(string name, out TextAsset dialogue)
+    {
+        return dialogueMap.TryGetValue(name, out dialogue);
     }
 }

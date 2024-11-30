@@ -5,6 +5,7 @@ using UnityEngine;
 public class HeroGameDayData : ScriptableObject
 {
     public int Day;
+    public bool IsLastDay;
     public bool IsDayStartDialogueSkippable = true;
     public TextAsset DayStartDialogue;
     public bool IsDayEndDialogueSkippable = true;

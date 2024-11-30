@@ -140,9 +140,56 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
             case HeroGameProcessNextResult.GameOverBySecretZero:
             case HeroGameProcessNextResult.GameOverByRemainPhaseZero:
             case HeroGameProcessNextResult.GameEnd:
-                ui.ShowScoreResultUI(GameContext);
-                SecretGridServer.I.StartSendScore(GameContext);
+                ProcessGameEnd(result);
                 break;
         }
+    }
+    
+    private void ProcessGameEnd(HeroGameProcessNextResult result)
+    {
+        SecretGridServer.I.StartSendScore(GameContext);
+        
+        var dialogueName = GetDialogueName(result);
+        if (CommonSingleton.I.StaticDataHolder.TryGetDialogue(dialogueName, out var dialogueData) && dialogueData != null)
+        {
+            ui.DialogueUI.PlayDialogue(dialogueData, true, OnGameEnd);
+        }
+        else
+        {
+            OnGameEnd();
+        }
+    }
+    
+    private void OnGameEnd()
+    {
+        ui.ShowScoreResultUI(GameContext);
+    }
+
+    private string GetDialogueName(HeroGameProcessNextResult result)
+    {
+        switch (result)
+        {
+            case HeroGameProcessNextResult.GameOverBySecretZero:
+                return "GameOver_Secret";
+            case HeroGameProcessNextResult.GameOverByRemainPhaseZero:
+                if (CommonSingleton.I.StaticDataHolder.IsLastDay(GameContext.Day))
+                {
+                    return "GameOver_Phase_LastDay";
+                }
+                else
+                {
+                    return "GameOver_Phase";
+                }
+            case HeroGameProcessNextResult.GameEnd:
+                if (GameContext.dialogueFlag.Contains("Side_K"))
+                {
+                    return "End2_DrK";
+                }
+                else
+                {
+                    return "End3_Xeros";
+                }
+        }
+        return string.Empty;
     }
 }

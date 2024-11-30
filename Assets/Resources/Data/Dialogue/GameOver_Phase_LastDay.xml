@@ -1,0 +1,10 @@
+<DialogueCommands>
+    <SpeakerName
+        Text_Ko="박사 K"
+        Text_En="Dr. K"
+    />
+    <Text
+        Text_Ko="(임시) 마지막 날 페이즈가 0 되었을 때 엔딩"
+        Text_En="(임시) 마지막 날 페이즈가 0 되었을 때 엔딩"
+    />
+</DialogueCommands>

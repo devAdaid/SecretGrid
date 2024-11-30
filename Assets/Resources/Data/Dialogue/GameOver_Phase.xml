@@ -4,7 +4,7 @@
         Text_En="Dr. K"
     />
     <Text
-        Text_Ko="(임시) 엔딩2 대화 - 박사 K 엔딩"
-        Text_En="(임시) 엔딩2 대화 - 박사 K 엔딩"
+        Text_Ko="(임시) 페이즈가 0 되었을 때 엔딩"
+        Text_En="(임시) 페이즈가 0 되었을 때 엔딩"
     />
 </DialogueCommands>

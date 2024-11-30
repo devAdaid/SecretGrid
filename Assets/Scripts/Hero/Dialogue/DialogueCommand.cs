@@ -68,6 +68,21 @@ public class D_Label : IDialogueCommand
     }
 }
 
+public class D_Flag : IDialogueCommand
+{
+    public readonly string Name;
+
+    public D_Flag(string name)
+    {
+        Name = name;
+    }
+
+    public void ApplyUI(IHeroGameDialogueUI ui)
+    {
+        HeroGameContextHolder.I.GameContext.AddDialogueFlag(Name);
+    }
+}
+
 public class D_Goto : IDialogueCommand
 {
     public readonly int commandIndex;
