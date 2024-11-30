@@ -51,6 +51,8 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     private bool isDialoguePlaying;
     private UnityAction onDialogueEnd = null;
 
+    private Dictionary<string, int> commandIndexByLabelName;
+
     public void PlayDialogue(TextAsset xmlText, bool isSkippable, UnityAction dialogueEndCallback)
     {
         isDialoguePlaying = true;
@@ -62,7 +64,7 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
         textRoot.SetActive(true);
         choiceRoot.SetActive(false);
 
-        var commands = DialogueXMLSerializer.LoadDialogueFromXML(xmlText.text);
+        var commands = DialogueXMLSerializer.LoadDialogueFromXML(xmlText.text, out commandIndexByLabelName);
         dialoguePlayer = new DialoguePlayer(commands);
         currentCommandIndex = 0;
 
@@ -126,6 +128,7 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
         choiceRoot.SetActive(true);
         textRoot.SetActive(false);
 
+        // TODO: 버튼 3개로 재활용하기
         // 기존 버튼 제거
         foreach (var button in activeChoiceButtons)
         {
@@ -138,21 +141,19 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
         {
             var choice = choiceItems[i];
             var button = Instantiate(choiceItemPrefab, choiceRoot.transform);
-            int index = choice.CommandIndex;
-            button.Apply(choice.Text_Ko, choice.StatReward, index);
+            button.Apply(choice.Text_Ko, choice.StatReward, choice.LabelName);
 
             activeChoiceButtons.Add(button);
         }
     }
 
-    public void OnChoiceButtonSelected(int commandIndex)
+    public void OnChoiceButtonSelected(string labelName)
     {
         // 선택한 선택지의 명령 인덱스로 이동
-        if (commandIndex >= 0)
+        if (commandIndexByLabelName.TryGetValue(labelName, out var index))
         {
-            currentCommandIndex = commandIndex;
+            currentCommandIndex = index;
         }
-
         // 선택지 UI 숨기기
         choiceRoot.SetActive(false);
         textRoot.SetActive(true);

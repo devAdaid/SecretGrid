@@ -131,17 +131,17 @@
             <Item
                 Text_Ko="박사 K의 말을 따른다."
                 Text_En="Follow Dr. K’s words."
-                CommandIndex="24"
+                LabelName="DrK"
             />
             <Item
                 Text_Ko="제로스의 말을 따른다."
-                Text_En="Follow Zero’s words."
-                CommandIndex="24"
+                Text_En="Follow Xeros' words."
+                LabelName="Xeros"
             />
         </Choices>
     </Choice>
 
-
+    <Label Name="DrK" />
     <SpeakerName
         Text_Ko="제로스"
         Text_En="Xeros"
@@ -259,6 +259,7 @@
     />
     <EndDialogue />
 
+    <Label Name="Xeros" />
     <SpeakerName
         Text_Ko="제로스"
         Text_En="Xeros"

@@ -12,11 +12,11 @@ public class DialogueChoiceItemControl : MonoBehaviour
     [SerializeField]
     private HeroGameButtonBase button;
 
-    private int choiceIndex;
+    private string labelName;
 
-    public void Apply(string content, HeroGameCaseStatReward statReward, int choiceIndex)
+    public void Apply(string content, HeroGameCaseStatReward statReward, string labelName)
     {
-        this.choiceIndex = choiceIndex;
+        this.labelName = labelName;
 
         contentText.text = content;
         rewardText.text = statReward.ToUIString();
@@ -26,6 +26,6 @@ public class DialogueChoiceItemControl : MonoBehaviour
 
     private void OnClickButton()
     {
-        HeroGameUI.I.DialogueUI.OnChoiceButtonSelected(choiceIndex);
+        HeroGameUI.I.DialogueUI.OnChoiceButtonSelected(labelName);
     }
 }

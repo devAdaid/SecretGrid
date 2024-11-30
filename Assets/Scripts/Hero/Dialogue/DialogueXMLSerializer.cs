@@ -28,11 +28,7 @@ public class DialogueXMLSerializer : MonoBehaviour
                     var choiceElement = doc.CreateElement("ChoiceItem");
                     choiceElement.SetAttribute("Text_Ko", choice.Text_Ko);
                     choiceElement.SetAttribute("Text_En", choice.Text_En);
-
-                    if (choice.CommandIndex >= 0)
-                    {
-                        choiceElement.SetAttribute("CommandIndex", choice.CommandIndex.ToString());
-                    }
+                    choiceElement.SetAttribute("LabelName", choice.LabelName);
                     choicesElement.AppendChild(choiceElement);
                 }
                 commandElement.AppendChild(choicesElement);
@@ -60,13 +56,16 @@ public class DialogueXMLSerializer : MonoBehaviour
         doc.Save(filePath);
     }
 
-    public static List<IDialogueCommand> LoadDialogueFromXML(string xmlText)
+    public static List<IDialogueCommand> LoadDialogueFromXML(string xmlText, out Dictionary<string,int> indexByLabel)
     {
         var commands = new List<IDialogueCommand>();
         var doc = new XmlDocument();
         doc.LoadXml(xmlText);
 
         var rootElement = doc.DocumentElement;
+        indexByLabel = new Dictionary<string, int>();
+        
+        var index = 0;
         foreach (XmlElement commandElement in rootElement.ChildNodes)
         {
             if (commandElement.Name == "Text")
@@ -82,24 +81,33 @@ public class DialogueXMLSerializer : MonoBehaviour
                 {
                     var textKo = choiceElement.GetAttribute("Text_Ko");
                     var textEn = choiceElement.GetAttribute("Text_En");
-                    var commandIndexAttribute = choiceElement.GetAttribute("CommandIndex");
+                    var labelName = choiceElement.GetAttribute("LabelName");
 
                     var strAttribute = choiceElement.GetAttribute("STR");
                     var aglAttribute = choiceElement.GetAttribute("AGL");
                     var intAttribute = choiceElement.GetAttribute("INT");
                     var secretAttribute = choiceElement.GetAttribute("Secret");
 
-                    if (!int.TryParse(commandIndexAttribute, out var commandIndex))
-                    {
-                        commandIndex = -1;
-                    }
                     int.TryParse(strAttribute, out var strength);
                     int.TryParse(aglAttribute, out var agility);
                     int.TryParse(intAttribute, out var intelligence);
                     int.TryParse(secretAttribute, out var secret);
-                    choices.Add(new D_ChoiceItem(textKo, textEn, commandIndex, new HeroGameCaseStatReward(strength, agility, intelligence, secret)));
+                    choices.Add(new D_ChoiceItem(textKo, textEn, labelName, new HeroGameCaseStatReward(strength, agility, intelligence, secret)));
                 }
                 commands.Add(new D_Choice(choices));
+            }
+            else if (commandElement.Name == "Label")
+            {
+                var name = commandElement.GetAttribute("Name");
+                if (string.IsNullOrEmpty(name))
+                {
+                    Debug.LogError("Label.Name이 빈값입니다.");
+                }
+                else
+                {
+                    commands.Add(new D_Label(name));
+                    indexByLabel.Add(name, index);
+                }
             }
             else if (commandElement.Name == "Goto")
             {
@@ -125,6 +133,7 @@ public class DialogueXMLSerializer : MonoBehaviour
             {
                 commands.Add(new D_ResumeBgm());
             }
+            index++;
         }
 
         return commands;

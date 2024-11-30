@@ -31,9 +31,9 @@ MonoBehaviour:
       Intelligence: 0
       Secret: 0
     FixedStatRequirement:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
+      Strength: 5
+      Agility: 5
+      Intelligence: 5
   - Type: 1
     Description_Ko: "(\uC784\uC2DC) \uBBFC\uCCA9 \uBCF4\uB108\uC2A4"
     Description_En: "(\uC784\uC2DC) \uBBFC\uCCA9 \uBCF4\uB108\uC2A4"
@@ -46,9 +46,9 @@ MonoBehaviour:
       Intelligence: 0
       Secret: 0
     FixedStatRequirement:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
+      Strength: 5
+      Agility: 5
+      Intelligence: 5
   - Type: 1
     Description_Ko: "(\uC784\uC2DC) \uC9C0\uB2A5 \uBCF4\uB108\uC2A4"
     Description_En: "(\uC784\uC2DC) \uC9C0\uB2A5 \uBCF4\uB108\uC2A4"
@@ -61,6 +61,6 @@ MonoBehaviour:
       Intelligence: 20
       Secret: 0
     FixedStatRequirement:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
+      Strength: 5
+      Agility: 5
+      Intelligence: 5

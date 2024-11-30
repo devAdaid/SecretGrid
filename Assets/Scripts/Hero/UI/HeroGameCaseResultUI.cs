@@ -92,7 +92,6 @@ public class HeroGameCaseResultUI : MonoBehaviour
     private void UpdateContinuousClickCount()
     {
         float currentTime = Time.time;
-        lastClickTime = currentTime;
 
         if (currentTime - lastClickTime <= spaceCheckMaxInterval)
         {
@@ -102,6 +101,8 @@ public class HeroGameCaseResultUI : MonoBehaviour
         {
             continuousClickCount = 1;
         }
+        
+        lastClickTime = currentTime;
     }
 
     private void OnNextButtonRequested()

@@ -10,7 +10,7 @@ public class DialogueTest : MonoBehaviour
 
     private void Start()
     {
-        var loadedCommands = DialogueXMLSerializer.LoadDialogueFromXML(dialogueData.text);
+        var loadedCommands = DialogueXMLSerializer.LoadDialogueFromXML(dialogueData.text, out _);
 
         // 로드된 대화 명령 출력
         foreach (var command in loadedCommands)

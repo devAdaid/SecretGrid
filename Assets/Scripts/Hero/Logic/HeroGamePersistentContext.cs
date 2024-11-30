@@ -20,6 +20,6 @@ public class HeroGamePersistentContext
 
         IsSecret3Enabled = enable;
         //TODO: 텍스트
-        toastUI.Show("SECRET 3 Enabled: 결과 UI를 빠르게 넘길 수 있게 되었습니다.");
+        toastUI.Show("SECRET 3 Enabled: 결과를 빠르게 확인할 수 있게 되었습니다.");
     }
 }

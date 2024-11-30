@@ -15,7 +15,7 @@ MonoBehaviour:
   Day: 17
   IsDayStartDialogueSkippable: 1
   DayStartDialogue: {fileID: 4900000, guid: 8aace1d751d0d1f4eac8e3ce1a172d43, type: 3}
-  IsDayEndDialogueSkippable: 1
+  IsDayEndDialogueSkippable: 0
   DayEndDialogue: {fileID: 4900000, guid: 2f0ff9827d3521543884a41839d6f04a, type: 3}
   MaxPhase: 5
   CaseIdList:

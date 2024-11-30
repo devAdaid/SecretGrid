@@ -42,15 +42,29 @@ public class D_ChoiceItem
 {
     public readonly string Text_Ko;
     public readonly string Text_En;
-    public readonly int CommandIndex;
+    public readonly string LabelName;
     public readonly HeroGameCaseStatReward StatReward;
 
-    public D_ChoiceItem(string text_ko, string text_en, int commandIndex, HeroGameCaseStatReward statReward)
+    public D_ChoiceItem(string text_ko, string text_en, string labelName, HeroGameCaseStatReward statReward)
     {
         Text_Ko = text_ko;
         Text_En = text_en;
-        CommandIndex = commandIndex;
+        LabelName = labelName;
         StatReward = statReward;
+    }
+}
+
+public class D_Label : IDialogueCommand
+{
+    public readonly string Name;
+    
+    public D_Label(string name)
+    {
+        Name = name;
+    }
+
+    public void ApplyUI(IHeroGameDialogueUI ui)
+    {
     }
 }
 
