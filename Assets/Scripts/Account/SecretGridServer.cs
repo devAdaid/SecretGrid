@@ -290,7 +290,16 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         }
     }
 
-    public IEnumerator SendSecureMessageCoro(params string[] values)
+    public IEnumerator RequestLeaderboard(string stageId)
+    {
+        yield return SendSecureMessageCoro("GetLeaderboard", stageId);
+        
+        CachedLeaderboardResult ??= new LeaderboardResult();
+
+        JsonUtility.FromJsonOverwrite(lastResponseStr, CachedLeaderboardResult);
+    }
+
+    private IEnumerator SendSecureMessageCoro(params string[] values)
     {
         yield return WaitForReady();
         

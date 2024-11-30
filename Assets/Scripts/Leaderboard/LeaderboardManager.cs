@@ -26,7 +26,7 @@ public class LeaderboardManager : MonoBehaviour
     {
         secretGridServer.SetServerLogText(serverLogText);
         yield return secretGridServer.WaitForReady(); // 서버가 준비될 때까지 기다린다.
-        yield return secretGridServer.SendSecureMessageCoro("GetLeaderboard","totalScore"); // 테스트 리더보드 정보 가져온다.
+        yield return secretGridServer.RequestLeaderboard("totalScore"); // 테스트 리더보드 정보 가져온다.
         userCount = secretGridServer.CachedLeaderboardResult.entries.Count;
         serverLogText.text = secretGridServer.CachedLeaderboardResult.ToString();
         ParsingDic();
@@ -49,7 +49,7 @@ public class LeaderboardManager : MonoBehaviour
         string tmpstring = LeaderboardType;
 
         yield return secretGridServer.WaitForReady(); // 서버가 준비될 때까지 기다린다.
-        yield return secretGridServer.SendSecureMessageCoro("GetLeaderboard",tmpstring); // 테스트 리더보드 정보 가져온다.
+        yield return secretGridServer.RequestLeaderboard(tmpstring); // 테스트 리더보드 정보 가져온다.
         userCount = secretGridServer.CachedLeaderboardResult.entries.Count;
         Debug.Log($"userCount: {userCount}");
         serverLogText.text = secretGridServer.CachedLeaderboardResult.ToString();
