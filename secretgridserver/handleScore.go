@@ -3,38 +3,39 @@ package main
 import (
 	"encoding/base64"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
-	"net/http"
 	"strconv"
 	"strings"
 )
 
-func handleScore(writer http.ResponseWriter, request *http.Request) {
-	userId := request.Header.Get("X-User-Id")
+func handleScore(c *gin.Context) {
+	userId := c.GetHeader("X-User-Id")
+
 	if len(userId) == 0 {
-		writer.WriteHeader(400)
+		c.Writer.WriteHeader(400)
 		return
 	}
 
-	stageIdStr := request.Header.Get("X-Stage-Id")
+	stageIdStr := c.GetHeader("X-Stage-Id")
 	if len(stageIdStr) == 0 {
-		writer.WriteHeader(400)
+		c.Writer.WriteHeader(400)
 		return
 	}
 
-	scoreStr := request.Header.Get("X-Score")
+	scoreStr := c.GetHeader("X-Score")
 	if len(scoreStr) == 0 {
-		writer.WriteHeader(400)
+		c.Writer.WriteHeader(400)
 		return
 	}
 
 	score, err := strconv.Atoi(scoreStr)
 	if err != nil {
-		writer.WriteHeader(400)
+		c.Writer.WriteHeader(400)
 		return
 	}
 
-	userNicknameBase64 := request.Header.Get("X-User-Nickname")
+	userNicknameBase64 := c.GetHeader("X-User-Nickname")
 	userNicknameStr, _ := base64.StdEncoding.DecodeString(userNicknameBase64)
 
 	const nicknameSetKey = "secretGrid:nickname"
@@ -51,7 +52,7 @@ func handleScore(writer http.ResponseWriter, request *http.Request) {
 
 	rank, err := rdb.ZRank(ctx, rankKey, userId).Result()
 	if err != nil && err != redis.Nil {
-		writer.WriteHeader(400)
+		c.Writer.WriteHeader(400)
 		return
 	}
 
@@ -67,7 +68,7 @@ func handleScore(writer http.ResponseWriter, request *http.Request) {
 
 		s 변수는 최종적으로 다음과 같은 구조를 가진다.
 
-		플레이어 순위 <tab> 플레이어ID <tab> 유저1 ID <tab> 점수1 <tab> 닉네임1 <tab> 유저2 ID <tab> 점수2 <tab> 닉네임2 <tab> ...
+		플레이어 순위 <tab> 플레이어 ID <tab> 유저1 ID <tab> 점수1 <tab> 닉네임1 <tab> 유저2 ID <tab> 점수2 <tab> 닉네임2 <tab> ...
 
 	*/
 	s := []string{strconv.Itoa(int(rank)), userId}
@@ -79,7 +80,7 @@ func handleScore(writer http.ResponseWriter, request *http.Request) {
 		s = append(s, memberStr, fmt.Sprintf("%f", element.Score), nn)
 	}
 	ss := strings.Join(s, "\t")
-	_, _ = writer.Write([]byte(ss))
+	_, _ = c.Writer.WriteString(ss)
 }
 
 type LeaderboardResult struct {

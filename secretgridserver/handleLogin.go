@@ -5,8 +5,8 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"math/big"
-	"net/http"
 )
 
 // 큰 소수 N과 생성자 g를 설정합니다. 일반적으로 RFC 5054에서 제공하는 값을 사용합니다.
@@ -106,30 +106,30 @@ func (s *ServerSession) ComputeServerProof(M1 []byte, A *big.Int) []byte {
 	return M2
 }
 
-func handleLogin(writer http.ResponseWriter, request *http.Request) {
+func handleLogin(c *gin.Context) {
 	initK()
 
-	userId := request.Header.Get("X-User-Id")
+	userId := c.GetHeader("X-User-Id")
 	if len(userId) == 0 {
-		writer.WriteHeader(400)
+		c.Writer.WriteHeader(400)
 		return
 	}
 
-	clientPublic := request.Header.Get("X-Public")
+	clientPublic := c.GetHeader("X-Public")
 	if len(clientPublic) == 0 {
-		writer.WriteHeader(400)
+		c.Writer.WriteHeader(400)
 		return
 	}
 
 	salt, err := rdb.HGet(ctx, "secretGrid:salt", userId).Result()
 	if err != nil {
-		writer.WriteHeader(400)
+		c.Writer.WriteHeader(400)
 		return
 	}
 
 	verifier, err := rdb.HGet(ctx, "secretGrid:verifier", userId).Result()
 	if err != nil {
-		writer.WriteHeader(400)
+		c.Writer.WriteHeader(400)
 		return
 	}
 
@@ -166,5 +166,5 @@ func handleLogin(writer http.ResponseWriter, request *http.Request) {
 
 	serverSessionMap[userId] = serverSession
 
-	_, _ = writer.Write([]byte(salt + "\t" + toHexInt(B)))
+	_, _ = c.Writer.WriteString(salt + "\t" + toHexInt(B))
 }

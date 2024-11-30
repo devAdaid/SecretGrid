@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
-	"net/http"
+	"time"
 )
 
 var rdb = redis.NewClient(&redis.Options{
@@ -21,38 +23,25 @@ func max(x, y int64) int64 {
 	return y
 }
 
-// NOTE: this isn't multi-Unicode-codepoint aware, like specifying skin tone or
-//
-//	gender of an emoji: https://unicode.org/emoji/charts/full-emoji-modifiers.html
-func substr(input string, start int, length int) string {
-	asRunes := []rune(input)
-
-	if start >= len(asRunes) {
-		return ""
-	}
-
-	if start+length > len(asRunes) {
-		length = len(asRunes) - start
-	}
-
-	return string(asRunes[start : start+length])
-}
-
 func main() {
-	m := http.NewServeMux()
+	router := gin.Default()
 
-	m.HandleFunc("/enroll", handleEnroll) // 신규 가입
-	m.HandleFunc("/login", handleLogin) // 로그인 (1단계)
-	m.HandleFunc("/clientSessionProof", handleClientSessionProof) // 로그인 (2단계)
-	m.HandleFunc("/message", handleMessage) // 보안 메시지
-	m.HandleFunc("/score", handleScore) // 점수 등록 및 랭킹 조회
+	router.Use(cors.New(
+		cors.Config{
+			AllowOrigins: []string{"http://localhost:55247"},
+			AllowMethods: []string{"POST"},
+			AllowHeaders: []string{"X-User-Id", "X-Client-Session-Proof", "X-Salt", "X-Verifier", "X-Public", "X-Stage-Id", "X-Score", "X-User-Nickname"},
+			MaxAge:       12 * time.Hour,
+		}))
 
+	router.POST("/enroll", handleEnroll)
+	router.POST("/login", handleLogin)                           // 로그인 (1단계)
+	router.POST("/clientSessionProof", handleClientSessionProof) // 로그인 (2단계)
+	router.POST("/message", handleMessage)                       // 보안 메시지
+	router.POST("/score", handleScore)                           // 점수 등록 및 랭킹 조회
 
-	var server *http.Server
-	server = &http.Server{Addr: ":24110", Handler: m}
-	err := server.ListenAndServe()
+	err := router.Run(":24110")
 	if err != nil {
 		panic(err)
 	}
 }
-

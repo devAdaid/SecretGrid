@@ -3,33 +3,33 @@ package main
 import (
 	"encoding/hex"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"log"
-	"net/http"
 )
 
-func handleClientSessionProof(writer http.ResponseWriter, request *http.Request) {
-	userId := request.Header.Get("X-User-Id")
+func handleClientSessionProof(c *gin.Context) {
+	userId := c.GetHeader("X-User-Id")
 	if len(userId) == 0 {
-		writer.WriteHeader(400)
+		c.Writer.WriteHeader(400)
 		return
 	}
 
-	clientSessionProof := request.Header.Get("X-Client-Session-Proof")
+	clientSessionProof := c.GetHeader("X-Client-Session-Proof")
 	if len(clientSessionProof) == 0 {
-		writer.WriteHeader(400)
+		c.Writer.WriteHeader(400)
 		return
 	}
 
 	server := serverSessionMap[userId]
 	if server == nil {
 		log.Println("Couldn't set up server")
-		writer.WriteHeader(500)
+		c.Writer.WriteHeader(500)
 		return
 	}
 
 	clientSessionProofBytes, err := hex.DecodeString(clientSessionProof)
 	if err != nil {
-		writer.WriteHeader(400)
+		c.Writer.WriteHeader(400)
 		return
 	}
 
@@ -47,15 +47,15 @@ func handleClientSessionProof(writer http.ResponseWriter, request *http.Request)
 
 	//fmt.Println("sharedK", sharedKHex, len(server.sharedK), "bytes")
 
-	c := SimpleCipher{}
-	err = c.Init(server.sharedK)
+	cipher := SimpleCipher{}
+	err = cipher.Init(server.sharedK)
 	if err != nil {
 		log.Println("Unknown error while creating cipher:", err)
 	} else {
 		_, _ = rdb.HSet(ctx, "secretGrid:k", userId, sharedKHex).Result()
-		serverSessionMap[userId].cipher = c
+		serverSessionMap[userId].cipher = cipher
 		serverSessionMap[userId].counter = 0
 	}
 
-	_, _ = writer.Write([]byte(hex.EncodeToString(serverM2)))
+	_, _ = c.Writer.WriteString(hex.EncodeToString(serverM2))
 }
