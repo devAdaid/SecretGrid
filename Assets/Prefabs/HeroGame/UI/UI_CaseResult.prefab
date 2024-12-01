@@ -183,7 +183,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Working...
+  m_text: Working
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fac1bd6979f644246b984c11bc4cd432, type: 2}
   m_sharedMaterial: {fileID: 37157748277955255, guid: fac1bd6979f644246b984c11bc4cd432, type: 2}
@@ -267,8 +267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 5833308236011203232}
-  text_en: Working...
-  text_ko: "\uC9C4\uD589 \uC911..."
+  text_en: Working
+  text_ko: "\uC9C4\uD589 \uC911"
 --- !u!1 &6372543392593076375
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +714,6 @@ MonoBehaviour:
   loadingText: {fileID: 5833308236011203232}
   resultTextRoot: {fileID: 1036146782882425965}
   resultText: {fileID: 1227072848094006779}
-  resultStateText: {fileID: 5211552989046367374}
   rewardText: {fileID: 5404862391074042994}
   spaceCheckMaxInterval: 0.5
   nextButton: {fileID: 1935909063259770332}
