@@ -24,7 +24,7 @@ MonoBehaviour:
   Selections:
   - Type: 0
     Description_Ko: "\uBC14\uC774\uD0B9\uC744 \uBD99\uC7A1\uC544 \uBA48\uCD98\uB2E4."
-    Description_En: Catch the Viking and stop him.
+    Description_En: Catch the Viking and stop it.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 1
     FixedStatReward:

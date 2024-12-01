@@ -23,8 +23,7 @@ MonoBehaviour:
   - Type: 0
     Description_Ko: "\uBAA8\uAE30 \uAD34\uBB3C\uC758 \uC0DD\uD0DC\uB97C \uC5F0\uAD6C\uD574
       \uC801\uC808\uD55C \uD1F4\uCE58 \uBC29\uBC95\uC744 \uCC3E\uC544\uB0B8\uB2E4."
-    Description_En: Study the ecology of mosquito monsters and find appropriate ways
-      to exterminate them.
+    Description_En: Find appropriate ways to exterminate them.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 3
     FixedStatReward:
