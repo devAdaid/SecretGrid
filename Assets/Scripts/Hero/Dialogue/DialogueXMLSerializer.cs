@@ -13,36 +13,37 @@ public class DialogueXMLSerializer : MonoBehaviour
         {
             XmlElement commandElement = null;
 
-            if (command is D_Text dText)
+            switch (command)
             {
-                commandElement = doc.CreateElement("Text");
-                commandElement.SetAttribute("Text_Ko", dText.Text_Ko);
-                commandElement.SetAttribute("Text_En", dText.Text_En);
-            }
-            else if (command is D_Choice dChoice)
-            {
-                commandElement = doc.CreateElement("Choice");
-                var choicesElement = doc.CreateElement("Choices");
-                foreach (var choice in dChoice.Choices)
+                case D_Text dText:
+                    commandElement = doc.CreateElement("Text");
+                    commandElement.SetAttribute("Text_Ko", dText.Text_Ko);
+                    commandElement.SetAttribute("Text_En", dText.Text_En);
+                    break;
+                case D_Choice dChoice:
                 {
-                    var choiceElement = doc.CreateElement("ChoiceItem");
-                    choiceElement.SetAttribute("Text_Ko", choice.Text_Ko);
-                    choiceElement.SetAttribute("Text_En", choice.Text_En);
-                    choiceElement.SetAttribute("LabelName", choice.LabelName);
-                    choicesElement.AppendChild(choiceElement);
+                    commandElement = doc.CreateElement("Choice");
+                    var choicesElement = doc.CreateElement("Choices");
+                    foreach (var choice in dChoice.Choices)
+                    {
+                        var choiceElement = doc.CreateElement("ChoiceItem");
+                        choiceElement.SetAttribute("Text_Ko", choice.Text_Ko);
+                        choiceElement.SetAttribute("Text_En", choice.Text_En);
+                        choiceElement.SetAttribute("LabelName", choice.LabelName);
+                        choicesElement.AppendChild(choiceElement);
+                    }
+                    commandElement.AppendChild(choicesElement);
+                    break;
                 }
-                commandElement.AppendChild(choicesElement);
-            }
-            else if (command is D_Goto dGoto)
-            {
-                commandElement = doc.CreateElement("Goto");
-                commandElement.SetAttribute("CommandIndex", dGoto.commandIndex.ToString());
-            }
-            else if (command is D_SpeakerName dSpeakerName)
-            {
-                commandElement = doc.CreateElement("SpeakerName");
-                commandElement.SetAttribute("Text_Ko", dSpeakerName.Text_Ko);
-                commandElement.SetAttribute("Text_En", dSpeakerName.Text_En);
+                case D_Goto dGoto:
+                    commandElement = doc.CreateElement("Goto");
+                    commandElement.SetAttribute("CommandIndex", dGoto.commandIndex.ToString());
+                    break;
+                case D_SpeakerName dSpeakerName:
+                    commandElement = doc.CreateElement("SpeakerName");
+                    commandElement.SetAttribute("Text_Ko", dSpeakerName.Text_Ko);
+                    commandElement.SetAttribute("Text_En", dSpeakerName.Text_En);
+                    break;
             }
             //TODO 명령어 추가
 
