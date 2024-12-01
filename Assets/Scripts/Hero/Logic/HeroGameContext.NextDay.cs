@@ -25,12 +25,38 @@ public partial class HeroGameContext
         {
             MaxRemainPhase = dayData.MaxPhase;
             RemainPhase = dayData.MaxPhase;
-            foreach (var caseIdData in dayData.CaseIdList)
+
+
+            if (dayData.IsLastDay)
             {
-                var caseData = CommonSingleton.I.StaticDataHolder.GetCaseData(caseIdData.name);
-                specialCasePool.Add(caseData);
-                ProcessPickCases(PickSpecialCaseStaticDataList());
+                if (dialogueFlag.Contains("Side_K"))
+                {
+                    foreach (var caseIdData in dayData.CaseIdList)
+                    {
+                        var caseData = CommonSingleton.I.StaticDataHolder.GetCaseData(caseIdData.name);
+                        specialCasePool.Add(caseData);
+                    }
+                }
+                else
+                {
+                    foreach (var caseIdData in dayData.CaseId2List)
+                    {
+                        var caseData = CommonSingleton.I.StaticDataHolder.GetCaseData(caseIdData.name);
+                        specialCasePool.Add(caseData);
+                    }
+                }
+
             }
+            else
+            {
+                foreach (var caseIdData in dayData.CaseIdList)
+                {
+                    var caseData = CommonSingleton.I.StaticDataHolder.GetCaseData(caseIdData.name);
+                    specialCasePool.Add(caseData);
+                }
+            }
+
+            ProcessPickCases(PickSpecialCaseStaticDataList());
         }
         else
         {

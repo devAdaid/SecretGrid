@@ -16,10 +16,26 @@ MonoBehaviour:
   IsLastDay: 1
   IsDayStartDialogueSkippable: 1
   DayStartDialogue: {fileID: 0}
+  DayStartBgm: 0
   IsDayEndDialogueSkippable: 1
   DayEndDialogue: {fileID: 0}
-  MaxPhase: 5
+  MaxPhase: 8
+  RecommendRequirement:
+    Strength: 0
+    Agility: 0
+    Intelligence: 0
+  NormalCaseGroupName: 
   CaseIdList:
-  - {fileID: 11400000, guid: bef8ec0e51e845a4faf74427647e014d, type: 2}
-  - {fileID: 11400000, guid: 2e41c22985a54b3459cc0a06d4697849, type: 2}
-  - {fileID: 11400000, guid: bd904958a50a043f6a466fe72c987a2c, type: 2}
+  - {fileID: 11400000, guid: 29573203b4442a646929d44aeafc051c, type: 2}
+  - {fileID: 11400000, guid: b611443f22da5e24eb4778184171b576, type: 2}
+  - {fileID: 11400000, guid: 9edf277aea72a6142ae69e195cc01be6, type: 2}
+  - {fileID: 11400000, guid: 3aaa30908acaae1439a38669552bc46f, type: 2}
+  - {fileID: 11400000, guid: 056cf8d1da18f9f45bb09fbc81ae8c14, type: 2}
+  - {fileID: 11400000, guid: 31edcec099585a844b8b1b7589d20508, type: 2}
+  CaseId2List:
+  - {fileID: 11400000, guid: 3e9c621fd9e2418498c7d3df4239ab90, type: 2}
+  - {fileID: 11400000, guid: 0272e975e108f1344bc7443944e49f00, type: 2}
+  - {fileID: 11400000, guid: b1ebc8bb1cfe20b4bbb00988f9017b66, type: 2}
+  - {fileID: 11400000, guid: a6dce5f8e511ddc4b8d82aa9b76de3b5, type: 2}
+  - {fileID: 11400000, guid: 9c90fbe5f1f0c8442a7b9a5598f6a2c5, type: 2}
+  - {fileID: 11400000, guid: 589ad2198a2dbcc4a809bf03dc9cb7fa, type: 2}

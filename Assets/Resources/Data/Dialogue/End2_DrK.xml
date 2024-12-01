@@ -17,17 +17,14 @@
             <Item
                 Text_Ko="괜찮아?"
                 Text_En="Are you okay?"
-                CommandIndex="3"
             />
             <Item
                 Text_Ko="힘든 싸움이었네."
                 Text_En="That was a tough fight."
-                CommandIndex="3"
             />
             <Item
                 Text_Ko="저 괴물들은 대체 어디서 온 거지..."
                 Text_En="Where on earth did those monsters come from?"
-                CommandIndex="3"
             />
         </Choices>
     </Choice>
@@ -58,17 +55,14 @@
             <Item
                 Text_Ko="뭐?"
                 Text_En="What?"
-                CommandIndex="3"
             />
             <Item
                 Text_Ko="안 돼!"
                 Text_En="No!"
-                CommandIndex="3"
             />
             <Item
                 Text_Ko="(괴물을 저지한다.)"
                 Text_En="(You intercept the monster.)"
-                CommandIndex="3"
             />
         </Choices>
     </Choice>
@@ -89,17 +83,14 @@
             <Item
                 Text_Ko="상처는 어때?"
                 Text_En="How's the wound?"
-                CommandIndex="3"
             />
             <Item
                 Text_Ko="젠장!"
                 Text_En="Damn it!"
-                CommandIndex="3"
             />
             <Item
                 Text_Ko="어쩌면 이렇게 클리셰같은 일이..."
                 Text_En="How could it get any more cliche than this..."
-                CommandIndex="3"
             />
         </Choices>
     </Choice>
@@ -167,12 +158,10 @@
             <Item
                 Text_Ko="......"
                 Text_En="......"
-                CommandIndex="3"
             />
             <Item
                 Text_Ko="(눈을 감겨주고, 다시 기계가 있는 곳으로 향한다.)"
                 Text_En="(You close her eyes and return to the machine.)"
-                CommandIndex="3"
             />
         </Choices>
     </Choice>

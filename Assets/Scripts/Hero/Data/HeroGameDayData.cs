@@ -18,4 +18,5 @@ public class HeroGameDayData : ScriptableObject
     public HeroGameCaseStatRequirement RecommendRequirement;
     public string NormalCaseGroupName;
     public List<HeroGameCaseScriptableData> CaseIdList;
+    public List<HeroGameCaseScriptableData> CaseId2List;
 }

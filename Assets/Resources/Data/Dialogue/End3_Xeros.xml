@@ -22,7 +22,7 @@
     />
     <Text
         Text_Ko="(제로스는 당신을 어딘가에 던져 넣는다. 사방이 깜깜해 아무것도 보이지 않는다.)"
-        Text_En="(Xeros throws you into something. It's pitch dark, and you can't see a thing.)"
+        Text_En="(Xeros throws you into somewhere. It's pitch dark, and you can't see a thing.)"
     />
     <Choice>
         <Choices>

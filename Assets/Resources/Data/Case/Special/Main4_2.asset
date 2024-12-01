@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
+  m_Name: Main4_2
+  m_EditorClassIdentifier: 
+  FixedDay: 0
+  Sprite: {fileID: 21300000, guid: efcfae8390dac394ea777e5115d3b8fc, type: 3}
+  Title_Ko: "A-2 \uC870\uC0AC"
+  Title_En: Inspect A-2
+  Description_Ko: "\uC5F0\uAD6C\uC18C A-2 \uAD6C\uC5ED\uC744 \uC870\uC0AC\uD55C\uB2E4."
+  Description_En: Inspect area A-2 of the laboratory.
+  Selections:
+  - Type: 1
+    Description_Ko: "\uC870\uC0AC"
+    Description_En: Inspect
+    DecreaseSecretValueOnFail: 0
+    RandomMainRewardStatType: 0
+    FixedStatReward:
+      Strength: 10
+      Agility: 30
+      Intelligence: 20
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 250
+      Agility: 250
+      Intelligence: 250

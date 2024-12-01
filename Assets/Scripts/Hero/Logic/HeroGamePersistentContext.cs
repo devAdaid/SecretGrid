@@ -22,8 +22,8 @@ public class HeroGamePersistentContext
 
         toastUI.Show(
             CommonSingleton.I.IsKoreanLanguage ?
-            "비밀 3 활성화: 결과를 빠르게 확인할 수 있게 되었습니다." :
-            "SECRET 3 Enabled: You can check the results quickly."
+            "비밀 활성화: 결과를 빠르게 확인할 수 있게 되었습니다." :
+            "SECRET Enabled: You can check the results quickly."
         );
     }
 }
