@@ -1,4 +1,8 @@
 <DialogueCommands>
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/K"
+        SpritePath_En="Sprites/Character/K"
+    />
     <SpeakerName
         Text_Ko="박사 K"
         Text_En="Dr. K"
@@ -75,6 +79,10 @@
     <Text
         Text_Ko="(그때, 이전과 같은 이상한 목소리가 당신에게 들려온다.)"
         Text_En="(At that moment, the same strange voice you heard before echoes in your head.)"
+    />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/Xeros"
+        SpritePath_En="Sprites/Character/Xeros"
     />
     <SpeakerName
         Text_Ko="???"

@@ -1,4 +1,8 @@
 <DialogueCommands>
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/K"
+        SpritePath_En="Sprites/Character/K"
+    />
     <SpeakerName
         Text_Ko="박사 K"
         Text_En="Dr. K"
@@ -39,6 +43,10 @@
         Text_Ko="(박사 K가 자리를 떠나자, 당신에게 익숙한 목소리가 들려온다. 제로스다.)"
         Text_En="(As Dr. K leaves, a familiar voice reaches you. It’s Xeros.)"
     />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/Xeros"
+        SpritePath_En="Sprites/Character/Xeros"
+    />
     <SpeakerName
         Text_Ko="제로스"
         Text_En="Xeros"
@@ -71,6 +79,10 @@
         Text_Ko="(그 때, 갑자기 나타난 박사 K가 당신의 손목을 잡는다.)"
         Text_En="(At that moment, Dr. K suddenly appears and grabs your wrist.)"
     />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/K"
+        SpritePath_En="Sprites/Character/K"
+    />
     <SpeakerName
         Text_Ko="박사 K"
         Text_En="Dr. K"
@@ -84,17 +96,14 @@
             <Item
                 Text_Ko="어떻게 알았지..."
                 Text_En="How did you know..."
-                CommandIndex="17"
             />
             <Item
                 Text_Ko="내 친구랑."
                 Text_En="My friend."
-                CommandIndex="17"
             />
             <Item
                 Text_Ko="무슨 말인지 모르겠네."
                 Text_En="I don’t know what you’re talking about."
-                CommandIndex="17"
             />
         </Choices>
     </Choice>
@@ -109,6 +118,10 @@
     <Text
         Text_Ko="...그 자가 무슨 말을 했든, 듣지 마. 제발."
         Text_En="...Whatever that person said, don’t listen to them. Please."
+    />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/Xeros"
+        SpritePath_En="Sprites/Character/Xeros"
     />
     <SpeakerName
         Text_Ko="제로스"
@@ -143,6 +156,10 @@
 
     <Label Name="DrK" />
     <Flag Name="Side_K" />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/Xeros"
+        SpritePath_En="Sprites/Character/Xeros"
+    />
     <SpeakerName
         Text_Ko="제로스"
         Text_En="Xeros"
@@ -162,6 +179,10 @@
     <Text
         Text_Ko="(제로스와의 교신이 끊어졌다.)"
         Text_En="(The communication with Xeros is cut off.)"
+    />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/K"
+        SpritePath_En="Sprites/Character/K"
     />
     <SpeakerName
         Text_Ko="박사 K"
@@ -216,17 +237,14 @@
             <Item
                 Text_Ko="뭐라고?"
                 Text_En="What did you say?"
-                CommandIndex="38"
             />
             <Item
                 Text_Ko="그래, 그 녀석도 그렇게 말하더군."
                 Text_En="Yeah, that’s what he said too."
-                CommandIndex="38"
             />
             <Item
                 Text_Ko="어... 너를 선택한 게 벌써부터 후회되기 시작하는 걸..."
                 Text_En="Er... I’m starting to regret choosing you already..."
-                CommandIndex="38"
             />
         </Choices>
     </Choice>
@@ -262,6 +280,10 @@
 
     <Label Name="Xeros" />
     <Flag Name="Side_X" />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/Xeros"
+        SpritePath_En="Sprites/Character/Xeros"
+    />
     <SpeakerName
         Text_Ko="제로스"
         Text_En="Xeros"
@@ -269,6 +291,10 @@
     <Text
         Text_Ko="그래, 그래야지!"
         Text_En="Yeah, that’s what you should do!"
+    />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/K"
+        SpritePath_En="Sprites/Character/K"
     />
     <SpeakerName
         Text_Ko="박사 K"
@@ -315,12 +341,10 @@
             <Item
                 Text_Ko="어떻게?"
                 Text_En="How?"
-                CommandIndex="47"
             />
             <Item
                 Text_Ko="네가 도와주진 못하는 거야?"
                 Text_En="Can’t you help me?"
-                CommandIndex="47"
             />
         </Choices>
     </Choice>

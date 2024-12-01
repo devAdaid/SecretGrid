@@ -1,7 +1,11 @@
 <DialogueCommands>
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Empty"
+        SpritePath_En="Sprites/Empty"
+    />
     <SpeakerName
-        Text_Ko="박사 K"
-        Text_En="Dr. K"
+        Text_Ko="-"
+        Text_En="-"
     />
     <Text
         Text_Ko="(임시) 마지막 날 페이즈가 0 되었을 때 엔딩"

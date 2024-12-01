@@ -3,6 +3,10 @@
         Text_Ko="박사 K"
         Text_En="Dr. K"
     />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/K"
+        SpritePath_En="Sprites/Character/K"
+    />
     <Text
         Text_Ko="(임시) 엔딩2 대화 - 박사 K 엔딩"
         Text_En="(임시) 엔딩2 대화 - 박사 K 엔딩"

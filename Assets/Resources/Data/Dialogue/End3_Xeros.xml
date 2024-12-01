@@ -1,4 +1,8 @@
 <DialogueCommands>
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/Xeros"
+        SpritePath_En="Sprites/Character/Xeros"
+    />
     <SpeakerName
         Text_Ko="제로스"
         Text_En="Xeros"

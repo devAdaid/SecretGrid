@@ -1,4 +1,8 @@
 <DialogueCommands>
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Empty"
+        SpritePath_En="Sprites/Empty"
+    />
     <SpeakerName
         Text_Ko="-"
         Text_En="-"

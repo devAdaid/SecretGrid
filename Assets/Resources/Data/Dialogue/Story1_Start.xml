@@ -15,6 +15,10 @@
         Text_Ko="(당신은 연구소 같은 공간에 있는 자신을 발견한다. 그렇지만 아무것도 기억나지 않는다...)"
         Text_En="(You find yourself in a space that looks like a laboratory. But you can't remember anything...)"
     />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/K"
+        SpritePath_En="Sprites/Character/K"
+    />
     <SpeakerName
         Text_Ko="???"
         Text_En="???"
