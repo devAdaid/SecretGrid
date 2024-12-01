@@ -8,6 +8,9 @@ public class TitleUI : MonoBehaviour
 
     [SerializeField]
     private HeroGameButtonBase leaderboardButton;
+    
+    [SerializeField]
+    private HeroGameButtonBase creditsButton;
 
     [SerializeField]
     private HeroGameButtonBase quitButton;
@@ -16,6 +19,7 @@ public class TitleUI : MonoBehaviour
     {
         startButton.AddOnClickListener(() => SceneManager.LoadScene("Hero"));
         leaderboardButton.AddOnClickListener(() => SceneManager.LoadScene("Leaderboard"));
+        creditsButton.AddOnClickListener(() => Application.OpenURL("https://itch.io"));
         quitButton.AddOnClickListener(OnQuitButtonClicked);
     }
 
