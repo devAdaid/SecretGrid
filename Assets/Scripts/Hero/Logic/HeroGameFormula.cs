@@ -63,7 +63,7 @@ public static class HeroGameFormula
 
         if (day > 10)
         {
-            result += 50;
+            result += 40;
             result += (day - 10) * 15;
         }
 

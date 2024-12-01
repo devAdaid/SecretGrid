@@ -29,25 +29,25 @@ MonoBehaviour:
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 0
     FixedStatReward:
-      Strength: 50
-      Agility: 50
-      Intelligence: 50
+      Strength: 15
+      Agility: 15
+      Intelligence: 15
       Secret: 0
     FixedStatRequirement:
-      Strength: 200
-      Agility: 200
-      Intelligence: 200
+      Strength: 230
+      Agility: 230
+      Intelligence: 230
   - Type: 1
     Description_Ko: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134"
     Description_En: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134"
     DecreaseSecretValueOnFail: 3
     RandomMainRewardStatType: 0
     FixedStatReward:
-      Strength: 70
-      Agility: 70
-      Intelligence: 70
+      Strength: 20
+      Agility: 20
+      Intelligence: 20
       Secret: 0
     FixedStatRequirement:
-      Strength: 230
-      Agility: 230
-      Intelligence: 230
+      Strength: 250
+      Agility: 250
+      Intelligence: 250
