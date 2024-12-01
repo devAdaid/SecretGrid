@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Main1_B
   m_EditorClassIdentifier: 
   FixedDay: 0
-  Sprite: {fileID: 21300000, guid: f466bd14292de894ab90273fda998e06, type: 3}
+  Sprite: {fileID: 21300000, guid: 4cc3275112061b5498d6df3f32294038, type: 3}
   Title_Ko: "(\uC784\uC2DC) 1\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 B"
   Title_En: "(\uC784\uC2DC) 1\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 B"
   Description_Ko: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
@@ -28,7 +28,6 @@ MonoBehaviour:
     Description_En: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 0
-    RandomMainRequirementStatType: 0
     FixedStatReward:
       Strength: 10
       Agility: 10
@@ -43,7 +42,6 @@ MonoBehaviour:
     Description_En: "(\uC784\uC2DC) \uC870\uAE08 \uD558\uC774\uB9AC\uC2A4\uD06C"
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 0
-    RandomMainRequirementStatType: 0
     FixedStatReward:
       Strength: 15
       Agility: 15

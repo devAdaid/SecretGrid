@@ -13,18 +13,20 @@ MonoBehaviour:
   m_Name: Event_03
   m_EditorClassIdentifier: 
   FixedDay: 3
-  Sprite: {fileID: 6714369015438526544, guid: 6d983e9b854b0e84a976d87c0105e5f1, type: 3}
-  Title_Ko: "(\uC784\uC2DC) \uC774\uBCA4\uD2B8"
-  Title_En: "(\uC784\uC2DC) \uC774\uBCA4\uD2B8"
-  Description_Ko: "(\uC784\uC2DC) \uC2A4\uD0EF \uC120\uD0DD"
-  Description_En: "(\uC784\uC2DC) \uC2A4\uD0EF \uC120\uD0DD"
+  Sprite: {fileID: 21300000, guid: e02d5f818aa7f934ca9bef62ce31f8ab, type: 3}
+  Title_Ko: "\uD2B9\uBCC4 \uD2B8\uB808\uC774\uB2DD"
+  Title_En: Special training
+  Description_Ko: "\uC624\uB298\uC740 \uC0AC\uAC74\uC774 \uBC1C\uC0DD\uD558\uC9C0
+    \uC54A\uC558\uB2E4. \uD2B8\uB808\uC774\uB2DD\uC744 \uD1B5\uD574 \uBD80\uC871\uD55C
+    \uB2A5\uB825\uC744 \uD5A5\uC0C1\uC2DC\uCF1C\uBCFC\uAE4C?"
+  Description_En: No incident occurred today. How about improving your lacking abilities
+    through training?
   Selections:
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uD798 \uBCF4\uB108\uC2A4"
-    Description_En: "(\uC784\uC2DC) \uD798 \uBCF4\uB108\uC2A4"
+    Description_Ko: "\uADFC\uB825 \uC6B4\uB3D9"
+    Description_En: Strength training
     DecreaseSecretValueOnFail: 0
     RandomMainRewardStatType: 0
-    RandomMainRequirementStatType: 0
     FixedStatReward:
       Strength: 15
       Agility: 0
@@ -35,11 +37,10 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uBBFC\uCCA9 \uBCF4\uB108\uC2A4"
-    Description_En: "(\uC784\uC2DC) \uBBFC\uCCA9 \uBCF4\uB108\uC2A4"
+    Description_Ko: "\uC720\uC5F0\uC131 \uC6B4\uB3D9"
+    Description_En: Flexibility exercises
     DecreaseSecretValueOnFail: 0
     RandomMainRewardStatType: 0
-    RandomMainRequirementStatType: 0
     FixedStatReward:
       Strength: 0
       Agility: 15
@@ -50,11 +51,10 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uC9C0\uB2A5 \uBCF4\uB108\uC2A4"
-    Description_En: "(\uC784\uC2DC) \uC9C0\uB2A5 \uBCF4\uB108\uC2A4"
+    Description_Ko: "\uC804\uBB38 \uC9C0\uC2DD \uACF5\uBD80"
+    Description_En: Study expertise
     DecreaseSecretValueOnFail: 0
     RandomMainRewardStatType: 0
-    RandomMainRequirementStatType: 0
     FixedStatReward:
       Strength: 0
       Agility: 0

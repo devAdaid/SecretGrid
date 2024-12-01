@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6c529cdb30a3c804a8662c9e6c9d9eec
+guid: 7c0dd78fd3dc7b244a255b37c14da714
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1646720447909147354
-    second: K_0
+      213: -3932221186728838866
+    second: Xeros_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: K_0
+      name: Xeros_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad23ffdc5835ad610800000000000000
-      internalID: 1646720447909147354
+      spriteID: e2933ca1aa1fd69c0800000000000000
+      internalID: -3932221186728838866
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      K_0: 1646720447909147354
+      Xeros_0: -3932221186728838866
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

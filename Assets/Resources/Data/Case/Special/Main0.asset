@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Main0
   m_EditorClassIdentifier: 
   FixedDay: 1
-  Sprite: {fileID: 6714369015438526544, guid: 6d983e9b854b0e84a976d87c0105e5f1, type: 3}
-  Title_Ko: "(\uC784\uC2DC) \uC2DC\uC791"
-  Title_En: "(\uC784\uC2DC) \uC2DC\uC791"
-  Description_Ko: "(\uC784\uC2DC) \uCD08\uAE30 \uC2A4\uD0EF \uBCF4\uB108\uC2A4 \uC120\uD0DD"
-  Description_En: "(\uC784\uC2DC) \uCD08\uAE30 \uC2A4\uD0EF \uBCF4\uB108\uC2A4 \uC120\uD0DD"
+  Sprite: {fileID: 21300000, guid: 0af3473ab931a0e4bb726e53bd3ed573, type: 3}
+  Title_Ko: "\uC791\uC740 \uB3C4\uC6C0"
+  Title_En: Little help
+  Description_Ko: "\uC544\uC774\uC758 \uD48D\uC120\uC774 \uB098\uBB34\uC5D0 \uAC78\uB824
+    \uC6B8\uACE0 \uC788\uB2E4."
+  Description_En: The child's balloon is stuck on a tree and he is crying.
   Selections:
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uD798 \uBCF4\uB108\uC2A4"
-    Description_En: "(\uC784\uC2DC) \uD798 \uBCF4\uB108\uC2A4"
+    Description_Ko: "\uB098\uBB34\uB97C \uD754\uB4E4\uC5B4 \uD48D\uC120\uC744 \uB5A8\uC5B4\uB728\uB9B0\uB2E4."
+    Description_En: Shake the tree to make the balloons fall.
     DecreaseSecretValueOnFail: 0
-    RandomMainRewardStatType: 0
-    RandomMainRequirementStatType: 0
+    RandomMainRewardStatType: 1
     FixedStatReward:
       Strength: 20
       Agility: 0
@@ -35,11 +35,11 @@ MonoBehaviour:
       Agility: 5
       Intelligence: 5
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uBBFC\uCCA9 \uBCF4\uB108\uC2A4"
-    Description_En: "(\uC784\uC2DC) \uBBFC\uCCA9 \uBCF4\uB108\uC2A4"
+    Description_Ko: "\uB098\uBB34\uB97C \uC7AC\uBE60\uB974\uAC8C \uC62C\uB77C\uAC00
+      \uD48D\uC120\uC744 \uC9C1\uC811 \uAC00\uC838\uC628\uB2E4."
+    Description_En: Quickly climb the tree and retrieve the balloon.
     DecreaseSecretValueOnFail: 0
-    RandomMainRewardStatType: 0
-    RandomMainRequirementStatType: 0
+    RandomMainRewardStatType: 2
     FixedStatReward:
       Strength: 0
       Agility: 20
@@ -50,11 +50,11 @@ MonoBehaviour:
       Agility: 5
       Intelligence: 5
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uC9C0\uB2A5 \uBCF4\uB108\uC2A4"
-    Description_En: "(\uC784\uC2DC) \uC9C0\uB2A5 \uBCF4\uB108\uC2A4"
+    Description_Ko: "\uB3C4\uAD6C\uB97C \uC0AC\uC6A9\uD574 \uD48D\uC120\uC744 \uC870\uC2EC\uD788
+      \uB04C\uC5B4\uB0B4\uB9B0\uB2E4."
+    Description_En: Use the tool to carefully pull down the balloon.
     DecreaseSecretValueOnFail: 0
-    RandomMainRewardStatType: 0
-    RandomMainRequirementStatType: 0
+    RandomMainRewardStatType: 3
     FixedStatReward:
       Strength: 0
       Agility: 0
