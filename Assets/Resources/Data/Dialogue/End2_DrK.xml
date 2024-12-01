@@ -10,7 +10,7 @@
     <PlayBgm Type="Dialogue1" />
     <Text
         Text_Ko="하아... 하아... 휴, 이제 한숨 돌릴 수 있겠네."
-        Text_En="Hah... hah... finally, I can catch my breath."
+        Text_En="Hah... hah... phew, I can finally catch my breath."
     />
     <Choice>
         <Choices>
@@ -24,13 +24,13 @@
             />
             <Item
                 Text_Ko="저 괴물들은 대체 어디서 온 거지..."
-                Text_En="Where on earth did those monsters come from?"
+                Text_En="Where the hell did those monsters come from?"
             />
         </Choices>
     </Choice>
     <Text
         Text_Ko="...고마워. 네가 없었다면 난 분명 죽었겠지..."
-        Text_En="...Thanks. I would've been dead without you."
+        Text_En="...Thanks. I'd be dead without you."
     />
     <Text
         Text_Ko="너한테 할 말이 있어. 사실 너는..."
@@ -48,7 +48,7 @@
     <PlaySfx Type="Noise" />
     <Text
         Text_Ko="(그 순간, 죽어 있는 줄로만 알았던 보라색 괴물이 박사 K에게 달려든다.)"
-        Text_En="(Just then, the purple monster you thought was dead lunges at Dr. K.)"
+        Text_En="(Just then, the purple monster you thought was dead suddenly lunges at Dr. K.)"
     />
     <Choice>
         <Choices>
@@ -66,6 +66,7 @@
             />
         </Choices>
     </Choice>
+    <PlaySfx Type="Damage" />
     <Text
         Text_Ko="(당신은 괴물에게 달려들어 밀쳐내지만, 이미 늦어버렸다. 괴물은 박사 K를 깊이 할퀴고 쓰러졌다.)"
         Text_En="(You rush at the monster and shove it away, but it's too late. The monster has clawed Dr. K deeply before collapsing.)"
@@ -82,15 +83,15 @@
         <Choices>
             <Item
                 Text_Ko="상처는 어때?"
-                Text_En="How's the wound?"
+                Text_En="How's the injury?"
             />
             <Item
                 Text_Ko="젠장!"
-                Text_En="Damn it!"
+                Text_En="Damn!"
             />
             <Item
                 Text_Ko="어쩌면 이렇게 클리셰같은 일이..."
-                Text_En="How could it get any more cliche than this..."
+                Text_En="How could this get any more cliche..."
             />
         </Choices>
     </Choice>
@@ -100,7 +101,7 @@
     />
     <Text
         Text_Ko="거기에 타서... 빨간 버튼을 눌러. 그러면... 너는 돌아갈 수 있을 거야."
-        Text_En="Get in it... press the red button. Then... you can return."
+        Text_En="Get in... press the red button. Then... you'll be able to return."
     />
     <Choice>
         <Choices>
@@ -126,22 +127,22 @@
     <Label Name="Hurry" />
     <Text
         Text_Ko="설명할 시간이 더 없어... 어서 가 봐."
-        Text_En="There's no time to explain... Just go."
+        Text_En="I don't have time to explain... just go."
     />
     <Text
         Text_Ko="(닥터 K의 의지는 완강했고, 당신은 어쩔 수 없이 기계가 있는 곳으로 향한다.)"
-        Text_En="(Dr. K's resolve is firm, leaving you no choice but to head toward the machine.)"
+        Text_En="(Dr. K's resolve is unshaken, leaving you no choice but to head toward the machine.)"
     />
     <Choice>
         <Choices>
             <Item
-                Text_Ko="멋진 로켓인데! (기계에 탑승한다.)"
-                Text_En="Nice rocket! (You climb aboard.)"
+                Text_Ko="(기계에 탑승한다.)"
+                Text_En="(You board the machine.)"
                 LabelName="Rocket"
             />
             <Item
-                Text_Ko="...... (박사 K에게 돌아가본다.)"
-                Text_En="...... (You head back to Dr. K.)"
+                Text_Ko="(박사 K에게 돌아가본다.)"
+                Text_En="(You head back to Dr. K.)"
             />
         </Choices>
     </Choice>
@@ -173,7 +174,7 @@
     />
     <Text
         Text_Ko="(굉음과 함께 기계가 흔들리고, 당신은 모든 것에서 멀어지는 것을 느낀다."
-        Text_En="(With a deafening roar, the machine shakes violently, and you feel yourself moving farther and farther away from everything.)"
+        Text_En="(With a deafening roar, the machine shakes violently, and you feel yourself drifting farther and farther away from everything.)"
     />
     <Text
         Text_Ko="(닥터 K, 제로스, 그리고 비밀 히어로... 그 모든 것에서.)"
