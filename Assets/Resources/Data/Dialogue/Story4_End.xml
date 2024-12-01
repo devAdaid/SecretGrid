@@ -117,7 +117,7 @@
     />
     <Text
         Text_Ko="...그 자가 무슨 말을 했든, 듣지 마. 제발."
-        Text_En="...Whatever that person said, don't listen to them. Please."
+        Text_En="...Whatever they said, don't listen to them. Please."
     />
     <SpeakerSprite
         SpritePath_Ko="Sprites/Character/Xeros"
@@ -129,7 +129,7 @@
     />
     <Text
         Text_Ko="속지 마! 녀석은 너를 이용할 생각일 뿐이야!"
-        Text_En="Don't be fooled! He's just trying to use you!"
+        Text_En="Don't be fooled! She's just trying to use you!"
     />
     <Text
         Text_Ko="(......)"
@@ -240,7 +240,7 @@
             />
             <Item
                 Text_Ko="그래, 그 녀석도 그렇게 말하더군."
-                Text_En="Yeah, that's what he said too."
+                Text_En="Yeah, that's what they said too."
             />
             <Item
                 Text_Ko="어... 너를 선택한 게 벌써부터 후회되기 시작하는 걸..."
