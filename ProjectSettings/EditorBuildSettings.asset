@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/HeroGame/Title.unity
     guid: 2d541646043fd49409b75fc97a23f1c7
   - enabled: 1
-    path: Assets/Scenes/Leaderboard.unity
+    path: Assets/Scenes/HeroGame/Leaderboard.unity
     guid: 632d7e86b9415ed468279a8a0e42ce2d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
