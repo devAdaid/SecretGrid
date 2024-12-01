@@ -90,28 +90,28 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             ConDebug.LogError($"Create SecretGridServerSettings asset in Assets/Resources/Server!");
         }
 
-        nickname = PlayerPrefs.GetString("Nickname");
+        nickname = Jammer.PlayerPrefs.GetString("Nickname");
         if (nickname.Length == 0)
         {
             nickname = NicknameGenerator.I.Generate();
-            PlayerPrefs.SetString("Nickname", nickname);
+            Jammer.PlayerPrefs.SetString("Nickname", nickname);
         }
 
-        userId = PlayerPrefs.GetString("UserId");
+        userId = Jammer.PlayerPrefs.GetString("UserId");
         if (userId.Length == 0)
         {
             userId = Guid.NewGuid().ToString();
-            PlayerPrefs.SetString("UserId", userId);
+            Jammer.PlayerPrefs.SetString("UserId", userId);
         }
 
-        password = PlayerPrefs.GetString("Password");
+        password = Jammer.PlayerPrefs.GetString("Password");
         if (password.Length == 0)
         {
             password = Guid.NewGuid().ToString();
-            PlayerPrefs.SetString("Password", password);
+            Jammer.PlayerPrefs.SetString("Password", password);
         }
 
-        PlayerPrefs.Save();
+        Jammer.PlayerPrefs.Save();
 
         IsInit = true;
     }
