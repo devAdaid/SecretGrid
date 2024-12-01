@@ -3,6 +3,10 @@
         Text_Ko="???"
         Text_En="???"
     />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Case/Chapter1/Cat"
+        SpritePath_En="Sprites/Case/Chapter1/Cat"
+    />
     <Text
         Text_Ko="(당신이 눈을 뜨자 낯선 천장이 보인다. 아무것도 기억나지 않는다...)"
         Text_En="(As you open your eyes, you see an unfamiliar ceiling. You remember nothing...)"

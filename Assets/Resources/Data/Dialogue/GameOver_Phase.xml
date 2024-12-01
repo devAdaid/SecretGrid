@@ -1,10 +1,14 @@
 <DialogueCommands>
     <SpeakerName
-        Text_Ko="박사 K"
-        Text_En="Dr. K"
+        Text_Ko="-"
+        Text_En="-"
     />
     <Text
-        Text_Ko="(임시) 페이즈가 0 되었을 때 엔딩"
-        Text_En="(임시) 페이즈가 0 되었을 때 엔딩"
+        Text_Ko="(당신은 제한된 시간 내에 임무를 모두 수행하는데 실패하고 말았다.)"
+        Text_En="(You failed to complete the mission within the given time.)"
+    />
+    <Text
+        Text_Ko="엔딩 5 - 임무 수행 실패"
+        Text_En="Ending 5 - Mission Failed"
     />
 </DialogueCommands>

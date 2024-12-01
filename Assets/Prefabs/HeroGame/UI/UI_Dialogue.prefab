@@ -800,7 +800,7 @@ MonoBehaviour:
   choiceRoot: {fileID: 8853961602510447136}
   choiceItemPrefab: {fileID: 1777588756984993089, guid: 614e6ecc6a88eee4d8b4f1bfee880646, type: 3}
   dialogueBoxButton: {fileID: 3009135201267794487}
-  speakerImage: {fileID: 0}
+  speakerImage: {fileID: 2136303820069593887}
   speakerNameText: {fileID: 3102830170126087507}
 --- !u!1 &8853961602510447136
 GameObject:

@@ -131,8 +131,9 @@ public class DialogueXMLSerializer : MonoBehaviour
             }
             else if (commandElement.Name == "SpeakerSprite")
             {
-                var spritePath = commandElement.GetAttribute("SpritePath");
-                commands.Add(new D_SpeakerSprite(spritePath));
+                var spritePath_ko = commandElement.GetAttribute("SpritePath_Ko");
+                var spritePath_en = commandElement.GetAttribute("SpritePath_En");
+                commands.Add(new D_SpeakerSprite(spritePath_ko, spritePath_en));
             }
             else if (commandElement.Name == "PauseBgm")
             {

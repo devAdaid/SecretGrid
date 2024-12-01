@@ -121,16 +121,18 @@ public class D_SpeakerName : IDialogueCommand
 
 public class D_SpeakerSprite : IDialogueCommand
 {
-    public readonly string SpritePath;
+    public readonly string SpritePath_Ko;
+    public readonly string SpritePath_En;
 
-    public D_SpeakerSprite(string spritePath)
+    public D_SpeakerSprite(string spritePath_ko, string spritePath_en)
     {
-        SpritePath = spritePath;
+        SpritePath_Ko = spritePath_ko;
+        SpritePath_En = spritePath_en;
     }
 
     public void ApplyUI(IHeroGameDialogueUI ui)
     {
-        ui.ApplySpeakerSprite(SpritePath);
+        ui.ApplySpeakerSprite(SpritePath_Ko);
     }
 }
 
