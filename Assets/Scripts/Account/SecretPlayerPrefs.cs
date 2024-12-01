@@ -3,6 +3,7 @@
 #if UNITY_WEBGL && !UNITY_EDITOR
 using System.Runtime.InteropServices;
 #endif
+using System.Globalization;
 using ConditionalDebug;
 
 namespace Jammer
@@ -56,6 +57,22 @@ namespace Jammer
 #endif
 
         }
+        
+        public static float GetFloat(string key, float defaultValue)
+        {
+            if (!HasKey(key))
+            {
+                return defaultValue;
+            }
+            
+            return float.TryParse(GetString(key), NumberStyles.Any, CultureInfo.InvariantCulture, out var value) ? value : defaultValue;
+
+        }
+        
+        public static void SetFloat(string key, float value)
+        {
+            SetString(key, value.ToString(CultureInfo.InvariantCulture));
+        }
 
         public static void Save()
         {
@@ -65,7 +82,7 @@ namespace Jammer
             UnityEngine.PlayerPrefs.Save();
 #endif
         }
-
+        
 #if UNITY_WEBGL && !UNITY_EDITOR
       [DllImport("__Internal")]
       private static extern void SaveToLocalStorage(string key, string value);

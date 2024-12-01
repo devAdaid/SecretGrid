@@ -80,22 +80,22 @@ public class AudioManager : PersistentSingleton<AudioManager>
             sfxMap.Add(sfx.SFXType, sfx.AudioClip);
         }
 
-        bgmSource.volume = PlayerPrefs.GetFloat(KEY_VOLUME_BGM, 0.5f);
-        sfxSource.volume = PlayerPrefs.GetFloat(KEY_VOLUME_SFX, 0.5f);
-        typeSfxSource.volume = PlayerPrefs.GetFloat(KEY_VOLUME_SFX, 0.5f);
+        bgmSource.volume = Jammer.PlayerPrefs.GetFloat(KEY_VOLUME_BGM, 0.5f);
+        sfxSource.volume = Jammer.PlayerPrefs.GetFloat(KEY_VOLUME_SFX, 0.5f);
+        typeSfxSource.volume = Jammer.PlayerPrefs.GetFloat(KEY_VOLUME_SFX, 0.5f);
     }
 
     public void SetBGMVolume(float volume)
     {
         bgmSource.volume = volume;
-        PlayerPrefs.SetFloat(KEY_VOLUME_BGM, volume);
+        Jammer.PlayerPrefs.SetFloat(KEY_VOLUME_BGM, volume);
     }
 
     public void SetSFXVolume(float volume)
     {
         sfxSource.volume = volume;
         typeSfxSource.volume = volume;
-        PlayerPrefs.SetFloat(KEY_VOLUME_SFX, volume);
+        Jammer.PlayerPrefs.SetFloat(KEY_VOLUME_SFX, volume);
     }
 
     public void PlayBGM(BGMType bgm)
