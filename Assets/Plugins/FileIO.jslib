@@ -29,6 +29,24 @@ var FileIO = {
     else {
       return 0;
     }
+  },
+
+  GetItchAPIKey : function() {
+    if (typeof Itch === 'undefined') {
+      // not launched by itch app (regular web browser, missing manifest, etc.)
+      return null;
+    } else {
+      // launched by itch app
+      var returnStr = Itch.env.ITCHIO_API_KEY;
+      if (returnStr) {
+          var bufferSize = lengthBytesUTF8(returnStr) + 1;
+          var buffer = _malloc(bufferSize);
+          stringToUTF8(returnStr, buffer, bufferSize);
+          return buffer;
+      } else {
+          return null;
+      }
+    }
   }
 };
 

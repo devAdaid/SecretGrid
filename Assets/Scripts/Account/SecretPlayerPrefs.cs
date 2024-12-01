@@ -82,6 +82,15 @@ namespace Jammer
             UnityEngine.PlayerPrefs.Save();
 #endif
         }
+
+        public static string GetItchAPIKey()
+        {
+#if UNITY_WEBGL && !UNITY_EDITOR
+            return GetItchAPIKey();
+#else
+            return null;
+#endif
+        }
         
 #if UNITY_WEBGL && !UNITY_EDITOR
       [DllImport("__Internal")]
@@ -95,6 +104,9 @@ namespace Jammer
 
       [DllImport("__Internal")]
       private static extern int HasKeyInLocalStorage(string key);
+        
+      [DllImport("__Internal")]
+      private static extern string GetItchAPIKey(string key);
 #endif
     }
 }

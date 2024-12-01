@@ -275,6 +275,9 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
                 {
                     ConDebug.LogError($"Network protocol error 1");
                 }
+                
+                // Itch IO API Key 서버로 전달한다.
+                yield return SendSecureMessageCoro_Internal($"SetItchAPIKey\t{Jammer.PlayerPrefs.GetItchAPIKey() ?? ""}");
             }
         }
 
