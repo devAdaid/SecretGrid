@@ -7,7 +7,17 @@ public class HeroPlayerContext
     public int Intelligence { get; private set; }
     public int Secret { get; private set; }
 
-    private static readonly int SECRET_INITIAL = 5;
+
+    private static readonly int STAT_INITIAL = 10;
+    private static readonly int SECRET_INITIAL = 3;
+
+    public HeroPlayerContext()
+    {
+        Strength = STAT_INITIAL;
+        Agility = STAT_INITIAL;
+        Intelligence = STAT_INITIAL;
+        Secret = SECRET_INITIAL;
+    }
 
     public HeroPlayerContext(int strength, int agility, int intelligence)
     {

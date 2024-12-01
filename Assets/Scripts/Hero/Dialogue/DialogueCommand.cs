@@ -160,6 +160,36 @@ public class D_ResumeBgm : IDialogueCommand
     }
 }
 
+public class D_PlayBgm : IDialogueCommand
+{
+    public readonly BGMType BGMType;
+
+    public D_PlayBgm(BGMType bgmType)
+    {
+        BGMType = bgmType;
+    }
+
+    public void ApplyUI(IHeroGameDialogueUI ui)
+    {
+        AudioManager.I.PlayBGM(BGMType);
+    }
+}
+
+
+public class D_PlaySfx : IDialogueCommand
+{
+    public readonly SFXType SFXType;
+
+    public D_PlaySfx(SFXType sfxType)
+    {
+        SFXType = sfxType;
+    }
+
+    public void ApplyUI(IHeroGameDialogueUI ui)
+    {
+        AudioManager.I.PlaySFX(SFXType);
+    }
+}
 
 public class D_EndDialogue : IDialogueCommand
 {

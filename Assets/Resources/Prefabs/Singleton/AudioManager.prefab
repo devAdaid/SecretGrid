@@ -446,6 +446,24 @@ MonoBehaviour:
     AudioClip: {fileID: 8300000, guid: 3dd6be5653c36a8419c5ca15d234b401, type: 3}
   - BGMType: 22
     AudioClip: {fileID: 8300000, guid: c54034ee3c4b3444eb0772428744ce3d, type: 3}
+  - BGMType: 23
+    AudioClip: {fileID: 8300000, guid: 2fde5c073a1af8147b60ed479eb09dc5, type: 3}
+  - BGMType: 15
+    AudioClip: {fileID: 8300000, guid: b30ae337d35c71247bed984d9b546d76, type: 3}
+  - BGMType: 16
+    AudioClip: {fileID: 8300000, guid: 15542766e57712145b75ad4fed8e91cd, type: 3}
+  - BGMType: 17
+    AudioClip: {fileID: 8300000, guid: bd18558b222143f4cb3319af9ffc29fb, type: 3}
+  - BGMType: 30
+    AudioClip: {fileID: 8300000, guid: 99d7abf1e12f8ee4bb5e4d99556f98d0, type: 3}
+  - BGMType: 31
+    AudioClip: {fileID: 8300000, guid: 8ae0a9ee73dfce546b5936248a2f1ad2, type: 3}
+  - BGMType: 50
+    AudioClip: {fileID: 8300000, guid: c944a05460f040741a4ac7ac15b9f93f, type: 3}
+  - BGMType: 61
+    AudioClip: {fileID: 8300000, guid: d571b41344700fd42be1fc9e0a162e85, type: 3}
+  - BGMType: 62
+    AudioClip: {fileID: 8300000, guid: ebb29308f15842742a851b4dde8ceb24, type: 3}
   sfxClips:
   - SFXType: 0
     AudioClip: {fileID: 8300000, guid: 78efc8057b99b9347a25a7663e277a1d, type: 3}
@@ -463,3 +481,13 @@ MonoBehaviour:
     AudioClip: {fileID: 8300000, guid: 79e361142e7bd94438d48c44cea509c8, type: 3}
   - SFXType: 7
     AudioClip: {fileID: 8300000, guid: 15b08912cd63a9b408c2fbbffb8443b3, type: 3}
+  - SFXType: 8
+    AudioClip: {fileID: 8300000, guid: 292532aa9b6d63149b542a7b99f114fc, type: 3}
+  - SFXType: 9
+    AudioClip: {fileID: 8300000, guid: b8fd06901310911439a560f56dd6b91f, type: 3}
+  - SFXType: 10
+    AudioClip: {fileID: 8300000, guid: 956d3f6dfdcf48247ac1cd449e641ca1, type: 3}
+  - SFXType: 11
+    AudioClip: {fileID: 8300000, guid: da46b00d81b12d0429e5e02fe588b6cd, type: 3}
+  - SFXType: 12
+    AudioClip: {fileID: 8300000, guid: 6158c1b51748aab43932e8ebe8633f0c, type: 3}

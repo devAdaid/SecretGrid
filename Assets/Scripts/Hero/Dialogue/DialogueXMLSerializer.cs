@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
@@ -21,20 +22,20 @@ public class DialogueXMLSerializer : MonoBehaviour
                     commandElement.SetAttribute("Text_En", dText.Text_En);
                     break;
                 case D_Choice dChoice:
-                {
-                    commandElement = doc.CreateElement("Choice");
-                    var choicesElement = doc.CreateElement("Choices");
-                    foreach (var choice in dChoice.Choices)
                     {
-                        var choiceElement = doc.CreateElement("ChoiceItem");
-                        choiceElement.SetAttribute("Text_Ko", choice.Text_Ko);
-                        choiceElement.SetAttribute("Text_En", choice.Text_En);
-                        choiceElement.SetAttribute("LabelName", choice.LabelName);
-                        choicesElement.AppendChild(choiceElement);
+                        commandElement = doc.CreateElement("Choice");
+                        var choicesElement = doc.CreateElement("Choices");
+                        foreach (var choice in dChoice.Choices)
+                        {
+                            var choiceElement = doc.CreateElement("ChoiceItem");
+                            choiceElement.SetAttribute("Text_Ko", choice.Text_Ko);
+                            choiceElement.SetAttribute("Text_En", choice.Text_En);
+                            choiceElement.SetAttribute("LabelName", choice.LabelName);
+                            choicesElement.AppendChild(choiceElement);
+                        }
+                        commandElement.AppendChild(choicesElement);
+                        break;
                     }
-                    commandElement.AppendChild(choicesElement);
-                    break;
-                }
                 case D_Goto dGoto:
                     commandElement = doc.CreateElement("Goto");
                     commandElement.SetAttribute("CommandIndex", dGoto.commandIndex.ToString());
@@ -57,7 +58,7 @@ public class DialogueXMLSerializer : MonoBehaviour
         doc.Save(filePath);
     }
 
-    public static List<IDialogueCommand> LoadDialogueFromXML(string xmlText, out Dictionary<string,int> indexByLabel)
+    public static List<IDialogueCommand> LoadDialogueFromXML(string xmlText, out Dictionary<string, int> indexByLabel)
     {
         var commands = new List<IDialogueCommand>();
         var doc = new XmlDocument();
@@ -65,7 +66,7 @@ public class DialogueXMLSerializer : MonoBehaviour
 
         var rootElement = doc.DocumentElement;
         indexByLabel = new Dictionary<string, int>();
-        
+
         var index = 0;
         foreach (XmlElement commandElement in rootElement.ChildNodes)
         {
@@ -143,6 +144,20 @@ public class DialogueXMLSerializer : MonoBehaviour
             else if (commandElement.Name == "ResumeBgm")
             {
                 commands.Add(new D_ResumeBgm());
+            }
+            else if (commandElement.Name == "PlayBgm")
+            {
+                var typeAttribute = commandElement.GetAttribute("Type");
+
+                Enum.TryParse<BGMType>(typeAttribute, out var type);
+                commands.Add(new D_PlayBgm(type));
+            }
+            else if (commandElement.Name == "PlaySfx")
+            {
+                var typeAttribute = commandElement.GetAttribute("Type");
+
+                Enum.TryParse<SFXType>(typeAttribute, out var type);
+                commands.Add(new D_PlaySfx(type));
             }
             index++;
         }

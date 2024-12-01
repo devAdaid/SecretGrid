@@ -16,7 +16,7 @@ public class SettingButtonController : MonoBehaviour
 
     private void OnSettingButtonClicked()
     {
-        AudioManager.I.PlaySFX(SFXType.BUTTON);
+        AudioManager.I.PlaySFX(SFXType.Select);
         settingMenuDocument.rootVisualElement.Q<VisualElement>("Panel").style.display = DisplayStyle.Flex;
     }
 }

@@ -103,7 +103,9 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
 
     private void OnDayEnd(int day)
     {
-        if (CommonSingleton.I.StaticDataHolder.TryGetDayData(day, out var dayData) && dayData.DayEndDialogue != null)
+        if (!GameContext.NeedProcessGameOver()
+            && CommonSingleton.I.StaticDataHolder.TryGetDayData(day, out var dayData)
+            && dayData.DayEndDialogue != null)
         {
             ui.DialogueUI.PlayDialogue(dayData.DayEndDialogue, dayData.IsDayEndDialogueSkippable, ProcessDayEnd);
         }
@@ -194,5 +196,25 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
                 }
         }
         return string.Empty;
+    }
+
+    private BGMType GetBgmType(HeroGameProcessNextResult result)
+    {
+        switch (result)
+        {
+            case HeroGameProcessNextResult.GameOverBySecretZero:
+            case HeroGameProcessNextResult.GameOverByRemainPhaseZero:
+                return BGMType.GameOver;
+            case HeroGameProcessNextResult.GameEnd:
+                if (GameContext.dialogueFlag.Contains("Side_K"))
+                {
+                    return BGMType.End2;
+                }
+                else
+                {
+                    return BGMType.End3;
+                }
+        }
+        return BGMType.Invalid;
     }
 }
