@@ -16,18 +16,21 @@ import (
 func handleMessage(c *gin.Context) {
 	userId := c.GetHeader("X-User-Id")
 	if len(userId) == 0 {
+		log.Printf("client error 100")
 		c.Writer.WriteHeader(400)
 		return
 	}
 
 	s := serverSessionMap[userId]
 	if s == nil || s.cipher.block == nil {
+		log.Printf("client error 110")
 		c.Writer.WriteHeader(400)
 		return
 	}
 
 	b, err := io.ReadAll(c.Request.Body)
 	if err != nil {
+		log.Printf("client error 120")
 		c.Writer.WriteHeader(400)
 		return
 	}
@@ -36,24 +39,28 @@ func handleMessage(c *gin.Context) {
 
 	bodyTokens := strings.Split(body, "&")
 	if len(bodyTokens) != 2 {
+		log.Printf("client error 130")
 		c.Writer.WriteHeader(400)
 		return
 	}
 
 	ciphertext, err := base64.StdEncoding.DecodeString(bodyTokens[0])
 	if err != nil {
+		log.Printf("client error 140")
 		c.Writer.WriteHeader(400)
 		return
 	}
 
 	iv, err := base64.StdEncoding.DecodeString(bodyTokens[1])
 	if err != nil {
+		log.Printf("client error 150")
 		c.Writer.WriteHeader(400)
 		return
 	}
 
 	plaintext, err := s.cipher.decrypt(ciphertext, iv)
 	if err != nil {
+		log.Printf("client error 160")
 		c.Writer.WriteHeader(400)
 		return
 	}
@@ -63,6 +70,7 @@ func handleMessage(c *gin.Context) {
 	// [메시지 번호]\t[메시지 본문]\t[옵션1]\t[옵션2]... 형태여야만 한다.
 	messageTokens := strings.Split(plaintextStr, "\t")
 	if len(messageTokens) < 2 {
+		log.Printf("client error 170")
 		c.Writer.WriteHeader(400)
 		return
 	}
@@ -70,12 +78,14 @@ func handleMessage(c *gin.Context) {
 	// 메시지 번호 파싱
 	messageCounter, err := strconv.Atoi(messageTokens[0])
 	if err != nil {
+		log.Printf("client error 180")
 		c.Writer.WriteHeader(400)
 		return
 	}
 
 	// 메시지 번호 확인 (중복 메시지 번호로 온 것은 무시해야한다.)
 	if messageCounter != serverSessionMap[userId].counter+1 {
+		log.Printf("client error 190")
 		c.Writer.WriteHeader(400)
 		return
 	}
@@ -87,6 +97,7 @@ func handleMessage(c *gin.Context) {
 	if err == redis.Nil {
 		nickname = "---"
 	} else if err != nil {
+		log.Printf("client error 200")
 		c.Writer.WriteHeader(500)
 		return
 	}
@@ -111,6 +122,7 @@ func handleMessage(c *gin.Context) {
 			_, _ = rdb.HSet(ctx, "secretGrid:nickname", userId, nickname).Result()
 			replyBody = "OK"
 		} else {
+			log.Printf("client error 210")
 			c.Writer.WriteHeader(400)
 			return
 		}
@@ -125,6 +137,7 @@ func handleMessage(c *gin.Context) {
 				if err == redis.Nil {
 					rank = -1
 				} else {
+					log.Printf("client error 220")
 					c.Writer.WriteHeader(500)
 					return
 				}
@@ -154,6 +167,7 @@ func handleMessage(c *gin.Context) {
 
 			leaderboardJson, err := json.Marshal(leaderboard)
 			if err != nil {
+				log.Printf("client error 230")
 				c.Writer.WriteHeader(500)
 				return
 			}
@@ -161,6 +175,7 @@ func handleMessage(c *gin.Context) {
 			replyBody = string(leaderboardJson)
 
 		} else {
+			log.Printf("client error 240")
 			c.Writer.WriteHeader(400)
 			return
 		}
@@ -168,56 +183,66 @@ func handleMessage(c *gin.Context) {
 		if len(messageTokens) > 2 {
 			endingScore, err := strconv.Atoi(messageTokens[2])
 			if err != nil {
+				log.Printf("client error 250")
 				c.Writer.WriteHeader(400)
 				return 
 			}
 
 			playTimeScore, err := strconv.Atoi(messageTokens[3])
 			if err != nil {
+				log.Printf("client error 260")
 				c.Writer.WriteHeader(400)
 				return
 			}
 
 			statScore, err := strconv.Atoi(messageTokens[4])
 			if err != nil {
+				log.Printf("client error 270")
 				c.Writer.WriteHeader(400)
 				return
 			}
 
 			totalScore, err := strconv.Atoi(messageTokens[5])
 			if err != nil {
+				log.Printf("client error 280")
 				c.Writer.WriteHeader(400)
 				return
 			}
 
 			err = addToLeaderboardGT("secretGrid:rank:endingScore", userId, endingScore)
 			if err != nil {
+				log.Printf("client error 290")
 				c.Writer.WriteHeader(400)
 				return
 			}
 
 			err = addToLeaderboardGT("secretGrid:rank:playTimeScore", userId, playTimeScore)
 			if err != nil {
+				log.Printf("client error 300")
 				c.Writer.WriteHeader(400)
 				return
 			}
 
 			err = addToLeaderboardGT("secretGrid:rank:statScore", userId, statScore)
 			if err != nil {
+				log.Printf("client error 310")
 				c.Writer.WriteHeader(400)
 				return
 			}
 
 			err = addToLeaderboardGT("secretGrid:rank:totalScore", userId, totalScore)
 			if err != nil {
+				log.Printf("client error 320")
 				c.Writer.WriteHeader(400)
 				return
 			}
 		} else {
+			log.Printf("client error 330")
 			c.Writer.WriteHeader(400)
 			return
 		}
 	default:
+		log.Printf("client error 340")
 		c.Writer.WriteHeader(400)
 		return
 	}
@@ -227,6 +252,7 @@ func handleMessage(c *gin.Context) {
 
 	replyCiphertext, err := s.cipher.encrypt([]byte(fmt.Sprintf("%d\t%s", messageCounter, replyBody)), responseIv)
 	if err != nil {
+		log.Printf("client error 350")
 		c.Writer.WriteHeader(500)
 		return
 	}
