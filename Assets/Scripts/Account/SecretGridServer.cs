@@ -57,7 +57,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
         if (IsReady == false)
         {
-            Debug.LogError("WaitForReady() Timeout!!!");
+            ConDebug.LogError("WaitForReady() Timeout!!!");
         }
     }
 
@@ -120,7 +120,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     {
         if (IsNetworkingInProgress)
         {
-            Debug.LogWarning("Another networking request is in progress.");
+            ConDebug.LogWarning("Another networking request is in progress.");
             yield break;
         }
         IsNetworkingInProgress = true;
@@ -155,7 +155,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             var salt = tokens[0];
             var serverPublic = tokens[1];
 
-            Debug.Log($"ServerPublic: {serverPublic}");
+            ConDebug.Log($"ServerPublic: {serverPublic}");
 
             var B = new BigInteger(Parameters.StringToByteArray(serverPublic), isUnsigned: true, isBigEndian: true);
 
@@ -273,7 +273,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
                 if (lastResponseStr != "OK")
                 {
-                    Debug.LogError($"Network protocol error 1");
+                    ConDebug.LogError($"Network protocol error 1");
                 }
             }
         }
@@ -299,7 +299,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         
         if (IsNetworkingInProgress)
         {
-            Debug.LogWarning("Another networking request is in progress.");
+            ConDebug.LogWarning("Another networking request is in progress.");
             yield break;
         }
         IsNetworkingInProgress = true;
@@ -311,7 +311,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     {
         if (IsLoggedIn == false)
         {
-            Debug.LogError($"Not connected to server. Is server '{serverAddr}' running? Sending the secure message '{plaintext}' failed.");
+            ConDebug.LogError($"Not connected to server. Is server '{serverAddr}' running? Sending the secure message '{plaintext}' failed.");
             yield break;
         }
         
@@ -341,7 +341,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         if (www.responseCode == (long)HttpStatusCode.OK)
         {
             var response = www.downloadHandler.text;
-            Debug.Log($"Response from server (ciphertext): {response}");
+            ConDebug.Log($"Response from server (ciphertext): {response}");
 
             var responseTokens = response.Split("&");
             var responseCiphertextB64 = responseTokens[0];
@@ -351,7 +351,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             var responseIV = Convert.FromBase64String(responseIVB64);
             var responsePlaintext = AESUtil.Cipher.Decrypt(responseCiphertext, sharedK, responseIV);
             var responseStr = Encoding.UTF8.GetString(responsePlaintext);
-            Debug.Log($"Response from server (plaintext): {responseStr}");
+            ConDebug.Log($"Response from server (plaintext): {responseStr}");
 
             var firstTabIndex = responseStr.IndexOf("\t", StringComparison.Ordinal);
             if (int.TryParse(responseStr[..firstTabIndex], out var replyCounter) && replyCounter == messageCounter)
@@ -360,12 +360,12 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
             }
             else
             {
-                Debug.LogError($"Server replied with wrong counter! Expecting {messageCounter} but {replyCounter} arrived.");
+                ConDebug.LogError($"Server replied with wrong counter! Expecting {messageCounter} but {replyCounter} arrived.");
             }
         }
         else
         {
-            Debug.LogWarning($"Response from server with {www.responseCode}");
+            ConDebug.LogWarning($"Response from server with {www.responseCode}");
             lastResponseStr = string.Empty;
         }
     }
@@ -414,7 +414,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
         if (IsNetworkingInProgress)
         {
-            Debug.LogWarning("Another networking request is in progress.");
+            ConDebug.LogWarning("Another networking request is in progress.");
             yield break;
         }
         IsNetworkingInProgress = true;
