@@ -38,7 +38,14 @@ public class HeroPlayerContext
     public void DecreaseSecret(int amount)
     {
         Secret -= amount;
-        Secret = Math.Max(Secret, 0);
+        if (CommonSingleton.I.PersistentContext.IsSecret2Enabled)
+        {
+            Secret = Math.Max(Secret, 1);
+        }
+        else
+        {
+            Secret = Math.Max(Secret, 0);
+        }
     }
 
     public int GetSuccessPercent(HeroGameCaseStatRequirement requirement)

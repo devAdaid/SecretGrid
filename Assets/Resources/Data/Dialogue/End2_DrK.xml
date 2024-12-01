@@ -71,6 +71,10 @@
         Text_Ko="(당신은 괴물에게 달려들어 밀쳐내지만, 이미 늦어버렸다. 괴물은 박사 K를 깊이 할퀴고 쓰러졌다.)"
         Text_En="(You rush at the monster and shove it away, but it's too late. The monster has clawed Dr. K deeply before collapsing.)"
     />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/K"
+        SpritePath_En="Sprites/Character/K"
+    />
     <Text
         Text_Ko="으윽..."
         Text_En="Ugh..."

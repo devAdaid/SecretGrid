@@ -44,6 +44,7 @@ public enum SFXType
     Alarm,
     Phone,
     Damage,
+    Sfx1,
 }
 
 [Serializable]
