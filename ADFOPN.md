@@ -1,4 +1,4 @@
-# ALN-01 Analysis Overview* 
+# ALN-01 Analysis Overview
 **[Confidential: This document is classified and must not be disclosed outside the laboratory.]**  
 **Date:** December 10, 2041
 
@@ -27,7 +27,29 @@ ALN-01이 탑승한 [검열됨]가 XX시에 낙하한 이후 해당 지역을 �
 \
 \
 \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
 Secret found: (1/5)
+\
 \
 비밀 발견: (1/5)
 \
