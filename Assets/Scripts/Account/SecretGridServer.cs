@@ -265,7 +265,9 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
                 ConDebug.Log($"K_client: {Utils.ToHex(K_client)}");
                 sharedK = K_client;
                 messageCounter = 0;
-
+                
+                IsLoggedIn = true;
+                
                 yield return SendSecureMessageCoro_Internal($"SetNickname\t{nickname}");
 
                 if (lastResponseStr != "OK")
@@ -281,8 +283,6 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
                 Debug.Log("== Leaderboard Result ==");
                 Debug.Log(JsonUtility.ToJson(CachedLeaderboardResult));
-
-                IsLoggedIn = true;
             }
         }
 
@@ -319,7 +319,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     {
         if (IsLoggedIn == false)
         {
-            Debug.LogError($"Not connected to server. Is server '{serverAddr}' running? Sending the secure mssage '{plaintext}' failed.}");
+            Debug.LogError($"Not connected to server. Is server '{serverAddr}' running? Sending the secure message '{plaintext}' failed.");
             yield break;
         }
         
@@ -333,10 +333,10 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
         ConDebug.Log($"encrypted: {Convert.ToBase64String(encrypted)}");
 
-        return SendCiphertextMessage(encrypted, iv);
+        yield return SendCiphertextMessageCoro(encrypted, iv);
     }
 
-    private IEnumerator SendCiphertextMessage(byte[] encrypted, byte[] iv)
+    private IEnumerator SendCiphertextMessageCoro(byte[] encrypted, byte[] iv)
     {
         var encryptedB64 = Convert.ToBase64String(encrypted);
         var ivB64 = Convert.ToBase64String(iv);
@@ -548,13 +548,15 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         var playTimeScore = HeroGameFormula.CalculateScore_PlayTime(gameContext.GetPlayTime());
         var statScore = HeroGameFormula.CalculateScore_Stat(gameContext.Player);
         var totalScore = gameContext.GetScore();
+        
+        ConDebug.Log("Starting SendSecureMessageCoro() coroutine inside StartSendScore()...");
         StartCoroutine(
             SendSecureMessageCoro(
                 "SetScore",
                 endingScore.ToString(),
                 playTimeScore.ToString(),
                 statScore.ToString(),
-                gameContext.GetScore().ToString()
+                totalScore.ToString()
             ));
     }
 }
