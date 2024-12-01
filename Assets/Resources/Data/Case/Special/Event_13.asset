@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: Event_08
+  m_Name: Event_13
   m_EditorClassIdentifier: 
-  FixedDay: 8
+  FixedDay: 13
   Sprite: {fileID: 21300000, guid: e02d5f818aa7f934ca9bef62ce31f8ab, type: 3}
   Title_Ko: "\uD2B9\uBCC4 \uD2B8\uB808\uC774\uB2DD"
   Title_En: Special training
