@@ -14,18 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: 4cc3275112061b5498d6df3f32294038, type: 3}
-  Title_Ko: "(\uC784\uC2DC) 1\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 B"
-  Title_En: "(\uC784\uC2DC) 1\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 B"
-  Description_Ko: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
-    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
-    \uD568"
-  Description_En: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
-    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
-    \uD568"
+  Title_Ko: "\uB0A0\uAC1C \uACF5\uACA9"
+  Title_En: Attack wings
+  Description_Ko: "\uBAA8\uAE30\uC758 \uB0A0\uAC1C\uB97C \uACF5\uACA9\uD558\uC5EC
+    \uBE44\uD589\uC744 \uBC29\uD574\uD55C\uB2E4."
+  Description_En: Target the wings to hinder its flight.
   Selections:
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
-    Description_En: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
+    Description_Ko: "\uBA40\uB9AC\uC11C \uB3C4\uAD6C\uB97C \uC0AC\uC6A9\uD574 \uACF5\uACA9\uD55C\uB2E4."
+    Description_En: Attack from a distance using tools.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 0
     FixedStatReward:
@@ -38,8 +35,8 @@ MonoBehaviour:
       Agility: 25
       Intelligence: 25
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uC870\uAE08 \uD558\uC774\uB9AC\uC2A4\uD06C"
-    Description_En: "(\uC784\uC2DC) \uC870\uAE08 \uD558\uC774\uB9AC\uC2A4\uD06C"
+    Description_Ko: "\uC2E0\uC18D\uD788 \uB2E4\uAC00\uAC00 \uC81C\uC555\uD55C\uB2E4."
+    Description_En: Approach swiftly and subdue it.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 0
     FixedStatReward:

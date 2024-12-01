@@ -39,17 +39,18 @@ public class HeroGameScoreResultUI : MonoBehaviour
     {
         root.SetActive(true);
 
-        endingScoreText.TypeText(CommonSingleton.I.IsKoreanLanguage ? "엔딩:" : "Ending:"
+        endingScoreText.TypeText(
+            (CommonSingleton.I.IsKoreanLanguage ? "엔딩:" : "Ending:")
             + $" {HeroGameFormula.CalculateScore_End(gameContext.GameState == GameState.EndByEnding, gameContext.Day)}");
         playTimeScoreText.TypeText(
-            CommonSingleton.I.IsKoreanLanguage ? "플레이타임:" : "Play time:" +
-            $" {HeroGameFormula.CalculateScore_PlayTime(gameContext.GetPlayTime())}");
+            (CommonSingleton.I.IsKoreanLanguage ? "플레이타임:" : "Play time:")
+             + $" {HeroGameFormula.CalculateScore_PlayTime(gameContext.GetPlayTime())}");
         statScoreText.TypeText(
-            CommonSingleton.I.IsKoreanLanguage ? "스탯:" : $"Stat:" +
-            $" {HeroGameFormula.CalculateScore_Stat(gameContext.Player)}");
+            (CommonSingleton.I.IsKoreanLanguage ? "스탯:" : $"Stat:")
+             + $" {HeroGameFormula.CalculateScore_Stat(gameContext.Player)}");
         totalScoreText.TypeText(
-            CommonSingleton.I.IsKoreanLanguage ? "총점:" : $"Total:" +
-            $" {gameContext.GetScore()}");
+            (CommonSingleton.I.IsKoreanLanguage ? "총점:" : $"Total:")
+             + $" {gameContext.GetScore()}");
     }
 
     public void Hide()

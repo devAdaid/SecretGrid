@@ -14,18 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixedDay: 5
   Sprite: {fileID: 21300000, guid: 4cc3275112061b5498d6df3f32294038, type: 3}
-  Title_Ko: "(\uC784\uC2DC) 1\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 A"
-  Title_En: "(\uC784\uC2DC) 1\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 A"
-  Description_Ko: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
-    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
-    \uD568"
-  Description_En: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
-    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
-    \uD568"
+  Title_Ko: "\uBAA8\uAE30\uC758 \uC8FC\uB465\uC774 \uACF5\uACA9"
+  Title_En: Attack proboscis
+  Description_Ko: "\uBAA8\uAE30\uC758 \uC8FC\uB465\uC774\uB97C \uACF5\uACA9\uD558\uC5EC
+    \uD761\uD608 \uB2A5\uB825\uC744 \uC81C\uAC70\uD55C\uB2E4."
+  Description_En: Attack the mosquito's proboscis to eliminate its ability to suck
+    blood.
   Selections:
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
-    Description_En: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
+    Description_Ko: "\uACF5\uACA9\uD55C\uB2E4."
+    Description_En: Attack.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 0
     FixedStatReward:
