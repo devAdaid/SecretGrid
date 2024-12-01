@@ -2,6 +2,7 @@ using System.Collections;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LeaderboardManager : MonoBehaviour
@@ -130,5 +131,10 @@ public class LeaderboardManager : MonoBehaviour
                 scrollRect.verticalNormalizedPosition = 0;
             }
         }
+    }
+
+    public void GoToTitle()
+    {
+        SceneManager.LoadScene("Title");
     }
 }

@@ -14,7 +14,7 @@ public class TitleUI : MonoBehaviour
 
     [SerializeField]
     private HeroGameButtonBase quitButton;
-
+    
     private void Awake()
     {
         startButton.AddOnClickListener(() => SceneManager.LoadScene("Hero"));
