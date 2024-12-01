@@ -39,7 +39,7 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
         }
 
         ui.HideResultUI();
-        
+
         if (GameContext.NeedProcessPhaseEnd())
         {
             OnPhaseEnd();
@@ -108,7 +108,7 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
             ProcessDayEnd();
         }
     }
-    
+
     private void OnPhaseEnd()
     {
         var result = GameContext.ProcessNext(Time.time);
@@ -120,8 +120,7 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
             case HeroGameProcessNextResult.GameOverBySecretZero:
             case HeroGameProcessNextResult.GameOverByRemainPhaseZero:
             case HeroGameProcessNextResult.GameEnd:
-                ui.ShowScoreResultUI(GameContext);
-                SecretGridServer.I.StartSendScore(GameContext);
+                ProcessGameEnd(result);
                 break;
         }
     }
@@ -129,7 +128,7 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
     private void ProcessDayEnd()
     {
         var result = GameContext.ProcessNext(Time.time);
-        
+
         ApplyStatUI();
 
         switch (result)
@@ -144,11 +143,11 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
                 break;
         }
     }
-    
+
     private void ProcessGameEnd(HeroGameProcessNextResult result)
     {
         SecretGridServer.I.StartSendScore(GameContext);
-        
+
         var dialogueName = GetDialogueName(result);
         if (CommonSingleton.I.StaticDataHolder.TryGetDialogue(dialogueName, out var dialogueData) && dialogueData != null)
         {
@@ -159,7 +158,7 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
             OnGameEnd();
         }
     }
-    
+
     private void OnGameEnd()
     {
         ui.ShowScoreResultUI(GameContext);
