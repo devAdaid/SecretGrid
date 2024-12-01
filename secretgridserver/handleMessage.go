@@ -204,35 +204,35 @@ func handleMessage(c *gin.Context) {
 
 			totalScore, err := strconv.Atoi(messageTokens[5])
 			if err != nil {
-				log.Printf("client error 280")
+				log.Print("client error 280", err)
 				c.Writer.WriteHeader(400)
 				return
 			}
 
-			err = addToLeaderboardGT("secretGrid:rank:endingScore", userId, endingScore)
+			err = addToLeaderboardGT("secretGrid:rank:endingScore", userId, float64(endingScore))
 			if err != nil {
-				log.Printf("client error 290")
+				log.Print("client error 290", err)
 				c.Writer.WriteHeader(400)
 				return
 			}
 
-			err = addToLeaderboardGT("secretGrid:rank:playTimeScore", userId, playTimeScore)
+			err = addToLeaderboardGT("secretGrid:rank:playTimeScore", userId, float64(playTimeScore))
 			if err != nil {
-				log.Printf("client error 300")
+				log.Print("client error 300", err)
 				c.Writer.WriteHeader(400)
 				return
 			}
 
-			err = addToLeaderboardGT("secretGrid:rank:statScore", userId, statScore)
+			err = addToLeaderboardGT("secretGrid:rank:statScore", userId, float64(statScore))
 			if err != nil {
-				log.Printf("client error 310")
+				log.Print("client error 310", err)
 				c.Writer.WriteHeader(400)
 				return
 			}
 
-			err = addToLeaderboardGT("secretGrid:rank:totalScore", userId, totalScore)
+			err = addToLeaderboardGT("secretGrid:rank:totalScore", userId, float64(totalScore))
 			if err != nil {
-				log.Printf("client error 320")
+				log.Print("client error 320", err)
 				c.Writer.WriteHeader(400)
 				return
 			}
@@ -261,10 +261,29 @@ func handleMessage(c *gin.Context) {
 	_, _ = c.Writer.WriteString(base64.StdEncoding.EncodeToString(replyCiphertext) + "&" + base64.StdEncoding.EncodeToString(responseIv))
 }
 
-func addToLeaderboardGT(key string, userId string, score int) error {
-	var z redis.Z
-	z.Score = float64(score)
-	z.Member = userId
-	_, err := rdb.ZAddGT(ctx, key, z).Result()
+func addToLeaderboardGT(key string, userId string, score float64) error {
+
+	// 이전 점수보다 높을 때만 갱신한다.
+	// ZAddGT를 쓰면 편하겠지만, 서버의 Redis 버전이 낮아 지원하지 않는다.
+
+	oldScore, err := rdb.ZScore(ctx, key, userId).Result()
+	if err != nil {
+		if err == redis.Nil {
+			// 기존 기록 없으면 0점으로 친다.
+			oldScore = 0
+		} else {
+			return err
+		}
+	}
+
+	if oldScore < score {
+		z := redis.Z {
+			Score:  score,
+			Member: userId,
+		}
+
+		_, err = rdb.ZAdd(ctx, key, z).Result()
+	}
+
 	return err
 }
