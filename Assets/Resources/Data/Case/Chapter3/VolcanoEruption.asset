@@ -37,8 +37,7 @@ MonoBehaviour:
   - Type: 0
     Description_Ko: "\uC6A9\uC554\uC758 \uD2B9\uC131\uC744 \uACE0\uB824\uD574 \uD6A8\uC728\uC801\uC778
       \uB300\uD53C \uACBD\uB85C\uB97C \uACC4\uD68D\uD55C\uB2E4."
-    Description_En: Plan an efficient evacuation route considering the characteristics
-      of lava.
+    Description_En: Plan an escape route considering the characteristics of lava.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 3
     FixedStatReward:

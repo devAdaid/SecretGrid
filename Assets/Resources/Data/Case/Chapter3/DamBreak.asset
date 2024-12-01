@@ -38,7 +38,7 @@ MonoBehaviour:
   - Type: 0
     Description_Ko: "\uB9C8\uC744\uC744 \uB3CC\uC544\uB2E4\uB2C8\uBA70 \uC0AC\uB78C\uB4E4\uC5D0\uAC8C
       \uAE34\uAE09\uD788 \uB300\uD53C\uB97C \uC54C\uB9B0\uB2E4."
-    Description_En: "\uC2E0\uC18D\uD788 \uC8FC\uBBFC\uB4E4\uC744 \uAD6C\uC870\uD55C\uB2E4."
+    Description_En: Go around town and tell people to evacuate urgently.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 2
     FixedStatReward:
