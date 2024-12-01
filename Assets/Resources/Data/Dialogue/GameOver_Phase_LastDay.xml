@@ -12,7 +12,7 @@
         Text_En="(You failed to complete the mission within the given time.)"
     />
     <Text
-        Text_Ko="엔딩 5 - 임무 수행 실패"
-        Text_En="Ending 5 - Mission Failed"
+        Text_Ko="엔딩 4 - 임무 수행 실패"
+        Text_En="Ending 4 - Mission Failed"
     />
 </DialogueCommands>

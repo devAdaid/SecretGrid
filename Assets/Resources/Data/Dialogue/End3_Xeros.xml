@@ -53,7 +53,7 @@
         Text_En="(Your time as a secret hero ends, and you return to where you truly belong—though where that is, you do not know.)"
     />
     <Text
-        Text_Ko="엔딩 3 - 집으로 돌아가는 길"
-        Text_En="Ending 3 - The Way Home"
+        Text_Ko="엔딩 2 - 집으로 돌아가는 길"
+        Text_En="Ending 2 - The Way Home"
     />
 </DialogueCommands>
