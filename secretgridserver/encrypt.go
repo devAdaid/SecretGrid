@@ -3,6 +3,8 @@ package main
 import (
 	"crypto/aes"
 	"crypto/cipher"
+	"errors"
+	"fmt"
 )
 
 type SimpleCipher struct {
@@ -32,7 +34,15 @@ func (c *SimpleCipher) encrypt(data []byte, aesIV []byte) ([]byte, error) {
 	return ciphertext, nil
 }
 
-func (c *SimpleCipher) decrypt(data []byte, aesIV []byte) ([]byte, error) {
+func (c *SimpleCipher) decrypt(data []byte, aesIV []byte) (b []byte, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Recovered in decrypt", r)
+			b = nil
+			err = errors.New("decrypt error")
+		}
+	}()
+
 	plaintext := make([]byte, len(data))
 	mode := cipher.NewCBCDecrypter(c.block, aesIV)
 	mode.CryptBlocks(plaintext, data)
