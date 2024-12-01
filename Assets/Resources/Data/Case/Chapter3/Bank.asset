@@ -15,7 +15,7 @@ MonoBehaviour:
   FixedDay: 0
   Sprite: {fileID: 6714369015438526544, guid: 6d983e9b854b0e84a976d87c0105e5f1, type: 3}
   Title_Ko: "\uC740\uD589 \uC778\uC9C8 \uC0AC\uAC74"
-  Title_En: bank hostage
+  Title_En: Bank hostage
   Description_Ko: "\uBB34\uC7A5 \uAD34\uD55C\uC774 \uC740\uD589\uC744 \uC810\uAC70\uD558\uACE0
     \uC0AC\uB78C\uB4E4\uC744 \uC778\uC9C8\uB85C \uC7A1\uACE0 \uC788\uB2E4."
   Description_En: Gunmen have taken over a bank and are holding people hostage.

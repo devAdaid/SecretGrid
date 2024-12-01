@@ -15,7 +15,7 @@ MonoBehaviour:
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: 6f9e7dffd6a480242af69168196ac6d8, type: 3}
   Title_Ko: "\uAC74\uC124 \uD604\uC7A5 \uC0AC\uACE0"
-  Title_En: construction site accident
+  Title_En: Construction site accident
   Description_Ko: "\uAC74\uC124 \uD604\uC7A5\uC5D0\uC11C \uD06C\uB808\uC778\uC774
     \uBD80\uC11C\uC838 \uCCA0\uACE8 \uAD6C\uC870\uBB3C\uC774 \uB5A8\uC5B4\uC9C8 \uC704\uAE30\uB2E4."
   Description_En: A crane breaks down at a construction site and the steel structure

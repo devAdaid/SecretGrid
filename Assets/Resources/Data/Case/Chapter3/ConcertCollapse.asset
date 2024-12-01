@@ -15,10 +15,10 @@ MonoBehaviour:
   FixedDay: 0
   Sprite: {fileID: 0}
   Title_Ko: "\uACF5\uC5F0\uC7A5 \uBD95\uAD34 \uC0AC\uACE0"
-  Title_En: brake failure
+  Title_En: Concert hall collapse
   Description_Ko: "\uB300\uD615 \uCF58\uC11C\uD2B8 \uC911 \uACF5\uC5F0\uC7A5\uC774
     \uBD95\uAD34\uB418\uC5B4 \uB9CE\uC740 \uC0AC\uB78C\uB4E4\uC774 \uB9E4\uBAB0\uB418\uC5C8\uB2E4."
-  Description_En: A bus carrying people could not stop because its brakes failed.
+  Description_En: The venue collapsed during a large concert, burying many people.
   Selections:
   - Type: 0
     Description_Ko: "\uAD6C\uC870\uBB3C\uC744 \uC548\uC815\uC2DC\uD0A4\uACE0 \uC548\uC804\uD55C

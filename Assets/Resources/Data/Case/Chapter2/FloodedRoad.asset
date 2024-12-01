@@ -15,7 +15,7 @@ MonoBehaviour:
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: ff4f723efe42712449e7cd5e6dd6de6c, type: 3}
   Title_Ko: "\uCE68\uC218\uB41C \uB3C4\uB85C"
-  Title_En: flooded road
+  Title_En: Flooded road
   Description_Ko: "\uC218\uB3C4\uAD00 \uD30C\uC5F4\uB85C \uB3C4\uB85C\uAC00 \uCE68\uC218\uB418\uC5C8\uB2E4."
   Description_En: The road was flooded due to a burst water pipe.
   Selections:

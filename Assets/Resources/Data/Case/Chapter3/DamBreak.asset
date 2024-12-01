@@ -15,7 +15,7 @@ MonoBehaviour:
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: 8b8e90aad3850474aa9353c13574ecde, type: 3}
   Title_Ko: "\uB310 \uBD95\uAD34 \uC704\uAE30"
-  Title_En: dam collapse crisis
+  Title_En: Dam collapse crisis
   Description_Ko: "\uB310\uC774 \uBB34\uB108\uC9C8 \uC704\uD5D8\uC5D0 \uCC98\uD574
     \uC778\uADFC \uB9C8\uC744\uC5D0 \uD64D\uC218\uAC00 \uC608\uC0C1\uB41C\uB2E4."
   Description_En: The dam is at risk of collapsing, flooding nearby villages.

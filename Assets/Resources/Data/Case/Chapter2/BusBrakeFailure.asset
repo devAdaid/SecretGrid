@@ -15,7 +15,7 @@ MonoBehaviour:
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: 5a1babe1d8d88e846af6e0e2ea3f974c, type: 3}
   Title_Ko: "\uBE0C\uB808\uC774\uD06C \uACE0\uC7A5"
-  Title_En: brake failure
+  Title_En: Brake failure
   Description_Ko: "\uC0AC\uB78C\uB4E4\uC744 \uD0DC\uC6B4 \uBC84\uC2A4\uAC00 \uBE0C\uB808\uC774\uD06C
     \uACE0\uC7A5\uC774 \uB098\uC11C \uBA48\uCD9C \uC218 \uC5C6\uAC8C \uB418\uC5C8\uB2E4."
   Description_En: A bus carrying people could not stop because its brakes failed.

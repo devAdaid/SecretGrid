@@ -15,7 +15,7 @@ MonoBehaviour:
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: 8724f849922d32242ac94836d47251dd, type: 3}
   Title_Ko: "\uBD80\uC11C\uC9C4 \uB2E4\uB9AC"
-  Title_En: ' Broken bridge'
+  Title_En: Broken bridge
   Description_Ko: "\uB2E4\uB9AC\uAC00 \uD30C\uC190\uB418\uC5B4 \uCC28\uB7C9\uACFC
     \uC0AC\uB78C\uB4E4\uC774 \uAC74\uB108\uAC08 \uC218 \uC5C6\uB2E4."
   Description_En: The bridge is damaged and vehicles and people cannot cross.

@@ -15,7 +15,7 @@ MonoBehaviour:
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: 1d2751e2a2f02c24187283dbb0d1e01a, type: 3}
   Title_Ko: "\uACFC\uBD80\uD558 \uBC1C\uC804\uC18C"
-  Title_En: overload power plant
+  Title_En: Overload power plant
   Description_Ko: "\uBC1C\uC804\uC18C\uAC00 \uACFC\uBD80\uD558\uB85C \uD3ED\uBC1C
     \uC704\uD5D8\uC5D0 \uCC98\uD574\uC788\uB2E4."
   Description_En: The power plant is at risk of explosion due to overload.

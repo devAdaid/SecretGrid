@@ -15,7 +15,7 @@ MonoBehaviour:
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: 84aced6405b5d0e408e6bb9374641944, type: 3}
   Title_Ko: "\uD654\uC0B0 \uD3ED\uBC1C"
-  Title_En: flooded road
+  Title_En: Volcanic eruption
   Description_Ko: "\uD654\uC0B0\uC774 \uD3ED\uBC1C\uD558\uC5EC \uADFC\uCC98 \uB9C8\uC744\uC5D0
     \uC6A9\uC554\uC774 \uD758\uB7EC\uAC00\uACE0 \uC788\uB2E4."
   Description_En: The road was flooded due to a burst water pipe.
