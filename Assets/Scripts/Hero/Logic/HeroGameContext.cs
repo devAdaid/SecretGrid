@@ -86,7 +86,7 @@ public partial class HeroGameContext
             return HeroGameProcessNextResult.GameOverBySecretZero;
         }
 
-        if (RemainPhase.HasValue && RemainPhase.Value <= 0)
+        if (RemainPhase.HasValue && RemainPhase.Value <= 0 && specialCasePool.Count > 0)
         {
             ProcessGameOver(time);
             return HeroGameProcessNextResult.GameOverByRemainPhaseZero;
