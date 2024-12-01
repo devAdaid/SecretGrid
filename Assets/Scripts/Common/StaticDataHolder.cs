@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class StaticDataHolder
 {
-    private readonly List<HeroGameCaseStaticData> chapter1CaseList = new List<HeroGameCaseStaticData>();
-    private readonly List<HeroGameCaseStaticData> chapter2CaseList = new List<HeroGameCaseStaticData>();
-
+    private readonly Dictionary<string, List<HeroGameCaseStaticData>> casesByGroupName = new Dictionary<string, List<HeroGameCaseStaticData>>();
     private readonly Dictionary<int, List<HeroGameCaseStaticData>> casesByFixedDay = new Dictionary<int, List<HeroGameCaseStaticData>>();
     private readonly Dictionary<string, HeroGameCaseStaticData> caseMap = new();
     private readonly Dictionary<int, HeroGameDayData> dayMap = new Dictionary<int, HeroGameDayData>();
@@ -17,7 +15,8 @@ public class StaticDataHolder
         foreach (var caseScriptableData in chapter1Cases)
         {
             var caseData = HeroGameCaseStaticData.Build(caseScriptableData);
-            chapter1CaseList.Add(caseData);
+            casesByGroupName.TryAdd("Chapter1", new List<HeroGameCaseStaticData>());
+            casesByGroupName["Chapter1"].Add(caseData);
             caseMap[caseData.Id] = caseData;
         }
 
@@ -25,7 +24,17 @@ public class StaticDataHolder
         foreach (var caseScriptableData in chapter2Cases)
         {
             var caseData = HeroGameCaseStaticData.Build(caseScriptableData);
-            chapter2CaseList.Add(caseData);
+            casesByGroupName.TryAdd("Chapter2", new List<HeroGameCaseStaticData>());
+            casesByGroupName["Chapter2"].Add(caseData);
+            caseMap[caseData.Id] = caseData;
+        }
+
+        var chapter3Cases = Resources.LoadAll<HeroGameCaseScriptableData>("Data/Case/Chapter3");
+        foreach (var caseScriptableData in chapter3Cases)
+        {
+            var caseData = HeroGameCaseStaticData.Build(caseScriptableData);
+            casesByGroupName.TryAdd("Chapter3", new List<HeroGameCaseStaticData>());
+            casesByGroupName["Chapter3"].Add(caseData);
             caseMap[caseData.Id] = caseData;
         }
 
@@ -37,7 +46,7 @@ public class StaticDataHolder
             casesByFixedDay[caseData.FixedDay].Add(caseData);
             caseMap[caseData.Id] = caseData;
         }
-        
+
         var dialogues = Resources.LoadAll<TextAsset>("Data/Dialogue");
         foreach (var dialogue in dialogues)
         {
@@ -51,14 +60,30 @@ public class StaticDataHolder
         }
     }
 
-    public List<HeroGameCaseStaticData> GetChapter1CaseList()
+    public List<HeroGameCaseStaticData> GetNormalCaseList(int targetDay)
     {
-        return chapter1CaseList;
-    }
+        var groupDay = 0;
+        foreach (var day in dayMap.Keys)
+        {
+            if (day > targetDay)
+            {
+                continue;
+            }
 
-    public List<HeroGameCaseStaticData> GetChapter2CaseList()
-    {
-        return chapter2CaseList;
+            if (string.IsNullOrEmpty(dayMap[day].NormalCaseGroupName))
+            {
+                continue;
+            }
+
+            groupDay = Mathf.Max(groupDay, day);
+        }
+
+        if (!dayMap.TryGetValue(groupDay, out var dayData) || string.IsNullOrEmpty(dayData.NormalCaseGroupName))
+        {
+            groupDay = 1;
+        }
+
+        return casesByGroupName[dayMap[groupDay].NormalCaseGroupName];
     }
 
     public HeroGameCaseStaticData GetCaseData(string id)
@@ -78,7 +103,7 @@ public class StaticDataHolder
     {
         return dayMap.TryGetValue(day, out data);
     }
-    
+
     public bool IsLastDay(int day)
     {
         if (!dayMap.TryGetValue(day, out var data))
@@ -88,7 +113,7 @@ public class StaticDataHolder
 
         return data.IsLastDay;
     }
-    
+
     public bool TryGetDialogue(string name, out TextAsset dialogue)
     {
         return dialogueMap.TryGetValue(name, out dialogue);

@@ -28,7 +28,7 @@ MonoBehaviour:
     DecreaseSecretValueOnFail: 0
     RandomMainRewardStatType: 0
     FixedStatReward:
-      Strength: 15
+      Strength: 20
       Agility: 0
       Intelligence: 0
       Secret: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
     RandomMainRewardStatType: 0
     FixedStatReward:
       Strength: 0
-      Agility: 15
+      Agility: 20
       Intelligence: 0
       Secret: 0
     FixedStatRequirement:
@@ -58,7 +58,7 @@ MonoBehaviour:
     FixedStatReward:
       Strength: 0
       Agility: 0
-      Intelligence: 15
+      Intelligence: 20
       Secret: 0
     FixedStatRequirement:
       Strength: 0

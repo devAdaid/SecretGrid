@@ -60,4 +60,17 @@ public class HeroGameCaseStaticData
             selections
         );
     }
+
+    public string GetTitlePostfix()
+    {
+        var icons = new List<string>();
+        foreach (var selection in SelectionDataList)
+        {
+            if (selection is HeroGameCaseRandomSelectionStaticData randomData)
+            {
+                icons.Add(randomData.MainRewardStatType.ToIconString());
+            }
+        }
+        return string.Join(" ", icons);
+    }
 }

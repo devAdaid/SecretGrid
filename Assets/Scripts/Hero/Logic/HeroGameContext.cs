@@ -50,14 +50,15 @@ public partial class HeroGameContext
         CurrentCases.Clear();
         dialogueFlag.Clear();
         normalCasePool.Clear();
-        foreach (var caseData in CommonSingleton.I.StaticDataHolder.GetChapter1CaseList())
+        specialCasePool.Clear();
+
+        Day = 1;
+
+        foreach (var caseData in CommonSingleton.I.StaticDataHolder.GetNormalCaseList(Day))
         {
             normalCasePool.Add(caseData);
         }
-        specialCasePool.Clear();
 
-
-        Day = 1;
         RemainPhase = null;
         AudioManager.I.PlayBGM(BGMType.Game1);
 

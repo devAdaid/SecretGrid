@@ -4,10 +4,20 @@ using UnityEngine;
 
 public enum BGMType
 {
-    EXCITING,
-    Game1,
+    Invalid,
+
+    Title = 10,
+
+    Game1 = 20,
     Game2,
-    Title,
+    Game3,
+    Game4,
+    Game5,
+
+    Boss1 = 30,
+    Boss2,
+
+    Final = 40
 }
 
 public enum SFXType
@@ -90,7 +100,13 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public void PlayBGM(BGMType bgm)
     {
-        bgmSource.clip = bgmMap[bgm];
+        var clip = bgmMap[bgm];
+        if (bgmSource.clip == clip)
+        {
+            return;
+        }
+
+        bgmSource.clip = clip;
         bgmSource.Play();
     }
 

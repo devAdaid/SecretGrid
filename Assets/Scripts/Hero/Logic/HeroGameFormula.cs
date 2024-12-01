@@ -34,15 +34,15 @@ public static class HeroGameFormula
         var countBase = GetRandomStatRequirementTotalCountBase(day);
         if (day < 5)
         {
-            return random.Next(-2, 2) + countBase + upVariationValue * 5;
+            return random.Next(-2, 2) + countBase + upVariationValue * 10;
         }
         else if (day < 10)
         {
-            return random.Next(-10, 10) + countBase + upVariationValue * 10;
+            return random.Next(-5, 5) + countBase + upVariationValue * 20;
         }
         else if (day < 17)
         {
-            return random.Next(-10, 10) + countBase + upVariationValue * 15;
+            return random.Next(-10, 10) + countBase + upVariationValue * 40;
         }
         else
         {
@@ -52,12 +52,12 @@ public static class HeroGameFormula
 
     public static int GetRandomStatRequirementTotalCountBase(int day)
     {
-        var result = 10;
+        var result = 5;
         result += day * 8;
 
         if (day > 5)
         {
-            result += 45;
+            result += 20;
             result += (day - 5) * 10;
         }
 

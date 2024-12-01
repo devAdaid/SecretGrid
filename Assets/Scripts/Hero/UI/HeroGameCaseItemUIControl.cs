@@ -26,6 +26,7 @@ public class HeroGameCaseItemUIControl : MonoBehaviour
 
         image.sprite = data.CaseStaticData.Sprite;
         titleText.text = CommonSingleton.I.IsKoreanLanguage ? data.CaseStaticData.Title_Ko : data.CaseStaticData.Title_En;
+        titleText.text += $" {data.CaseStaticData.GetTitlePostfix()}";
     }
 
     private void OnClick()

@@ -84,16 +84,20 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
     {
         if (CommonSingleton.I.StaticDataHolder.TryGetDayData(day, out var dayData) && dayData.DayStartDialogue != null)
         {
-            ui.DialogueUI.PlayDialogue(dayData.DayStartDialogue, dayData.IsDayStartDialogueSkippable, ProcessDayStart);
+            ui.DialogueUI.PlayDialogue(dayData.DayStartDialogue, dayData.IsDayStartDialogueSkippable, () => ProcessDayStart(day));
         }
         else
         {
-            ProcessDayStart();
+            ProcessDayStart(day);
         }
     }
 
-    private void ProcessDayStart()
+    private void ProcessDayStart(int day)
     {
+        if (CommonSingleton.I.StaticDataHolder.TryGetDayData(day, out var dayData) && dayData.DayStartBgm != BGMType.Invalid)
+        {
+            AudioManager.I.PlayBGM(dayData.DayStartBgm);
+        }
         ShowCaseListUI();
     }
 

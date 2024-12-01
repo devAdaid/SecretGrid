@@ -9,26 +9,19 @@ public partial class HeroGameContext
 
         HandleDayStart();
     }
-    
+
     private void HandleDayStart()
     {
-
-        // TODO: 임시 챕터 2 이후 처리해둠. 추후 디벨롧.
-        if (Day == 6)
+        normalCasePool.Clear();
+        foreach (var caseData in CommonSingleton.I.StaticDataHolder.GetNormalCaseList(Day))
         {
-            AudioManager.I.PlayBGM(BGMType.Game2);
-
-            normalCasePool.Clear();
-            foreach (var caseData in CommonSingleton.I.StaticDataHolder.GetChapter2CaseList())
-            {
-                normalCasePool.Add(caseData);
-            }
+            normalCasePool.Add(caseData);
         }
 
         specialCasePool.Clear();
 
         // 다음 사건들을 구성한다.
-        if (CommonSingleton.I.StaticDataHolder.TryGetDayData(Day, out var dayData))
+        if (CommonSingleton.I.StaticDataHolder.TryGetDayData(Day, out var dayData) && dayData.MaxPhase > 0 && dayData.CaseIdList.Count > 0)
         {
             MaxRemainPhase = dayData.MaxPhase;
             RemainPhase = dayData.MaxPhase;
