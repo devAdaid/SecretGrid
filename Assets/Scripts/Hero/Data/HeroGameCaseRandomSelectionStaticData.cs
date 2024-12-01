@@ -11,20 +11,21 @@ public class HeroGameCaseRandomSelectionStaticData : IHeroGameCaseSelectionStati
     public string Description_En { get; private set; }
     public int DecreaseSecretValueOnFail { get; }
     public HeroGameStatType MainRewardStatType { get; private set; }
-    public HeroGameStatType MainRequirementStatType { get; private set; }
+    //public HeroGameStatType MainRequirementStatType { get; private set; }
 
     public HeroGameCaseRandomSelectionStaticData(
         string description_ko,
         string description_en,
         int decreaseSecretValueOnFail,
-        HeroGameStatType mainRewardStatType,
-        HeroGameStatType mainRequirementStatType)
+        HeroGameStatType mainRewardStatType
+        //HeroGameStatType mainRequirementStatType
+        )
     {
         Description_Ko = description_ko;
         Description_En = description_en;
         DecreaseSecretValueOnFail = decreaseSecretValueOnFail;
         MainRewardStatType = mainRewardStatType;
-        MainRequirementStatType = mainRequirementStatType;
+        ///MainRequirementStatType = mainRequirementStatType;
     }
 
     public static HeroGameCaseRandomSelectionStaticData Build(HeroGameCaseSelectionScriptableData data)
@@ -33,8 +34,8 @@ public class HeroGameCaseRandomSelectionStaticData : IHeroGameCaseSelectionStati
             data.Description_Ko,
             data.Description_En,
             data.DecreaseSecretValueOnFail,
-            data.RandomMainRewardStatType,
-            data.RandomMainRequirementStatType
+            data.RandomMainRewardStatType
+        //data.RandomMainRequirementStatType
         );
     }
 }

@@ -10,51 +10,52 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: Case_C2_Temp1
+  m_Name: ConstructionAccident
   m_EditorClassIdentifier: 
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: 54522495c008cd14e9ab51630717b7b8, type: 3}
-  Title_Ko: "(\uC784\uC2DC) \uC784\uC2DC \uC0AC\uAC741"
-  Title_En: "(\uC784\uC2DC) \uC784\uC2DC \uC0AC\uAC741"
-  Description_Ko: "(\uC784\uC2DC) \uB0B4\uC6A9"
-  Description_En: "(\uC784\uC2DC) \uB0B4\uC6A9"
+  Title_Ko: "\uAC74\uC124 \uD604\uC7A5 \uC0AC\uACE0"
+  Title_En: construction site accident
+  Description_Ko: "\uAC74\uC124 \uD604\uC7A5\uC5D0\uC11C \uD06C\uB808\uC778\uC774
+    \uBD80\uC11C\uC838 \uCCA0\uACE8 \uAD6C\uC870\uBB3C\uC774 \uB5A8\uC5B4\uC9C8 \uC704\uAE30\uB2E4."
+  Description_En: A crane breaks down at a construction site and the steel structure
+    is in danger of falling.
   Selections:
   - Type: 0
-    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 1
-    RandomMainRequirementStatType: 2
-    FixedStatReward:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
-      Secret: 0
-    FixedStatRequirement:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
-  - Type: 0
-    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 2
-    RandomMainRequirementStatType: 3
-    FixedStatReward:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
-      Secret: 0
-    FixedStatRequirement:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
-  - Type: 0
-    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_Ko: "\uAD6C\uC870\uBB3C\uC758 \uADE0\uD615\uC744 \uBD84\uC11D\uD574
+      \uC784\uC2DC\uB85C \uACE0\uC815\uD55C\uB2E4."
+    Description_En: Analyze the balance of the structure and temporarily fix it.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 3
-    RandomMainRequirementStatType: 1
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "\uCCA0\uACE8\uC744 \uBD99\uC7A1\uC544 \uB5A8\uC5B4\uC9C0\uC9C0
+      \uC54A\uAC8C \uD55C\uB2E4."
+    Description_En: Hold on to the steel frame to prevent it from falling.
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 1
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "\uC791\uC5C5\uC790\uB4E4\uC744 \uC2E0\uC18D\uD788 \uAD6C\uC870\uD55C\uB2E4."
+    Description_En: Rescue workers quickly.
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 2
     FixedStatReward:
       Strength: 0
       Agility: 0

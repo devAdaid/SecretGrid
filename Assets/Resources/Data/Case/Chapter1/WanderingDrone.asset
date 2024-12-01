@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
+  m_Name: WanderingDrone
+  m_EditorClassIdentifier: 
+  FixedDay: 0
+  Sprite: {fileID: 21300000, guid: 84aced6405b5d0e408e6bb9374641944, type: 3}
+  Title_Ko: "\uD1B5\uC81C \uBD88\uB2A5 \uB4DC\uB860"
+  Title_En: drone out of control
+  Description_Ko: "\uACE0\uC7A5\uB09C \uB4DC\uB860\uC774 \uB3C4\uC2EC\uC744 \uB0A0\uC544\uB2E4\uB2C8\uBA70
+    \uC18C\uC74C\uC744 \uC720\uBC1C\uD558\uACE0 \uC788\uB2E4."
+  Description_En: Broken drones are flying around the city and causing noise.
+  Selections:
+  - Type: 0
+    Description_Ko: "\uB4DC\uB860\uC744 \uC9C1\uC811 \uBD99\uC7A1\uC544 \uBA48\uCD98\uB2E4."
+    Description_En: Grab the drone and stop it.
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 1
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "\uB4DC\uB860\uC758 \uC2E0\uD638\uB97C \uD574\uD0B9\uD574 \uC870\uC885\uD55C\uB2E4."
+    Description_En: Control the drone by hacking its signal.
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 3
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0

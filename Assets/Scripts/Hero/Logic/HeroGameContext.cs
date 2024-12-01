@@ -55,7 +55,7 @@ public partial class HeroGameContext
             normalCasePool.Add(caseData);
         }
         specialCasePool.Clear();
-        
+
 
         Day = 1;
         RemainPhase = null;
@@ -72,7 +72,7 @@ public partial class HeroGameContext
     {
         gameStartTime = startTime;
     }
-    
+
     public void AddDialogueFlag(string flagName)
     {
         dialogueFlag.Add(flagName);
@@ -85,7 +85,7 @@ public partial class HeroGameContext
             ProcessGameOver(time);
             return HeroGameProcessNextResult.GameOverBySecretZero;
         }
-        
+
         if (RemainPhase.HasValue && RemainPhase.Value <= 0)
         {
             ProcessGameOver(time);
@@ -98,7 +98,7 @@ public partial class HeroGameContext
             ProcessNextPhase();
             return HeroGameProcessNextResult.NextPhase;
         }
-        
+
         if (CommonSingleton.I.StaticDataHolder.IsLastDay(Day))
         {
             ProcessGameEnd(time);
@@ -109,7 +109,7 @@ public partial class HeroGameContext
         ProcessNextDay();
         return HeroGameProcessNextResult.NextDay;
     }
-    
+
     public bool NeedProcessPhaseEnd()
     {
         return Player.Secret > 0 && RemainPhase.HasValue && specialCasePool.Count > 0;
@@ -129,7 +129,7 @@ public partial class HeroGameContext
                     statReward = HeroGameCaseStatReward.BuildRandom(totalStatReward, data.MainRewardStatType);
 
                     var totalStatRequirement = HeroGameFormula.GetRandomStatRequirementTotalCount(Day, upVariationValue);
-                    statRequirement = HeroGameCaseStatRequirement.BuildRandom(totalStatRequirement, data.MainRequirementStatType);
+                    statRequirement = HeroGameCaseStatRequirement.BuildRandom(totalStatRequirement);
                     break;
                 }
             case HeroGameCaseFixedSelectionStaticData data:

@@ -14,37 +14,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: a672a932a6089ac43bbeacc1e2fe3eb4, type: 3}
-  Title_Ko: "\uC9C0\uD558\uCCA0 \uBA48\uCDA4"
-  Title_En: "\uC9C0\uD558\uCCA0 \uBA48\uCDA4"
-  Description_Ko: "\uC5F4\uCC28 \uD558\uB098\uAC00 \uACE0\uC7A5 \uB098 \uC6B4\uD589\uC774
-    \uC9C0\uC5F0\uB418\uACE0 \uC788\uB2E4."
-  Description_En: "\uC5F4\uCC28 \uD558\uB098\uAC00 \uACE0\uC7A5 \uB098 \uC6B4\uD589\uC774
-    \uC9C0\uC5F0\uB418\uACE0 \uC788\uB2E4."
+  Title_Ko: "\uC18C\uB9E4\uCE58\uAE30"
+  Title_En: pickpocket
+  Description_Ko: "\uC18C\uB9E4\uCE58\uAE30\uAC00 \uD560\uBA38\uB2C8\uC758 \uAC00\uBC29\uC744
+    \uD6D4\uCCD0 \uB2EC\uC544\uB098\uACE0 \uC788\uB2E4."
+  Description_En: A pickpocket steals an old woman's bag and runs away.
   Selections:
   - Type: 0
-    Description_Ko: "\uC5F4\uCC28\uB97C \uB2E4\uC74C \uC5ED\uAE4C\uC9C0 \uBC00\uC5B4\uC900\uB2E4."
-    Description_En: "\uC5F4\uCC28\uB97C \uB2E4\uC74C \uC5ED\uAE4C\uC9C0 \uBC00\uC5B4\uC900\uB2E4."
+    Description_Ko: "\uC18C\uB9E4\uCE58\uAE30\uC758 \uC774\uB3D9 \uACBD\uB85C\uB97C
+      \uC608\uC0C1\uD574 \uC55E\uC9C8\uB7EC\uAC04\uB2E4."
+    Description_En: Anticipate the pickpocket's movement path and run ahead.
     DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 1
-    RandomMainRequirementStatType: 1
+    RandomMainRewardStatType: 3
     FixedStatReward:
       Strength: 0
       Agility: 0
       Intelligence: 0
+      Secret: 0
     FixedStatRequirement:
       Strength: 0
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uC9C0\uD558\uCCA0\uC774 \uBA48\uCD98 \uC6D0\uC778\uC744 \uD574\uACB0\uD55C\uB2E4."
-    Description_En: "\uC9C0\uD558\uCCA0\uC774 \uBA48\uCD98 \uC6D0\uC778\uC744 \uD574\uACB0\uD55C\uB2E4."
+    Description_Ko: "\uC2E0\uC18D\uD788 \uB530\uB77C\uC7A1\uC544 \uC18C\uB9E4\uCE58\uAE30\uB97C
+      \uBD99\uC7A1\uB294\uB2E4."
+    Description_En: Quickly catch up and catch the pickpocket.
     DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 1
-    RandomMainRequirementStatType: 3
+    RandomMainRewardStatType: 2
     FixedStatReward:
       Strength: 0
       Agility: 0
       Intelligence: 0
+      Secret: 0
     FixedStatRequirement:
       Strength: 0
       Agility: 0

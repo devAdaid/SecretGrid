@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
+  m_Name: MosquitoMonster
+  m_EditorClassIdentifier: 
+  FixedDay: 0
+  Sprite: {fileID: 21300000, guid: 8b8e90aad3850474aa9353c13574ecde, type: 3}
+  Title_Ko: "\uC9C0\uAE0B\uC9C0\uAE0B\uD55C \uBAA8\uAE30"
+  Title_En: Sick of mosquitoes
+  Description_Ko: "\uC232\uC5D0 \uB0A8\uC544\uC788\uB294 \uBAA8\uAE30 \uAD34\uBB3C\uC774
+    \uC0AC\uB78C\uB4E4\uC744 \uAD34\uB86D\uD788\uACE0 \uC788\uB2E4."
+  Description_En: Mosquito monsters remaining in the forest are harassing people.
+  Selections:
+  - Type: 0
+    Description_Ko: "\uBAA8\uAE30 \uAD34\uBB3C\uC758 \uC0DD\uD0DC\uB97C \uC5F0\uAD6C\uD574
+      \uC801\uC808\uD55C \uD1F4\uCE58 \uBC29\uBC95\uC744 \uCC3E\uC544\uB0B8\uB2E4."
+    Description_En: Study the ecology of mosquito monsters and find appropriate ways
+      to exterminate them.
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 3
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "\uC815\uBA74 \uB300\uACB0\uB85C \uD574\uCE58\uC6B4\uB2E4."
+    Description_En: Defeat it through head-on confrontation.
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 1
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "\uBBFC\uCCA9\uD558\uAC8C \uC6C0\uC9C1\uC5EC \uBAA8\uAE30 \uAD34\uBB3C\uC758
+      \uACF5\uACA9\uC744 \uD53C\uD558\uBA70 \uBC18\uACA9\uD55C\uB2E4."
+    Description_En: Move quickly to avoid the mosquito monster's attack and counterattack.
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 2
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0

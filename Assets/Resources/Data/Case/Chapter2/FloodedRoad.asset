@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: Case_C2_Temp3
+  m_Name: FloodedRoad
   m_EditorClassIdentifier: 
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: 84aced6405b5d0e408e6bb9374641944, type: 3}
-  Title_Ko: "(\uC784\uC2DC) \uC784\uC2DC \uC0AC\uAC743"
-  Title_En: "(\uC784\uC2DC) \uC784\uC2DC \uC0AC\uAC743"
-  Description_Ko: "(\uC784\uC2DC) \uB0B4\uC6A9"
-  Description_En: "(\uC784\uC2DC) \uB0B4\uC6A9"
+  Title_Ko: "\uCE68\uC218\uB41C \uB3C4\uB85C"
+  Title_En: flooded road
+  Description_Ko: "\uC218\uB3C4\uAD00 \uD30C\uC5F4\uB85C \uB3C4\uB85C\uAC00 \uCE68\uC218\uB418\uC5C8\uB2E4."
+  Description_En: The road was flooded due to a burst water pipe.
   Selections:
   - Type: 0
-    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_Ko: "\uC778\uADFC\uC758 \uC218\uB3C4\uAD00 \uBC38\uBE0C\uB97C \uCC3E\uC544
+      \uBB3C \uD750\uB984\uC744 \uCC28\uB2E8\uD55C\uB2E4."
+    Description_En: Find a nearby water pipe valve and shut off the water flow.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 3
-    RandomMainRequirementStatType: 1
     FixedStatReward:
       Strength: 0
       Agility: 0
@@ -35,26 +35,28 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 1
-    RandomMainRequirementStatType: 1
-    FixedStatReward:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
-      Secret: 0
-    FixedStatRequirement:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
-  - Type: 0
-    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_Ko: "\uCE68\uC218 \uC9C0\uC5ED\uC744 \uC2E0\uC18D\uD788 \uC774\uB3D9\uD558\uBA70
+      \uBB3C\uAE38\uC744 \uC6B0\uD68C\uC2DC\uD0A4\uAE30 \uC704\uD55C \uB3C4\uAD6C\uB97C
+      \uC124\uCE58\uD55C\uB2E4."
+    Description_En: Move quickly to flooded areas and install tools to divert water.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 2
-    RandomMainRequirementStatType: 1
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "\uC218\uB3C4\uAD00\uC744 \uAC15\uB825\uD55C \uD798\uC73C\uB85C
+      \uC555\uBC15\uD574 \uC77C\uC2DC\uC801\uC73C\uB85C \uBB3C\uC744 \uB9C9\uB294\uB2E4."
+    Description_En: Pressurizes water pipes with strong force to temporarily block
+      water.
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 1
     FixedStatReward:
       Strength: 0
       Agility: 0

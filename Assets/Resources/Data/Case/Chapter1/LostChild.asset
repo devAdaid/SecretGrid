@@ -10,41 +10,43 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: Case_Child
+  m_Name: LostChild
   m_EditorClassIdentifier: 
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: f466bd14292de894ab90273fda998e06, type: 3}
   Title_Ko: "\uBBF8\uC544 \uCC3E\uAE30"
-  Title_En: "\uBBF8\uC544 \uCC3E\uAE30"
+  Title_En: Lost child
   Description_Ko: "\uB300\uD615 \uC1FC\uD551\uBAB0\uC5D0\uC11C \uBD80\uBAA8\uAC00
     \uC2E4\uC885\uB41C \uC544\uC774\uB97C \uC560\uD0C0\uAC8C \uCC3E\uACE0 \uC788\uB2E4."
-  Description_En: "\uB300\uD615 \uC1FC\uD551\uBAB0\uC5D0\uC11C \uBD80\uBAA8\uAC00
-    \uC2E4\uC885\uB41C \uC544\uC774\uB97C \uC560\uD0C0\uAC8C \uCC3E\uACE0 \uC788\uB2E4."
+  Description_En: Parents are desperately searching for their missing child at a
+    large shopping mall.
   Selections:
   - Type: 0
-    Description_Ko: "\uC544\uC774\uAC00 \uAC08 \uB9CC\uD55C \uACF3\uC744 \uC218\uC0C9\uD55C\uB2E4."
-    Description_En: "\uC544\uC774\uAC00 \uAC08 \uB9CC\uD55C \uACF3\uC744 \uC218\uC0C9\uD55C\uB2E4."
+    Description_Ko: "\uC544\uC774\uAC00 \uAC08 \uB9CC\uD55C \uACF3\uC744 \uC2E0\uC18D\uD788
+      \uC218\uC0C9\uD55C\uB2E4."
+    Description_En: Quickly search for places your child might go.
     DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 3
-    RandomMainRequirementStatType: 2
+    RandomMainRewardStatType: 2
     FixedStatReward:
       Strength: 0
       Agility: 0
       Intelligence: 0
+      Secret: 0
     FixedStatRequirement:
       Strength: 0
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uC8FC\uBCC0 \uC0AC\uB78C\uB4E4\uC5D0\uAC8C \uC218\uC18C\uBB38\uD55C\uB2E4."
-    Description_En: "\uC8FC\uBCC0 \uC0AC\uB78C\uB4E4\uC5D0\uAC8C \uC218\uC18C\uBB38\uD55C\uB2E4."
+    Description_Ko: "\uC8FC\uBCC0 \uC0AC\uB78C\uB4E4\uC5D0\uAC8C \uC544\uC774\uC758
+      \uD589\uBC29\uC744 \uC218\uC18C\uBB38\uD55C\uB2E4."
+    Description_En: Ask people around you about the child's whereabouts.
     DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 1
-    RandomMainRequirementStatType: 2
+    RandomMainRewardStatType: 3
     FixedStatReward:
       Strength: 0
       Agility: 0
       Intelligence: 0
+      Secret: 0
     FixedStatRequirement:
       Strength: 0
       Agility: 0

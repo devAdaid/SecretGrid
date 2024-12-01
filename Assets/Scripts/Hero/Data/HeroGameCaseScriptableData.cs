@@ -18,7 +18,7 @@ public class HeroGameCaseSelectionScriptableData
 
     // Random 타입일 경우
     public HeroGameStatType RandomMainRewardStatType;
-    public HeroGameStatType RandomMainRequirementStatType;
+    //public HeroGameStatType RandomMainRequirementStatType;
 
     // Fixed 타입일 경우
     public HeroGameCaseStatReward FixedStatReward;

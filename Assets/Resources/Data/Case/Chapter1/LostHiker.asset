@@ -10,43 +10,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: Case_Mountain
+  m_Name: LostHiker
   m_EditorClassIdentifier: 
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: 8b8e90aad3850474aa9353c13574ecde, type: 3}
   Title_Ko: "\uC870\uB09C\uC790 \uAD6C\uC870"
-  Title_En: "\uC870\uB09C\uC790 \uAD6C\uC870"
-  Description_Ko: "\uD55C \uB4F1\uC0B0\uAC1D\uC774 \uC0B0\uC5D0\uC11C \uC870\uB09C\uB2F9\uD588\uB2E4."
-  Description_En: "\uD55C \uB4F1\uC0B0\uAC1D\uC774 \uC0B0\uC5D0\uC11C \uC870\uB09C\uB2F9\uD588\uB2E4."
+  Title_En: rescue of a hiker
+  Description_Ko: "\uD55C \uB4F1\uC0B0\uAC1D\uC774 \uB208\uC774 \uB0B4\uB9AC\uB294
+    \uC0B0\uC5D0\uC11C \uC870\uB09C\uB2F9\uD588\uB2E4."
+  Description_En: A hiker was lost on a snowy mountain.
   Selections:
   - Type: 0
-    Description_Ko: "\uC870\uB09C\uC790\uAC00 \uC0B0\uC744 \uBC97\uC5B4\uB098\uB3C4\uB85D
-      \uC720\uB3C4\uD55C\uB2E4."
-    Description_En: "\uC870\uB09C\uC790\uAC00 \uC0B0\uC744 \uBC97\uC5B4\uB098\uB3C4\uB85D
-      \uC720\uB3C4\uD55C\uB2E4."
+    Description_Ko: "\uB4F1\uC0B0\uB85C\uB97C \uB530\uB77C\uAC00 \uC870\uB09C\uC790\uB97C
+      \uCC3E\uB294\uB2E4."
+    Description_En: Follow the hiking trail and look for the rescued person.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 2
-    RandomMainRequirementStatType: 3
     FixedStatReward:
       Strength: 0
       Agility: 0
       Intelligence: 0
+      Secret: 0
     FixedStatRequirement:
       Strength: 0
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uC9C1\uC811 \uB4F1\uC0B0\uB85C\uB97C \uB530\uB77C\uAC00 \uC870\uB09C\uC790\uB97C
+    Description_Ko: "\uC0B0 \uAF2D\uB300\uAE30\uC5D0 \uC62C\uB77C\uAC00 \uC870\uB09C\uC790\uB97C
       \uCC3E\uB294\uB2E4."
-    Description_En: "\uC9C1\uC811 \uB4F1\uC0B0\uB85C\uB97C \uB530\uB77C\uAC00 \uC870\uB09C\uC790\uB97C
-      \uCC3E\uB294\uB2E4."
+    Description_En: Climb to the top of the mountain and look for a hiker.
     DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 3
-    RandomMainRequirementStatType: 1
+    RandomMainRewardStatType: 1
     FixedStatReward:
       Strength: 0
       Agility: 0
       Intelligence: 0
+      Secret: 0
     FixedStatRequirement:
       Strength: 0
       Agility: 0

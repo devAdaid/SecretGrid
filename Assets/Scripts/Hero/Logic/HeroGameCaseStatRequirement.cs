@@ -17,8 +17,10 @@ public struct HeroGameCaseStatRequirement : IEquatable<HeroGameCaseStatRequireme
         Intelligence = intelligence;
     }
 
-    public static HeroGameCaseStatRequirement BuildRandom(int totalValue, HeroGameStatType mainStatType)
+    public static HeroGameCaseStatRequirement BuildRandom(int totalValue)
     {
+        var random = new Random();
+        var mainStatType = (HeroGameStatType)random.Next(1, 4);
         var values = GetRandomValues(totalValue);
         switch (mainStatType)
         {

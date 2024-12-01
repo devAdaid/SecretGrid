@@ -10,36 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: Case_C2_Temp5
+  m_Name: OverloadedPowerPlant
   m_EditorClassIdentifier: 
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: a672a932a6089ac43bbeacc1e2fe3eb4, type: 3}
-  Title_Ko: "(\uC784\uC2DC) \uC784\uC2DC \uC0AC\uAC745"
-  Title_En: "(\uC784\uC2DC) \uC784\uC2DC \uC0AC\uAC745"
-  Description_Ko: "(\uC784\uC2DC) \uB0B4\uC6A9"
-  Description_En: "(\uC784\uC2DC) \uB0B4\uC6A9"
+  Title_Ko: "\uACFC\uBD80\uD558 \uBC1C\uC804\uC18C"
+  Title_En: overload power plant
+  Description_Ko: "\uBC1C\uC804\uC18C\uAC00 \uACFC\uBD80\uD558\uB85C \uD3ED\uBC1C
+    \uC704\uD5D8\uC5D0 \uCC98\uD574\uC788\uB2E4."
+  Description_En: The power plant is at risk of explosion due to overload.
   Selections:
   - Type: 0
-    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 3
-    RandomMainRequirementStatType: 2
-    FixedStatReward:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
-      Secret: 0
-    FixedStatRequirement:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
-  - Type: 0
-    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_Ko: "\uBC1C\uC804\uC18C \uB0B4\uBD80\uC758 \uD575\uC2EC \uBD80\uD488\uC744
+      \uC2E0\uC18D\uD788 \uAD50\uCCB4\uD55C\uB2E4."
+    Description_En: Quickly replace key parts inside the power plant.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 2
-    RandomMainRequirementStatType: 1
     FixedStatReward:
       Strength: 0
       Agility: 0
@@ -50,11 +36,25 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
-    Description_En: "(\uC784\uC2DC) \uC120\uD0DD\uC9C0"
+    Description_Ko: "\uC804\uAE30 \uCF00\uC774\uBE14\uC744 \uAC15\uC81C\uB85C \uBD84\uB9AC\uD55C\uB2E4."
+    Description_En: Forcefully disconnect the electric cable.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 1
-    RandomMainRequirementStatType: 3
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "\uACFC\uBD80\uD558 \uC6D0\uC778\uC744 \uBD84\uC11D\uD574 \uC2DC\uC2A4\uD15C\uC744
+      \uC548\uC815\uD654\uD55C\uB2E4."
+    Description_En: Stabilize the system by analyzing the cause of overload.
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 3
     FixedStatReward:
       Strength: 0
       Agility: 0
