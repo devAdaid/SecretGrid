@@ -175,6 +175,22 @@ public class D_PlayBgm : IDialogueCommand
     }
 }
 
+
+public class D_PlaySfx : IDialogueCommand
+{
+    public readonly SFXType SFXType;
+
+    public D_PlaySfx(SFXType sfxType)
+    {
+        SFXType = sfxType;
+    }
+
+    public void ApplyUI(IHeroGameDialogueUI ui)
+    {
+        AudioManager.I.PlaySFX(SFXType);
+    }
+}
+
 public class D_EndDialogue : IDialogueCommand
 {
     public D_EndDialogue()

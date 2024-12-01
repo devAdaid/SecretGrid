@@ -152,6 +152,13 @@ public class DialogueXMLSerializer : MonoBehaviour
                 Enum.TryParse<BGMType>(typeAttribute, out var type);
                 commands.Add(new D_PlayBgm(type));
             }
+            else if (commandElement.Name == "PlaySfx")
+            {
+                var typeAttribute = commandElement.GetAttribute("Type");
+
+                Enum.TryParse<SFXType>(typeAttribute, out var type);
+                commands.Add(new D_PlaySfx(type));
+            }
             index++;
         }
 

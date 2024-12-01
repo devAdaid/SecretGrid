@@ -33,6 +33,7 @@ public enum SFXType
     Type,
     Secret,
     Noise,
+    Explosion,
 }
 
 [Serializable]

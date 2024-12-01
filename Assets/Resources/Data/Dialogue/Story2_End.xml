@@ -28,7 +28,7 @@
             />
         </Choices>
     </Choice>
-    <StopBgm />
+    <PauseBgm />
     <Text
         Text_Ko="(그때, 당신에게 의미를 알 수 없는 이상한 목소리가 들려온다.)"
         Text_En="(At that moment, you hear a strange voice whose meaning you can't understand.)"
@@ -41,6 +41,7 @@
         Text_Ko="???"
         Text_En="???"
     />
+    <PlaySfx Type="Noise" />
     <Text
         Text_Ko="$%#!$@$!%!!~^%"
         Text_En="$%#!$@$!%!!~^%"
@@ -53,6 +54,7 @@
         SpritePath_Ko="Sprites/Character/K"
         SpritePath_En="Sprites/Character/K"
     />
+    <ResumeBgm />
     <SpeakerName
         Text_Ko="박사 K"
         Text_En="Dr. K"
