@@ -21,11 +21,11 @@ MonoBehaviour:
   m_OverrideGlobalSceneList: 1
   m_Scenes:
   - m_enabled: 1
-    m_path: Assets/Scenes/SceneSelector.unity
-  - m_enabled: 1
     m_path: Assets/Scenes/HeroGame/Title.unity
   - m_enabled: 1
     m_path: Assets/Scenes/HeroGame/Hero.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/SceneSelector.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Account.unity
   - m_enabled: 1
