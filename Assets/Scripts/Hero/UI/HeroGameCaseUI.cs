@@ -3,10 +3,17 @@ using UnityEngine;
 
 public class HeroGameCaseUIData
 {
+    public int CompletedSpecialCaseCount;
+    public int MaxSpecialCaseCount;
     public List<HeroGameCaseDetailUIControlData> CaseDataList { get; private set; }
 
-    public HeroGameCaseUIData(List<HeroGameCaseDetailUIControlData> caseDataList)
+    public HeroGameCaseUIData(
+        int completedSpecialCaseCount,
+        int maxSpecialCaseCount,
+        List<HeroGameCaseDetailUIControlData> caseDataList)
     {
+        CompletedSpecialCaseCount = completedSpecialCaseCount;
+        MaxSpecialCaseCount = maxSpecialCaseCount;
         CaseDataList = caseDataList;
     }
 }

@@ -23,6 +23,7 @@ public partial class HeroGameContext
 
     public List<HeroGameCase> CurrentCases = new();
     public HashSet<string> dialogueFlag = new();
+    public int RemainSpecialCaseCount => specialCasePool.Count;
 
     private List<HeroGameCaseStaticData> normalCasePool = new();
     private List<HeroGameCaseStaticData> specialCasePool = new();
@@ -45,7 +46,7 @@ public partial class HeroGameContext
 
     private void Initialize()
     {
-        Player = new HeroPlayerContext(10, 10, 10);
+        Player = new HeroPlayerContext();
 
         CurrentCases.Clear();
         dialogueFlag.Clear();
@@ -109,6 +110,21 @@ public partial class HeroGameContext
         // 다음 날로 진행
         ProcessNextDay();
         return HeroGameProcessNextResult.NextDay;
+    }
+
+    public bool NeedProcessGameOver()
+    {
+        if (Player.Secret <= 0)
+        {
+            return true;
+        }
+
+        if (RemainPhase.HasValue && RemainPhase.Value <= 0 && specialCasePool.Count > 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public bool NeedProcessPhaseEnd()

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixedDay: 5
   Sprite: {fileID: 21300000, guid: 4cc3275112061b5498d6df3f32294038, type: 3}
-  Title_Ko: "\uBAA8\uAE30\uC758 \uC8FC\uB465\uC774 \uACF5\uACA9"
+  Title_Ko: "\uC8FC\uB465\uC774 \uACF5\uACA9"
   Title_En: Attack proboscis
   Description_Ko: "\uBAA8\uAE30\uC758 \uC8FC\uB465\uC774\uB97C \uACF5\uACA9\uD558\uC5EC
     \uD761\uD608 \uB2A5\uB825\uC744 \uC81C\uAC70\uD55C\uB2E4."

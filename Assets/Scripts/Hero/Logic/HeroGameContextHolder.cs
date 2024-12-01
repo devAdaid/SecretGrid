@@ -103,7 +103,9 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
 
     private void OnDayEnd(int day)
     {
-        if (CommonSingleton.I.StaticDataHolder.TryGetDayData(day, out var dayData) && dayData.DayEndDialogue != null)
+        if (!GameContext.NeedProcessGameOver()
+            && CommonSingleton.I.StaticDataHolder.TryGetDayData(day, out var dayData)
+            && dayData.DayEndDialogue != null)
         {
             ui.DialogueUI.PlayDialogue(dayData.DayEndDialogue, dayData.IsDayEndDialogueSkippable, ProcessDayEnd);
         }

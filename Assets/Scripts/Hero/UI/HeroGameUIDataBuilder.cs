@@ -4,6 +4,14 @@ public static class HeroGameUIDataBuilder
 {
     public static HeroGameCaseUIData BuildCase(HeroGameContext context)
     {
+        var maxSpecialCount = 0;
+        var specialCount = 0;
+        if (CommonSingleton.I.StaticDataHolder.TryGetDayData(context.Day, out var dayData))
+        {
+            maxSpecialCount = dayData.CaseIdList.Count;
+            specialCount = maxSpecialCount - context.RemainSpecialCaseCount;
+        }
+
         var caseList = new List<HeroGameCaseDetailUIControlData>();
         foreach (var caseContext in context.CurrentCases)
         {
@@ -11,7 +19,7 @@ public static class HeroGameUIDataBuilder
             caseList.Add(caseDetail);
         }
 
-        return new HeroGameCaseUIData(caseList);
+        return new HeroGameCaseUIData(specialCount, maxSpecialCount, caseList);
     }
 
     private static HeroGameCaseDetailUIControlData BuildCaseDetail(HeroGameCase caseContext, HeroPlayerContext playerContext)
