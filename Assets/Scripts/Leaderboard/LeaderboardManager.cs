@@ -1,77 +1,77 @@
+using System;
 using System.Collections;
 using System.Globalization;
+using ConditionalDebug;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class LeaderboardManager : MonoBehaviour
 {
-    //서버 관련 변수
-    public SecretGridServer secretGridServer = null;
     //점수 불러오기 관련 변수
-    public GameObject RankPrefab;
-    public GameObject ScollViewContent;
-    int Testcount = 0;
-    public GameObject targetItem;  // 스크롤할 대상 항목
-    public GameObject EndItem;
-    public ScrollRect scrollRect;
-
-    public GameObject content;
-
+    [SerializeField]
+    [FormerlySerializedAs("RankPrefab")]
+    private GameObject rankPrefab;
+    
+    [SerializeField]
+    [FormerlySerializedAs("scollViewContent")]
+    [FormerlySerializedAs("ScollViewContent")]
+    private GameObject scrollViewContent;
+    
+    [SerializeField]
+    private ScrollRect scrollRect;
+    
     [SerializeField]
     private Color highlightColor;
 
     private IEnumerator Start()
     {
-        yield return secretGridServer.WaitForReady(); // 서버가 준비될 때까지 기다린다.
-        yield return secretGridServer.RequestLeaderboard("totalScore"); // 테스트 리더보드 정보 가져온다.
-        RefreshRankInfo();
+        yield return SetRankType("totalScore");
     }
 
-    public void ClickRankBtn(string LeaderboardType)
+    public void ClickRankBtn(string leaderboardType)
     {
-        StartCoroutine(ClickRankType(LeaderboardType));
+        StartCoroutine(SetRankType(leaderboardType));
     }
 
-    public IEnumerator ClickRankType(string LeaderboardType)
+    private IEnumerator SetRankType(string leaderboardType)
     {
-        yield return ResetRankInfo();
-        string tmpstring = LeaderboardType;
-        StartCoroutine(SetRankType(tmpstring));
+        yield return SecretGridServer.I.WaitForReady();
+        yield return SecretGridServer.I.RequestLeaderboard(leaderboardType);
+        yield return RefreshRankInfo();
     }
 
-    public IEnumerator SetRankType(string LeaderboardType)
+    private void Update()
     {
-        string tmpstring = LeaderboardType;
-
-        yield return secretGridServer.WaitForReady(); // 서버가 준비될 때까지 기다린다.
-        yield return secretGridServer.RequestLeaderboard(tmpstring); // 테스트 리더보드 정보 가져온다.
-        RefreshRankInfo();
+        //Debug.Log(scrollRect.verticalNormalizedPosition);
     }
 
-    private void RefreshRankInfo()
+    private IEnumerator RefreshRankInfo()
     {
-        if (!secretGridServer)
+        if (SecretGridServer.I.CachedLeaderboardResult == null)
         {
-            return;
+            yield break;
         }
 
-        if (secretGridServer.CachedLeaderboardResult == null)
+        if (SecretGridServer.I.CachedLeaderboardResult.entries == null)
         {
-            return;
+            yield break;
         }
+        
+        DestroyAllEntries();
 
-        if (secretGridServer.CachedLeaderboardResult.entries == null)
+        var myEntryIndex = -1;
+        var entryHeight = 0.0f;
+
+        for (var index = 0; index < SecretGridServer.I.CachedLeaderboardResult.entries.Count; index++)
         {
-            return;
-        }
+            var entry = SecretGridServer.I.CachedLeaderboardResult.entries[index];
+            var myInstance = Instantiate(rankPrefab, scrollViewContent.transform);
 
-        Testcount = 0;
-
-        foreach (var entry in secretGridServer.CachedLeaderboardResult.entries)
-        {
-            GameObject myInstance = Instantiate(RankPrefab, ScollViewContent.transform);
+            entryHeight = myInstance.GetComponent<RectTransform>().rect.height;
+            
             myInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (entry.rank + 1).ToString();
             myInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = entry.nickname;
             myInstance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = entry.score.ToString(CultureInfo.InvariantCulture);
@@ -80,59 +80,36 @@ public class LeaderboardManager : MonoBehaviour
             myInstance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = entry.nickname;
             myInstance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = entry.score.ToString(CultureInfo.InvariantCulture);
 
-            Testcount++;
-
             // 나의 정보는 빨간색 표시
-            if (entry.rank == secretGridServer.CachedLeaderboardResult.myRank)
+            if (entry.rank == SecretGridServer.I.CachedLeaderboardResult.myRank)
             {
                 myInstance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = highlightColor;
                 myInstance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().color = highlightColor;
                 myInstance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().color = highlightColor;
-                targetItem = myInstance;
+                myEntryIndex = index;
             }
+        }
 
-            if (Testcount == secretGridServer.CachedLeaderboardResult.entries.Count)
-            {
-                EndItem = myInstance;
-                StartCoroutine(RefreshMyInfo());
-            }
+        // 내 항목이 가운데 나오도록 스크롤 위치 조절
+        if (myEntryIndex != -1 && SecretGridServer.I.CachedLeaderboardResult.entries.Count > 1)
+        {
+            yield return new WaitForEndOfFrame();
+            
+            var h = scrollRect.GetComponent<RectTransform>().rect.height;
+            var H = scrollRect.content.rect.height;
+
+            var x = entryHeight / 2 + myEntryIndex * entryHeight;
+            var y = -1.0f / (H - h) * x + (H - h / 2) / (H - h);
+
+            scrollRect.verticalNormalizedPosition = y;
         }
     }
 
-    private IEnumerator ResetRankInfo()
+    private void DestroyAllEntries()
     {
-        yield return null;
-        Testcount = 0;
-        targetItem = null;
-        EndItem = null;
-        foreach (Transform child in content.transform)
+        foreach (Transform child in scrollViewContent.transform)
         {
             Destroy(child.gameObject);
-        }
-
-    }
-
-    private IEnumerator RefreshMyInfo()
-    {
-        yield return EndItem;
-
-        if (targetItem != null && scrollRect != null && EndItem != null)
-        {
-            if (targetItem.GetComponent<RectTransform>().transform.localPosition.y == -50 || targetItem.GetComponent<RectTransform>().transform.localPosition.y == -150)
-            {
-                scrollRect.verticalNormalizedPosition = 1;
-            }
-            else if (targetItem.GetComponent<RectTransform>().transform.localPosition.y - EndItem.GetComponent<RectTransform>().transform.localPosition.y > 500)
-            {
-                float targetNormalizedPosition = targetItem.GetComponent<RectTransform>().transform.localPosition.y - EndItem.GetComponent<RectTransform>().transform.localPosition.y;
-                targetNormalizedPosition /= EndItem.GetComponent<RectTransform>().transform.localPosition.y;
-                // 스크롤을 맨 위로 위치시키기 위해, targetNormalizedPosition을 사용
-                scrollRect.verticalNormalizedPosition = 1 + targetNormalizedPosition;
-            }
-            else if (targetItem.GetComponent<RectTransform>().transform.localPosition.y - EndItem.GetComponent<RectTransform>().transform.localPosition.y <= 500)
-            {
-                scrollRect.verticalNormalizedPosition = 0;
-            }
         }
     }
 
