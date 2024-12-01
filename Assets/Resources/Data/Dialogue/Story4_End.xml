@@ -28,6 +28,8 @@
         Text_Ko="음, 그래. 네 비밀 말이지..."
         Text_En="Hmm, right. Your secret, huh..."
     />
+    <PauseBgm />
+    <PlaySfx Type="Phone" />
     <Text
         Text_Ko="(그 순간, 박사 K의 스마트폰이 울린다.)"
         Text_En="(At that moment, Dr. K's smartphone rings.)"
@@ -52,6 +54,7 @@
         Text_Ko="제로스"
         Text_En="Xeros"
     />
+    <PlayBgm Type="Dialogue_Xeros" />
     <Text
         Text_Ko="후, 겨우 따돌렸네."
         Text_En="Phew, I finally shook him off."
@@ -76,6 +79,7 @@
         Text_Ko="이제 다시 이야기를 해볼..."
         Text_En="Now, let's talk again..."
     />
+    <PauseBgm />
     <Text
         Text_Ko="(그 때, 갑자기 나타난 박사 K가 당신의 손목을 잡는다.)"
         Text_En="(At that moment, Dr. K suddenly appears and grabs your wrist.)"
@@ -88,6 +92,7 @@
         Text_Ko="박사 K"
         Text_En="Dr. K"
     />
+    <PlayBgm Type="Dialogue_Tension" />
     <Text
         Text_Ko="...너, 누구와 연락하고 있는 거야?"
         Text_En="...Who are you in contact with?"
@@ -165,6 +170,7 @@
         Text_Ko="제로스"
         Text_En="Xeros"
     />
+    <PauseBgm />
     <Text
         Text_Ko="하하하..."
         Text_En="Hahaha..."
@@ -177,6 +183,7 @@
         Text_Ko="그래, 둘이서 잘 해보라고. ...잘해볼 수 있다면 말이지."
         Text_En="Yeah, try to do your best together... if you can."
     />
+    <PlaySfx Type="Disconnect" />
     <Text
         Text_Ko="(제로스와의 교신이 끊어졌다.)"
         Text_En="(The communication with Xeros is cut off.)"
@@ -205,10 +212,12 @@
         Text_Ko="...고마워."
         Text_En="...Thank you."
     />
+    <PlaySfx Type="Alarm" />
     <Text
         Text_Ko="(그 순간, 연구소 전체에 경고 알림이 시끄럽게 울려 퍼지기 시작한다. 붉은 불빛이 깜빡이며 위급 상황임을 알린다.)"
         Text_En="(At that moment, the entire lab begins blaring with warning alarms. Red lights flash, signaling an emergency.)"
     />
+    <ResumeBgm />
     <Text
         Text_Ko="젠장, 벌써 뚫렸나..."
         Text_En="Damn, did they break through already..."
@@ -265,6 +274,7 @@
         Text_Ko="너라면..."
         Text_En="If it's you..."
     />
+    <PlaySfx Type="Explosion" />
     <Text
         Text_Ko="(그 순간, 근처 연구소 문이 굉음과 함께 날아가고, 기괴하게 생긴 괴물이 나타난다. 괴물은 가죽 같은 날개를 펼치며 포효한다.)"
         Text_En="(At that moment, a loud crash echoes as the door bursts open, and a grotesque monster appears. It unfurls leathery wings and roars.)"
@@ -325,6 +335,7 @@
         Text_Ko="자, 저 녀석은 신경쓰지 말고 나가보자고... 응?"
         Text_En="Forget about her, let's get out of here... huh?"
     />
+    <PlaySfx Type="Explosion" />
     <Text
         Text_Ko="(멀리서 굉음이 들려온다.)"
         Text_En="(A loud noise is heard from afar.)"
@@ -333,6 +344,7 @@
         Text_Ko="(당신이 소리가 들려온 곳으로 가보자, 연구소 밖으로 나가는 출구가 막혀있다.)"
         Text_En="(As you head towards the sound, you find that the exit from the lab is blocked.)"
     />
+    <ResumeBgm />
     <Text
         Text_Ko="정말이지, 귀찮게 됐군..."
         Text_En="Seriously, this is getting annoying..."

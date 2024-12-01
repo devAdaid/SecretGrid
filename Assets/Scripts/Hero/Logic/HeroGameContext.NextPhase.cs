@@ -13,10 +13,9 @@ public partial class HeroGameContext
     private List<HeroGameCaseStaticData> PickSpecialCaseStaticDataList()
     {
         var result = new List<HeroGameCaseStaticData>();
-        var randomPickCount = Math.Min(3, specialCasePool.Count);
-        specialCasePool.Shuffle();
+        var pickCount = Math.Min(3, specialCasePool.Count);
 
-        for (var caseIndex = 0; caseIndex < randomPickCount; caseIndex++)
+        for (var caseIndex = 0; caseIndex < pickCount; caseIndex++)
         {
             result.Add(specialCasePool[caseIndex]);
         }

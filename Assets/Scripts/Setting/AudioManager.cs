@@ -9,6 +9,8 @@ public enum BGMType
     Title = 10,
 
     Dialogue1 = 15,
+    Dialogue_Tension,
+    Dialogue_Xeros,
 
     Game1 = 20,
     Game2,
@@ -38,6 +40,9 @@ public enum SFXType
     Secret,
     Noise,
     Explosion,
+    Disconnect,
+    Alarm,
+    Phone,
 }
 
 [Serializable]

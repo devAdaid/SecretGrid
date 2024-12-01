@@ -21,12 +21,10 @@
             <Item
                 Text_Ko="(침묵한다.)"
                 Text_En="(Stay silent.)"
-                CommandIndex="4"
             />
             <Item
                 Text_Ko="그래서, 오늘의 임무는?"
                 Text_En="So, what's today's mission?"
-                CommandIndex="4"
             />
         </Choices>
     </Choice>
@@ -47,12 +45,10 @@
             <Item
                 Text_Ko="그건 그렇고, 내 잃어버린 기억은..."
                 Text_En="By the way, about my lost memories..."
-                CommandIndex="9"
             />
             <Item
                 Text_Ko="이 사건을 해결하고 오면, 네가 숨기는 것에 대해 말해줘."
                 Text_En="After I handle this, tell me about what you're hiding."
-                CommandIndex="9"
             />
         </Choices>
     </Choice>
@@ -64,6 +60,7 @@
         Text_Ko="그나저나..."
         Text_En="By the way..."
     />
+    <PauseBgm />
     <Text
         Text_Ko="혹시 나한테 숨기고 있는 것 있지 않아?"
         Text_En="Are you hiding something from me?"
@@ -73,22 +70,23 @@
             <Item
                 Text_Ko="(침묵한다.)"
                 Text_En="(Stay silent.)"
-                CommandIndex="13"
             />
             <Item
                 Text_Ko="아무 것도 없어."
                 Text_En="Nothing at all."
-                CommandIndex="13"
             />
             <Item
                 Text_Ko="내가 말해줄 의무는 없지."
                 Text_En="I'm not obligated to tell you anything."
-                CommandIndex="13"
             />
         </Choices>
     </Choice>
     <Text
-        Text_Ko="...어쨌든, 이번 일도 잘 해보자. 지금은 임무가 우선이니까."
-        Text_En="...Anyway, let's handle this well too. For now, the mission comes first."
+        Text_Ko="......"
+        Text_En="......"
+    />
+    <Text
+        Text_Ko="어쨌든, 이번 일도 잘 해보자. 지금은 임무가 우선이니까."
+        Text_En="Anyway, let's handle this well too. For now, the mission comes first."
     />
 </DialogueCommands>
