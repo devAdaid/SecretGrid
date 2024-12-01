@@ -45,7 +45,7 @@
     />
     <Text
         Text_Ko="(당신은 놀라며 그 소리에 집중해 보지만, 단어의 의미를 이해할 수 없다. 머리가 어지럽고, 이상한 기분이 든다.)"
-        Text_En="(You focus on the sound in surprise, but can’t make sense of the words. Your head spins and you feel strange.)"
+        Text_En="(You focus on the sound in surprise, but can't make sense of the words. Your head spins and you feel strange.)"
     />
     <SpeakerSprite
         SpritePath_Ko="Sprites/Character/K"
@@ -57,13 +57,13 @@
     />
     <Text
         Text_Ko="무슨 일이야?"
-        Text_En="What’s going on?"
+        Text_En="What's going on?"
     />
     <Choice>
         <Choices>
             <Item
                 Text_Ko="아무 것도 아니야."
-                Text_En="It’s nothing."
+                Text_En="It's nothing."
             />
             <Item
                 Text_Ko="이상한 목소리가..."
@@ -73,10 +73,10 @@
     </Choice>
     <Text
         Text_Ko="흠, 피곤해서 그런 건가..."
-        Text_En="Hmm, maybe it’s just because you're tired..."
+        Text_En="Hmm, maybe it's just because you're tired..."
     />
     <Text
         Text_Ko="오늘은 푹 쉬고 내일부터 다시 시작하자."
-        Text_En="Let’s rest today and start again tomorrow."
+        Text_En="Let's rest today and start again tomorrow."
     />
 </DialogueCommands>

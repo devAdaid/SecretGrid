@@ -21,7 +21,7 @@
     />
     <Text
         Text_Ko="(제로스는 당신을 어딘가에 던져 넣는다. 사방이 깜깜해 아무것도 보이지 않는다.)"
-        Text_En="(Xeros throws you into something. It’s pitch dark, and you can’t see a thing.)"
+        Text_En="(Xeros throws you into something. It's pitch dark, and you can't see a thing.)"
     />
     <Choice>
         <Choices>
@@ -37,11 +37,11 @@
     </Choice>
     <Text
         Text_Ko="후, 아직도 기억이 불완전한가? 우린 집으로 갈거야."
-        Text_En="Hah, still incomplete memories? We’re going HOME."
+        Text_En="Hah, still incomplete memories? We're going HOME."
     />
     <Text
         Text_Ko="꽉 붙잡고 있으라고! 이제 시동을 걸 거니까!"
-        Text_En="Hold on tight! I’m starting it up now!"
+        Text_En="Hold on tight! I'm starting it up now!"
     />
     <Text
         Text_Ko="(갑작스러운 충격과 함께 모든 것이 흔들린다. 어둠 속에서 불현듯 이곳에서의 기억들이 스쳐 지나간다. 낯선 장소들, 낯선 사람들, 그리고 낯선 자신.)"

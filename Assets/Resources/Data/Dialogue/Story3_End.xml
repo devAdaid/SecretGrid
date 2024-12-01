@@ -15,7 +15,7 @@
         <Choices>
             <Item
                 Text_Ko="슬슬 내 잃어버린 기억에 대해 듣고 싶은데..."
-                Text_En="I’m starting to want to hear about my lost memories..."
+                Text_En="I'm starting to want to hear about my lost memories..."
                 CommandIndex="4"
             />
             <Item
@@ -116,7 +116,7 @@
     </Choice>
     <Text
         Text_Ko="아, 드디어! 저번부터 계속 불렀는데, 이제서야 대답하는구만..."
-        Text_En="Ah, finally! I’ve been calling you since last time, and now you’re answering..."
+        Text_En="Ah, finally! I've been calling you since last time, and now you're answering..."
     />
     <SpeakerName
         Text_Ko="제로스"
@@ -128,7 +128,7 @@
     />
     <Text
         Text_Ko="계속 찾고 있었다고. 이제 돌아가자."
-        Text_En="I’ve been searching for you. Let’s go back now."
+        Text_En="I've been searching for you. Let's go back now."
     />
     <Choice>
         <Choices>
@@ -139,7 +139,7 @@
             />
             <Item
                 Text_Ko="무슨 이야기를 하는 건지 전혀 모르겠어."
-                Text_En="I have no idea what you’re talking about."
+                Text_En="I have no idea what you're talking about."
                 CommandIndex="20"
             />
         </Choices>
@@ -150,7 +150,7 @@
     />
     <Text
         Text_Ko="네가 누구인지도 기억이 안 나는거야?"
-        Text_En="You don’t even remember who you are?"
+        Text_En="You don't even remember who you are?"
     />
     <Choice>
         <Choices>
@@ -161,7 +161,7 @@
             />
             <Item
                 Text_Ko="네가 뭐라고 하는지 잘 들리지가 않아."
-                Text_En="I can’t hear you clearly."
+                Text_En="I can't hear you clearly."
                 CommandIndex="23"
             />
         </Choices>
@@ -179,7 +179,7 @@
             />
             <Item
                 Text_Ko="내 사이드킥이 내가 비밀 히어로라고 말해줬어."
-                Text_En="My sidekick told me I’m a Secret Hero."
+                Text_En="My sidekick told me I'm a Secret Hero."
                 CommandIndex="26"
             />
             <Item
@@ -199,11 +199,11 @@
     />
     <Text
         Text_Ko="그 사람 말을 믿지 마."
-        Text_En="Don’t trust what they said."
+        Text_En="Don't trust what they said."
     />
     <Text
         Text_Ko="너는 히어로 같은 게 아니라..."
-        Text_En="You’re not a hero, you know..."
+        Text_En="You're not a hero, you know..."
     />
     <Text
         Text_Ko="(그 순간, 무언가 쿵하는 커다란 소리가 끼어들어, 그의 말을 끊는다.)"
@@ -211,10 +211,10 @@
     />
     <Text
         Text_Ko="젠장! 다음에 다시 연락하겠어."
-        Text_En="Damn it! I’ll contact you again later."
+        Text_En="Damn it! I'll contact you again later."
     />
     <Text
         Text_Ko="참, 나와 연락했던 걸 들키진 말고."
-        Text_En="By the way, don’t let anyone find out we were in contact."
+        Text_En="By the way, don't let anyone find out we were in contact."
     />
 </DialogueCommands>

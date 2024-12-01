@@ -25,7 +25,7 @@
     />
     <Text
         Text_Ko="그렇지만 네 능력은 아직 완전히 돌아오지 않았어."
-        Text_En="But your abilities haven’t fully returned yet."
+        Text_En="But your abilities haven't fully returned yet."
     />
     <Choice>
         <Choices>
@@ -41,11 +41,11 @@
     </Choice>
     <Text
         Text_Ko="이렇게 계속 사람들을 도와 나가면 능력을 되찾을 수 있을거야."
-        Text_En="If you keep helping people like this, you’ll regain your abilities."
+        Text_En="If you keep helping people like this, you'll regain your abilities."
     />
     <Text
         Text_Ko="힘도 강해지고, 민첩해지고, 똑똑해지고..."
-        Text_En="You’ll become stronger, faster, and smarter..."
+        Text_En="You'll become stronger, faster, and smarter..."
     />
     <Text
         Text_Ko="그렇지만 명심해."
@@ -70,11 +70,11 @@
     />
     <Text
         Text_Ko="지금은 말할 수 없어."
-        Text_En="I can’t tell you right now."
+        Text_En="I can't tell you right now."
     />
     <Text
         Text_Ko="때가 되면 너도 알게 될 거야. 하지만 지금은 네가 할 수 있는 일을 해줘."
-        Text_En="You’ll understand when the time comes. But for now, do what you can."
+        Text_En="You'll understand when the time comes. But for now, do what you can."
     />
     <Text
         Text_Ko="'비밀 히어로'로서 말이야."

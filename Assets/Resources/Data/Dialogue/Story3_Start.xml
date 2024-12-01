@@ -25,7 +25,7 @@
     </Choice>
     <Text
         Text_Ko="이번에는 모기는 아니야. 뿔이 달린 박쥐처럼 생긴 괴물이 도시 한복판에 출몰했어."
-        Text_En="This time it’s not a mosquito. A monster that looks like a bat with horns has appeared in the middle of the city."
+        Text_En="This time it's not a mosquito. A monster that looks like a bat with horns has appeared in the middle of the city."
     />
     <Choice>
         <Choices>
@@ -49,6 +49,6 @@
     />
     <Text
         Text_Ko="...어쨌거나, 이번에도 잘 진행해보자고."
-        Text_En="...Anyway, let’s handle this well like last time."
+        Text_En="...Anyway, let's handle this well like last time."
     />
 </DialogueCommands>

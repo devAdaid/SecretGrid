@@ -25,7 +25,7 @@
     </Choice>
     <Text
         Text_Ko="크게 어려운 일은 아니야. 근처 숲에서 괴물이 나타났다는 신고가 들어왔어. 지나가는 사람들을 습격하고 있다더군."
-        Text_En="It’s nothing too difficult. There’s been a report of a monster appearing in the nearby forest, attacking passersby."
+        Text_En="It's nothing too difficult. There's been a report of a monster appearing in the nearby forest, attacking passersby."
     />
     <Text
         Text_Ko="커다란 모기처럼 생겼다고 하는데... 날개를 퍼덕이며 아주 빠르게 움직인다고 해."
@@ -35,7 +35,7 @@
         <Choices>
             <Item
                 Text_Ko="모기 괴물이라니, 끔찍하네."
-                Text_En="A mosquito monster? That’s horrifying."
+                Text_En="A mosquito monster? That's horrifying."
             />
             <Item
                 Text_Ko="실력 발휘를 해볼까."
@@ -49,6 +49,6 @@
     </Choice>
     <Text
         Text_Ko="어쨌든, 해보자고."
-        Text_En="Anyway, let’s do this."
+        Text_En="Anyway, let's do this."
     />
 </DialogueCommands>
