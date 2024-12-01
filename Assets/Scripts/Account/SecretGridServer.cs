@@ -146,6 +146,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         using var www = UnityWebRequest.Post($"{serverAddr}/login", formData);
         www.SetRequestHeader("X-User-Id", userId);
         www.SetRequestHeader("X-Public", A_hex);
+        www.timeout = 10;
         yield return www.SendWebRequest();
 
         if (www.result == UnityWebRequest.Result.Success)
@@ -240,6 +241,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         using var www = UnityWebRequest.Post($"{serverAddr}/clientSessionProof", formData);
         www.SetRequestHeader("X-User-Id", userId);
         www.SetRequestHeader("X-Client-Session-Proof", Utils.ToHex(clientSessionProof));
+        www.timeout = 10;
         yield return www.SendWebRequest();
 
         if (www.result == UnityWebRequest.Result.Success)
@@ -315,6 +317,12 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
     private IEnumerator SendSecureMessageCoro_Internal(string plaintext)
     {
+        if (IsLoggedIn == false)
+        {
+            Debug.LogError($"Not connected to server. Is server '{serverAddr}' running? Sending the secure mssage '{plaintext}' failed.}");
+            yield break;
+        }
+        
         messageCounter++;
 
         var iv = new byte[16];
@@ -335,6 +343,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
 
         using var www = UnityWebRequest.Post($"{serverAddr}/message", $"{encryptedB64}&{ivB64}", "text/plain");
         www.SetRequestHeader("X-User-Id", userId);
+        www.timeout = 10;
         yield return www.SendWebRequest();
 
         if (www.responseCode == (long)HttpStatusCode.OK)
@@ -428,6 +437,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         www.SetRequestHeader("X-User-Id", userId);
         www.SetRequestHeader("X-Salt", Utils.ToHex(userRecord.Salt));
         www.SetRequestHeader("X-Verifier", Utils.ToHex(userRecord.Verifier.ToByteArray(isUnsigned: true, isBigEndian: true)));
+        www.timeout = 10;
         yield return www.SendWebRequest();
 
         if (serverLogText)
@@ -446,6 +456,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         www.SetRequestHeader("X-Stage-Id", stageId);
         www.SetRequestHeader("X-Score", score.ToString());
         www.SetRequestHeader("X-User-Nickname", nicknameBase64);
+        www.timeout = 10;
         yield return www.SendWebRequest();
 
         if (www.result == UnityWebRequest.Result.Success)
