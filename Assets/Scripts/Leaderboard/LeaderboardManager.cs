@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Globalization;
-using ConditionalDebug;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,11 +12,6 @@ public class LeaderboardManager : MonoBehaviour
     [SerializeField]
     [FormerlySerializedAs("RankPrefab")]
     private GameObject rankPrefab;
-    
-    [SerializeField]
-    [FormerlySerializedAs("scollViewContent")]
-    [FormerlySerializedAs("ScollViewContent")]
-    private GameObject scrollViewContent;
     
     [SerializeField]
     private ScrollRect scrollRect;
@@ -68,7 +61,7 @@ public class LeaderboardManager : MonoBehaviour
         for (var index = 0; index < SecretGridServer.I.CachedLeaderboardResult.entries.Count; index++)
         {
             var entry = SecretGridServer.I.CachedLeaderboardResult.entries[index];
-            var myInstance = Instantiate(rankPrefab, scrollViewContent.transform);
+            var myInstance = Instantiate(rankPrefab, scrollRect.content.transform);
 
             entryHeight = myInstance.GetComponent<RectTransform>().rect.height;
             
@@ -98,16 +91,19 @@ public class LeaderboardManager : MonoBehaviour
             var h = scrollRect.GetComponent<RectTransform>().rect.height;
             var H = scrollRect.content.rect.height;
 
-            var x = entryHeight / 2 + myEntryIndex * entryHeight;
-            var y = -1.0f / (H - h) * x + (H - h / 2) / (H - h);
+            if (H - h != 0)
+            {
+                var x = entryHeight / 2 + myEntryIndex * entryHeight;
+                var y = -1.0f / (H - h) * x + (H - h / 2) / (H - h);
 
-            scrollRect.verticalNormalizedPosition = y;
+                scrollRect.verticalNormalizedPosition = y;
+            }
         }
     }
 
     private void DestroyAllEntries()
     {
-        foreach (Transform child in scrollViewContent.transform)
+        foreach (Transform child in scrollRect.content.transform)
         {
             Destroy(child.gameObject);
         }
