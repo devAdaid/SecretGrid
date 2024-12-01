@@ -43,6 +43,7 @@ public enum SFXType
     Disconnect,
     Alarm,
     Phone,
+    Damage,
 }
 
 [Serializable]

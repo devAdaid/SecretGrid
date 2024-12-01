@@ -491,3 +491,5 @@ MonoBehaviour:
     AudioClip: {fileID: 8300000, guid: da46b00d81b12d0429e5e02fe588b6cd, type: 3}
   - SFXType: 12
     AudioClip: {fileID: 8300000, guid: 6158c1b51748aab43932e8ebe8633f0c, type: 3}
+  - SFXType: 13
+    AudioClip: {fileID: 8300000, guid: 38f4ed472326a7a4687085dd45d7a1d1, type: 3}

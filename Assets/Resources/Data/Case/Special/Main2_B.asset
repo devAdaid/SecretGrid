@@ -14,18 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixedDay: 0
   Sprite: {fileID: 21300000, guid: 544c0b79ffe0d3b4f9f9ded89559907f, type: 3}
-  Title_Ko: "(\uC784\uC2DC) 2\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 B"
-  Title_En: "(\uC784\uC2DC) 2\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 B"
-  Description_Ko: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
-    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
-    \uD568"
-  Description_En: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
-    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
-    \uD568"
+  Title_Ko: "\uC774\uBE68 \uBB34\uB825\uD654"
+  Title_En: Attack body
+  Description_Ko: "\uBC15\uC950\uC758 \uC774\uBE68\uC744 \uBB34\uB825\uD654\uD558\uC5EC
+    \uACF5\uACA9\uC744 \uBC29\uC9C0\uD55C\uB2E4."
+  Description_En: Neutralize the bat's teeth to prevent attacks.
   Selections:
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
-    Description_En: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
+    Description_Ko: "\uB2E8\uB2E8\uD55C \uBB3C\uCCB4\uB97C \uC539\uAC8C \uD558\uB3C4\uB85D
+      \uC720\uB3C4\uD55C\uB2E4."
+    Description_En: Trick the enemy into biting a hard object.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 0
     FixedStatReward:
@@ -38,8 +36,9 @@ MonoBehaviour:
       Agility: 60
       Intelligence: 60
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134"
-    Description_En: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134"
+    Description_Ko: "\uC904\uC744 \uC774\uC6A9\uD574 \uC7AC\uBE68\uB9AC \uC785\uC744
+      \uBB36\uC5B4\uBC84\uB9B0\uB2E4."
+    Description_En: Quickly tie the mouth with a rope.
     DecreaseSecretValueOnFail: 2
     RandomMainRewardStatType: 0
     FixedStatReward:
@@ -49,5 +48,5 @@ MonoBehaviour:
       Secret: 0
     FixedStatRequirement:
       Strength: 90
-      Agility: 75
+      Agility: 90
       Intelligence: 75

@@ -7,6 +7,7 @@
         Text_Ko="박사 K"
         Text_En="Dr. K"
     />
+    <PlayBgm Type="Dialogue" />
     <Text
         Text_Ko="하아... 하아... 휴, 이제 한숨 돌릴 수 있겠네."
         Text_En="Hah... hah... finally, I can catch my breath."
@@ -46,6 +47,7 @@
         SpritePath_Ko="Sprites/Empty"
         SpritePath_En="Sprites/Empty"
     />
+    <PauseBgm />
     <PlaySfx Type="Noise" />
     <Text
         Text_Ko="(그 순간, 죽어 있는 줄로만 알았던 보라색 괴물이 박사 K에게 달려든다.)"
@@ -174,6 +176,7 @@
             />
         </Choices>
     </Choice>
+    <ResumeBgm />
     <Label Name="Rocket" />
     <Text
         Text_Ko="(당신은 기계에 탑승해 몸을 맡긴 채, 눈을 감는다.)"

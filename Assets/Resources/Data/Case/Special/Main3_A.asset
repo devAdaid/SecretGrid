@@ -14,18 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixedDay: 17
   Sprite: {fileID: 21300000, guid: bc58885e7d6111d4db48f9eaa66908ce, type: 3}
-  Title_Ko: "(\uC784\uC2DC) 3\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 A"
-  Title_En: "(\uC784\uC2DC) 3\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 A"
-  Description_Ko: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
-    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
-    \uD568"
-  Description_En: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
-    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
-    \uD568"
+  Title_Ko: "\uB2E4\uB9AC \uACF5\uACA9"
+  Title_En: Attack leg
+  Description_Ko: "\uB2E4\uB9AC\uB97C \uACF5\uACA9\uD574 \uC6C0\uC9C1\uC784\uC744
+    \uBD09\uC1C4\uD55C\uB2E4."
+  Description_En: Attack the legs to immobilize movement.
   Selections:
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
-    Description_En: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
+    Description_Ko: "\uD568\uC815\uC744 \uC124\uCE58\uD574 \uB2E4\uB9AC\uB97C \uACF5\uACA9\uD55C\uB2E4."
+    Description_En: Use a trap to target the legs.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 0
     FixedStatReward:
@@ -38,10 +35,8 @@ MonoBehaviour:
       Agility: 200
       Intelligence: 200
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134
-      - \uD798,\uBBFC\uCCA9"
-    Description_En: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134
-      - \uD798,\uBBFC\uCCA9"
+    Description_Ko: "\uACF5\uACA9\uC744 \uD68C\uD53C\uD558\uBA70 \uBC18\uACA9\uD55C\uB2E4."
+    Description_En: Dodge the attack and strike back.
     DecreaseSecretValueOnFail: 2
     RandomMainRewardStatType: 0
     FixedStatReward:

@@ -14,18 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FixedDay: 10
   Sprite: {fileID: 21300000, guid: 544c0b79ffe0d3b4f9f9ded89559907f, type: 3}
-  Title_Ko: "(\uC784\uC2DC) 2\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 A"
-  Title_En: "(\uC784\uC2DC) 2\uBC88\uC9F8 \uBA54\uC778 \uC784\uBB34 A"
-  Description_Ko: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
-    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
-    \uD568"
-  Description_En: "(\uC784\uC2DC) \uBA54\uC778 \uC784\uBB34 - \uC81C\uD55C\uB41C
-    \uD134 \uB0B4\uC5D0 \uBAA8\uB4E0 \uCF00\uC774\uC2A4\uB97C \uD074\uB9AC\uC5B4\uD574\uC57C
-    \uD568"
+  Title_Ko: "\uD0D0\uC9C0 \uB2A5\uB825 \uBB34\uB825\uD654"
+  Title_En: Attack ears
+  Description_Ko: "\uD0D0\uC9C0 \uB2A5\uB825\uC744 \uBB34\uB825\uD654\uD558\uC5EC
+    \uC880 \uB354 \uAE30\uC2B5\uC774 \uC27D\uB3C4\uB85D \uB9CC\uB4E0\uB2E4."
+  Description_En: Disable detection ability for easier ambushes.
   Selections:
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
-    Description_En: "(\uC784\uC2DC) \uADE0\uB4F1\uD55C \uC870\uAC74"
+    Description_Ko: "\uCD08\uC74C\uD30C\uB97C \uAD50\uB780\uD574 \uD0D0\uC9C0 \uB2A5\uB825\uC744
+      \uBC29\uD574\uD55C\uB2E4."
+    Description_En: Disrupt ultrasonic waves to impair detection.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 0
     FixedStatReward:
@@ -38,8 +36,8 @@ MonoBehaviour:
       Agility: 70
       Intelligence: 70
   - Type: 1
-    Description_Ko: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134"
-    Description_En: "(\uC784\uC2DC) \uD558\uC774\uB9AC\uC2A4\uD06C \uD558\uC774\uB9AC\uD134"
+    Description_Ko: "\uAC00\uAE4C\uC774 \uB2E4\uAC00\uAC00 \uADC0\uB97C \uACF5\uACA9\uD55C\uB2E4."
+    Description_En: Approach and attack the ears.
     DecreaseSecretValueOnFail: 2
     RandomMainRewardStatType: 0
     FixedStatReward:
