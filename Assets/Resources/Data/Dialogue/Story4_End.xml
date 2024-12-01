@@ -57,7 +57,7 @@
     <PlayBgm Type="Dialogue_Xeros" />
     <Text
         Text_Ko="후, 겨우 따돌렸네."
-        Text_En="Phew, I finally shook him off."
+        Text_En="Phew, I finally shook her off."
     />
     <Choice>
         <Choices>
