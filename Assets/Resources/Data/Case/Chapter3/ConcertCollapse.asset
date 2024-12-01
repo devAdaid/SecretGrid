@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ConcertCollapse
   m_EditorClassIdentifier: 
   FixedDay: 0
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 70ecd7388029efb4fb8b114a420fd5f9, type: 3}
   Title_Ko: "\uACF5\uC5F0\uC7A5 \uBD95\uAD34 \uC0AC\uACE0"
   Title_En: Concert hall collapse
   Description_Ko: "\uB300\uD615 \uCF58\uC11C\uD2B8 \uC911 \uACF5\uC5F0\uC7A5\uC774

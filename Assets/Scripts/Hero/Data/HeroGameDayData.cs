@@ -15,6 +15,7 @@ public class HeroGameDayData : ScriptableObject
     public TextAsset DayEndDialogue;
 
     public int MaxPhase;
+    public HeroGameCaseStatRequirement RecommendRequirement;
     public string NormalCaseGroupName;
     public List<HeroGameCaseScriptableData> CaseIdList;
 }
