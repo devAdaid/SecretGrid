@@ -99,10 +99,18 @@
         Text_Ko="%@*$$^@!#"
         Text_En="%@*$$^@!#"
     />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/QR"
+        SpritePath_En="Sprites/QR"
+    />
     <PlaySfx Type="Noise" />
     <Text
         Text_Ko="$!^$!@^$%!$!!%@$^"
         Text_En="$!^$!@^$%!$!!%@$^"
+    />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/Xeros"
+        SpritePath_En="Sprites/Character/Xeros"
     />
     <PlaySfx Type="Noise" />
     <Text

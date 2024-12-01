@@ -1,4 +1,4 @@
-If you click multiple times when working...
+Use "Go to file".
 
 
 
@@ -8,4 +8,4 @@ If you click multiple times when working...
 
 
 
-· − · · 
+· −
