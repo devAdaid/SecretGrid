@@ -8,6 +8,8 @@ public enum BGMType
 
     Title = 10,
 
+    Dialogue1 = 15,
+
     Game1 = 20,
     Game2,
     Game3,
@@ -17,7 +19,7 @@ public enum BGMType
     Boss1 = 30,
     Boss2,
 
-    Final = 40
+    Final = 50
 }
 
 public enum SFXType
@@ -30,6 +32,7 @@ public enum SFXType
     Wait,
     Type,
     Secret,
+    Noise,
 }
 
 [Serializable]

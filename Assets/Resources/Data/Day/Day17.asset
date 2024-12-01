@@ -13,11 +13,18 @@ MonoBehaviour:
   m_Name: Day17
   m_EditorClassIdentifier: 
   Day: 17
+  IsLastDay: 0
   IsDayStartDialogueSkippable: 1
   DayStartDialogue: {fileID: 4900000, guid: 8aace1d751d0d1f4eac8e3ce1a172d43, type: 3}
+  DayStartBgm: 31
   IsDayEndDialogueSkippable: 0
   DayEndDialogue: {fileID: 4900000, guid: 2f0ff9827d3521543884a41839d6f04a, type: 3}
   MaxPhase: 5
+  RecommendRequirement:
+    Strength: 0
+    Agility: 0
+    Intelligence: 0
+  NormalCaseGroupName: 
   CaseIdList:
   - {fileID: 11400000, guid: bef8ec0e51e845a4faf74427647e014d, type: 2}
   - {fileID: 11400000, guid: 2e41c22985a54b3459cc0a06d4697849, type: 2}

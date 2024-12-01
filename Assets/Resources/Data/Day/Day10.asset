@@ -16,10 +16,14 @@ MonoBehaviour:
   IsLastDay: 0
   IsDayStartDialogueSkippable: 1
   DayStartDialogue: {fileID: 4900000, guid: 99ed14d644811b04089b2db807845a75, type: 3}
-  DayStartBgm: 0
+  DayStartBgm: 30
   IsDayEndDialogueSkippable: 1
   DayEndDialogue: {fileID: 4900000, guid: 5b6b73c078566114d80a933ec882c27b, type: 3}
   MaxPhase: 5
+  RecommendRequirement:
+    Strength: 0
+    Agility: 0
+    Intelligence: 0
   NormalCaseGroupName: Chapter3
   CaseIdList:
   - {fileID: 11400000, guid: 746b764df47c7d24eb186319e65fd395, type: 2}

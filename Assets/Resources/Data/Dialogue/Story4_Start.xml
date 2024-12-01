@@ -1,4 +1,5 @@
 <DialogueCommands>
+    <PlayBgm Type="Dialogue1" />
     <SpeakerSprite
         SpritePath_Ko="Sprites/Character/K"
         SpritePath_En="Sprites/Character/K"

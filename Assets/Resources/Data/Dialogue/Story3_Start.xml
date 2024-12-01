@@ -1,4 +1,5 @@
 <DialogueCommands>
+    <PlayBgm Type="Dialogue1" />
     <SpeakerName
         Text_Ko="박사 K"
         Text_En="Dr. K"
