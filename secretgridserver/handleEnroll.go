@@ -29,8 +29,10 @@ func handleEnroll(c *gin.Context) {
 		return
 	}
 
+	// 이미 존재하는 User ID에 대해 다시 왔다면... (일반적으론 그럴 수 없지만)
+	// 그냥 오류 아닌 걸로 치자. 클라이언트에서는 매번 enroll을 호출한다. 신규 가입 절차가 따로 없기 때문.
 	if verifierExists {
-		c.Writer.WriteHeader(401)
+		c.Writer.WriteHeader(200)
 		return
 	}
 
