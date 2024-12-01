@@ -7,7 +7,7 @@
         Text_Ko="박사 K"
         Text_En="Dr. K"
     />
-    <PlayBgm Type="Dialogue" />
+    <PlayBgm Type="Dialogue1" />
     <Text
         Text_Ko="하아... 하아... 휴, 이제 한숨 돌릴 수 있겠네."
         Text_En="Hah... hah... finally, I can catch my breath."
