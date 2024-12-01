@@ -65,10 +65,8 @@ public class LeaderboardManager : MonoBehaviour
         
         Testcount = 0;
         
-        for (int i = 0; i < secretGridServer.CachedLeaderboardResult.entries.Count; i++)
+        foreach (var entry in secretGridServer.CachedLeaderboardResult.entries)
         {
-            var entry = secretGridServer.CachedLeaderboardResult.entries[i];
-            
             GameObject myInstance = Instantiate(RankPrefab, ScollViewContent.transform);
             myInstance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (entry.rank + 1).ToString();
             myInstance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = entry.nickname;
@@ -79,9 +77,11 @@ public class LeaderboardManager : MonoBehaviour
             myInstance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = entry.score.ToString(CultureInfo.InvariantCulture);
 
             Testcount++;
-            if (i == secretGridServer.CachedLeaderboardResult.myRank)
+            
+            // 나의 정보는 빨간색 표시
+            if (entry.rank == secretGridServer.CachedLeaderboardResult.myRank)
             {
-                myInstance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255); // 나의 정보는 빨간색 표시
+                myInstance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
                 myInstance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
                 myInstance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
                 targetItem = myInstance;

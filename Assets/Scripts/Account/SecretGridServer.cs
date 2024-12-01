@@ -268,21 +268,13 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
                 
                 IsLoggedIn = true;
                 
+                // 닉네임 정보 서버로 전달한다.
                 yield return SendSecureMessageCoro_Internal($"SetNickname\t{nickname}");
 
                 if (lastResponseStr != "OK")
                 {
                     Debug.LogError($"Network protocol error 1");
                 }
-
-                yield return SendSecureMessageCoro_Internal($"GetLeaderboard\tteststage");
-
-                CachedLeaderboardResult ??= new LeaderboardResult();
-
-                JsonUtility.FromJsonOverwrite(lastResponseStr, CachedLeaderboardResult);
-
-                Debug.Log("== Leaderboard Result ==");
-                Debug.Log(JsonUtility.ToJson(CachedLeaderboardResult));
             }
         }
 
@@ -296,7 +288,7 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
     {
         yield return SendSecureMessageCoro("GetLeaderboard", stageId);
         
-        CachedLeaderboardResult ??= new LeaderboardResult();
+        CachedLeaderboardResult = new LeaderboardResult();
 
         JsonUtility.FromJsonOverwrite(lastResponseStr, CachedLeaderboardResult);
     }
@@ -444,86 +436,6 @@ public class SecretGridServer : MonoSingleton<SecretGridServer>
         {
             serverLogText.text = www.result == UnityWebRequest.Result.Success ? www.downloadHandler.text : www.error;
         }
-    }
-
-    public IEnumerator SubmitScoreCoro(string stageId, int score)
-    {
-        var nicknameBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(nickname));
-
-        var formData = new List<IMultipartFormSection>();
-        using var www = UnityWebRequest.Post($"{serverAddr}/score", formData);
-        www.SetRequestHeader("X-User-Id", userId);
-        www.SetRequestHeader("X-Stage-Id", stageId);
-        www.SetRequestHeader("X-Score", score.ToString());
-        www.SetRequestHeader("X-User-Nickname", nicknameBase64);
-        www.timeout = 10;
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.Success)
-        {
-            CachedLeaderboardResult = ParseResult(www.downloadHandler.text);
-        }
-        else
-        {
-            ConDebug.LogError($"SubmitScoreCoro: Failed to parse result: {www.error} ({www.url})");
-        }
-
-        if (serverLogText)
-        {
-            serverLogText.text = CachedLeaderboardResult != null ? CachedLeaderboardResult.ToString() : www.error;
-        }
-    }
-
-    public IEnumerator GetLeaderboardResultCoro(string stageId)
-    {
-        yield return SubmitScoreCoro(stageId, -1);
-    }
-
-    private static LeaderboardResult ParseResult(string resultText)
-    {
-        LeaderboardResult result = new LeaderboardResult {
-            myRank = -1,
-            entries = new List<LeaderboardEntry>(),
-        };
-
-        var resultTokens = resultText.Split("\t");
-        var tokenCounter = 0;
-        if (resultTokens.Length > 0)
-        {
-            result.myRank = int.Parse(resultTokens[tokenCounter]);
-            tokenCounter++;
-            result.myUserId = resultTokens[tokenCounter];
-            tokenCounter++;
-        }
-
-        int myRankIndex = -1;
-
-        while (tokenCounter + 3 <= resultTokens.Length)
-        {
-            var leaderboardEntry = new LeaderboardEntry {
-                userId = resultTokens[tokenCounter],
-                score = float.Parse(resultTokens[tokenCounter + 1]),
-                nickname = resultTokens[tokenCounter + 2],
-            };
-
-            if (leaderboardEntry.userId == result.myUserId)
-            {
-                myRankIndex = result.entries.Count;
-            }
-
-            result.entries.Add(leaderboardEntry);
-
-            tokenCounter += 3;
-        }
-
-        for (var index = 0; index < result.entries.Count; index++)
-        {
-            var entry = result.entries[index];
-
-            entry.rank = index - myRankIndex + result.myRank;
-        }
-
-        return result;
     }
 
     public void SetServerLogText(TextMeshProUGUI inServerLogText)
