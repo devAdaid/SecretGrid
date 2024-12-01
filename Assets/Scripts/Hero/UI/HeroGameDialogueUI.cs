@@ -205,7 +205,6 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     public void ApplySpeakerSprite(string spritePath)
     {
         var sprite = Resources.Load<Sprite>(spritePath);
-        Debug.Log(spritePath);
         speakerImage.sprite = sprite;
     }
 

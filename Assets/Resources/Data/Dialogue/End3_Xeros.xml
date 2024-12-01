@@ -4,7 +4,51 @@
         Text_En="Xeros"
     />
     <Text
-        Text_Ko="(임시) 엔딩3 대화 - 제로스 엔딩"
-        Text_En="(임시) 엔딩3 대화 - 제로스 엔딩"
+        Text_Ko="좋아! 드디어 밖으로 나갈 수 있겠군."
+        Text_En="Alright! We can finally get out of here."
+    />
+    <Text
+        Text_Ko="(당신과 제로스가 바깥으로 나오자, 제로스는 갑자기 당신의 뒷목을 잡아채 든다. 당신은 저항할 새도 없이 공중에 들어 올려진다.)"
+        Text_En="(As you and Xeros step outside, he suddenly grabs the back of your neck and lifts you into the air before you can react.)"
+    />
+    <Text
+        Text_Ko="자, 이제 돌아가자고."
+        Text_En="Now, let's head back."
+    />
+    <Text
+        Text_Ko="(제로스는 당신을 어딘가에 던져 넣는다. 사방이 깜깜해 아무것도 보이지 않는다.)"
+        Text_En="(Xeros throws you into something. It’s pitch dark, and you can’t see a thing.)"
+    />
+    <Choice>
+        <Choices>
+            <Item
+                Text_Ko="으악!"
+                Text_En="Argh!"
+            />
+            <Item
+                Text_Ko="어디로 가는거야?"
+                Text_En="Where are we going?"
+            />
+        </Choices>
+    </Choice>
+    <Text
+        Text_Ko="후, 아직도 기억이 불완전한가? 우린 집으로 갈거야."
+        Text_En="Hah, still incomplete memories? We’re going HOME."
+    />
+    <Text
+        Text_Ko="꽉 붙잡고 있으라고! 이제 시동을 걸 거니까!"
+        Text_En="Hold on tight! I’m starting it up now!"
+    />
+    <Text
+        Text_Ko="(갑작스러운 충격과 함께 모든 것이 흔들린다. 어둠 속에서 불현듯 이곳에서의 기억들이 스쳐 지나간다. 낯선 장소들, 낯선 사람들, 그리고 낯선 자신.)"
+        Text_En="(With a sudden jolt, everything shakes violently. In the darkness, flashes of memories from this place flicker past—unfamiliar locations, unfamiliar people, and an unfamiliar you.)"
+    />
+    <Text
+        Text_Ko="(비밀 히어로는 끝나고, 당신은 원래 있어야 할 곳으로 돌아간다. 그곳이 어디인지는 알 수 없지만.)"
+        Text_En="(Your time as a secret hero ends, and you return to where you truly belong—though where that is, you do not know.)"
+    />
+    <Text
+        Text_Ko="엔딩 3 - 집으로 돌아가는 길"
+        Text_En="Ending 3 - The Way Home"
     />
 </DialogueCommands>

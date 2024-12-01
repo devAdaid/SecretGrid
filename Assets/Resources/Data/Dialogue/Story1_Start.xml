@@ -1,15 +1,23 @@
 <DialogueCommands>
     <SpeakerName
-        Text_Ko="???"
-        Text_En="???"
+        Text_Ko="-"
+        Text_En="-"
     />
     <SpeakerSprite
-        SpritePath_Ko="Sprites/Case/Chapter1/Cat"
-        SpritePath_En="Sprites/Case/Chapter1/Cat"
+        SpritePath_Ko="Sprites/Empty"
+        SpritePath_En="Sprites/Empty"
     />
     <Text
-        Text_Ko="(당신이 눈을 뜨자 낯선 천장이 보인다. 아무것도 기억나지 않는다...)"
-        Text_En="(As you open your eyes, you see an unfamiliar ceiling. You remember nothing...)"
+        Text_Ko="(당신이 눈을 뜨자 낯선 천장이 보인다.)"
+        Text_En="(As you open your eyes, an unfamiliar ceiling comes into view.)"
+    />
+    <Text
+        Text_Ko="(당신은 연구소 같은 공간에 있는 자신을 발견한다. 그렇지만 아무것도 기억나지 않는다...)"
+        Text_En="(You find yourself in a space that looks like a laboratory. But you can't remember anything...)"
+    />
+    <SpeakerName
+        Text_Ko="???"
+        Text_En="???"
     />
     <Text
         Text_Ko="깨어났구나. 다행이야."
