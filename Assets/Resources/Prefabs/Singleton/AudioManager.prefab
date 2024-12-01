@@ -454,6 +454,12 @@ MonoBehaviour:
     AudioClip: {fileID: 8300000, guid: 99d7abf1e12f8ee4bb5e4d99556f98d0, type: 3}
   - BGMType: 31
     AudioClip: {fileID: 8300000, guid: 8ae0a9ee73dfce546b5936248a2f1ad2, type: 3}
+  - BGMType: 50
+    AudioClip: {fileID: 8300000, guid: c944a05460f040741a4ac7ac15b9f93f, type: 3}
+  - BGMType: 61
+    AudioClip: {fileID: 8300000, guid: d571b41344700fd42be1fc9e0a162e85, type: 3}
+  - BGMType: 62
+    AudioClip: {fileID: 8300000, guid: ebb29308f15842742a851b4dde8ceb24, type: 3}
   sfxClips:
   - SFXType: 0
     AudioClip: {fileID: 8300000, guid: 78efc8057b99b9347a25a7663e277a1d, type: 3}

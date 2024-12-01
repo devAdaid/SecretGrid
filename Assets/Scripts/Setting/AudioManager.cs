@@ -19,12 +19,16 @@ public enum BGMType
     Boss1 = 30,
     Boss2,
 
-    Final = 50
+    GameOver = 50,
+
+    End1 = 60,
+    End2,
+    End3,
 }
 
 public enum SFXType
 {
-    BUTTON,
+    Invalid,
     Select,
     Cancel,
     Success,
@@ -102,7 +106,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
         Jammer.PlayerPrefs.SetFloat(KEY_VOLUME_SFX, volume);
     }
 
-    public void PlayBGM(BGMType bgm)
+    public void PlayBGM(BGMType bgm, bool loop = true)
     {
         var clip = bgmMap[bgm];
         if (bgmSource.clip == clip)
@@ -110,6 +114,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
             return;
         }
 
+        bgmSource.loop = loop;
         bgmSource.clip = clip;
         bgmSource.Play();
     }

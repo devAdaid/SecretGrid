@@ -84,7 +84,11 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     {
         textTyper.CharacterPrinted.AddListener((_) => AudioManager.I.PlayTypeSFX(SFXType.Type));
         dialogueBoxButton.onClick.AddListener(RequestProceed);
-        skipButton.AddOnClickListener(EndDialogue);
+        skipButton.AddOnClickListener(() =>
+        {
+            AudioManager.I.PlayTypeSFX(SFXType.Select);
+            EndDialogue();
+        });
     }
 
     private void Update()

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06966baf3d6339c4499819a260df8207, type: 3}
   m_Name: Day11(bgm)
   m_EditorClassIdentifier: 
-  Day: 0
+  Day: 11
   IsLastDay: 0
   IsDayStartDialogueSkippable: 1
   DayStartDialogue: {fileID: 0}

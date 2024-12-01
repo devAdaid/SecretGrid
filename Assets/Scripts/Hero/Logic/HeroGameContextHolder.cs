@@ -197,4 +197,24 @@ public class HeroGameContextHolder : MonoSingleton<HeroGameContextHolder>
         }
         return string.Empty;
     }
+
+    private BGMType GetBgmType(HeroGameProcessNextResult result)
+    {
+        switch (result)
+        {
+            case HeroGameProcessNextResult.GameOverBySecretZero:
+            case HeroGameProcessNextResult.GameOverByRemainPhaseZero:
+                return BGMType.GameOver;
+            case HeroGameProcessNextResult.GameEnd:
+                if (GameContext.dialogueFlag.Contains("Side_K"))
+                {
+                    return BGMType.End2;
+                }
+                else
+                {
+                    return BGMType.End3;
+                }
+        }
+        return BGMType.Invalid;
+    }
 }
