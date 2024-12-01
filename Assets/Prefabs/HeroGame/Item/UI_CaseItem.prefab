@@ -500,6 +500,10 @@ PrefabInstance:
       propertyPath: buttonInitialText
       value: Select
       objectReference: {fileID: 0}
+    - target: {fileID: 2145776166831235511, guid: a71197001c9d84d45b62d261d02923d3, type: 3}
+      propertyPath: buttonInitialText_ko
+      value: "\uC120\uD0DD"
+      objectReference: {fileID: 0}
     - target: {fileID: 2369611050510778503, guid: a71197001c9d84d45b62d261d02923d3, type: 3}
       propertyPath: m_Name
       value: Btn_Select

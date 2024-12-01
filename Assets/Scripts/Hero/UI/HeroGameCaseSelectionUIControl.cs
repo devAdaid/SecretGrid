@@ -30,7 +30,7 @@ public class HeroGameCaseSelectionUIControl : MonoBehaviour
     {
         this.data = data;
 
-        descriptionText.text = data.Selection.StaticData.Description_En;
+        descriptionText.text = CommonSingleton.I.IsKoreanLanguage ? data.Selection.StaticData.Description_Ko : data.Selection.StaticData.Description_En;
         rewardText.text = data.Selection.StatReward.ToUIString();
 
         confirmButton.Apply(data);

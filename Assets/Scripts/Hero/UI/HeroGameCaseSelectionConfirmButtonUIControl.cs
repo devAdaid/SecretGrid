@@ -23,7 +23,7 @@ public class HeroGameCaseSelectionConfirmButtonUIControl : MonoBehaviour, IPoint
     {
         this.data = data;
 
-        button.SetButtonText($"Success\n{data.SuccessPercent}%");
+        button.SetButtonText(CommonSingleton.I.IsKoreanLanguage ? $"성공 확률\n{data.SuccessPercent}%" : $"Success\n{data.SuccessPercent}%");
     }
 
     public void OnPointerEnter(PointerEventData eventData)

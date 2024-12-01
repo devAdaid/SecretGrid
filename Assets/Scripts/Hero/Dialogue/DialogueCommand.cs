@@ -18,7 +18,7 @@ public class D_Text : IDialogueCommand
 
     public void ApplyUI(IHeroGameDialogueUI ui)
     {
-        ui.PlayText(Text_Ko);
+        ui.PlayText(CommonSingleton.I.IsKoreanLanguage ? Text_Ko : Text_En);
     }
 }
 
@@ -57,7 +57,7 @@ public class D_ChoiceItem
 public class D_Label : IDialogueCommand
 {
     public readonly string Name;
-    
+
     public D_Label(string name)
     {
         Name = name;
@@ -115,7 +115,7 @@ public class D_SpeakerName : IDialogueCommand
 
     public void ApplyUI(IHeroGameDialogueUI ui)
     {
-        ui.ApplySpeakerName(Text_Ko);
+        ui.ApplySpeakerName(CommonSingleton.I.IsKoreanLanguage ? Text_Ko : Text_En);
     }
 }
 
@@ -132,7 +132,7 @@ public class D_SpeakerSprite : IDialogueCommand
 
     public void ApplyUI(IHeroGameDialogueUI ui)
     {
-        ui.ApplySpeakerSprite(SpritePath_Ko);
+        ui.ApplySpeakerSprite(CommonSingleton.I.IsKoreanLanguage ? SpritePath_Ko : SpritePath_En);
     }
 }
 

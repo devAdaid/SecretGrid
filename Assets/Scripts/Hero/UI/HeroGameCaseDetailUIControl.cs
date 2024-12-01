@@ -45,8 +45,8 @@ public class HeroGameCaseDetailUIControl : MonoBehaviour
         CaseIndex = data.CaseIndex;
 
         caseImage.sprite = data.CaseStaticData.Sprite;
-        titleText.text = data.CaseStaticData.Title_En;
-        descriptionText.text = data.CaseStaticData.Description_En;
+        titleText.text = CommonSingleton.I.IsKoreanLanguage ? data.CaseStaticData.Title_Ko : data.CaseStaticData.Title_En;
+        descriptionText.text = CommonSingleton.I.IsKoreanLanguage ? data.CaseStaticData.Description_Ko : data.CaseStaticData.Description_En;
 
         for (var i = 0; i < data.SelectionDataList.Count; i++)
         {

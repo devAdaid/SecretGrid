@@ -26,10 +26,12 @@ public class HeroGameStatUI : MonoBehaviour
     {
         settingButton.onClick.AddListener(OnSettingButtonClicked);
     }
-    
+
     public void ApplyWithRemainPhase(int day, int remainPhase, HeroPlayerContext playerContext)
     {
-        dayText.text = $"Day {day} (Remain {remainPhase})";
+        dayText.text = CommonSingleton.I.IsKoreanLanguage ?
+            $"{day}일 ({remainPhase}턴 남음)" :
+            $"Day {day} (Remain {remainPhase})";
 
         ApplyStat(playerContext);
     }
@@ -37,11 +39,11 @@ public class HeroGameStatUI : MonoBehaviour
     public void Apply(int day, HeroPlayerContext playerContext)
     {
         //TODO: 다음 메인 스토리 데이 표시
-        dayText.text = $"Day {day}";
+        dayText.text = CommonSingleton.I.IsKoreanLanguage ? $"{day}일" : $"Day {day}";
 
         ApplyStat(playerContext);
     }
-    
+
     private void ApplyStat(HeroPlayerContext playerContext)
     {
         strengthStatControl.Apply(playerContext.Strength);

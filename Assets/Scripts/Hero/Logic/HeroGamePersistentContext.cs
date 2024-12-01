@@ -19,7 +19,11 @@ public class HeroGamePersistentContext
         AudioManager.I.PlaySFX(SFXType.Secret);
 
         IsSecret3Enabled = enable;
-        //TODO: 텍스트
-        toastUI.Show("SECRET 3 Enabled: 결과를 빠르게 확인할 수 있게 되었습니다.");
+
+        toastUI.Show(
+            CommonSingleton.I.IsKoreanLanguage ?
+            "비밀 3 활성화: 결과를 빠르게 확인할 수 있게 되었습니다." :
+            "SECRET 3 Enabled: You can check the results quickly."
+        );
     }
 }

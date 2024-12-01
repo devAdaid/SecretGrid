@@ -954,7 +954,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2145776166831235511, guid: a71197001c9d84d45b62d261d02923d3, type: 3}
       propertyPath: buttonInitialText
-      value: Skip
+      value: Skip >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145776166831235511, guid: a71197001c9d84d45b62d261d02923d3, type: 3}
+      propertyPath: buttonInitialText_ko
+      value: "\uC2A4\uD0B5 >>"
       objectReference: {fileID: 0}
     - target: {fileID: 2369611050510778503, guid: a71197001c9d84d45b62d261d02923d3, type: 3}
       propertyPath: m_Name
@@ -966,11 +970,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6649745158206778646, guid: a71197001c9d84d45b62d261d02923d3, type: 3}
       propertyPath: m_text
-      value: Skip
+      value: Skip >>
       objectReference: {fileID: 0}
     - target: {fileID: 9150581934724309755, guid: a71197001c9d84d45b62d261d02923d3, type: 3}
       propertyPath: m_text
-      value: Skip
+      value: Skip >>
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

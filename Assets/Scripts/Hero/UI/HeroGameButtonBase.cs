@@ -20,6 +20,10 @@ public class HeroGameButtonBase : MonoBehaviour, IPointerDownHandler, IPointerUp
     private string buttonInitialText;
 
     [SerializeField]
+    [TextArea]
+    private string buttonInitialText_ko;
+
+    [SerializeField]
     private float buttonYOffsetOnPressed = 0.1f;
 
     private Vector3 textLocalPosition;
@@ -29,6 +33,12 @@ public class HeroGameButtonBase : MonoBehaviour, IPointerDownHandler, IPointerUp
     {
         textLocalPosition = buttonText.transform.localPosition;
         textShadowLocalPosition = buttonShadowText.transform.localPosition;
+    }
+
+    private void Start()
+    {
+        buttonText.text = CommonSingleton.I.IsKoreanLanguage ? buttonInitialText_ko : buttonInitialText;
+        buttonShadowText.text = CommonSingleton.I.IsKoreanLanguage ? buttonInitialText_ko : buttonInitialText;
     }
 
     private void OnValidate()

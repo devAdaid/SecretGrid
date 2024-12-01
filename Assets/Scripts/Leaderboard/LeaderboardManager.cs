@@ -19,6 +19,9 @@ public class LeaderboardManager : MonoBehaviour
 
     public GameObject content;
 
+    [SerializeField]
+    private Color highlightColor;
+
     private IEnumerator Start()
     {
         yield return secretGridServer.WaitForReady(); // 서버가 준비될 때까지 기다린다.
@@ -58,14 +61,14 @@ public class LeaderboardManager : MonoBehaviour
         {
             return;
         }
-        
+
         if (secretGridServer.CachedLeaderboardResult.entries == null)
         {
             return;
         }
-        
+
         Testcount = 0;
-        
+
         foreach (var entry in secretGridServer.CachedLeaderboardResult.entries)
         {
             GameObject myInstance = Instantiate(RankPrefab, ScollViewContent.transform);
@@ -78,16 +81,16 @@ public class LeaderboardManager : MonoBehaviour
             myInstance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = entry.score.ToString(CultureInfo.InvariantCulture);
 
             Testcount++;
-            
+
             // 나의 정보는 빨간색 표시
             if (entry.rank == secretGridServer.CachedLeaderboardResult.myRank)
             {
-                myInstance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
-                myInstance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
-                myInstance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().color = new Color32(255, 0, 0, 255);
+                myInstance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = highlightColor;
+                myInstance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().color = highlightColor;
+                myInstance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().color = highlightColor;
                 targetItem = myInstance;
             }
-            
+
             if (Testcount == secretGridServer.CachedLeaderboardResult.entries.Count)
             {
                 EndItem = myInstance;

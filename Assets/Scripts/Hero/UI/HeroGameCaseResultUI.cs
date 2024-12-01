@@ -18,9 +18,6 @@ public class HeroGameCaseResultUI : MonoBehaviour
     private TMP_Text resultText;
 
     [SerializeField]
-    private TMP_Text resultStateText;
-
-    [SerializeField]
     private TMP_Text rewardText;
 
     [SerializeField]
@@ -55,7 +52,7 @@ public class HeroGameCaseResultUI : MonoBehaviour
             HandleClick();
         }
     }
-    
+
     private void HandleClick()
     {
         if (nextButton.gameObject.activeInHierarchy)
@@ -101,7 +98,7 @@ public class HeroGameCaseResultUI : MonoBehaviour
         {
             continuousClickCount = 1;
         }
-        
+
         lastClickTime = currentTime;
     }
 
@@ -150,9 +147,10 @@ public class HeroGameCaseResultUI : MonoBehaviour
         float elapsedTime = 0f;
         float duration = 2f;
 
+        var waitingText = CommonSingleton.I.IsKoreanLanguage ? "진행 중" : "Working";
         while (elapsedTime < duration)
         {
-            loadingText.text = "Working" + new string('.', dotCount);
+            loadingText.text = waitingText + new string('.', dotCount);
             dotCount = (dotCount + 1) % 4;
             AudioManager.I.PlaySFX(SFXType.Wait);
             yield return new WaitForSeconds(0.5f);
@@ -175,16 +173,12 @@ public class HeroGameCaseResultUI : MonoBehaviour
         var success = HeroGameContextHolder.I.SelectCaseSelection(data.Selection.CaseIndex, data.Selection.SelectionIndex);
         if (success)
         {
-            resultText.text = "Success!!";
-            resultStateText.text = "You successfully solved the case\n" +
-                "without being identified.";
+            resultText.text = CommonSingleton.I.IsKoreanLanguage ? "성공!!" : "Success!!";
             rewardText.text = data.Selection.StatReward.ToUIString();
         }
         else
         {
-            //TODO
-            resultText.text = "Fail.";
-            resultStateText.text = "TODO: fail message.";
+            resultText.text = CommonSingleton.I.IsKoreanLanguage ? "실패." : "Fail.";
             rewardText.text = $"{HeroGameStatType.Secret.ToIconString()}-{data.Selection.StaticData.DecreaseSecretValueOnFail}";
         }
     }

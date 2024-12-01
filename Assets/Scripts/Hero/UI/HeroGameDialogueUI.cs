@@ -141,7 +141,7 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
         {
             var choice = choiceItems[i];
             var button = Instantiate(choiceItemPrefab, choiceRoot.transform);
-            button.Apply(choice.Text_Ko, choice.StatReward, choice.LabelName);
+            button.Apply(CommonSingleton.I.IsKoreanLanguage ? choice.Text_Ko : choice.Text_En, choice.StatReward, choice.LabelName);
 
             activeChoiceButtons.Add(button);
         }
@@ -201,7 +201,7 @@ public class HeroGameDialogueUI : MonoBehaviour, IHeroGameDialogueUI
     {
         speakerNameText.text = speakerName; // UI 텍스트 갱신
     }
-    
+
     public void ApplySpeakerSprite(string spritePath)
     {
         var sprite = Resources.Load<Sprite>(spritePath);
