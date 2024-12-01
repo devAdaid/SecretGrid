@@ -3,7 +3,7 @@
 #if UNITY_WEBGL && !UNITY_EDITOR
 using System.Runtime.InteropServices;
 #endif
-using UnityEngine;
+using ConditionalDebug;
 
 namespace Jammer
 {
@@ -14,7 +14,7 @@ namespace Jammer
     {
         public static void DeleteKey(string key)
         {
-            Debug.Log($"Jammer.PlayerPrefs.DeleteKey(key: {key})");
+            ConDebug.Log($"Jammer.PlayerPrefs.DeleteKey(key: {key})");
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             RemoveFromLocalStorage(key: key);
@@ -25,7 +25,7 @@ namespace Jammer
 
         public static bool HasKey(string key)
         {
-            Debug.Log($"Jammer.PlayerPrefs.HasKey(key: {key})");
+            ConDebug.Log($"Jammer.PlayerPrefs.HasKey(key: {key})");
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             return (HasKeyInLocalStorage(key) == 1);
@@ -36,7 +36,7 @@ namespace Jammer
 
         public static string GetString(string key)
         {
-            Debug.Log($"Jammer.PlayerPrefs.GetString(key: {key})");
+            ConDebug.Log($"Jammer.PlayerPrefs.GetString(key: {key})");
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             return LoadFromLocalStorage(key: key);
@@ -47,7 +47,7 @@ namespace Jammer
 
         public static void SetString(string key, string value)
         {
-            Debug.Log($"Jammer.PlayerPrefs.SetString(key: {key}, value: {value})");
+            ConDebug.Log($"Jammer.PlayerPrefs.SetString(key: {key}, value: {value})");
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             SaveToLocalStorage(key: key, value: value);
@@ -59,7 +59,7 @@ namespace Jammer
 
         public static void Save()
         {
-            Debug.Log(string.Format("Jammer.PlayerPrefs.Save()"));
+            ConDebug.Log("Jammer.PlayerPrefs.Save()");
 
 #if !UNITY_WEBGL
             UnityEngine.PlayerPrefs.Save();
