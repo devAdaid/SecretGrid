@@ -10,35 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: FloodedRoad
+  m_Name: VolcanoEruption
   m_EditorClassIdentifier: 
   FixedDay: 0
-  Sprite: {fileID: 21300000, guid: ff4f723efe42712449e7cd5e6dd6de6c, type: 3}
-  Title_Ko: "\uCE68\uC218\uB41C \uB3C4\uB85C"
+  Sprite: {fileID: 21300000, guid: 84aced6405b5d0e408e6bb9374641944, type: 3}
+  Title_Ko: "\uD654\uC0B0 \uD3ED\uBC1C"
   Title_En: flooded road
-  Description_Ko: "\uC218\uB3C4\uAD00 \uD30C\uC5F4\uB85C \uB3C4\uB85C\uAC00 \uCE68\uC218\uB418\uC5C8\uB2E4."
+  Description_Ko: "\uD654\uC0B0\uC774 \uD3ED\uBC1C\uD558\uC5EC \uADFC\uCC98 \uB9C8\uC744\uC5D0
+    \uC6A9\uC554\uC774 \uD758\uB7EC\uAC00\uACE0 \uC788\uB2E4."
   Description_En: The road was flooded due to a burst water pipe.
   Selections:
   - Type: 0
-    Description_Ko: "\uC778\uADFC\uC758 \uC218\uB3C4\uAD00 \uBC38\uBE0C\uB97C \uCC3E\uC544
-      \uBB3C \uD750\uB984\uC744 \uCC28\uB2E8\uD55C\uB2E4."
-    Description_En: Find a nearby water pipe valve and shut off the water flow.
-    DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 3
-    FixedStatReward:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
-      Secret: 0
-    FixedStatRequirement:
-      Strength: 0
-      Agility: 0
-      Intelligence: 0
-  - Type: 0
-    Description_Ko: "\uCE68\uC218 \uC9C0\uC5ED\uC744 \uC2E0\uC18D\uD788 \uC774\uB3D9\uD558\uBA70
-      \uBB3C\uAE38\uC744 \uC6B0\uD68C\uC2DC\uD0A4\uAE30 \uC704\uD55C \uB3C4\uAD6C\uB97C
-      \uC124\uCE58\uD55C\uB2E4."
-    Description_En: Move quickly to flooded areas and install tools to divert water.
+    Description_Ko: "\uC2E0\uC18D\uD788 \uC8FC\uBBFC\uB4E4\uC744 \uAD6C\uC870\uD55C\uB2E4."
+    Description_En: Quickly rescue residents.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 2
     FixedStatReward:
@@ -51,10 +35,26 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uC218\uB3C4\uAD00\uC744 \uAC15\uB825\uD55C \uD798\uC73C\uB85C
-      \uC555\uBC15\uD574 \uC77C\uC2DC\uC801\uC73C\uB85C \uBB3C\uC744 \uB9C9\uB294\uB2E4."
-    Description_En: Pressurizes water pipes with strong force to temporarily block
-      water.
+    Description_Ko: "\uC6A9\uC554\uC758 \uD2B9\uC131\uC744 \uACE0\uB824\uD574 \uD6A8\uC728\uC801\uC778
+      \uB300\uD53C \uACBD\uB85C\uB97C \uACC4\uD68D\uD55C\uB2E4."
+    Description_En: Plan an efficient evacuation route considering the characteristics
+      of lava.
+    DecreaseSecretValueOnFail: 1
+    RandomMainRewardStatType: 3
+    FixedStatReward:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Secret: 0
+    FixedStatRequirement:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+  - Type: 0
+    Description_Ko: "\uB2E4\uB7C9\uC758 \uC2DC\uBA58\uD2B8\uB97C \uAC00\uC838\uC640
+      \uBCBD\uC744 \uC313\uC544 \uC6A9\uC554\uC758 \uD750\uB984\uC744 \uB9C9\uB294\uB2E4."
+    Description_En: Bring a large amount of cement and build a wall to block the
+      lava flow.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 1
     FixedStatReward:

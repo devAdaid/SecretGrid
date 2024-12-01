@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: OverloadedPowerPlant
+  m_Name: BrokenBridge
   m_EditorClassIdentifier: 
   FixedDay: 0
-  Sprite: {fileID: 21300000, guid: 1d2751e2a2f02c24187283dbb0d1e01a, type: 3}
-  Title_Ko: "\uACFC\uBD80\uD558 \uBC1C\uC804\uC18C"
-  Title_En: overload power plant
-  Description_Ko: "\uBC1C\uC804\uC18C\uAC00 \uACFC\uBD80\uD558\uB85C \uD3ED\uBC1C
-    \uC704\uD5D8\uC5D0 \uCC98\uD574\uC788\uB2E4."
-  Description_En: The power plant is at risk of explosion due to overload.
+  Sprite: {fileID: 21300000, guid: 8724f849922d32242ac94836d47251dd, type: 3}
+  Title_Ko: "\uBD80\uC11C\uC9C4 \uB2E4\uB9AC"
+  Title_En: ' Broken bridge'
+  Description_Ko: "\uB2E4\uB9AC\uAC00 \uD30C\uC190\uB418\uC5B4 \uCC28\uB7C9\uACFC
+    \uC0AC\uB78C\uB4E4\uC774 \uAC74\uB108\uAC08 \uC218 \uC5C6\uB2E4."
+  Description_En: The bridge is damaged and vehicles and people cannot cross.
   Selections:
   - Type: 0
-    Description_Ko: "\uBC1C\uC804\uC18C \uB0B4\uBD80\uC758 \uD575\uC2EC \uBD80\uD488\uC744
-      \uC2E0\uC18D\uD788 \uAD50\uCCB4\uD55C\uB2E4."
-    Description_En: Quickly replace key parts inside the power plant.
+    Description_Ko: "\uC704\uD5D8\uC5D0 \uBE60\uC9C4 \uC0AC\uB78C\uB4E4\uC744 \uC2E0\uC18D\uD788
+      \uAD6C\uC870\uD55C\uB2E4."
+    Description_En: Quickly rescue people in danger.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 2
     FixedStatReward:
@@ -36,10 +36,12 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uC804\uAE30 \uCF00\uC774\uBE14\uC744 \uAC15\uC81C\uB85C \uBD84\uB9AC\uD55C\uB2E4."
-    Description_En: Forcefully disconnect the electric cable.
+    Description_Ko: "\uB2E4\uB9AC\uC758 \uC190\uC0C1 \uC815\uB3C4\uB97C \uBD84\uC11D\uD574
+      \uB300\uCCB4 \uACBD\uB85C\uB97C \uC124\uACC4\uD55C\uB2E4."
+    Description_En: Analyze the degree of damage to the leg and design an alternative
+      route.
     DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 1
+    RandomMainRewardStatType: 3
     FixedStatReward:
       Strength: 0
       Agility: 0
@@ -50,11 +52,10 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uACFC\uBD80\uD558 \uC6D0\uC778\uC744 \uBD84\uC11D\uD574 \uC2DC\uC2A4\uD15C\uC744
-      \uC548\uC815\uD654\uD55C\uB2E4."
-    Description_En: Stabilize the system by analyzing the cause of overload.
+    Description_Ko: "\uB2E4\uB9AC \uAD6C\uC870\uBB3C\uC744 \uC784\uC2DC\uB85C \uC9C0\uD0F1\uD55C\uB2E4."
+    Description_En: Temporarily supports the bridge structure.
     DecreaseSecretValueOnFail: 1
-    RandomMainRewardStatType: 3
+    RandomMainRewardStatType: 1
     FixedStatReward:
       Strength: 0
       Agility: 0

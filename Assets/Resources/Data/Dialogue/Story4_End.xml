@@ -312,6 +312,10 @@
         Text_Ko="(박사 K는 당신의 손을 뿌리치고 뒷걸음질치더니, 황급히 도망친다.)"
         Text_En="(Dr. K pulls her hand away from yours, steps back, and hastily runs away.)"
     />
+    <SpeakerSprite
+        SpritePath_Ko="Sprites/Character/Xeros"
+        SpritePath_En="Sprites/Character/Xeros"
+    />
     <SpeakerName
         Text_Ko="제로스"
         Text_En="Zero"

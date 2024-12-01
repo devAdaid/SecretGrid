@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: MosquitoMonster
+  m_Name: ConcertCollapse
   m_EditorClassIdentifier: 
   FixedDay: 0
-  Sprite: {fileID: 21300000, guid: 4cc3275112061b5498d6df3f32294038, type: 3}
-  Title_Ko: "\uC9C0\uAE0B\uC9C0\uAE0B\uD55C \uBAA8\uAE30"
-  Title_En: Sick of mosquitoes
-  Description_Ko: "\uC232\uC5D0 \uB0A8\uC544\uC788\uB294 \uBAA8\uAE30 \uAD34\uBB3C\uC774
-    \uC0AC\uB78C\uB4E4\uC744 \uAD34\uB86D\uD788\uACE0 \uC788\uB2E4."
-  Description_En: Mosquito monsters remaining in the forest are harassing people.
+  Sprite: {fileID: 0}
+  Title_Ko: "\uACF5\uC5F0\uC7A5 \uBD95\uAD34 \uC0AC\uACE0"
+  Title_En: brake failure
+  Description_Ko: "\uB300\uD615 \uCF58\uC11C\uD2B8 \uC911 \uACF5\uC5F0\uC7A5\uC774
+    \uBD95\uAD34\uB418\uC5B4 \uB9CE\uC740 \uC0AC\uB78C\uB4E4\uC774 \uB9E4\uBAB0\uB418\uC5C8\uB2E4."
+  Description_En: A bus carrying people could not stop because its brakes failed.
   Selections:
   - Type: 0
-    Description_Ko: "\uBAA8\uAE30 \uAD34\uBB3C\uC758 \uC0DD\uD0DC\uB97C \uC5F0\uAD6C\uD574
-      \uC801\uC808\uD55C \uD1F4\uCE58 \uBC29\uBC95\uC744 \uCC3E\uC544\uB0B8\uB2E4."
-    Description_En: Find appropriate ways to exterminate them.
+    Description_Ko: "\uAD6C\uC870\uBB3C\uC744 \uC548\uC815\uC2DC\uD0A4\uACE0 \uC548\uC804\uD55C
+      \uAD6C\uC870 \uACBD\uB85C\uB97C \uC124\uACC4\uD55C\uB2E4."
+    Description_En: Stabilize structures and design safe rescue routes.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 3
     FixedStatReward:
@@ -36,8 +36,9 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uC815\uBA74 \uB300\uACB0\uB85C \uD574\uCE58\uC6B4\uB2E4."
-    Description_En: Defeat it through head-on confrontation.
+    Description_Ko: "\uBD95\uAD34\uB41C \uAD6C\uC870\uBB3C\uC744 \uCE58\uC6CC \uD0C8\uCD9C\uB85C\uB97C
+      \uB9CC\uB4E0\uB2E4."
+    Description_En: Remove collapsed structures to create escape routes.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 1
     FixedStatReward:
@@ -50,9 +51,9 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uBBFC\uCCA9\uD558\uAC8C \uC6C0\uC9C1\uC5EC \uBAA8\uAE30 \uAD34\uBB3C\uC758
-      \uACF5\uACA9\uC744 \uD53C\uD558\uBA70 \uBC18\uACA9\uD55C\uB2E4."
-    Description_En: Move quickly to avoid the mosquito monster's attack and counterattack.
+    Description_Ko: "\uAD6C\uC870\uBB3C \uD2C8\uC0C8\uB85C \uC774\uB3D9\uD558\uC5EC
+      \uAC07\uD78C \uC0AC\uB78C\uB4E4\uC744 \uAD6C\uC870\uD55C\uB2E4."
+    Description_En: Move through gaps in structures and rescue trapped people.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 2
     FixedStatReward:

@@ -10,20 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: OverloadedPowerPlant
+  m_Name: FloodingSubway
   m_EditorClassIdentifier: 
   FixedDay: 0
-  Sprite: {fileID: 21300000, guid: 1d2751e2a2f02c24187283dbb0d1e01a, type: 3}
-  Title_Ko: "\uACFC\uBD80\uD558 \uBC1C\uC804\uC18C"
-  Title_En: overload power plant
-  Description_Ko: "\uBC1C\uC804\uC18C\uAC00 \uACFC\uBD80\uD558\uB85C \uD3ED\uBC1C
-    \uC704\uD5D8\uC5D0 \uCC98\uD574\uC788\uB2E4."
-  Description_En: The power plant is at risk of explosion due to overload.
+  Sprite: {fileID: 21300000, guid: a672a932a6089ac43bbeacc1e2fe3eb4, type: 3}
+  Title_Ko: "\uC9C0\uD558\uCCA0 \uCE68\uC218"
+  Title_En: subway flooding
+  Description_Ko: "\uD3ED\uC6B0\uB85C \uC9C0\uD558\uCCA0 \uD130\uB110\uC774 \uCE68\uC218\uB418\uC5B4
+    \uC2B9\uAC1D\uB4E4\uC774 \uACE0\uB9BD\uB418\uC5C8\uB2E4."
+  Description_En: Heavy rain flooded the subway tunnel, stranding passengers.
   Selections:
   - Type: 0
-    Description_Ko: "\uBC1C\uC804\uC18C \uB0B4\uBD80\uC758 \uD575\uC2EC \uBD80\uD488\uC744
-      \uC2E0\uC18D\uD788 \uAD50\uCCB4\uD55C\uB2E4."
-    Description_En: Quickly replace key parts inside the power plant.
+    Description_Ko: "\uC2E0\uC18D\uD788 \uC2B9\uAC1D\uB4E4\uC744 \uAD6C\uC870\uD55C\uB2E4."
+    Description_En: Quickly rescue passengers.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 2
     FixedStatReward:
@@ -36,8 +35,10 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uC804\uAE30 \uCF00\uC774\uBE14\uC744 \uAC15\uC81C\uB85C \uBD84\uB9AC\uD55C\uB2E4."
-    Description_En: Forcefully disconnect the electric cable.
+    Description_Ko: "\uC7A5\uC560\uBB3C\uB85C \uD130\uB110 \uC785\uAD6C\uB97C \uB9C9\uC544
+      \uBB3C\uC758 \uC720\uC785\uC744 \uCC28\uB2E8\uD55C\uB2E4."
+    Description_En: Block the tunnel entrance with an obstacle to block the inflow
+      of water.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 1
     FixedStatReward:
@@ -50,9 +51,9 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uACFC\uBD80\uD558 \uC6D0\uC778\uC744 \uBD84\uC11D\uD574 \uC2DC\uC2A4\uD15C\uC744
-      \uC548\uC815\uD654\uD55C\uB2E4."
-    Description_En: Stabilize the system by analyzing the cause of overload.
+    Description_Ko: "\uBC30\uC218 \uC2DC\uC2A4\uD15C\uC744 \uBD84\uC11D\uD574 \uBB3C\uC744
+      \uBC30\uCD9C\uD55C\uB2E4."
+    Description_En: Analyze the drainage system and drain the water.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 3
     FixedStatReward:

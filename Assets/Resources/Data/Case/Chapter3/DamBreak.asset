@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a36d20505d81654b98cfae2d21f9581, type: 3}
-  m_Name: FloodedRoad
+  m_Name: DamBreak
   m_EditorClassIdentifier: 
   FixedDay: 0
-  Sprite: {fileID: 21300000, guid: ff4f723efe42712449e7cd5e6dd6de6c, type: 3}
-  Title_Ko: "\uCE68\uC218\uB41C \uB3C4\uB85C"
-  Title_En: flooded road
-  Description_Ko: "\uC218\uB3C4\uAD00 \uD30C\uC5F4\uB85C \uB3C4\uB85C\uAC00 \uCE68\uC218\uB418\uC5C8\uB2E4."
-  Description_En: The road was flooded due to a burst water pipe.
+  Sprite: {fileID: 21300000, guid: 8b8e90aad3850474aa9353c13574ecde, type: 3}
+  Title_Ko: "\uB310 \uBD95\uAD34 \uC704\uAE30"
+  Title_En: dam collapse crisis
+  Description_Ko: "\uB310\uC774 \uBB34\uB108\uC9C8 \uC704\uD5D8\uC5D0 \uCC98\uD574
+    \uC778\uADFC \uB9C8\uC744\uC5D0 \uD64D\uC218\uAC00 \uC608\uC0C1\uB41C\uB2E4."
+  Description_En: The dam is at risk of collapsing, flooding nearby villages.
   Selections:
   - Type: 0
-    Description_Ko: "\uC778\uADFC\uC758 \uC218\uB3C4\uAD00 \uBC38\uBE0C\uB97C \uCC3E\uC544
-      \uBB3C \uD750\uB984\uC744 \uCC28\uB2E8\uD55C\uB2E4."
-    Description_En: Find a nearby water pipe valve and shut off the water flow.
+    Description_Ko: "\uBB3C\uC758 \uD750\uB984\uC744 \uBD84\uC11D\uD574 \uB300\uD53C\uB97C
+      \uACC4\uD68D\uD55C\uB2E4."
+    Description_En: Plan evacuation by analyzing water flow.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 3
     FixedStatReward:
@@ -35,10 +36,9 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uCE68\uC218 \uC9C0\uC5ED\uC744 \uC2E0\uC18D\uD788 \uC774\uB3D9\uD558\uBA70
-      \uBB3C\uAE38\uC744 \uC6B0\uD68C\uC2DC\uD0A4\uAE30 \uC704\uD55C \uB3C4\uAD6C\uB97C
-      \uC124\uCE58\uD55C\uB2E4."
-    Description_En: Move quickly to flooded areas and install tools to divert water.
+    Description_Ko: "\uB9C8\uC744\uC744 \uB3CC\uC544\uB2E4\uB2C8\uBA70 \uC0AC\uB78C\uB4E4\uC5D0\uAC8C
+      \uAE34\uAE09\uD788 \uB300\uD53C\uB97C \uC54C\uB9B0\uB2E4."
+    Description_En: "\uC2E0\uC18D\uD788 \uC8FC\uBBFC\uB4E4\uC744 \uAD6C\uC870\uD55C\uB2E4."
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 2
     FixedStatReward:
@@ -51,10 +51,8 @@ MonoBehaviour:
       Agility: 0
       Intelligence: 0
   - Type: 0
-    Description_Ko: "\uC218\uB3C4\uAD00\uC744 \uAC15\uB825\uD55C \uD798\uC73C\uB85C
-      \uC555\uBC15\uD574 \uC77C\uC2DC\uC801\uC73C\uB85C \uBB3C\uC744 \uB9C9\uB294\uB2E4."
-    Description_En: Pressurizes water pipes with strong force to temporarily block
-      water.
+    Description_Ko: "\uB310\uC758 \uC190\uC0C1\uB41C \uBD80\uBD84\uC744 \uBCF4\uAC15\uD55C\uB2E4."
+    Description_En: Reinforce damaged parts of the dam.
     DecreaseSecretValueOnFail: 1
     RandomMainRewardStatType: 1
     FixedStatReward:
