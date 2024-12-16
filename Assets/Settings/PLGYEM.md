@@ -1,6 +1,6 @@
 # Message Log: Seol-hwa Kang and Yoo-jin Shin
 
-**Seol-hwa Kang:** _프로젝트_계획_초안.txt_  
+**Seol-hwa Kang:** _Project_Plan_Draft.txt_
 
 **Seol-hwa Kang:** Does this approach to drafting the plan look okay? 
 
@@ -12,7 +12,7 @@
 \
 강설화와 신유진의 메시지 기록
 
-강설화: _Project_Plan_Draft.txt_
+강설화: _프로젝트_계획_초안.txt_
 
 강설화: 계획서를 이런 방향으로 작성하면 괜찮을까요?
 
