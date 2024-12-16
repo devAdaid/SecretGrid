@@ -143,7 +143,7 @@ func handleMessage(c *gin.Context) {
 				}
 			}
 
-			var spread int64 = 7
+			var spread int64 = 25
 			startRank := max(0, rank-spread)
 			rankRange := rdb.ZRevRangeWithScores(ctx, "secretGrid:rank:"+stageId, startRank, rank+spread)
 
